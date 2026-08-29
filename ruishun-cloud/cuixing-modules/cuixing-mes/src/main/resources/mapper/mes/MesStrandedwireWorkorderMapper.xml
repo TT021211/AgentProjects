@@ -1,0 +1,680 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cuixing.mes.mapper.MesStrandedwireWorkorderMapper">
+
+    <!-- ResultMap 映射 -->
+    <resultMap type="com.cuixing.mes.entity.MesStrandedwireWorkorder" id="MesStrandedwireWorkorderMap">
+        <result property="id" column="id" jdbcType="BIGINT"/>
+        <result property="workorderId" column="workorder_id" jdbcType="BIGINT"/>
+        <result property="orderType" column="order_type" jdbcType="CHAR"/>
+        <result property="customerName" column="customer_name" jdbcType="VARCHAR"/>
+        <result property="orderCode" column="order_code" jdbcType="VARCHAR"/>
+        <result property="workorderCode" column="workorder_code" jdbcType="VARCHAR"/>
+        <result property="equipmentId" column="equipment_id" jdbcType="BIGINT"/>
+        <result property="equipmentCode" column="equipment_code" jdbcType="VARCHAR"/>
+        <result property="axleNumber" column="axle_number" jdbcType="VARCHAR"/>
+        <result property="wireDisc" column="wire_disc" jdbcType="VARCHAR"/>
+        <result property="specification" column="specification" jdbcType="VARCHAR"/>
+        <result property="model" column="model" jdbcType="VARCHAR"/>
+        <result property="weight" column="weight" jdbcType="DECIMAL"/>
+        <result property="measureId" column="measure_id" jdbcType="BIGINT"/>
+        <result property="measureName" column="measure_name" jdbcType="VARCHAR"/>
+        <result property="discNumber" column="disc_number" jdbcType="INTEGER"/>
+        <result property="startTime" column="start_time" jdbcType="TIMESTAMP"/>
+        <result property="endTime" column="end_time" jdbcType="TIMESTAMP"/>
+        <result property="sort" column="sort" jdbcType="INTEGER"/>
+        <result property="remark" column="remark" jdbcType="VARCHAR"/>
+        <result property="isDeleted" column="is_deleted" jdbcType="TINYINT"/>
+        <result property="version" column="version" jdbcType="INTEGER"/>
+        <result property="createBy" column="create_by" jdbcType="VARCHAR"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="updateBy" column="update_by" jdbcType="VARCHAR"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+        <result property="status" column="status" jdbcType="CHAR"/>
+        <result property="attr1" column="attr1" jdbcType="VARCHAR"/>
+        <result property="attr2" column="attr2" jdbcType="INTEGER"/>
+        <result property="attr3" column="attr3" jdbcType="VARCHAR"/>
+        <result property="strandedwireCode" column="strandedwire_code" jdbcType="VARCHAR"/>
+        <result property="productId" column="product_id" jdbcType="BIGINT"/>
+        <result property="insertId" column="insert_id" jdbcType="BIGINT"/>
+        <result property="insertModel" column="insert_model" jdbcType="VARCHAR"/>
+        <result property="insertWorkorder" column="insert_workorder" jdbcType="VARCHAR"/>
+        <result property="insertStatus" column="insert_status" jdbcType="VARCHAR"/>
+        <result property="wireDiscNumber" column="wire_disc_number" jdbcType="INTEGER"/>
+        <result property="wightCompletion" column="wight_completion" jdbcType="DECIMAL"/>
+        <result property="degreeOfCompletion" column="degree_of_completion" jdbcType="DECIMAL"/>
+        <result property="standardName" column="standard_name" jdbcType="VARCHAR"/>
+        <result property="standardValue" column="standard_value" jdbcType="INTEGER"/>
+        <result property="wireDiscId" column="wire_disc_id" jdbcType="BIGINT"/>
+        <result property="artt4" column="artt4" jdbcType="INTEGER"/>
+        <result property="artt5" column="artt5" jdbcType="VARCHAR"/>
+        <result property="artt6" column="artt6" jdbcType="VARCHAR"/>
+        <result property="artt7" column="artt7" jdbcType="VARCHAR"/>
+        <result property="artt8" column="artt8" jdbcType="VARCHAR"/>
+        <result property="artt9" column="artt9" jdbcType="VARCHAR"/>
+        <result property="artt10" column="artt10" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!-- 通用 SELECT SQL -->
+    <sql id="selectMesStrandedwireWorkorderVo">
+        SELECT id,
+               workorder_id,
+               order_type,
+               customer_name,
+               order_code,
+               workorder_code,
+               strandedwire_code,
+               equipment_id,
+               equipment_code,
+               axle_number,
+               wire_disc,
+               product_id,
+               specification,
+               model,
+               weight,
+               measure_id,
+               measure_name,
+               disc_number,
+               start_time,
+               end_time,
+               sort,
+               remark,
+               is_deleted,
+               version,
+               create_by,
+               create_time,
+               update_by,
+               update_time,
+               status,
+               attr1,
+               attr2,
+               attr3,
+               insert_id,
+               insert_workorder,
+               insert_model,
+               insert_status,
+               wire_disc_number,
+               degree_of_completion,
+               wight_completion,
+               standard_name,
+               standard_value,
+               wire_disc_id,
+               artt4,
+               artt5,
+               artt6,
+               artt7,
+               artt8,
+               artt9,
+               artt10
+        FROM mes_strandedwire_workorder
+    </sql>
+
+    <!-- 查询：获取列表 -->
+    <select id="selectMesStrandedwireWorkorderList" parameterType="MesStrandedwireWorkorder"
+            resultMap="MesStrandedwireWorkorderMap">
+        <include refid="selectMesStrandedwireWorkorderVo"/>
+        <where>
+            is_deleted = 0
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="workorderId != null">
+                and workorder_id = #{workorderId}
+            </if>
+            <if test="orderType != null and orderType != ''">
+                and order_type = #{orderType}
+            </if>
+            <if test="customerName != null and customerName != ''">
+                and customer_name = #{customerName}
+            </if>
+            <if test="orderCode != null and orderCode != ''">
+                and order_code = #{orderCode}
+            </if>
+            <if test="workorderCode != null and workorderCode != ''">
+                and workorder_code = #{workorderCode}
+            </if>
+            <if test="strandedwireCode != null and strandedwireCode != ''">
+                and strandedwire_code = #{strandedwireCode}
+            </if>
+            <if test="equipmentId != null">
+                and equipment_id = #{equipmentId}
+            </if>
+            <if test="equipmentCode != null and equipmentCode != ''">
+                and equipment_code = #{equipmentCode}
+            </if>
+            <if test="axleNumber != null and axleNumber != ''">
+                and axle_number = #{axleNumber}
+            </if>
+            <if test="wireDisc != null and wireDisc != ''">
+                and wire_disc = #{wireDisc}
+            </if>
+            <if test="productId != null">
+                and product_id = #{productId}
+            </if>
+            <if test="specification != null and specification != ''">
+                and specification = #{specification}
+            </if>
+            <if test="model != null and model != ''">
+                and model = #{model}
+            </if>
+            <if test="weight != null">
+                and weight = #{weight}
+            </if>
+            <if test="measureId != null">
+                and measure_id = #{measureId}
+            </if>
+            <if test="measureName != null and measureName != ''">
+                and measure_name = #{measureName}
+            </if>
+            <if test="discNumber != null">
+                and disc_number = #{discNumber}
+            </if>
+            <if test="startTime != null">
+                and start_time = #{startTime}
+            </if>
+            <if test="endTime != null">
+                and end_time = #{endTime}
+            </if>
+            <if test="sort != null">
+                and sort = #{sort}
+            </if>
+            <if test="remark != null and remark != ''">
+                and remark = #{remark}
+            </if>
+            <if test="isDeleted != null">
+                and is_deleted = #{isDeleted}
+            </if>
+            <if test="version != null">
+                and version = #{version}
+            </if>
+            <if test="createBy != null and createBy != ''">
+                and create_by = #{createBy}
+            </if>
+            <if test="createTime != null">
+                and create_time = #{createTime}
+            </if>
+            <if test="updateBy != null and updateBy != ''">
+                and update_by = #{updateBy}
+            </if>
+            <if test="updateTime != null">
+                and update_time = #{updateTime}
+            </if>
+            <if test="status != null and status != ''">
+                and status = #{status}
+            </if>
+            <if test="statusList != null and !statusList.isEmpty()">
+                AND status IN
+                <foreach item="status" collection="statusList" open="(" separator="," close=")">
+                    #{status}
+                </foreach>
+            </if>
+            <if test="attr1 != null and attr1 != ''">
+                and attr1 = #{attr1}
+            </if>
+            <if test="attr2 != null">
+                and attr2 = #{attr2}
+            </if>
+            <if test="attr3 != null and attr3 != ''">
+                and attr3 = #{attr3}
+            </if>
+            <if test="insertId != null">
+                and insert_id = #{insertId}
+            </if>
+            <if test="insertWorkorder != null and insertWorkorder != ''">
+                and insert_workorder = #{insertWorkorder}
+            </if>
+            <if test="insertModel != null and insertModel != ''">
+                and insert_model = #{insertModel}
+            </if>
+            <if test="insertStatus != null and insertStatus != ''">
+                and insert_status = #{insertStatus}
+            </if>
+            <if test="wireDiscNumber != null">
+                and wire_disc_number = #{wireDiscNumber}
+            </if>
+            <if test="degreeOfCompletion != null">
+                and degree_of_completion = #{degreeOfCompletion}
+            </if>
+            <if test="wightCompletion != null">
+                and wight_completion = #{wightCompletion}
+            </if>
+            <if test="standardName != null and standardName != ''">
+                and standard_name = #{standardName}
+            </if>
+            <if test="standardValue != null">
+                and standard_value = #{standardValue}
+            </if>
+            <if test="wireDiscId != null">
+                and wire_disc_id = #{wireDiscId}
+            </if>
+            <if test="artt4 != null">
+                and artt4 = #{artt4}
+            </if>
+            <if test="artt5 != null and artt5 != ''">
+                and artt5 = #{artt5}
+            </if>
+            <if test="artt6 != null and artt6 != ''">
+                and artt6 = #{artt6}
+            </if>
+            <if test="artt7 != null and artt7 != ''">
+                and artt7 = #{artt7}
+            </if>
+            <if test="artt8 != null and artt8 != ''">
+                and artt8 = #{artt8}
+            </if>
+            <if test="artt9 != null and artt9 != ''">
+                and artt9 = #{artt9}
+            </if>
+            <if test="artt10 != null and artt10 != ''">
+                and artt10 = #{artt10}
+            </if>
+            <if test="params.beginTime != null and params.beginTime != ''"><!-- 开始时间检索 -->
+            AND date_format(create_time,'%y%m%d') &gt;= date_format(#{params.beginTime},'%y%m%d')
+            </if>
+            <if test="params.endTime != null and params.endTime != ''"><!-- 结束时间检索 -->
+                AND date_format(create_time,'%y%m%d') &lt;= date_format(#{params.endTime},'%y%m%d')
+            </if>
+            <!-- 数据范围过滤 -->
+            ${params.dataScope}
+        </where>
+        order by status asc, sort desc,create_time desc
+    </select>
+
+    <!--统计总行数-->
+    <select id="count" resultType="java.lang.Long">
+        select count(1)
+        from mes_strandedwire_workorder
+        <where>
+            is_deleted = 0
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="workorderId != null">
+                and workorder_id = #{workorderId}
+            </if>
+            <if test="orderType != null and orderType != ''">
+                and order_type = #{orderType}
+            </if>
+            <if test="customerName != null and customerName != ''">
+                and customer_name = #{customerName}
+            </if>
+            <if test="orderCode != null and orderCode != ''">
+                and order_code = #{orderCode}
+            </if>
+            <if test="workorderCode != null and workorderCode != ''">
+                and workorder_code = #{workorderCode}
+            </if>
+            <if test="strandedwireCode != null and strandedwireCode != ''">
+                and strandedwire_code = #{strandedwireCode}
+            </if>
+            <if test="equipmentId != null">
+                and equipment_id = #{equipmentId}
+            </if>
+            <if test="equipmentCode != null and equipmentCode != ''">
+                and equipment_code = #{equipmentCode}
+            </if>
+            <if test="axleNumber != null and axleNumber != ''">
+                and axle_number = #{axleNumber}
+            </if>
+            <if test="wireDisc != null and wireDisc != ''">
+                and wire_disc = #{wireDisc}
+            </if>
+            <if test="productId != null">
+                and product_id = #{productId}
+            </if>
+            <if test="specification != null and specification != ''">
+                and specification = #{specification}
+            </if>
+            <if test="model != null and model != ''">
+                and model = #{model}
+            </if>
+            <if test="weight != null">
+                and weight = #{weight}
+            </if>
+            <if test="measureId != null">
+                and measure_id = #{measureId}
+            </if>
+            <if test="measureName != null and measureName != ''">
+                and measure_name = #{measureName}
+            </if>
+            <if test="discNumber != null">
+                and disc_number = #{discNumber}
+            </if>
+            <if test="startTime != null">
+                and start_time = #{startTime}
+            </if>
+            <if test="endTime != null">
+                and end_time = #{endTime}
+            </if>
+            <if test="sort != null">
+                and sort = #{sort}
+            </if>
+            <if test="remark != null and remark != ''">
+                and remark = #{remark}
+            </if>
+            <if test="isDeleted != null">
+                and is_deleted = #{isDeleted}
+            </if>
+            <if test="version != null">
+                and version = #{version}
+            </if>
+            <if test="createBy != null and createBy != ''">
+                and create_by = #{createBy}
+            </if>
+            <if test="createTime != null">
+                and create_time = #{createTime}
+            </if>
+            <if test="updateBy != null and updateBy != ''">
+                and update_by = #{updateBy}
+            </if>
+            <if test="updateTime != null">
+                and update_time = #{updateTime}
+            </if>
+            <if test="status != null and status != ''">
+                and status = #{status}
+            </if>
+            <if test="attr1 != null and attr1 != ''">
+                and attr1 = #{attr1}
+            </if>
+            <if test="attr2 != null">
+                and attr2 = #{attr2}
+            </if>
+            <if test="attr3 != null and attr3 != ''">
+                and attr3 = #{attr3}
+            </if>
+            <if test="insertId != null">
+                and insert_id = #{insertId}
+            </if>
+            <if test="insertWorkorder != null and insertWorkorder != ''">
+                and insert_workorder = #{insertWorkorder}
+            </if>
+            <if test="insertModel != null and insertModel != ''">
+                and insert_model = #{insertModel}
+            </if>
+            <if test="insertStatus != null and insertStatus != ''">
+                and insert_status = #{insertStatus}
+            </if>
+            <if test="wireDiscNumber != null">
+                and wire_disc_number = #{wireDiscNumber}
+            </if>
+            <if test="degreeOfCompletion != null">
+                and degree_of_completion = #{degreeOfCompletion}
+            </if>
+            <if test="wightCompletion != null">
+                and wight_completion = #{wightCompletion}
+            </if>
+            <if test="standardName != null and standardName != ''">
+                and standard_name = #{standardName}
+            </if>
+            <if test="standardValue != null">
+                and standard_value = #{standardValue}
+            </if>
+            <if test="wireDiscId != null">
+                and wire_disc_id = #{wireDiscId}
+            </if>
+            <if test="artt4 != null">
+                and artt4 = #{artt4}
+            </if>
+            <if test="artt5 != null and artt5 != ''">
+                and artt5 = #{artt5}
+            </if>
+            <if test="artt6 != null and artt6 != ''">
+                and artt6 = #{artt6}
+            </if>
+            <if test="artt7 != null and artt7 != ''">
+                and artt7 = #{artt7}
+            </if>
+            <if test="artt8 != null and artt8 != ''">
+                and artt8 = #{artt8}
+            </if>
+            <if test="artt9 != null and artt9 != ''">
+                and artt9 = #{artt9}
+            </if>
+            <if test="artt10 != null and artt10 != ''">
+                and artt10 = #{artt10}
+            </if>
+        </where>
+    </select>
+
+    <!-- INSERT 单条记录 -->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        INSERT INTO mes_strandedwire_workorder (
+            workorder_id, order_type, customer_name, order_code, workorder_code,
+            strandedwire_code, equipment_id, equipment_code, axle_number, wire_disc,
+            product_id, specification, model, weight, measure_id,
+            measure_name, disc_number, start_time, end_time, sort, remark, is_deleted,
+            version, create_by, create_time, update_by, update_time, status, attr1,
+            attr2, attr3, insert_id, insert_workorder, insert_model, insert_status,
+            wire_disc_number, degree_of_completion, wight_completion,
+            standard_name, standard_value, wire_disc_id, artt4, artt5, artt6, artt7,
+            artt8, artt9, artt10
+        )
+        VALUES (
+                   #{workorderId}, #{orderType}, #{customerName}, #{orderCode}, #{workorderCode},
+                   #{strandedwireCode}, #{equipmentId}, #{equipmentCode}, #{axleNumber}, #{wireDisc},
+                   #{productId}, #{specification}, #{model}, #{weight}, #{measureId},
+                   #{measureName}, #{discNumber}, #{startTime}, #{endTime}, #{sort}, #{remark}, #{isDeleted},
+                   #{version}, #{createBy}, #{createTime}, #{updateBy}, #{updateTime}, #{status}, #{attr1},
+                   #{attr2}, #{attr3}, #{insertId}, #{insertWorkorder}, #{insertModel}, #{insertStatus},
+                   #{wireDiscNumber}, #{degreeOfCompletion}, #{wightCompletion},
+                   #{standardName}, #{standardValue}, #{wireDiscId}, #{artt4}, #{artt5}, #{artt6}, #{artt7},
+                   #{artt8}, #{artt9}, #{artt10}
+               )
+    </insert>
+
+    <!-- INSERT 批量 -->
+    <insert id="insertBatch" keyProperty="id" useGeneratedKeys="true">
+        INSERT INTO mes_strandedwire_workorder (
+        workorder_id, order_type, customer_name, order_code, workorder_code,
+        strandedwire_code, equipment_id, equipment_code, axle_number, wire_disc,
+        product_id, specification, model, weight, measure_id,
+        measure_name, disc_number, start_time, end_time, sort, remark, is_deleted,
+        version, create_by, create_time, update_by, update_time, status, attr1,
+        attr2, attr3, insert_id, insert_workorder, insert_model, insert_status,
+        wire_disc_number, degree_of_completion, wight_completion,
+        standard_name, standard_value, wire_disc_id, artt4, artt5, artt6, artt7,
+        artt8, artt9, artt10
+        )
+        VALUES
+        <foreach collection="entities" item="entity" separator=",">
+            (
+            #{entity.workorderId}, #{entity.orderType}, #{entity.customerName}, #{entity.orderCode}, #{entity.workorderCode},
+            #{entity.strandedwireCode}, #{entity.equipmentId}, #{entity.equipmentCode}, #{entity.axleNumber}, #{entity.wireDisc},
+            #{entity.productId}, #{entity.specification}, #{entity.model}, #{entity.weight}, #{entity.measureId},
+            #{entity.measureName}, #{entity.discNumber}, #{entity.startTime}, #{entity.endTime}, #{entity.sort}, #{entity.remark}, #{entity.isDeleted},
+            #{entity.version}, #{entity.createBy}, #{entity.createTime}, #{entity.updateBy}, #{entity.updateTime}, #{entity.status}, #{entity.attr1},
+            #{entity.attr2}, #{entity.attr3}, #{entity.insertId}, #{entity.insertWorkorder}, #{entity.insertModel}, #{entity.insertStatus},
+            #{entity.wireDiscNumber}, #{entity.degreeOfCompletion}, #{entity.wightCompletion},
+            #{entity.standardName}, #{entity.standardValue}, #{entity.wireDiscId}, #{entity.artt4}, #{entity.artt5}, #{entity.artt6}, #{entity.artt7},
+            #{entity.artt8}, #{entity.artt9}, #{entity.artt10}
+            )
+        </foreach>
+    </insert>
+
+    <!-- INSERT OR UPDATE 批量 -->
+    <insert id="insertOrUpdateBatch" keyProperty="id" useGeneratedKeys="true">
+        INSERT INTO mes_strandedwire_workorder (
+        workorder_id, order_type, customer_name, order_code, workorder_code,
+        strandedwire_code, equipment_id, equipment_code, axle_number, wire_disc,
+        product_id, specification, model, weight, measure_id,
+        measure_name, disc_number, start_time, end_time, sort, remark, is_deleted,
+        version, create_by, create_time, update_by, update_time, status, attr1,
+        attr2, attr3, insert_id, insert_workorder, insert_model, insert_status,
+        wire_disc_number, degree_of_completion, wight_completion,
+        standard_name, standard_value, wire_disc_id, artt4, artt5, artt6, artt7,
+        artt8, artt9, artt10
+        )
+        VALUES
+        <foreach collection="entities" item="entity" separator=",">
+            (
+            #{entity.workorderId}, #{entity.orderType}, #{entity.customerName}, #{entity.orderCode}, #{entity.workorderCode},
+            #{entity.strandedwireCode}, #{entity.equipmentId}, #{entity.equipmentCode}, #{entity.axleNumber}, #{entity.wireDisc},
+            #{entity.productId}, #{entity.specification}, #{entity.model}, #{entity.weight}, #{entity.measureId},
+            #{entity.measureName}, #{entity.discNumber}, #{entity.startTime}, #{entity.endTime}, #{entity.sort}, #{entity.remark}, #{entity.isDeleted},
+            #{entity.version}, #{entity.createBy}, #{entity.createTime}, #{entity.updateBy}, #{entity.updateTime}, #{entity.status}, #{entity.attr1},
+            #{entity.attr2}, #{entity.attr3}, #{entity.insertId}, #{entity.insertWorkorder}, #{entity.insertModel}, #{entity.insertStatus},
+            #{entity.wireDiscNumber}, #{entity.degreeOfCompletion}, #{entity.wightCompletion},
+            #{entity.standardName}, #{entity.standardValue}, #{entity.wireDiscId}, #{entity.artt4}, #{entity.artt5}, #{entity.artt6}, #{entity.artt7},
+            #{entity.artt8}, #{entity.artt9}, #{entity.artt10}
+            )
+        </foreach>
+        ON DUPLICATE KEY UPDATE
+        workorder_id = VALUES(workorder_id),
+        order_type = VALUES(order_type),
+        customer_name = VALUES(customer_name),
+        order_code = VALUES(order_code),
+        workorder_code = VALUES(workorder_code),
+        strandedwire_code = VALUES(strandedwire_code),
+        equipment_id = VALUES(equipment_id),
+        equipment_code = VALUES(equipment_code),
+        axle_number = VALUES(axle_number),
+        wire_disc = VALUES(wire_disc),
+        product_id = VALUES(product_id),
+        specification = VALUES(specification),
+        model = VALUES(model),
+        weight = VALUES(weight),
+        measure_id = VALUES(measure_id),
+        measure_name = VALUES(measure_name),
+        disc_number = VALUES(disc_number),
+        start_time = VALUES(start_time),
+        end_time = VALUES(end_time),
+        sort = VALUES(sort),
+        remark = VALUES(remark),
+        is_deleted = VALUES(is_deleted),
+        version = VALUES(version),
+        create_by = VALUES(create_by),
+        create_time = VALUES(create_time),
+        update_by = VALUES(update_by),
+        update_time = VALUES(update_time),
+        status = VALUES(status),
+        attr1 = VALUES(attr1),
+        attr2 = VALUES(attr2),
+        attr3 = VALUES(attr3),
+        insert_id = VALUES(insert_id),
+        insert_workorder = VALUES(insert_workorder),
+        insert_model = VALUES(insert_model),
+        insert_status = VALUES(insert_status),
+        wire_disc_number = VALUES(wire_disc_number),
+        degree_of_completion = VALUES(degree_of_completion),
+        wight_completion = VALUES(wight_completion),
+        standard_name = VALUES(standard_name),
+        standard_value = VALUES(standard_value),
+        wire_disc_id = VALUES(wire_disc_id),
+        artt4 = VALUES(artt4),
+        artt5 = VALUES(artt5),
+        artt6 = VALUES(artt6),
+        artt7 = VALUES(artt7),
+        artt8 = VALUES(artt8),
+        artt9 = VALUES(artt9),
+        artt10 = VALUES(artt10)
+    </insert>
+
+    <!-- 更新 -->
+    <update id="update">
+        UPDATE mes_strandedwire_workorder
+        <set>
+            <if test="workorderId != null">workorder_id = #{workorderId},</if>
+            <if test="orderType != null and orderType != ''">order_type = #{orderType},</if>
+            <if test="customerName != null and customerName != ''">customer_name = #{customerName},</if>
+            <if test="orderCode != null and orderCode != ''">order_code = #{orderCode},</if>
+            <if test="workorderCode != null and workorderCode != ''">workorder_code = #{workorderCode},</if>
+            <if test="strandedwireCode != null and strandedwireCode != ''">strandedwire_code = #{strandedwireCode},</if>
+            <if test="equipmentId != null">equipment_id = #{equipmentId},</if>
+            <if test="equipmentCode != null and equipmentCode != ''">equipment_code = #{equipmentCode},</if>
+            <if test="axleNumber != null and axleNumber != ''">axle_number = #{axleNumber},</if>
+            <if test="wireDisc != null and wireDisc != ''">wire_disc = #{wireDisc},</if>
+            <if test="productId != null">product_id = #{productId},</if>
+            <if test="specification != null and specification != ''">specification = #{specification},</if>
+            <if test="model != null and model != ''">model = #{model},</if>
+            <if test="weight != null">weight = #{weight},</if>
+            <if test="measureId != null">measure_id = #{measureId},</if>
+            <if test="measureName != null and measureName != ''">measure_name = #{measureName},</if>
+            <if test="discNumber != null">disc_number = #{discNumber},</if>
+            <if test="startTime != null">start_time = #{startTime},</if>
+            <if test="endTime != null">end_time = #{endTime},</if>
+            <if test="sort != null">sort = #{sort},</if>
+            <if test="remark != null and remark != ''">remark = #{remark},</if>
+            <if test="isDeleted != null">is_deleted = #{isDeleted},</if>
+            <if test="version != null">version = #{version},</if>
+            <if test="createBy != null and createBy != ''">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null and updateBy != ''">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="status != null and status != ''">status = #{status},</if>
+            <if test="attr1 != null and attr1 != ''">attr1 = #{attr1},</if>
+            <if test="attr2 != null">attr2 = #{attr2},</if>
+            <if test="attr3 != null and attr3 != ''">attr3 = #{attr3},</if>
+            <if test="insertId != null">insert_id = #{insertId},</if>
+            <if test="insertWorkorder != null and insertWorkorder != ''">insert_workorder = #{insertWorkorder},</if>
+            <if test="insertModel != null and insertModel != ''">insert_model = #{insertModel},</if>
+            <if test="insertStatus != null and insertStatus != ''">insert_status = #{insertStatus},</if>
+            <if test="wireDiscNumber != null">wire_disc_number = #{wireDiscNumber},</if>
+            <if test="degreeOfCompletion != null">degree_of_completion = #{degreeOfCompletion},</if>
+            <if test="wightCompletion != null">wight_completion = #{wightCompletion},</if>
+            <if test="standardName != null and standardName != ''">standard_name = #{standardName},</if>
+            <if test="standardValue != null">standard_value = #{standardValue},</if>
+            <if test="wireDiscId != null">wire_disc_id = #{wireDiscId},</if>
+            <if test="artt4 != null">artt4 = #{artt4},</if>
+            <if test="artt5 != null and artt5 != ''">artt5 = #{artt5},</if>
+            <if test="artt6 != null and artt6 != ''">artt6 = #{artt6},</if>
+            <if test="artt7 != null and artt7 != ''">artt7 = #{artt7},</if>
+            <if test="artt8 != null and artt8 != ''">artt8 = #{artt8},</if>
+            <if test="artt9 != null and artt9 != ''">artt9 = #{artt9},</if>
+            <if test="artt10 != null and artt10 != ''">artt10 = #{artt10},</if>
+        </set>
+        WHERE id = #{id} and version = #{version}
+    </update>
+
+    <!-- 通过主键删除 -->
+    <delete id="deleteById">
+        UPDATE mes_strandedwire_workorder SET is_deleted = 1 WHERE id = #{id}
+    </delete>
+
+    <!-- 批量逻辑删除 -->
+    <update id="deleteByIds">
+        UPDATE mes_strandedwire_workorder SET is_deleted = 1 WHERE id IN
+        <foreach collection="array" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </update>
+
+    <!-- 通过设备 ID 查询已排产、生产中列表 -->
+    <select id="getListByEquipmentId" resultMap="MesStrandedwireWorkorderMap">
+        <include refid="selectMesStrandedwireWorkorderVo"/>
+        WHERE is_deleted = 0
+          AND equipment_id = #{equipmentId}
+          AND axle_number = #{axleNumber}
+          AND status IN (0, 1)
+        ORDER BY status DESC, sort DESC
+    </select>
+
+    <select id="queryById" resultMap="MesStrandedwireWorkorderMap">
+        <include refid="selectMesStrandedwireWorkorderVo"/>
+        where id=#{id} and is_deleted = 0
+    </select>
+    <select id="countByStatus" resultType="java.lang.Integer">
+        select count(1) from mes_strandedwire_workorder where status = #{status} and is_deleted = 0
+    </select>
+    <select id="getTodaySchedulingNum" resultType="java.lang.Integer">
+        select count(1) from mes_strandedwire_workorder where DATE_FORMAT(create_time,'%Y-%m-%d') = DATE_FORMAT(now(),'%Y-%m-%d') and status = 0 and is_deleted = 0
+    </select>
+    <select id="getMesStrandedwireWorkorderList" resultMap="MesStrandedwireWorkorderMap">
+        <include refid="selectMesStrandedwireWorkorderVo"/>
+        where is_deleted = 0 and status in (0,1) order by equipment_code, axle_number, status;
+    </select>
+
+    <!--排序-优先-->
+    <update id="updateSortById">
+        update mes_strandedwire_workorder set sort = sort + 1 where id = #{id}
+    </update>
+    <!-- 工单作废 -->
+    <update id="cancelById">
+        UPDATE mes_strandedwire_workorder SET status = 3 WHERE id = #{id}
+    </update>
+
+    <!-- 修改工单状态 -->
+    <update id="updateStatusById">
+        UPDATE mes_strandedwire_workorder SET status = #{status} WHERE id = #{id}
+    </update>
+
+</mapper>

@@ -1,0 +1,294 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cuixing.mes.mapper.MesProcessEnterMapper">
+    <resultMap type="com.cuixing.mes.entity.MesProcessEnter" id="MesProcessEnterMap">
+        <result property="id" column="id" jdbcType="BIGINT"/>
+        <result property="productSpecification" column="product_specification" jdbcType="VARCHAR"/>
+        <result property="productModel" column="product_model" jdbcType="VARCHAR"/>
+        <result property="productName" column="product_name" jdbcType="VARCHAR"/>
+        <result property="productCode" column="product_code" jdbcType="VARCHAR"/>
+        <result property="productEdition" column="product_edition" jdbcType="VARCHAR"/>
+        <result property="equipmentId" column="equipment_id" jdbcType="BIGINT"/>
+        <result property="equipmentCode" column="equipment_code" jdbcType="VARCHAR"/>
+        <result property="examineBy" column="examine_by" jdbcType="VARCHAR"/>
+        <result property="approveBy" column="approve_by" jdbcType="VARCHAR"/>
+        <result property="approveStatus" column="approve_status" jdbcType="CHAR"/>
+        <result property="deliveryTime" column="delivery_time" jdbcType="TIMESTAMP"/>
+        <result property="softenTemperatureUp" column="soften_temperature_up" jdbcType="INTEGER"/>
+        <result property="softenTemperatureDown" column="soften_temperature_down" jdbcType="INTEGER"/>
+        <result property="ovenTemperatureEnter" column="oven_temperature_enter" jdbcType="INTEGER"/>
+        <result property="ovenTemperatureMiddle" column="oven_temperature_middle" jdbcType="INTEGER"/>
+        <result property="ovenTemperatureOut" column="oven_temperature_out" jdbcType="INTEGER"/>
+        <result property="catalyzeFirst" column="catalyze_first" jdbcType="VARCHAR"/>
+        <result property="catalyzeSecond" column="catalyze_second" jdbcType="VARCHAR"/>
+        <result property="catalyzeBefore" column="catalyze_before" jdbcType="VARCHAR"/>
+        <result property="changeWindSpeed" column="change_wind_speed" jdbcType="VARCHAR"/>
+        <result property="circulatingFanSpeed" column="circulating_fan_speed" jdbcType="VARCHAR"/>
+        <result property="exhaustFanSpeed" column="exhaust_fan_speed" jdbcType="VARCHAR"/>
+        <result property="wireSpeed" column="wire_speed" jdbcType="VARCHAR"/>
+        <result property="viscosityCup" column="viscosity_cup" jdbcType="VARCHAR"/>
+        <result property="putReelModel" column="put_reel_model" jdbcType="VARCHAR"/>
+        <result property="executeTime" column="execute_time" jdbcType="TIMESTAMP"/>
+        <result property="standardDiameter" column="standard_diameter" jdbcType="DECIMAL"/>
+        <result property="wireFilmMax" column="wire_film_max" jdbcType="DECIMAL"/>
+        <result property="wireThickMax" column="wire_thick_max" jdbcType="DECIMAL"/>
+        <result property="wireFilmMin" column="wire_film_min" jdbcType="DECIMAL"/>
+        <result property="wireThickMin" column="wire_thick_min" jdbcType="DECIMAL"/>
+        <result property="isDeleted" column="is_deleted" jdbcType="TINYINT"/>
+        <result property="version" column="version" jdbcType="INTEGER"/>
+        <result property="createBy" column="create_by" jdbcType="VARCHAR"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="updateBy" column="update_by" jdbcType="VARCHAR"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+        <result property="attr1" column="attr1" jdbcType="VARCHAR"/>
+        <result property="attr2" column="attr2" jdbcType="INTEGER"/>
+        <result property="attr3" column="attr3" jdbcType="VARCHAR"/>
+        <result property="evaporationOne" column="evaporation_one" jdbcType="VARCHAR"/>
+        <result property="evaporationTwo" column="evaporation_two" jdbcType="VARCHAR"/>
+        <result property="softenTemperatureOut" column="soften_temperature_out" jdbcType="INTEGER"/>
+    </resultMap>
+    
+    <!-- 通过ID查询单条数据 -->
+    <select id="queryById" resultMap="MesProcessEnterMap">
+        select
+            id,product_specification,product_model,product_name,product_code,product_edition,equipment_id,equipment_code,examine_by,approve_by,approve_status,delivery_time,soften_temperature_up,soften_temperature_down,oven_temperature_enter,oven_temperature_middle,oven_temperature_out,catalyze_first,catalyze_second,catalyze_before,change_wind_speed,circulating_fan_speed,exhaust_fan_speed,wire_speed,viscosity_cup,put_reel_model,execute_time,standard_diameter,wire_film_max,wire_thick_max,wire_film_min,wire_thick_min,is_deleted,version,create_by,create_time,update_by,update_time,attr1,attr2,attr3,evaporation_one,evaporation_two,soften_temperature_out
+        from mes_process_enter
+        where is_deleted = 0 and  id = #{id}
+    </select>
+    <!-- 通过ID查询单条数据 -->
+    <select id="getInfoByEquipmentIdAndSpecification" resultMap="MesProcessEnterMap">
+        select
+            id,product_specification,product_model,product_name,product_code,product_edition,equipment_id,equipment_code,examine_by,approve_by,approve_status,delivery_time,soften_temperature_up,soften_temperature_down,oven_temperature_enter,oven_temperature_middle,oven_temperature_out,catalyze_first,catalyze_second,catalyze_before,change_wind_speed,circulating_fan_speed,exhaust_fan_speed,wire_speed,viscosity_cup,put_reel_model,execute_time,standard_diameter,wire_film_max,wire_thick_max,wire_film_min,wire_thick_min,is_deleted,version,create_by,create_time,update_by,update_time,attr1,attr2,attr3,evaporation_one,evaporation_two,soften_temperature_out
+        from mes_process_enter
+        where is_deleted = 0 and  equipment_id = #{equipmentId} and product_specification = #{productSpecification}
+    </select>
+
+
+    <select id="getInfoByEquipmentCodeAndOther" resultMap="MesProcessEnterMap">
+        select
+            id,product_specification,product_model,product_name,product_code,product_edition,equipment_id,equipment_code,examine_by,approve_by,approve_status,delivery_time,soften_temperature_up,soften_temperature_down,oven_temperature_enter,oven_temperature_middle,oven_temperature_out,catalyze_first,catalyze_second,catalyze_before,change_wind_speed,circulating_fan_speed,exhaust_fan_speed,wire_speed,viscosity_cup,put_reel_model,execute_time,standard_diameter,wire_film_max,wire_thick_max,wire_film_min,wire_thick_min,is_deleted,version,create_by,create_time,update_by,update_time,attr1,attr2,attr3,evaporation_one,evaporation_two,soften_temperature_out
+        from mes_process_enter
+        where is_deleted = 0 and
+              equipment_code = #{equipmentCode} and product_specification = #{productSpecification} and product_model = #{productModel} and attr1 = #{attr1}
+        order by id desc limit 1
+    </select>
+    
+    <!--分页查询指定行数据-->
+    <select id="selectMesProcessEnterList" resultMap="MesProcessEnterMap">
+        select
+            mpe.id,product_specification,product_model,product_name,product_code,product_edition,equipment_id,equipment_code,examine_by,approve_by,approve_status,delivery_time,soften_temperature_up,soften_temperature_down,oven_temperature_enter,oven_temperature_middle,oven_temperature_out,catalyze_first,catalyze_second,catalyze_before,change_wind_speed,circulating_fan_speed,exhaust_fan_speed,wire_speed,viscosity_cup,put_reel_model,execute_time,mps.standard_diameter,mps.wire_film_max,mps.wire_thick_max,mps.wire_film_min,mps.wire_thick_min,mpe.is_deleted,mpe.version,mpe.create_by,mpe.create_time,mpe.update_by,mpe.update_time,mpe.attr1,mpe.attr2,mpe.attr3,evaporation_one,evaporation_two,soften_temperature_out
+        from mes_process_enter mpe left join mes_process_standard mps on mpe.product_specification = mps.standard_diameter and mps.standard_code = 1
+        <where>
+                mpe.is_deleted = 0
+            <if test="id != null and id != ''"> and id = #{id}</if>
+            <if test="productSpecification != null and productSpecification != ''"> and product_specification = #{productSpecification}</if>
+            <if test="productModel != null and productModel != ''"> and product_model = #{productModel}</if>
+            <if test="productName != null and productName != ''"> and product_name = #{productName}</if>
+            <if test="productCode != null and productCode != ''"> and product_code = #{productCode}</if>
+            <if test="productEdition != null and productEdition != ''"> and product_edition = #{productEdition}</if>
+            <if test="equipmentId != null and equipmentId != ''"> and equipment_id = #{equipmentId}</if>
+            <if test="equipmentCode != null and equipmentCode != ''"> and equipment_code = #{equipmentCode}</if>
+            <if test="examineBy != null and examineBy != ''"> and examine_by = #{examineBy}</if>
+            <if test="approveBy != null and approveBy != ''"> and approve_by = #{approveBy}</if>
+            <if test="approveStatus != null and approveStatus != ''"> and approve_status = #{approveStatus}</if>
+            <if test="deliveryTime != null and deliveryTime != ''"> and delivery_time = #{deliveryTime}</if>
+            <if test="softenTemperatureUp != null and softenTemperatureUp != ''"> and soften_temperature_up = #{softenTemperatureUp}</if>
+            <if test="softenTemperatureDown != null and softenTemperatureDown != ''"> and soften_temperature_down = #{softenTemperatureDown}</if>
+            <if test="ovenTemperatureEnter != null and ovenTemperatureEnter != ''"> and oven_temperature_enter = #{ovenTemperatureEnter}</if>
+            <if test="ovenTemperatureMiddle != null and ovenTemperatureMiddle != ''"> and oven_temperature_middle = #{ovenTemperatureMiddle}</if>
+            <if test="ovenTemperatureOut != null and ovenTemperatureOut != ''"> and oven_temperature_out = #{ovenTemperatureOut}</if>
+            <if test="catalyzeFirst != null and catalyzeFirst != ''"> and catalyze_first = #{catalyzeFirst}</if>
+            <if test="catalyzeSecond != null and catalyzeSecond != ''"> and catalyze_second = #{catalyzeSecond}</if>
+            <if test="catalyzeBefore != null and catalyzeBefore != ''"> and catalyze_before = #{catalyzeBefore}</if>
+            <if test="changeWindSpeed != null and changeWindSpeed != ''"> and change_wind_speed = #{changeWindSpeed}</if>
+            <if test="circulatingFanSpeed != null and circulatingFanSpeed != ''"> and circulating_fan_speed = #{circulatingFanSpeed}</if>
+            <if test="exhaustFanSpeed != null and exhaustFanSpeed != ''"> and exhaust_fan_speed = #{exhaustFanSpeed}</if>
+            <if test="wireSpeed != null and wireSpeed != ''"> and wire_speed = #{wireSpeed}</if>
+            <if test="viscosityCup != null and viscosityCup != ''"> and viscosity_cup = #{viscosityCup}</if>
+            <if test="putReelModel != null and putReelModel != ''"> and put_reel_model = #{putReelModel}</if>
+            <if test="executeTime != null and executeTime != ''"> and execute_time = #{executeTime}</if>
+            <if test="standardDiameter != null and standardDiameter != ''"> and standard_diameter = #{standardDiameter}</if>
+            <if test="wireFilmMax != null and wireFilmMax != ''"> and wire_film_max = #{wireFilmMax}</if>
+            <if test="wireThickMax != null and wireThickMax != ''"> and wire_thick_max = #{wireThickMax}</if>
+            <if test="wireFilmMin != null and wireFilmMin != ''"> and wire_film_min = #{wireFilmMin}</if>
+            <if test="wireThickMin != null and wireThickMin != ''"> and wire_thick_min = #{wireThickMin}</if>
+            <if test="isDeleted != null and isDeleted != ''"> and is_deleted = #{isDeleted}</if>
+            <if test="version != null and version != ''"> and version = #{version}</if>
+            <if test="createBy != null and createBy != ''"> and create_by = #{createBy}</if>
+            <if test="createTime != null and createTime != ''"> and create_time = #{createTime}</if>
+            <if test="updateBy != null and updateBy != ''"> and update_by = #{updateBy}</if>
+            <if test="updateTime != null and updateTime != ''"> and update_time = #{updateTime}</if>
+            <if test="attr1 != null and attr1 != ''"> and attr1 = #{attr1}</if>
+            <if test="attr2 != null and attr2 != ''"> and attr2 = #{attr2}</if>
+            <if test="attr3 != null and attr3 != ''"> and attr3 = #{attr3}</if>
+            <if test="evaporationOne != null and evaporationOne != ''"> and evaporation_one = #{evaporationOne}</if>
+            <if test="evaporationTwo != null and evaporationTwo != ''"> and evaporation_two = #{evaporationTwo}</if>
+            <if test="softenTemperatureOut != null and softenTemperatureOut != ''"> and soften_temperature_out = #{softenTemperatureOut}</if>
+        </where>
+        order by mpe.equipment_code,mpe.attr1,mpe.product_model,mpe.product_specification asc
+    </select>
+    
+    <!--新增数据-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into mes_process_enter
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null ">id,</if>
+            <if test="productSpecification != null and productSpecification != ''">product_specification,</if>
+            <if test="productModel != null and productModel != ''">product_model,</if>
+            <if test="productName != null and productName != ''">product_name,</if>
+            <if test="productCode != null and productCode != ''">product_code,</if>
+            <if test="productEdition != null and productEdition != ''">product_edition,</if>
+            <if test="equipmentId != null ">equipment_id,</if>
+            <if test="equipmentCode != null and equipmentCode != ''">equipment_code,</if>
+            <if test="examineBy != null and examineBy != ''">examine_by,</if>
+            <if test="approveBy != null and approveBy != ''">approve_by,</if>
+            <if test="approveStatus != null and approveStatus != ''">approve_status,</if>
+            <if test="deliveryTime != null ">delivery_time,</if>
+            <if test="softenTemperatureUp != null ">soften_temperature_up,</if>
+            <if test="softenTemperatureDown != null ">soften_temperature_down,</if>
+            <if test="ovenTemperatureEnter != null ">oven_temperature_enter,</if>
+            <if test="ovenTemperatureMiddle != null ">oven_temperature_middle,</if>
+            <if test="ovenTemperatureOut != null ">oven_temperature_out,</if>
+            <if test="catalyzeFirst != null and catalyzeFirst != ''">catalyze_first,</if>
+            <if test="catalyzeSecond != null and catalyzeSecond != ''">catalyze_second,</if>
+            <if test="catalyzeBefore != null and catalyzeBefore != ''">catalyze_before,</if>
+            <if test="changeWindSpeed != null and changeWindSpeed != ''">change_wind_speed,</if>
+            <if test="circulatingFanSpeed != null and circulatingFanSpeed != ''">circulating_fan_speed,</if>
+            <if test="exhaustFanSpeed != null and exhaustFanSpeed != ''">exhaust_fan_speed,</if>
+            <if test="wireSpeed != null and wireSpeed != ''">wire_speed,</if>
+            <if test="viscosityCup != null and viscosityCup != ''">viscosity_cup,</if>
+            <if test="putReelModel != null and putReelModel != ''">put_reel_model,</if>
+            <if test="executeTime != null ">execute_time,</if>
+            <if test="standardDiameter != null ">standard_diameter,</if>
+            <if test="wireFilmMax != null ">wire_film_max,</if>
+            <if test="wireThickMax != null ">wire_thick_max,</if>
+            <if test="wireFilmMin != null ">wire_film_min,</if>
+            <if test="wireThickMin != null ">wire_thick_min,</if>
+            <if test="isDeleted != null ">is_deleted,</if>
+            <if test="version != null ">version,</if>
+            <if test="createBy != null and createBy != ''">create_by,</if>
+            <if test="createTime != null ">create_time,</if>
+            <if test="updateBy != null and updateBy != ''">update_by,</if>
+            <if test="updateTime != null ">update_time,</if>
+            <if test="attr1 != null and attr1 != ''">attr1,</if>
+            <if test="attr2 != null ">attr2,</if>
+            <if test="attr3 != null and attr3 != ''">attr3,</if>
+            <if test="evaporationOne != null and evaporationOne != ''">evaporation_one,</if>
+            <if test="evaporationTwo != null and evaporationTwo != ''">evaporation_two,</if>
+            <if test="softenTemperatureOut != null">soften_temperature_out,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">#{id},</if>
+            <if test="productSpecification != null and productSpecification != ''">#{productSpecification},</if>
+            <if test="productModel != null and productModel != ''">#{productModel},</if>
+            <if test="productName != null and productName != ''">#{productName},</if>
+            <if test="productCode != null and productCode != ''">#{productCode},</if>
+            <if test="productEdition != null and productEdition != ''">#{productEdition},</if>
+            <if test="equipmentId != null">#{equipmentId},</if>
+            <if test="equipmentCode != null and equipmentCode != ''">#{equipmentCode},</if>
+            <if test="examineBy != null and examineBy != ''">#{examineBy},</if>
+            <if test="approveBy != null and approveBy != ''">#{approveBy},</if>
+            <if test="approveStatus != null and approveStatus != ''">#{approveStatus},</if>
+            <if test="deliveryTime != null">#{deliveryTime},</if>
+            <if test="softenTemperatureUp != null">#{softenTemperatureUp},</if>
+            <if test="softenTemperatureDown != null">#{softenTemperatureDown},</if>
+            <if test="ovenTemperatureEnter != null">#{ovenTemperatureEnter},</if>
+            <if test="ovenTemperatureMiddle != null">#{ovenTemperatureMiddle},</if>
+            <if test="ovenTemperatureOut != null">#{ovenTemperatureOut},</if>
+            <if test="catalyzeFirst != null and catalyzeFirst != ''">#{catalyzeFirst},</if>
+            <if test="catalyzeSecond != null and catalyzeSecond != ''">#{catalyzeSecond},</if>
+            <if test="catalyzeBefore != null and catalyzeBefore != ''">#{catalyzeBefore},</if>
+            <if test="changeWindSpeed != null and changeWindSpeed != ''">#{changeWindSpeed},</if>
+            <if test="circulatingFanSpeed != null and circulatingFanSpeed != ''">#{circulatingFanSpeed},</if>
+            <if test="exhaustFanSpeed != null and exhaustFanSpeed != ''">#{exhaustFanSpeed},</if>
+            <if test="wireSpeed != null and wireSpeed != ''">#{wireSpeed},</if>
+            <if test="viscosityCup != null and viscosityCup != ''">#{viscosityCup},</if>
+            <if test="putReelModel != null and putReelModel != ''">#{putReelModel},</if>
+            <if test="executeTime != null">#{executeTime},</if>
+            <if test="standardDiameter != null">#{standardDiameter},</if>
+            <if test="wireFilmMax != null">#{wireFilmMax},</if>
+            <if test="wireThickMax != null">#{wireThickMax},</if>
+            <if test="wireFilmMin != null">#{wireFilmMin},</if>
+            <if test="wireThickMin != null">#{wireThickMin},</if>
+            <if test="isDeleted != null">#{isDeleted},</if>
+            <if test="version != null">#{version},</if>
+            <if test="createBy != null and createBy != ''">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null and updateBy != ''">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="attr1 != null and attr1 != ''">#{attr1},</if>
+            <if test="attr2 != null">#{attr2},</if>
+            <if test="attr3 != null and attr3 != ''">#{attr3},</if>
+            <if test="evaporationOne != null and evaporationOne != ''">#{evaporationOne},</if>
+            <if test="evaporationTwo != null and evaporationTwo != ''">#{evaporationTwo},</if>
+            <if test="softenTemperatureOut != null">#{softenTemperatureOut},</if>
+        </trim>
+    </insert>
+    
+    <!-- 更新数据 -->
+    <update id="update">
+        update mes_process_enter
+        <set>
+            <trim suffixOverrides=",">
+                <if test="productSpecification != null "> product_specification = #{productSpecification}, </if>
+                <if test="productModel != null "> product_model = #{productModel}, </if>
+                <if test="productName != null "> product_name = #{productName}, </if>
+                <if test="productCode != null "> product_code = #{productCode}, </if>
+                <if test="productEdition != null "> product_edition = #{productEdition}, </if>
+                <if test="equipmentId != null "> equipment_id = #{equipmentId}, </if>
+                <if test="equipmentCode != null "> equipment_code = #{equipmentCode}, </if>
+                <if test="examineBy != null "> examine_by = #{examineBy}, </if>
+                <if test="approveBy != null "> approve_by = #{approveBy}, </if>
+                <if test="approveStatus != null "> approve_status = #{approveStatus}, </if>
+                <if test="deliveryTime != null "> delivery_time = #{deliveryTime}, </if>
+                <if test="softenTemperatureUp != null "> soften_temperature_up = #{softenTemperatureUp}, </if>
+                <if test="softenTemperatureDown != null "> soften_temperature_down = #{softenTemperatureDown}, </if>
+                <if test="ovenTemperatureEnter != null "> oven_temperature_enter = #{ovenTemperatureEnter}, </if>
+                <if test="ovenTemperatureMiddle != null "> oven_temperature_middle = #{ovenTemperatureMiddle}, </if>
+                <if test="ovenTemperatureOut != null "> oven_temperature_out = #{ovenTemperatureOut}, </if>
+                <if test="catalyzeFirst != null "> catalyze_first = #{catalyzeFirst}, </if>
+                <if test="catalyzeSecond != null "> catalyze_second = #{catalyzeSecond}, </if>
+                <if test="catalyzeBefore != null "> catalyze_before = #{catalyzeBefore}, </if>
+                <if test="changeWindSpeed != null "> change_wind_speed = #{changeWindSpeed}, </if>
+                <if test="circulatingFanSpeed != null "> circulating_fan_speed = #{circulatingFanSpeed}, </if>
+                <if test="exhaustFanSpeed != null "> exhaust_fan_speed = #{exhaustFanSpeed}, </if>
+                <if test="wireSpeed != null "> wire_speed = #{wireSpeed}, </if>
+                <if test="viscosityCup != null "> viscosity_cup = #{viscosityCup}, </if>
+                <if test="putReelModel != null "> put_reel_model = #{putReelModel}, </if>
+                <if test="executeTime != null "> execute_time = #{executeTime}, </if>
+                <if test="standardDiameter != null "> standard_diameter = #{standardDiameter}, </if>
+                <if test="wireFilmMax != null "> wire_film_max = #{wireFilmMax}, </if>
+                <if test="wireThickMax != null "> wire_thick_max = #{wireThickMax}, </if>
+                <if test="wireFilmMin != null "> wire_film_min = #{wireFilmMin}, </if>
+                <if test="wireThickMin != null "> wire_thick_min = #{wireThickMin}, </if>
+                <if test="isDeleted != null "> is_deleted = #{isDeleted}, </if>
+                <if test="version != null "> version = #{version}, </if>
+                <if test="createBy != null "> create_by = #{createBy}, </if>
+                <if test="createTime != null "> create_time = #{createTime}, </if>
+                <if test="updateBy != null "> update_by = #{updateBy}, </if>
+                <if test="updateTime != null "> update_time = #{updateTime}, </if>
+                <if test="attr1 != null "> attr1 = #{attr1}, </if>
+                <if test="attr2 != null "> attr2 = #{attr2}, </if>
+                <if test="attr3 != null "> attr3 = #{attr3}, </if>
+                <if test="evaporationOne != null "> evaporation_one = #{evaporationOne}, </if>
+                <if test="evaporationTwo != null "> evaporation_two = #{evaporationTwo}, </if>
+                <if test="softenTemperatureOut != null "> soften_temperature_out = #{softenTemperatureOut}, </if>
+            </trim>
+        </set>
+        where id = #{id} and version = #{version}
+    </update>
+    
+    <!--逻辑删除删除-->
+    <update id="deleteById">
+        update mes_process_enter set is_deleted = 1 where id = #{id}
+    </update>
+    
+    <!--批量逻辑删除-->
+    <update id="deleteByIds">
+        update mes_process_enter set is_deleted = 1 where id in
+        <foreach collection="array" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </update>
+
+</mapper>

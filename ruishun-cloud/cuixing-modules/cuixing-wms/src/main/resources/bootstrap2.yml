@@ -1,0 +1,58 @@
+# Tomcat
+server:
+  port: 9218
+
+# Spring
+spring:
+  application:
+    # 应用名称
+      name: huaerda-wms
+  profiles:
+    # 环境配置
+    active: ${SPRING_PROFILES_ACTIVE:dev}
+  cloud:
+    nacos:
+      discovery:
+        # 服务注册地址
+        server-addr: ${NACOS_HOST:127.0.0.1}:${NACOS_PORT:8848}
+        namespace: ${nacos-namespace:public}
+#        ip: ${LOCAL_IP_ADDRESS:192.168.9.237}
+      username: ${NACOS_USERNAME:nacos}
+      password: ${NACOS_PASSWORD:nacos}
+      config:
+        # 配置中心地址
+        server-addr: ${NACOS_HOST:127.0.0.1}:${NACOS_PORT:8848}
+        namespace: ${NACOS_NAMESPACE:public}
+        # 配置文件格式
+        file-extension: yml
+        # 共享配置
+        shared-configs:
+          - application-${SPRING_PROFILES_ACTIVE}.${SPRING_CLOUD_NACOS_CONFIG_FILE_EXTENSION}
+#          - cuixing-seata.${SPRING_CLOUD_NACOS_CONFIG_FILE_EXTENSION}
+
+
+#server:
+#  port: 9201
+#
+## Spring
+#spring:
+#  application:
+#    # 应用名称
+#    name: cuixing-system
+#  profiles:
+#    # 环境配置
+#    active: dev
+#  cloud:
+#    nacos:
+#      discovery:
+#        # 服务注册地址
+#        server-addr: 192.168.9.237:18848
+#
+#      config:
+#        # 配置中心地址
+#        server-addr: 192.168.9.237:18848
+#        # 配置文件格式
+#        file-extension: yml
+#        # 共享配置
+#        shared-configs:
+#          - application-${spring.profiles.active}.${spring.cloud.nacos.config.file-extension}

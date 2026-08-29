@@ -1,0 +1,325 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cuixing.sale.mapper.ErpBalanceMapper">
+
+    <resultMap type="com.cuixing.sale.entity.ErpBalance" id="ErpBalanceMap">
+        <result property="fyear" column="FYear" jdbcType="INTEGER"/>
+        <result property="fperiod" column="FPeriod" jdbcType="INTEGER"/>
+        <result property="faccountid" column="FAccountID" jdbcType="INTEGER"/>
+        <result property="fdetailid" column="FDetailID" jdbcType="INTEGER"/>
+        <result property="fcurrencyid" column="FCurrencyID" jdbcType="INTEGER"/>
+        <result property="fbeginbalancefor" column="FBeginBalanceFor" jdbcType="NUMERIC"/>
+        <result property="fdebitfor" column="FDebitFor" jdbcType="NUMERIC"/>
+        <result property="fcreditfor" column="FCreditFor" jdbcType="NUMERIC"/>
+        <result property="fytddebitfor" column="FYtdDebitFor" jdbcType="NUMERIC"/>
+        <result property="fytdcreditfor" column="FYtdCreditFor" jdbcType="NUMERIC"/>
+        <result property="fendbalancefor" column="FEndBalanceFor" jdbcType="NUMERIC"/>
+        <result property="fbeginbalance" column="FBeginBalance" jdbcType="NUMERIC"/>
+        <result property="fdebit" column="FDebit" jdbcType="NUMERIC"/>
+        <result property="fcredit" column="FCredit" jdbcType="NUMERIC"/>
+        <result property="fytddebit" column="FYtdDebit" jdbcType="NUMERIC"/>
+        <result property="fytdcredit" column="FYtdCredit" jdbcType="NUMERIC"/>
+        <result property="fendbalance" column="FEndBalance" jdbcType="NUMERIC"/>
+        <result property="fframeworkid" column="FFrameWorkID" jdbcType="INTEGER"/>
+        <result property="accountname" column="AccountName" jdbcType="VARCHAR"/>
+        <result property="currencyname" column="CurrencyName" jdbcType="VARCHAR"/>
+        <result property="name" column="Name" jdbcType="VARCHAR"/>
+    </resultMap>
+   
+    <sql id="selectErpBalanceVo">
+        SELECT 
+           FYear ,
+           FPeriod ,
+           FAccountID ,
+           FDetailID ,
+           FCurrencyID ,
+           FBeginBalanceFor ,
+           FDebitFor ,
+           FCreditFor ,
+           FYtdDebitFor ,
+           FYtdCreditFor ,
+           FEndBalanceFor ,
+           FBeginBalance ,
+           FDebit ,
+           FCredit ,
+           FYtdDebit ,
+           FYtdCredit ,
+           FEndBalance ,
+           FFrameWorkID ,
+           AccountName ,
+           CurrencyName ,
+           Name 
+        FROM erp_balance
+    </sql>
+    
+     <select id="selectErpBalanceList" parameterType="ErpBalance" resultMap="ErpBalanceMap">
+        <include refid="selectErpBalanceVo"/>
+        <where>
+            <if test="fyear != null">
+                and FYear = #{fyear}
+            </if>
+            <if test="fperiod != null">
+                and FPeriod = #{fperiod}
+            </if>
+            <if test="faccountid != null">
+                and FAccountID = #{faccountid}
+            </if>
+            <if test="fdetailid != null">
+                and FDetailID = #{fdetailid}
+            </if>
+            <if test="fcurrencyid != null">
+                and FCurrencyID = #{fcurrencyid}
+            </if>
+            <if test="fbeginbalancefor != null">
+                and FBeginBalanceFor = #{fbeginbalancefor}
+            </if>
+            <if test="fdebitfor != null">
+                and FDebitFor = #{fdebitfor}
+            </if>
+            <if test="fcreditfor != null">
+                and FCreditFor = #{fcreditfor}
+            </if>
+            <if test="fytddebitfor != null">
+                and FYtdDebitFor = #{fytddebitfor}
+            </if>
+            <if test="fytdcreditfor != null">
+                and FYtdCreditFor = #{fytdcreditfor}
+            </if>
+            <if test="fendbalancefor != null">
+                and FEndBalanceFor = #{fendbalancefor}
+            </if>
+            <if test="fbeginbalance != null">
+                and FBeginBalance = #{fbeginbalance}
+            </if>
+            <if test="fdebit != null">
+                and FDebit = #{fdebit}
+            </if>
+            <if test="fcredit != null">
+                and FCredit = #{fcredit}
+            </if>
+            <if test="fytddebit != null">
+                and FYtdDebit = #{fytddebit}
+            </if>
+            <if test="fytdcredit != null">
+                and FYtdCredit = #{fytdcredit}
+            </if>
+            <if test="fendbalance != null">
+                and FEndBalance = #{fendbalance}
+            </if>
+            <if test="fframeworkid != null">
+                and FFrameWorkID = #{fframeworkid}
+            </if>
+            <if test="accountname != null and accountname != ''">
+                and AccountName = #{accountname}
+            </if>
+            <if test="currencyname != null and currencyname != ''">
+                and CurrencyName = #{currencyname}
+            </if>
+            <if test="name != null and name != ''">
+                and Name = #{name}
+            </if>
+        </where>
+    </select>
+    
+    <!--查询单个-->
+    <select id="queryById" resultMap="ErpBalanceMap">
+        select
+           FYear ,
+           FPeriod ,
+           FAccountID ,
+           FDetailID ,
+           FCurrencyID ,
+           FBeginBalanceFor ,
+           FDebitFor ,
+           FCreditFor ,
+           FYtdDebitFor ,
+           FYtdCreditFor ,
+           FEndBalanceFor ,
+           FBeginBalance ,
+           FDebit ,
+           FCredit ,
+           FYtdDebit ,
+           FYtdCredit ,
+           FEndBalance ,
+           FFrameWorkID ,
+           AccountName ,
+           CurrencyName ,
+           Name 
+
+        from erp_balance
+        where FYear = #{fyear}
+    </select>
+
+    <!--统计总行数-->
+    <select id="count" resultType="java.lang.Long">
+        select count(1)
+        from erp_balance
+        <where>
+            <if test="fyear != null">
+                and FYear = #{fyear}
+            </if>
+            <if test="fperiod != null">
+                and FPeriod = #{fperiod}
+            </if>
+            <if test="faccountid != null">
+                and FAccountID = #{faccountid}
+            </if>
+            <if test="fdetailid != null">
+                and FDetailID = #{fdetailid}
+            </if>
+            <if test="fcurrencyid != null">
+                and FCurrencyID = #{fcurrencyid}
+            </if>
+            <if test="fbeginbalancefor != null">
+                and FBeginBalanceFor = #{fbeginbalancefor}
+            </if>
+            <if test="fdebitfor != null">
+                and FDebitFor = #{fdebitfor}
+            </if>
+            <if test="fcreditfor != null">
+                and FCreditFor = #{fcreditfor}
+            </if>
+            <if test="fytddebitfor != null">
+                and FYtdDebitFor = #{fytddebitfor}
+            </if>
+            <if test="fytdcreditfor != null">
+                and FYtdCreditFor = #{fytdcreditfor}
+            </if>
+            <if test="fendbalancefor != null">
+                and FEndBalanceFor = #{fendbalancefor}
+            </if>
+            <if test="fbeginbalance != null">
+                and FBeginBalance = #{fbeginbalance}
+            </if>
+            <if test="fdebit != null">
+                and FDebit = #{fdebit}
+            </if>
+            <if test="fcredit != null">
+                and FCredit = #{fcredit}
+            </if>
+            <if test="fytddebit != null">
+                and FYtdDebit = #{fytddebit}
+            </if>
+            <if test="fytdcredit != null">
+                and FYtdCredit = #{fytdcredit}
+            </if>
+            <if test="fendbalance != null">
+                and FEndBalance = #{fendbalance}
+            </if>
+            <if test="fframeworkid != null">
+                and FFrameWorkID = #{fframeworkid}
+            </if>
+            <if test="accountname != null and accountname != ''">
+                and AccountName = #{accountname}
+            </if>
+            <if test="currencyname != null and currencyname != ''">
+                and CurrencyName = #{currencyname}
+            </if>
+            <if test="name != null and name != ''">
+                and Name = #{name}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="fyear" useGeneratedKeys="true">
+        insert into erp_balance(FBeginBalanceFor, FDebitFor, FCreditFor, FYtdDebitFor, FYtdCreditFor, FEndBalanceFor, FBeginBalance, FDebit, FCredit, FYtdDebit, FYtdCredit, FEndBalance, FFrameWorkID, AccountName, CurrencyName, Name)
+        values (#{fbeginbalancefor}, #{fdebitfor}, #{fcreditfor}, #{fytddebitfor}, #{fytdcreditfor}, #{fendbalancefor}, #{fbeginbalance}, #{fdebit}, #{fcredit}, #{fytddebit}, #{fytdcredit}, #{fendbalance}, #{fframeworkid}, #{accountname}, #{currencyname}, #{name})
+    </insert>
+
+    <insert id="insertBatch" keyProperty="fyear" useGeneratedKeys="true">
+        insert into erp_balance(FBeginBalanceFor, FDebitFor, FCreditFor, FYtdDebitFor, FYtdCreditFor, FEndBalanceFor, FBeginBalance, FDebit, FCredit, FYtdDebit, FYtdCredit, FEndBalance, FFrameWorkID, AccountName, CurrencyName, Name)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+        (#{entity.fbeginbalancefor}, #{entity.fdebitfor}, #{entity.fcreditfor}, #{entity.fytddebitfor}, #{entity.fytdcreditfor}, #{entity.fendbalancefor}, #{entity.fbeginbalance}, #{entity.fdebit}, #{entity.fcredit}, #{entity.fytddebit}, #{entity.fytdcredit}, #{entity.fendbalance}, #{entity.fframeworkid}, #{entity.accountname}, #{entity.currencyname}, #{entity.name})
+        </foreach>
+    </insert>
+
+    <insert id="insertOrUpdateBatch" keyProperty="fyear" useGeneratedKeys="true">
+        insert into erp_balance(FBeginBalanceFor, FDebitFor, FCreditFor, FYtdDebitFor, FYtdCreditFor, FEndBalanceFor, FBeginBalance, FDebit, FCredit, FYtdDebit, FYtdCredit, FEndBalance, FFrameWorkID, AccountName, CurrencyName, Name)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.fbeginbalancefor}, #{entity.fdebitfor}, #{entity.fcreditfor}, #{entity.fytddebitfor}, #{entity.fytdcreditfor}, #{entity.fendbalancefor}, #{entity.fbeginbalance}, #{entity.fdebit}, #{entity.fcredit}, #{entity.fytddebit}, #{entity.fytdcredit}, #{entity.fendbalance}, #{entity.fframeworkid}, #{entity.accountname}, #{entity.currencyname}, #{entity.name})
+        </foreach>
+        on duplicate key update
+FBeginBalanceFor = values(FBeginBalanceFor),
+FDebitFor = values(FDebitFor),
+FCreditFor = values(FCreditFor),
+FYtdDebitFor = values(FYtdDebitFor),
+FYtdCreditFor = values(FYtdCreditFor),
+FEndBalanceFor = values(FEndBalanceFor),
+FBeginBalance = values(FBeginBalance),
+FDebit = values(FDebit),
+FCredit = values(FCredit),
+FYtdDebit = values(FYtdDebit),
+FYtdCredit = values(FYtdCredit),
+FEndBalance = values(FEndBalance),
+FFrameWorkID = values(FFrameWorkID),
+AccountName = values(AccountName),
+CurrencyName = values(CurrencyName),
+Name = values(Name)
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update erp_balance
+        <set>
+            <if test="fbeginbalancefor != null">
+                FBeginBalanceFor = #{fbeginbalancefor},
+            </if>
+            <if test="fdebitfor != null">
+                FDebitFor = #{fdebitfor},
+            </if>
+            <if test="fcreditfor != null">
+                FCreditFor = #{fcreditfor},
+            </if>
+            <if test="fytddebitfor != null">
+                FYtdDebitFor = #{fytddebitfor},
+            </if>
+            <if test="fytdcreditfor != null">
+                FYtdCreditFor = #{fytdcreditfor},
+            </if>
+            <if test="fendbalancefor != null">
+                FEndBalanceFor = #{fendbalancefor},
+            </if>
+            <if test="fbeginbalance != null">
+                FBeginBalance = #{fbeginbalance},
+            </if>
+            <if test="fdebit != null">
+                FDebit = #{fdebit},
+            </if>
+            <if test="fcredit != null">
+                FCredit = #{fcredit},
+            </if>
+            <if test="fytddebit != null">
+                FYtdDebit = #{fytddebit},
+            </if>
+            <if test="fytdcredit != null">
+                FYtdCredit = #{fytdcredit},
+            </if>
+            <if test="fendbalance != null">
+                FEndBalance = #{fendbalance},
+            </if>
+            <if test="fframeworkid != null">
+                FFrameWorkID = #{fframeworkid},
+            </if>
+            <if test="accountname != null and accountname != ''">
+                AccountName = #{accountname},
+            </if>
+            <if test="currencyname != null and currencyname != ''">
+                CurrencyName = #{currencyname},
+            </if>
+            <if test="name != null and name != ''">
+                Name = #{name},
+            </if>
+        </set>
+        where FYear = #{fyear}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from erp_balance where FYear = #{fyear}
+    </delete>
+
+</mapper>
+

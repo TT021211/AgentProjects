@@ -1,0 +1,398 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cuixing.wms.mapper.WmsWasteSilkPackageMapper">
+
+    <resultMap type="com.cuixing.wms.entity.WmsWasteSilkPackage" id="WmsWasteSilkPackageMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="wasteSilkPackageCode" column="waste_silk_package_code" jdbcType="VARCHAR"/>
+        <result property="wasteSilkPackageName" column="waste_silk_package_name" jdbcType="VARCHAR"/>
+        <result property="wasteSilkPackageType" column="waste_silk_package_type" jdbcType="VARCHAR"/>
+        <result property="weightCount" column="weight_count" jdbcType="NUMERIC"/>
+        <result property="status" column="status" jdbcType="VARCHAR"/>
+        <result property="remark" column="remark" jdbcType="VARCHAR"/>
+        <result property="isDeleted" column="is_deleted" jdbcType="INTEGER"/>
+        <result property="version" column="version" jdbcType="INTEGER"/>
+        <result property="createBy" column="create_by" jdbcType="VARCHAR"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="updateBy" column="update_by" jdbcType="VARCHAR"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+        <result property="attr1" column="attr1" jdbcType="VARCHAR"/>
+        <result property="attr2" column="attr2" jdbcType="INTEGER"/>
+        <result property="attr3" column="attr3" jdbcType="VARCHAR"/>
+        <result property="artt4" column="artt4" jdbcType="INTEGER"/>
+        <result property="artt5" column="artt5" jdbcType="VARCHAR"/>
+        <result property="artt6" column="artt6" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="selectWmsWasteSilkPackageVo">
+        SELECT id,
+               waste_silk_package_code,
+               waste_silk_package_name,
+               waste_silk_package_type,
+               weight_count,
+               status,
+               remark,
+               is_deleted,
+               version,
+               create_by,
+               create_time,
+               update_by,
+               update_time,
+               attr1,
+               attr2,
+               attr3,
+               artt4,
+               artt5,
+               artt6
+        FROM wms_waste_silk_package
+    </sql>
+
+    <select id="selectWmsWasteSilkPackageList" parameterType="WmsWasteSilkPackage" resultMap="WmsWasteSilkPackageMap">
+        <include refid="selectWmsWasteSilkPackageVo"/>
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="wasteSilkPackageCode != null and wasteSilkPackageCode != ''">
+                and waste_silk_package_code = #{wasteSilkPackageCode}
+            </if>
+            <if test="wasteSilkPackageName != null and wasteSilkPackageName != ''">
+                and waste_silk_package_name = #{wasteSilkPackageName}
+            </if>
+            <if test="wasteSilkPackageType != null and wasteSilkPackageType != ''">
+                and waste_silk_package_type = #{wasteSilkPackageType}
+            </if>
+            <if test="weightCount != null">
+                and weight_count = #{weightCount}
+            </if>
+            <if test="status != null and status != ''">
+                and status = #{status}
+            </if>
+            <if test="remark != null and remark != ''">
+                and remark = #{remark}
+            </if>
+            <if test="isDeleted != null">
+                and is_deleted = #{isDeleted}
+            </if>
+            <if test="version != null">
+                and version = #{version}
+            </if>
+            <if test="createBy != null and createBy != ''">
+                and create_by = #{createBy}
+            </if>
+            <if test="createTime != null">
+                and create_time = #{createTime}
+            </if>
+            <if test="updateBy != null and updateBy != ''">
+                and update_by = #{updateBy}
+            </if>
+            <if test="updateTime != null">
+                and update_time = #{updateTime}
+            </if>
+            <if test="attr1 != null and attr1 != ''">
+                and attr1 = #{attr1}
+            </if>
+            <if test="attr2 != null">
+                and attr2 = #{attr2}
+            </if>
+            <if test="attr3 != null">
+                and attr3 = #{attr3}
+            </if>
+            <if test="artt4 != null">
+                and artt4 = #{artt4}
+            </if>
+            <if test="artt5 != null and artt5 != ''">
+                and artt5 = #{artt5}
+            </if>
+            <if test="artt6 != null and artt6 != ''">
+                and artt6 = #{artt6}
+            </if>
+                and is_deleted = 0
+        </where>
+        order by create_time desc
+    </select>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="WmsWasteSilkPackageMap">
+        select id,
+               waste_silk_package_code,
+               waste_silk_package_name,
+               waste_silk_package_type,
+               weight_count,
+               status,
+               remark,
+               is_deleted,
+               version,
+               create_by,
+               create_time,
+               update_by,
+               update_time,
+               attr1,
+               attr2,
+               attr3,
+               artt4,
+               artt5,
+               artt6
+
+        from wms_waste_silk_package
+        where id = #{id} and is_deleted = 0
+    </select>
+
+    <!--统计总行数-->
+    <select id="count" resultType="java.lang.Long">
+        select count(1)
+        from wms_waste_silk_package
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="wasteSilkPackageCode != null and wasteSilkPackageCode != ''">
+                and waste_silk_package_code = #{wasteSilkPackageCode}
+            </if>
+            <if test="wasteSilkPackageName != null and wasteSilkPackageName != ''">
+                and waste_silk_package_name = #{wasteSilkPackageName}
+            </if>
+            <if test="wasteSilkPackageType != null and wasteSilkPackageType != ''">
+                and waste_silk_package_type = #{wasteSilkPackageType}
+            </if>
+            <if test="weightCount != null">
+                and weight_count = #{weightCount}
+            </if>
+            <if test="status != null and status != ''">
+                and status = #{status}
+            </if>
+            <if test="remark != null and remark != ''">
+                and remark = #{remark}
+            </if>
+            <if test="isDeleted != null">
+                and is_deleted = #{isDeleted}
+            </if>
+            <if test="version != null">
+                and version = #{version}
+            </if>
+            <if test="createBy != null and createBy != ''">
+                and create_by = #{createBy}
+            </if>
+            <if test="createTime != null">
+                and create_time = #{createTime}
+            </if>
+            <if test="updateBy != null and updateBy != ''">
+                and update_by = #{updateBy}
+            </if>
+            <if test="updateTime != null">
+                and update_time = #{updateTime}
+            </if>
+            <if test="attr1 != null and attr1 != ''">
+                and attr1 = #{attr1}
+            </if>
+            <if test="attr2 != null">
+                and attr2 = #{attr2}
+            </if>
+            <if test="attr3 != null">
+                and attr3 = #{attr3}
+            </if>
+            <if test="artt4 != null">
+                and artt4 = #{artt4}
+            </if>
+            <if test="artt5 != null and artt5 != ''">
+                and artt5 = #{artt5}
+            </if>
+            <if test="artt6 != null and artt6 != ''">
+                and artt6 = #{artt6}
+            </if>
+        and is_deleted = 0
+        </where>
+    </select>
+    <select id="queryByTimeAndStatus" resultMap="WmsWasteSilkPackageMap">
+        select id,
+               waste_silk_package_code,
+               waste_silk_package_name,
+               waste_silk_package_type,
+               weight_count,
+               status,
+               remark,
+               is_deleted,
+               version,
+               create_by,
+               create_time,
+               update_by,
+               update_time,
+               attr1,
+               attr2,
+               attr3,
+               artt4,
+               artt5,
+               artt6
+
+        from wms_waste_silk_package
+        where status = '1'
+          and waste_silk_package_type=#{type}
+          and is_deleted = 0
+        order by create_time desc
+        limit 1
+    </select>
+    <select id="queryByCode" resultMap="WmsWasteSilkPackageMap">
+        select id,
+               waste_silk_package_code,
+               waste_silk_package_name,
+               waste_silk_package_type,
+               weight_count,
+               status,
+               remark,
+               is_deleted,
+               version,
+               create_by,
+               create_time,
+               update_by,
+               update_time,
+               attr1,
+               attr2,
+               attr3,
+               artt4,
+               artt5,
+               artt6
+
+        from wms_waste_silk_package
+        where waste_silk_package_code = #{wasteSilkPackageCode}
+          and is_deleted = 0
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into wms_waste_silk_package(waste_silk_package_code, waste_silk_package_name, waste_silk_package_type,
+                                           weight_count, status, remark, is_deleted, version, create_by, create_time,
+                                           update_by, update_time, attr1, attr2, attr3, artt4, artt5, artt6)
+        values (#{wasteSilkPackageCode}, #{wasteSilkPackageName}, #{wasteSilkPackageType}, #{weightCount}, #{status},
+                #{remark}, #{isDeleted}, #{version}, #{createBy}, #{createTime}, #{updateBy}, #{updateTime}, #{attr1},
+                #{attr2}, #{attr3}, #{artt4}, #{artt5}, #{artt6})
+    </insert>
+
+    <insert id="insertBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into wms_waste_silk_package(waste_silk_package_code, waste_silk_package_name, waste_silk_package_type,
+        weight_count, status, remark, is_deleted, version, create_by, create_time, update_by, update_time, attr1, attr2,
+        attr3, artt4, artt5, artt6)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.wasteSilkPackageCode}, #{entity.wasteSilkPackageName}, #{entity.wasteSilkPackageType},
+            #{entity.weightCount}, #{entity.status}, #{entity.remark}, #{entity.isDeleted}, #{entity.version},
+            #{entity.createBy}, #{entity.createTime}, #{entity.updateBy}, #{entity.updateTime}, #{entity.attr1},
+            #{entity.attr2}, #{entity.attr3}, #{entity.artt4}, #{entity.artt5}, #{entity.artt6})
+        </foreach>
+    </insert>
+
+    <insert id="insertOrUpdateBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into wms_waste_silk_package(waste_silk_package_code, waste_silk_package_name, waste_silk_package_type,
+        weight_count, status, remark, is_deleted, version, create_by, create_time, update_by, update_time, attr1, attr2,
+        attr3, artt4, artt5, artt6)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.wasteSilkPackageCode}, #{entity.wasteSilkPackageName}, #{entity.wasteSilkPackageType},
+            #{entity.weightCount}, #{entity.status}, #{entity.remark}, #{entity.isDeleted}, #{entity.version},
+            #{entity.createBy}, #{entity.createTime}, #{entity.updateBy}, #{entity.updateTime}, #{entity.attr1},
+            #{entity.attr2}, #{entity.attr3}, #{entity.artt4}, #{entity.artt5}, #{entity.artt6})
+        </foreach>
+        on duplicate key update
+        waste_silk_package_code = values(waste_silk_package_code),
+        waste_silk_package_name = values(waste_silk_package_name),
+        waste_silk_package_type = values(waste_silk_package_type),
+        weight_count = values(weight_count),
+        status = values(status),
+        remark = values(remark),
+        is_deleted = values(is_deleted),
+        version = values(version),
+        create_by = values(create_by),
+        create_time = values(create_time),
+        update_by = values(update_by),
+        update_time = values(update_time),
+        attr1 = values(attr1),
+        attr2 = values(attr2),
+        attr3 = values(attr3),
+        artt4 = values(artt4),
+        artt5 = values(artt5),
+        artt6 = values(artt6)
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update wms_waste_silk_package
+        <set>
+            <if test="wasteSilkPackageCode != null and wasteSilkPackageCode != ''">
+                waste_silk_package_code = #{wasteSilkPackageCode},
+            </if>
+            <if test="wasteSilkPackageName != null and wasteSilkPackageName != ''">
+                waste_silk_package_name = #{wasteSilkPackageName},
+            </if>
+            <if test="wasteSilkPackageType != null and wasteSilkPackageType != ''">
+                waste_silk_package_type = #{wasteSilkPackageType},
+            </if>
+            <if test="weightCount != null">
+                weight_count = #{weightCount},
+            </if>
+            <if test="status != null and status != ''">
+                status = #{status},
+            </if>
+            <if test="remark != null and remark != ''">
+                remark = #{remark},
+            </if>
+            <if test="isDeleted != null">
+                is_deleted = #{isDeleted},
+            </if>
+            <if test="version != null">
+                version = #{version},
+            </if>
+            <if test="createBy != null and createBy != ''">
+                create_by = #{createBy},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime},
+            </if>
+            <if test="updateBy != null and updateBy != ''">
+                update_by = #{updateBy},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime},
+            </if>
+            <if test="attr1 != null and attr1 != ''">
+                attr1 = #{attr1},
+            </if>
+            <if test="attr2 != null">
+                attr2 = #{attr2},
+            </if>
+            <if test="attr3 != null">
+                attr3 = #{attr3},
+            </if>
+            <if test="artt4 != null">
+                artt4 = #{artt4},
+            </if>
+            <if test="artt5 != null and artt5 != ''">
+                artt5 = #{artt5},
+            </if>
+            <if test="artt6 != null and artt6 != ''">
+                artt6 = #{artt6},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+    <update id="updateStatus">
+        update wms_waste_silk_package
+        <set>
+            <if test="status != null and status != ''">
+                status = #{status},
+            </if>
+            <if test="updateBy != null and updateBy != ''">
+                update_by = #{updateBy},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        update wms_waste_silk_package set is_deleted = 1 where id = #{id}
+    </delete>
+
+</mapper>
+

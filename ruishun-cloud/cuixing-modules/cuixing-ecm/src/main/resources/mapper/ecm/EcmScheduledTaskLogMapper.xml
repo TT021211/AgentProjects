@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cuixing.ecm.mapper.EcmScheduledTaskLogMapper">
+    
+    <resultMap type="EcmScheduledTaskLog" id="EcmScheduledTaskLogResult">
+        <result property="id"    column="id"    />
+        <result property="taskName"    column="task_name"    />
+        <result property="lastExecutionTime"    column="last_execution_time"    />
+    </resultMap>
+
+    <sql id="selectEcmScheduledTaskLogVo">
+        select id, task_name, last_execution_time from ecm_scheduled_task_log
+    </sql>
+
+    <select id="selectEcmScheduledTaskLogList" parameterType="EcmScheduledTaskLog" resultMap="EcmScheduledTaskLogResult">
+        <include refid="selectEcmScheduledTaskLogVo"/>
+        <where>  
+            <if test="taskName != null  and taskName != ''"> and task_name like concat('%', #{taskName}, '%')</if>
+            <if test="lastExecutionTime != null "> and last_execution_time = #{lastExecutionTime}</if>
+        </where>
+    </select>
+    
+    <select id="selectEcmScheduledTaskLogById" parameterType="Long" resultMap="EcmScheduledTaskLogResult">
+        <include refid="selectEcmScheduledTaskLogVo"/>
+        where id = #{id}
+    </select>
+    <select id="selectEcmScheduledTaskLogByTaskName" resultMap="EcmScheduledTaskLogResult"
+            parameterType="java.lang.String">
+        <include refid="selectEcmScheduledTaskLogVo"/>
+        where task_name = #{taskName}
+    </select>
+
+    <insert id="insertEcmScheduledTaskLog" parameterType="EcmScheduledTaskLog">
+        insert into ecm_scheduled_task_log
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">id,</if>
+            <if test="taskName != null">task_name,</if>
+            <if test="lastExecutionTime != null">last_execution_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">#{id},</if>
+            <if test="taskName != null">#{taskName},</if>
+            <if test="lastExecutionTime != null">#{lastExecutionTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updateEcmScheduledTaskLog" parameterType="EcmScheduledTaskLog">
+        update ecm_scheduled_task_log
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="taskName != null">task_name = #{taskName},</if>
+            <if test="lastExecutionTime != null">last_execution_time = #{lastExecutionTime},</if>
+        </trim>
+        where id = #{id}
+    </update>
+    <update id="updateEcmScheduledTaskLogByTaskName"
+            parameterType="com.cuixing.ecm.domain.EcmScheduledTaskLog">
+            update ecm_scheduled_task_log
+            <trim prefix="SET" suffixOverrides=",">
+                <if test="lastExecutionTime != null">last_execution_time = #{lastExecutionTime},</if>
+            </trim>
+            where task_name = #{taskName}
+    </update>
+
+    <delete id="deleteEcmScheduledTaskLogById" parameterType="Long">
+        delete from ecm_scheduled_task_log where id = #{id}
+    </delete>
+
+    <delete id="deleteEcmScheduledTaskLogByIds" parameterType="String">
+        delete from ecm_scheduled_task_log where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

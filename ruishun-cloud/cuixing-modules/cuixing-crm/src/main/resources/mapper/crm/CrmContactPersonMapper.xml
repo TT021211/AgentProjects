@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cuixing.crm.mapper.CrmContactPersonMapper">
+    <resultMap type="com.cuixing.crm.entity.CrmContactPerson" id="CrmContactPersonMap">
+        <result property="id" column="id" jdbcType="BIGINT"/>
+        <result property="clientId" column="client_id" jdbcType="BIGINT"/>
+        <result property="clientName" column="client_name" jdbcType="VARCHAR"/>
+        <result property="clientCode" column="client_code" jdbcType="VARCHAR"/>
+        <result property="personName" column="person_name" jdbcType="VARCHAR"/>
+        <result property="personPhone" column="person_phone" jdbcType="VARCHAR"/>
+        <result property="section" column="section" jdbcType="VARCHAR"/>
+        <result property="job" column="job" jdbcType="VARCHAR"/>
+        <result property="wxNumber" column="wx_number" jdbcType="VARCHAR"/>
+        <result property="mailbox" column="mailbox" jdbcType="VARCHAR"/>
+        <result property="detail" column="detail" jdbcType="VARCHAR"/>
+        <result property="isDecision" column="is_decision" jdbcType="VARCHAR"/>
+        <result property="dutyBy" column="duty_by" jdbcType="VARCHAR"/>
+        <result property="isDeleted" column="is_deleted" jdbcType="TINYINT"/>
+        <result property="version" column="version" jdbcType="INTEGER"/>
+        <result property="createBy" column="create_by" jdbcType="VARCHAR"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="updateBy" column="update_by" jdbcType="VARCHAR"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+        <result property="attr1" column="attr1" jdbcType="VARCHAR"/>
+        <result property="attr2" column="attr2" jdbcType="INTEGER"/>
+        <result property="attr3" column="attr3" jdbcType="VARCHAR"/>
+    </resultMap>
+    
+    <!-- 通过ID查询单条数据 -->
+    <select id="queryById" resultMap="CrmContactPersonMap">
+        select
+            id,client_id,client_name,client_code,person_name,person_phone,section,job,wx_number,mailbox,detail,is_decision,duty_by,is_deleted,version,create_by,create_time,update_by,update_time,attr1,attr2,attr3
+        from crm_contact_person
+        where is_deleted = 0 and  id = #{id}
+    </select>
+    
+    <!--分页查询指定行数据-->
+    <select id="selectCrmContactPersonList" resultMap="CrmContactPersonMap">
+        select
+            id,client_id,client_name,client_code,person_name,person_phone,section,job,wx_number,mailbox,detail,is_decision,duty_by,is_deleted,version,create_by,create_time,update_by,update_time,attr1,attr2,attr3
+        from crm_contact_person
+        <where>
+            is_deleted = 0
+            <if test="id != null and id != ''"> and id = #{id}</if>
+            <if test="clientId != null and clientId != ''"> and client_id = #{clientId}</if>
+            <if test="clientName != null and clientName != ''"> and client_name = #{clientName}</if>
+            <if test="clientCode != null and clientCode != ''"> and client_code = #{clientCode}</if>
+            <if test="personName != null and personName != ''"> and person_name = #{personName}</if>
+            <if test="personPhone != null and personPhone != ''"> and person_phone = #{personPhone}</if>
+            <if test="section != null and section != ''"> and section = #{section}</if>
+            <if test="job != null and job != ''"> and job = #{job}</if>
+            <if test="wxNumber != null and wxNumber != ''"> and wx_number = #{wxNumber}</if>
+            <if test="mailbox != null and mailbox != ''"> and mailbox = #{mailbox}</if>
+            <if test="detail != null and detail != ''"> and detail = #{detail}</if>
+            <if test="isDecision != null and isDecision != ''"> and is_decision = #{isDecision}</if>
+            <if test="dutyBy != null and dutyBy != ''"> and duty_by = #{dutyBy}</if>
+            <if test="isDeleted != null and isDeleted != ''"> and is_deleted = #{isDeleted}</if>
+            <if test="version != null and version != ''"> and version = #{version}</if>
+            <if test="createBy != null and createBy != ''"> and create_by = #{createBy}</if>
+            <if test="createTime != null and createTime != ''"> and create_time = #{createTime}</if>
+            <if test="updateBy != null and updateBy != ''"> and update_by = #{updateBy}</if>
+            <if test="updateTime != null and updateTime != ''"> and update_time = #{updateTime}</if>
+            <if test="attr1 != null and attr1 != ''"> and attr1 = #{attr1}</if>
+            <if test="attr2 != null and attr2 != ''"> and attr2 = #{attr2}</if>
+            <if test="attr3 != null and attr3 != ''"> and attr3 = #{attr3}</if>
+        </where>
+        order by create_time desc
+    </select>
+    
+    <!--新增数据-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into crm_contact_person
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null ">id,</if>
+            <if test="clientId != null ">client_id,</if>
+            <if test="clientName != null and clientName != ''">client_name,</if>
+            <if test="clientCode != null and clientCode != ''">client_code,</if>
+            <if test="personName != null and personName != ''">person_name,</if>
+            <if test="personPhone != null and personPhone != ''">person_phone,</if>
+            <if test="section != null and section != ''">section,</if>
+            <if test="job != null and job != ''">job,</if>
+            <if test="wxNumber != null and wxNumber != ''">wx_number,</if>
+            <if test="mailbox != null and mailbox != ''">mailbox,</if>
+            <if test="detail != null and detail != ''">detail,</if>
+            <if test="isDecision != null and isDecision != ''">is_decision,</if>
+            <if test="dutyBy != null and dutyBy != ''">duty_by,</if>
+            <if test="isDeleted != null ">is_deleted,</if>
+            <if test="version != null ">version,</if>
+            <if test="createBy != null and createBy != ''">create_by,</if>
+            <if test="createTime != null ">create_time,</if>
+            <if test="updateBy != null and updateBy != ''">update_by,</if>
+            <if test="updateTime != null ">update_time,</if>
+            <if test="attr1 != null and attr1 != ''">attr1,</if>
+            <if test="attr2 != null ">attr2,</if>
+            <if test="attr3 != null and attr3 != ''">attr3,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">#{id},</if>
+            <if test="clientId != null">#{clientId},</if>
+            <if test="clientName != null and clientName != ''">#{clientName},</if>
+            <if test="clientCode != null and clientCode != ''">#{clientCode},</if>
+            <if test="personName != null and personName != ''">#{personName},</if>
+            <if test="personPhone != null and personPhone != ''">#{personPhone},</if>
+            <if test="section != null and section != ''">#{section},</if>
+            <if test="job != null and job != ''">#{job},</if>
+            <if test="wxNumber != null and wxNumber != ''">#{wxNumber},</if>
+            <if test="mailbox != null and mailbox != ''">#{mailbox},</if>
+            <if test="detail != null and detail != ''">#{detail},</if>
+            <if test="isDecision != null and isDecision != ''">#{isDecision},</if>
+            <if test="dutyBy != null and dutyBy != ''">#{dutyBy},</if>
+            <if test="isDeleted != null">#{isDeleted},</if>
+            <if test="version != null">#{version},</if>
+            <if test="createBy != null and createBy != ''">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null and updateBy != ''">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="attr1 != null and attr1 != ''">#{attr1},</if>
+            <if test="attr2 != null">#{attr2},</if>
+            <if test="attr3 != null and attr3 != ''">#{attr3},</if>
+        </trim>
+    </insert>
+    
+    <!-- 更新数据 -->
+    <update id="update">
+        update crm_contact_person
+        <set>
+            <trim suffixOverrides=",">
+                <if test="clientId != null "> client_id = #{clientId}, </if>
+                <if test="clientName != null "> client_name = #{clientName}, </if>
+                <if test="clientCode != null "> client_code = #{clientCode}, </if>
+                <if test="personName != null "> person_name = #{personName}, </if>
+                <if test="personPhone != null "> person_phone = #{personPhone}, </if>
+                <if test="section != null "> section = #{section}, </if>
+                <if test="job != null "> job = #{job}, </if>
+                <if test="wxNumber != null "> wx_number = #{wxNumber}, </if>
+                <if test="mailbox != null "> mailbox = #{mailbox}, </if>
+                <if test="detail != null "> detail = #{detail}, </if>
+                <if test="isDecision != null "> is_decision = #{isDecision}, </if>
+                <if test="dutyBy != null "> duty_by = #{dutyBy}, </if>
+                <if test="isDeleted != null "> is_deleted = #{isDeleted}, </if>
+                <if test="version != null "> version = #{version}, </if>
+                <if test="createBy != null "> create_by = #{createBy}, </if>
+                <if test="createTime != null "> create_time = #{createTime}, </if>
+                <if test="updateBy != null "> update_by = #{updateBy}, </if>
+                <if test="updateTime != null "> update_time = #{updateTime}, </if>
+                <if test="attr1 != null "> attr1 = #{attr1}, </if>
+                <if test="attr2 != null "> attr2 = #{attr2}, </if>
+                <if test="attr3 != null "> attr3 = #{attr3}, </if>
+            </trim>
+        </set>
+        where id = #{id}
+    </update>
+    
+    <!--逻辑删除删除-->
+    <update id="deleteById">
+        update crm_contact_person set is_deleted = 1 where id = #{id}
+    </update>
+    
+    <!--批量逻辑删除-->
+    <update id="deleteByIds">
+        update crm_contact_person set is_deleted = 1 where id in
+        <foreach collection="array" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </update>
+</mapper>

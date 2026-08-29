@@ -1,0 +1,316 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cuixing.mold.mapper.MoldLifeCycleMapper">
+
+    <resultMap type="com.cuixing.mold.entity.MoldLifeCycle" id="MoldLifeCycleMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="nestingId" column="nesting_id" jdbcType="INTEGER"/>
+        <result property="moldId" column="mold_id" jdbcType="INTEGER"/>
+        <result property="status" column="status" jdbcType="VARCHAR"/>
+        <result property="attr1" column="attr1" jdbcType="VARCHAR"/>
+        <result property="attr2" column="attr2" jdbcType="VARCHAR"/>
+        <result property="attr3" column="attr3" jdbcType="INTEGER"/>
+        <result property="attr4" column="attr4" jdbcType="INTEGER"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="createBy" column="create_by" jdbcType="VARCHAR"/>
+        <result property="updateBy" column="update_by" jdbcType="VARCHAR"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+        <result property="moldCode" column="mold_code" jdbcType="VARCHAR"/>
+        <result property="moldType" column="mold_type" jdbcType="VARCHAR"/>
+        <result property="moldSpec" column="mold_spec" jdbcType="VARCHAR"/>
+        <result property="moldMaterial" column="mold_material" jdbcType="VARCHAR"/>
+        <result property="moldAperture" column="mold_aperture" jdbcType="VARCHAR"/>
+        <result property="moldArea" column="mold_area" jdbcType="VARCHAR"/>
+        <result property="moldName" column="mold_name" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="selectMoldLifeCycleVo">
+        SELECT id,
+               nesting_id,
+               mold_id,
+               status,
+               attr1,
+               attr2,
+               attr3,
+               attr4,
+               create_time,
+               create_by,
+               update_by,
+               update_time,
+               mold_code,
+               mold_type,
+               mold_spec,
+               mold_material,
+               mold_aperture,
+               mold_area,
+               mold_name
+        FROM mold_life_cycle
+    </sql>
+
+    <select id="selectMoldLifeCycleList" parameterType="MoldLifeCycle" resultMap="MoldLifeCycleMap">
+        <include refid="selectMoldLifeCycleVo"/>
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="nestingId != null">
+                and nesting_id = #{nestingId}
+            </if>
+            <if test="moldId != null">
+                and mold_id = #{moldId}
+            </if>
+            <if test="status != null and status != ''">
+                and status = #{status}
+            </if>
+            <if test="attr1 != null and attr1 != ''">
+                and attr1 = #{attr1}
+            </if>
+            <if test="attr2 != null and attr2 != ''">
+                and attr2 = #{attr2}
+            </if>
+            <if test="attr3 != null">
+                and attr3 = #{attr3}
+            </if>
+            <if test="attr4 != null">
+                and attr4 = #{attr4}
+            </if>
+            <if test="startDate != null and endDate != null">
+                and create_time BETWEEN #{startDate} AND #{endDate}
+            </if>
+            <if test="createBy != null and createBy != ''">
+                and create_by = #{createBy}
+            </if>
+            <if test="updateBy != null and updateBy != ''">
+                and update_by = #{updateBy}
+            </if>
+            <if test="updateTime != null">
+                and update_time = #{updateTime}
+            </if>
+            <if test="moldCode != null and moldCode != ''">
+                and mold_code = #{moldCode}
+            </if>
+            <if test="moldType != null and moldType != ''">
+                and mold_type = #{moldType}
+            </if>
+            <if test="moldSpec != null and moldSpec != ''">
+                and mold_spec = #{moldSpec}
+            </if>
+            <if test="moldMaterial != null and moldMaterial != ''">
+                and mold_material = #{moldMaterial}
+            </if>
+            <if test="moldAperture != null and moldAperture != ''">
+                and mold_aperture = #{moldAperture}
+            </if>
+            <if test="moldArea != null and moldArea != ''">
+                and mold_area = #{moldArea}
+            </if>
+            <if test="moldName != null and moldName != ''">
+                and mold_name = #{moldName}
+            </if>
+        </where>
+        ORDER BY
+        CASE
+        WHEN update_time IS NOT NULL THEN update_time
+        ELSE create_time
+        END DESC
+    </select>
+
+    <!-- Corrected queryById -->
+    <select id="queryById" resultMap="MoldLifeCycleMap">
+        SELECT id, nesting_id, mold_id, status, attr1, attr2, attr3, attr4, create_time, create_by, update_by, update_time, mold_code, mold_type, mold_spec, mold_material, mold_aperture, mold_area, mold_name
+        FROM mold_life_cycle
+        WHERE id = #{id}
+    </select>
+
+    <!-- Corrected insert -->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        INSERT INTO mold_life_cycle(nesting_id, mold_id, status, attr1, attr2, attr3, attr4, create_time, create_by, update_by, update_time, mold_code, mold_type, mold_spec, mold_material, mold_aperture, mold_area, mold_name)
+        VALUES (#{nestingId}, #{moldId}, #{status}, #{attr1}, #{attr2}, #{attr3}, #{attr4}, #{createTime}, #{createBy}, #{updateBy}, #{updateTime}, #{moldCode}, #{moldType}, #{moldSpec}, #{moldMaterial}, #{moldAperture}, #{moldArea}, #{moldName})
+    </insert>
+
+    <!-- Corrected insertBatch -->
+    <insert id="insertBatch" keyProperty="id" useGeneratedKeys="true">
+        INSERT INTO mold_life_cycle(nesting_id, mold_id, status, attr1, attr2, attr3, attr4, create_time, create_by, update_by, update_time, mold_code, mold_type, mold_spec, mold_material, mold_aperture, mold_area, mold_name)
+        VALUES
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.nestingId}, #{entity.moldId}, #{entity.status}, #{entity.attr1}, #{entity.attr2}, #{entity.attr3}, #{entity.attr4}, #{entity.createTime}, #{entity.createBy}, #{entity.updateBy}, #{entity.updateTime}, #{entity.moldCode}, #{entity.moldType}, #{entity.moldSpec}, #{entity.moldMaterial}, #{entity.moldAperture}, #{entity.moldArea}, #{entity.moldName})
+        </foreach>
+    </insert>
+
+    <insert id="insertOrUpdateBatch" keyProperty="id" useGeneratedKeys="true">
+        INSERT INTO mold_life_cycle (
+        nesting_id, mold_id, status, attr1, attr2, attr3, attr4,
+        create_time, create_by, update_by, update_time,
+        mold_code, mold_type, mold_spec, mold_material,
+        mold_aperture, mold_area, mold_name
+        )
+        VALUES
+        <foreach collection="entities" item="entity" separator=",">
+            (
+            #{entity.nestingId}, #{entity.moldId}, #{entity.status},
+            #{entity.attr1}, #{entity.attr2}, #{entity.attr3}, #{entity.attr4},
+            #{entity.createTime}, #{entity.createBy}, #{entity.updateBy},
+            #{entity.updateTime}, #{entity.moldCode}, #{entity.moldType},
+            #{entity.moldSpec}, #{entity.moldMaterial}, #{entity.moldAperture},
+            #{entity.moldArea}, #{entity.moldName}
+            )
+        </foreach>
+        ON DUPLICATE KEY UPDATE
+        nesting_id = VALUES(nesting_id),
+        mold_id = VALUES(mold_id),
+        status = VALUES(status),
+        attr1 = VALUES(attr1),
+        attr2 = VALUES(attr2),
+        attr3 = VALUES(attr3),
+        attr4 = VALUES(attr4),
+        create_time = VALUES(create_time),
+        create_by = VALUES(create_by),
+        update_by = VALUES(update_by),
+        update_time = VALUES(update_time),
+        mold_code = VALUES(mold_code),
+        mold_type = VALUES(mold_type),
+        mold_spec = VALUES(mold_spec),
+        mold_material = VALUES(mold_material),
+        mold_aperture = VALUES(mold_aperture),
+        mold_area = VALUES(mold_area),
+        mold_name = VALUES(mold_name)
+    </insert>
+
+    <!--统计总行数-->
+    <select id="count" resultType="java.lang.Long">
+        select count(1)
+        from mold_life_cycle
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="nestingId != null">
+                and nesting_id = #{nestingId}
+            </if>
+            <if test="moldId != null">
+                and mold_id = #{moldId}
+            </if>
+            <if test="status != null and status != ''">
+                and status = #{status}
+            </if>
+            <if test="attr1 != null and attr1 != ''">
+                and attr1 = #{attr1}
+            </if>
+            <if test="attr2 != null and attr2 != ''">
+                and attr2 = #{attr2}
+            </if>
+            <if test="attr3 != null">
+                and attr3 = #{attr3}
+            </if>
+            <if test="attr4 != null">
+                and attr4 = #{attr4}
+            </if>
+            <if test="createTime != null">
+                and create_time = #{createTime}
+            </if>
+            <if test="createBy != null and createBy != ''">
+                and create_by = #{createBy}
+            </if>
+            <if test="updateBy != null and updateBy != ''">
+                and update_by = #{updateBy}
+            </if>
+            <if test="updateTime != null">
+                and update_time = #{updateTime}
+            </if>
+            <if test="moldCode != null and moldCode != ''">
+                and mold_code = #{moldCode}
+            </if>
+            <if test="moldType != null and moldType != ''">
+                and mold_type = #{moldType}
+            </if>
+            <if test="moldSpec != null and moldSpec != ''">
+                and mold_spec = #{moldSpec}
+            </if>
+            <if test="moldMaterial != null and moldMaterial != ''">
+                and mold_material = #{moldMaterial}
+            </if>
+            <if test="moldAperture != null and moldAperture != ''">
+                and mold_aperture = #{moldAperture}
+            </if>
+            <if test="moldArea != null and moldArea != ''">
+                and mold_area = #{moldArea}
+            </if>
+            <if test="moldName != null and moldName != ''">
+                and mold_name = #{moldName}
+            </if>
+        </where>
+    </select>
+
+
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update mold_life_cycle
+        <set>
+            <if test="nestingId != null">
+                nesting_id = #{nestingId},
+            </if>
+            <if test="moldId != null">
+                mold_id = #{moldId},
+            </if>
+            <if test="status != null and status != ''">
+                status = #{status},
+            </if>
+            <if test="attr1 != null and attr1 != ''">
+                attr1 = #{attr1},
+            </if>
+            <if test="attr2 != null and attr2 != ''">
+                attr2 = #{attr2},
+            </if>
+            <if test="attr3 != null">
+                attr3 = #{attr3},
+            </if>
+            <if test="attr4 != null">
+                attr4 = #{attr4},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime},
+            </if>
+            <if test="createBy != null and createBy != ''">
+                create_by = #{createBy},
+            </if>
+            <if test="updateBy != null and updateBy != ''">
+                update_by = #{updateBy},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime},
+            </if>
+            <if test="moldCode != null and moldCode != ''">
+                mold_code = #{moldCode},
+            </if>
+            <if test="moldType != null and moldType != ''">
+                mold_type = #{moldType},
+            </if>
+            <if test="moldSpec != null and moldSpec != ''">
+                mold_spec = #{moldSpec},
+            </if>
+            <if test="moldMaterial != null and moldMaterial != ''">
+                mold_material = #{moldMaterial},
+            </if>
+            <if test="moldAperture != null and moldAperture != ''">
+                mold_aperture = #{moldAperture},
+            </if>
+            <if test="moldArea != null and moldArea != ''">
+                mold_area = #{moldArea},
+            </if>
+            <if test="moldName != null and moldName != ''">
+                mold_name = #{moldName},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete
+        from mold_life_cycle
+        where id = #{id}
+    </delete>
+
+</mapper>
+

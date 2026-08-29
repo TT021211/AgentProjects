@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cuixing.crm.mapper.CrmCustomerMapper">
+
+    <resultMap type="com.cuixing.crm.entity.CrmCustomer" id="CrmCustomerMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="materialUniqueCode" column="material_unique_code" jdbcType="VARCHAR"/>
+        <result property="productName" column="product_name" jdbcType="VARCHAR"/>
+        <result property="customerComplaints" column="customer_complaints" jdbcType="VARCHAR"/>
+        <result property="customerPerson" column="customer_person" jdbcType="VARCHAR"/>
+        <result property="contactInformation" column="contact_information" jdbcType="VARCHAR"/>
+        <result property="createBy" column="create_by" jdbcType="VARCHAR"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="updateBy" column="update_by" jdbcType="VARCHAR"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+        <result property="attr1" column="attr1" jdbcType="VARCHAR"/>
+        <result property="attr2" column="attr2" jdbcType="INTEGER"/>
+        <result property="attr3" column="attr3" jdbcType="VARCHAR"/>
+    </resultMap>
+   
+    <sql id="selectCrmCustomerVo">
+        SELECT 
+           id ,
+           material_unique_code ,
+           product_name ,
+           customer_complaints ,
+           customer_person ,
+           contact_information ,
+           create_by ,
+           create_time ,
+           update_by ,
+           update_time ,
+           attr1 ,
+           attr2 ,
+           attr3 
+        FROM crm_customer
+    </sql>
+    
+     <select id="selectCrmCustomerList" parameterType="CrmCustomer" resultMap="CrmCustomerMap">
+        <include refid="selectCrmCustomerVo"/>
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="materialUniqueCode != null and materialUniqueCode != ''">
+                and material_unique_code = #{materialUniqueCode}
+            </if>
+            <if test="productName != null and productName != ''">
+                and product_name = #{productName}
+            </if>
+            <if test="customerComplaints != null and customerComplaints != ''">
+                and customer_complaints = #{customerComplaints}
+            </if>
+            <if test="customerPerson != null and customerPerson != ''">
+                and customer_person = #{customerPerson}
+            </if>
+            <if test="contactInformation != null and contactInformation != ''">
+                and contact_information = #{contactInformation}
+            </if>
+            <if test="createBy != null and createBy != ''">
+                and create_by = #{createBy}
+            </if>
+            <if test="createTime != null">
+                and create_time = #{createTime}
+            </if>
+            <if test="updateBy != null and updateBy != ''">
+                and update_by = #{updateBy}
+            </if>
+            <if test="updateTime != null">
+                and update_time = #{updateTime}
+            </if>
+            <if test="attr1 != null and attr1 != ''">
+                and attr1 = #{attr1}
+            </if>
+            <if test="attr2 != null">
+                and attr2 = #{attr2}
+            </if>
+            <if test="attr3 != null and attr3 != ''">
+                and attr3 = #{attr3}
+            </if>
+        </where>
+    </select>
+    
+    <!--查询单个-->
+    <select id="queryById" resultMap="CrmCustomerMap">
+        select
+           id ,
+           material_unique_code ,
+           product_name ,
+           customer_complaints ,
+           customer_person ,
+           contact_information ,
+           create_by ,
+           create_time ,
+           update_by ,
+           update_time ,
+           attr1 ,
+           attr2 ,
+           attr3 
+
+        from crm_customer
+        where id = #{id}
+    </select>
+
+    <!--统计总行数-->
+    <select id="count" resultType="java.lang.Long">
+        select count(1)
+        from crm_customer
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="materialUniqueCode != null and materialUniqueCode != ''">
+                and material_unique_code = #{materialUniqueCode}
+            </if>
+            <if test="productName != null and productName != ''">
+                and product_name = #{productName}
+            </if>
+            <if test="customerComplaints != null and customerComplaints != ''">
+                and customer_complaints = #{customerComplaints}
+            </if>
+            <if test="customerPerson != null and customerPerson != ''">
+                and customer_person = #{customerPerson}
+            </if>
+            <if test="contactInformation != null and contactInformation != ''">
+                and contact_information = #{contactInformation}
+            </if>
+            <if test="createBy != null and createBy != ''">
+                and create_by = #{createBy}
+            </if>
+            <if test="createTime != null">
+                and create_time = #{createTime}
+            </if>
+            <if test="updateBy != null and updateBy != ''">
+                and update_by = #{updateBy}
+            </if>
+            <if test="updateTime != null">
+                and update_time = #{updateTime}
+            </if>
+            <if test="attr1 != null and attr1 != ''">
+                and attr1 = #{attr1}
+            </if>
+            <if test="attr2 != null">
+                and attr2 = #{attr2}
+            </if>
+            <if test="attr3 != null and attr3 != ''">
+                and attr3 = #{attr3}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into crm_customer(material_unique_code, product_name, customer_complaints, customer_person, contact_information, create_by, create_time, update_by, update_time, attr1, attr2, attr3)
+        values (#{materialUniqueCode}, #{productName}, #{customerComplaints}, #{customerPerson}, #{contactInformation}, #{createBy}, #{createTime}, #{updateBy}, #{updateTime}, #{attr1}, #{attr2}, #{attr3})
+    </insert>
+
+    <insert id="insertBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into crm_customer(material_unique_code, product_name, customer_complaints, customer_person, contact_information, create_by, create_time, update_by, update_time, attr1, attr2, attr3)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+        (#{entity.materialUniqueCode}, #{entity.productName}, #{entity.customerComplaints}, #{entity.customerPerson}, #{entity.contactInformation}, #{entity.createBy}, #{entity.createTime}, #{entity.updateBy}, #{entity.updateTime}, #{entity.attr1}, #{entity.attr2}, #{entity.attr3})
+        </foreach>
+    </insert>
+
+    <insert id="insertOrUpdateBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into crm_customer(material_unique_code, product_name, customer_complaints, customer_person, contact_information, create_by, create_time, update_by, update_time, attr1, attr2, attr3)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.materialUniqueCode}, #{entity.productName}, #{entity.customerComplaints}, #{entity.customerPerson}, #{entity.contactInformation}, #{entity.createBy}, #{entity.createTime}, #{entity.updateBy}, #{entity.updateTime}, #{entity.attr1}, #{entity.attr2}, #{entity.attr3})
+        </foreach>
+        on duplicate key update
+material_unique_code = values(material_unique_code),
+product_name = values(product_name),
+customer_complaints = values(customer_complaints),
+customer_person = values(customer_person),
+contact_information = values(contact_information),
+create_by = values(create_by),
+create_time = values(create_time),
+update_by = values(update_by),
+update_time = values(update_time),
+attr1 = values(attr1),
+attr2 = values(attr2),
+attr3 = values(attr3)
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update crm_customer
+        <set>
+            <if test="materialUniqueCode != null and materialUniqueCode != ''">
+                material_unique_code = #{materialUniqueCode},
+            </if>
+            <if test="productName != null and productName != ''">
+                product_name = #{productName},
+            </if>
+            <if test="customerComplaints != null and customerComplaints != ''">
+                customer_complaints = #{customerComplaints},
+            </if>
+            <if test="customerPerson != null and customerPerson != ''">
+                customer_person = #{customerPerson},
+            </if>
+            <if test="contactInformation != null and contactInformation != ''">
+                contact_information = #{contactInformation},
+            </if>
+            <if test="createBy != null and createBy != ''">
+                create_by = #{createBy},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime},
+            </if>
+            <if test="updateBy != null and updateBy != ''">
+                update_by = #{updateBy},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime},
+            </if>
+            <if test="attr1 != null and attr1 != ''">
+                attr1 = #{attr1},
+            </if>
+            <if test="attr2 != null">
+                attr2 = #{attr2},
+            </if>
+            <if test="attr3 != null and attr3 != ''">
+                attr3 = #{attr3},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from crm_customer where id = #{id}
+    </delete>
+
+</mapper>
+

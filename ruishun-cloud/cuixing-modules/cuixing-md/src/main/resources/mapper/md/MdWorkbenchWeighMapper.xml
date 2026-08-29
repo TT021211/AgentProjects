@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cuixing.md.mapper.MdWorkbenchWeighMapper">
+    <resultMap type="com.cuixing.md.entity.MdWorkbenchWeigh" id="MdWorkbenchWeighMap">
+        <result property="id" column="id" jdbcType="BIGINT"/>
+        <result property="workbenchTypeId" column="workbench_type_id" jdbcType="BIGINT"/>
+        <result property="workbenchType" column="workbench_type" jdbcType="VARCHAR"/>
+        <result property="machineName" column="machine_name" jdbcType="VARCHAR"/>
+        <result property="machineCode" column="machine_code" jdbcType="VARCHAR"/>
+        <result property="machineType" column="machine_type" jdbcType="VARCHAR"/>
+        <result property="machineBrand" column="machine_brand" jdbcType="VARCHAR"/>
+        <result property="machineTemplate" column="machine_template" jdbcType="INTEGER"/>
+        <result property="modelId" column="model_id" jdbcType="BIGINT"/>
+        <result property="modelName" column="model_name" jdbcType="VARCHAR"/>
+        <result property="ifEnable" column="if_enable" jdbcType="TINYINT"/>
+        <result property="equipmentId" column="equipment_id" jdbcType="BIGINT"/>
+        <result property="equipmentCode" column="equipment_code" jdbcType="VARCHAR"/>
+        <result property="isDeleted" column="is_deleted" jdbcType="TINYINT"/>
+        <result property="version" column="version" jdbcType="INTEGER"/>
+        <result property="createBy" column="create_by" jdbcType="VARCHAR"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="updateBy" column="update_by" jdbcType="VARCHAR"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+        <result property="attr1" column="attr1" jdbcType="VARCHAR"/>
+        <result property="attr2" column="attr2" jdbcType="INTEGER"/>
+        <result property="attr3" column="attr3" jdbcType="VARCHAR"/>
+        <result property="printTemplateId" column="print_template_id" jdbcType="BIGINT"/>
+        <result property="printTemplateName" column="print_template_name" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <resultMap type="com.cuixing.md.entity.vo.MdWorkbenchWeighVo" id="MdWorkbenchWeighVoMap">
+        <result property="id" column="id" jdbcType="BIGINT"/>
+        <result property="workbenchTypeId" column="workbench_type_id" jdbcType="BIGINT"/>
+        <result property="workbenchType" column="workbench_type" jdbcType="VARCHAR"/>
+        <result property="machineName" column="machine_name" jdbcType="VARCHAR"/>
+        <result property="machineCode" column="machine_code" jdbcType="VARCHAR"/>
+        <result property="machineType" column="machine_type" jdbcType="VARCHAR"/>
+        <result property="machineBrand" column="machine_brand" jdbcType="VARCHAR"/>
+        <result property="machineTemplate" column="machine_template" jdbcType="INTEGER"/>
+        <result property="modelId" column="model_id" jdbcType="BIGINT"/>
+        <result property="modelName" column="model_name" jdbcType="VARCHAR"/>
+        <result property="ifEnable" column="if_enable" jdbcType="TINYINT"/>
+        <result property="equipmentId" column="equipment_id" jdbcType="BIGINT"/>
+        <result property="equipmentCode" column="equipment_code" jdbcType="VARCHAR"/>
+        <result property="isDeleted" column="is_deleted" jdbcType="TINYINT"/>
+        <result property="version" column="version" jdbcType="INTEGER"/>
+        <result property="createBy" column="create_by" jdbcType="VARCHAR"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="updateBy" column="update_by" jdbcType="VARCHAR"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+        <result property="attr1" column="attr1" jdbcType="VARCHAR"/>
+        <result property="attr2" column="attr2" jdbcType="INTEGER"/>
+        <result property="attr3" column="attr3" jdbcType="VARCHAR"/>
+        <result property="printTemplateId" column="print_template_id" jdbcType="BIGINT"/>
+        <result property="printTemplateName" column="print_template_name" jdbcType="VARCHAR"/>
+        <result property="content" column="content" jdbcType="VARCHAR"/>
+    </resultMap>
+    
+    <!-- 通过ID查询单条数据 -->
+    <select id="queryById" resultMap="MdWorkbenchWeighMap">
+        select
+            id,workbench_type_id,workbench_type,machine_name,machine_code,machine_type,machine_brand,machine_template,model_id,model_name,if_enable,equipment_id,equipment_code,is_deleted,version,create_by,create_time,update_by,update_time,attr1,attr2,attr3,print_template_id,print_template_name
+        from md_workbench_weigh
+        where is_deleted = 0 and  id = #{id}
+    </select>
+
+
+    <!-- 查询称重机列表 -->
+    <select id="selectMdWorkbenchWeighAll" resultMap="MdWorkbenchWeighVoMap">
+        select
+            id,workbench_type_id,workbench_type,machine_name,machine_code,machine_type,machine_brand,machine_template,model_id,model_name,if_enable,equipment_id,equipment_code,mww.is_deleted,mww.version,mww.create_by,mww.create_time,mww.update_by,mww.update_time,mww.attr1,mww.attr2,mww.attr3,print_template_id,print_template_name,mpt.content
+        from md_workbench_weigh mww inner join md_print_template  mpt on mww.print_template_id = mpt.template_id
+        where is_deleted = 0
+    </select>
+    
+    <!--分页查询指定行数据-->
+    <select id="selectMdWorkbenchWeighList" resultMap="MdWorkbenchWeighMap">
+        select
+            id,workbench_type_id,workbench_type,machine_name,machine_code,machine_type,machine_brand,machine_template,model_id,model_name,if_enable,equipment_id,equipment_code,is_deleted,version,create_by,create_time,update_by,update_time,attr1,attr2,attr3,print_template_id,print_template_name
+        from md_workbench_weigh
+        <where>
+            is_deleted = 0
+            <if test="id != null and id != ''"> and id = #{id}</if>
+            <if test="workbenchTypeId != null and workbenchTypeId != ''"> and workbench_type_id = #{workbenchTypeId}</if>
+            <if test="workbenchType != null and workbenchType != ''"> and workbench_type = #{workbenchType}</if>
+            <if test="machineName != null and machineName != ''"> and machine_name = #{machineName}</if>
+            <if test="machineCode != null and machineCode != ''"> and machine_code = #{machineCode}</if>
+            <if test="machineType != null and machineType != ''"> and machine_type = #{machineType}</if>
+            <if test="machineBrand != null and machineBrand != ''"> and machine_brand = #{machineBrand}</if>
+            <if test="machineTemplate != null and machineTemplate != ''"> and machine_template = #{machineTemplate}</if>
+            <if test="modelId != null and modelId != ''"> and model_id = #{modelId}</if>
+            <if test="modelName != null and modelName != ''"> and model_name = #{modelName}</if>
+            <if test="ifEnable != null and ifEnable != ''"> and if_enable = #{ifEnable}</if>
+            <if test="equipmentId != null and equipmentId != ''"> and equipment_id = #{equipmentId}</if>
+            <if test="equipmentCode != null and equipmentCode != ''"> and equipment_code = #{equipmentCode}</if>
+            <if test="isDeleted != null and isDeleted != ''"> and is_deleted = #{isDeleted}</if>
+            <if test="version != null and version != ''"> and version = #{version}</if>
+            <if test="createBy != null and createBy != ''"> and create_by = #{createBy}</if>
+            <if test="createTime != null and createTime != ''"> and create_time = #{createTime}</if>
+            <if test="updateBy != null and updateBy != ''"> and update_by = #{updateBy}</if>
+            <if test="updateTime != null and updateTime != ''"> and update_time = #{updateTime}</if>
+            <if test="attr1 != null and attr1 != ''"> and attr1 = #{attr1}</if>
+            <if test="attr2 != null and attr2 != ''"> and attr2 = #{attr2}</if>
+            <if test="attr3 != null and attr3 != ''"> and attr3 = #{attr3}</if>
+            <if test="printTemplateId != null and printTemplateId != ''"> and print_template_id = #{printTemplateId}</if>
+            <if test="printTemplateName != null and printTemplateName != ''"> and print_template_name = #{printTemplateName}</if>
+        </where>
+        order by create_time desc
+    </select>
+    
+    <!--新增数据-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into md_workbench_weigh
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null ">id,</if>
+            <if test="workbenchTypeId != null ">workbench_type_id,</if>
+            <if test="workbenchType != null and workbenchType != ''">workbench_type,</if>
+            <if test="machineName != null and machineName != ''">machine_name,</if>
+            <if test="machineCode != null and machineCode != ''">machine_code,</if>
+            <if test="machineType != null and machineType != ''">machine_type,</if>
+            <if test="machineBrand != null and machineBrand != ''">machine_brand,</if>
+            <if test="machineTemplate != null ">machine_template,</if>
+            <if test="modelId != null ">model_id,</if>
+            <if test="modelName != null and modelName != ''">model_name,</if>
+            <if test="ifEnable != null ">if_enable,</if>
+            <if test="equipmentId != null ">equipment_id,</if>
+            <if test="equipmentCode != null and equipmentCode != ''">equipment_code,</if>
+            <if test="isDeleted != null ">is_deleted,</if>
+            <if test="version != null ">version,</if>
+            <if test="createBy != null and createBy != ''">create_by,</if>
+            <if test="createTime != null ">create_time,</if>
+            <if test="updateBy != null and updateBy != ''">update_by,</if>
+            <if test="updateTime != null ">update_time,</if>
+            <if test="attr1 != null and attr1 != ''">attr1,</if>
+            <if test="attr2 != null ">attr2,</if>
+            <if test="attr3 != null and attr3 != ''">attr3,</if>
+            <if test="printTemplateId != null ">print_template_id,</if>
+            <if test="printTemplateName != null and printTemplateName != ''">print_template_name,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">#{id},</if>
+            <if test="workbenchTypeId != null">#{workbenchTypeId},</if>
+            <if test="workbenchType != null and workbenchType != ''">#{workbenchType},</if>
+            <if test="machineName != null and machineName != ''">#{machineName},</if>
+            <if test="machineCode != null and machineCode != ''">#{machineCode},</if>
+            <if test="machineType != null and machineType != ''">#{machineType},</if>
+            <if test="machineBrand != null and machineBrand != ''">#{machineBrand},</if>
+            <if test="machineTemplate != null">#{machineTemplate},</if>
+            <if test="modelId != null">#{modelId},</if>
+            <if test="modelName != null and modelName != ''">#{modelName},</if>
+            <if test="ifEnable != null">#{ifEnable},</if>
+            <if test="equipmentId != null">#{equipmentId},</if>
+            <if test="equipmentCode != null and equipmentCode != ''">#{equipmentCode},</if>
+            <if test="isDeleted != null">#{isDeleted},</if>
+            <if test="version != null">#{version},</if>
+            <if test="createBy != null and createBy != ''">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null and updateBy != ''">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="attr1 != null and attr1 != ''">#{attr1},</if>
+            <if test="attr2 != null">#{attr2},</if>
+            <if test="attr3 != null and attr3 != ''">#{attr3},</if>
+            <if test="printTemplateId != null">#{printTemplateId},</if>
+            <if test="printTemplateName != null and printTemplateName != ''">#{printTemplateName},</if>
+        </trim>
+    </insert>
+    
+    <!-- 更新数据 -->
+    <update id="update">
+        update md_workbench_weigh
+        <set>
+            <trim suffixOverrides=",">
+                <if test="workbenchTypeId != null "> workbench_type_id = #{workbenchTypeId}, </if>
+                <if test="workbenchType != null "> workbench_type = #{workbenchType}, </if>
+                <if test="machineName != null "> machine_name = #{machineName}, </if>
+                <if test="machineCode != null "> machine_code = #{machineCode}, </if>
+                <if test="machineType != null "> machine_type = #{machineType}, </if>
+                <if test="machineBrand != null "> machine_brand = #{machineBrand}, </if>
+                <if test="machineTemplate != null "> machine_template = #{machineTemplate}, </if>
+                <if test="modelId != null "> model_id = #{modelId}, </if>
+                <if test="modelName != null "> model_name = #{modelName}, </if>
+                <if test="ifEnable != null "> if_enable = #{ifEnable}, </if>
+                <if test="equipmentId != null "> equipment_id = #{equipmentId}, </if>
+                <if test="equipmentCode != null "> equipment_code = #{equipmentCode}, </if>
+                <if test="isDeleted != null "> is_deleted = #{isDeleted}, </if>
+                <if test="version != null "> version = #{version}, </if>
+                <if test="createBy != null "> create_by = #{createBy}, </if>
+                <if test="createTime != null "> create_time = #{createTime}, </if>
+                <if test="updateBy != null "> update_by = #{updateBy}, </if>
+                <if test="updateTime != null "> update_time = #{updateTime}, </if>
+                <if test="attr1 != null "> attr1 = #{attr1}, </if>
+                <if test="attr2 != null "> attr2 = #{attr2}, </if>
+                <if test="attr3 != null "> attr3 = #{attr3}, </if>
+                <if test="printTemplateId != null "> print_template_id = #{printTemplateId}, </if>
+                <if test="printTemplateName != null "> print_template_name = #{printTemplateName}, </if>
+            </trim>
+        </set>
+        where id = #{id} and version = #{version}
+    </update>
+    
+    <!--逻辑删除删除-->
+    <update id="deleteById">
+        update md_workbench_weigh set is_deleted = 1 where id = #{id}
+    </update>
+    
+    <!--批量逻辑删除-->
+    <update id="deleteByIds">
+        update md_workbench_weigh set is_deleted = 1 where id in
+        <foreach collection="array" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </update>
+</mapper>

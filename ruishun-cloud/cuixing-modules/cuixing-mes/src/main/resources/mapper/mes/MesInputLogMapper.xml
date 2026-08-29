@@ -1,0 +1,1089 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cuixing.mes.mapper.MesInputLogMapper">
+    <resultMap type="com.cuixing.mes.entity.MesInputLog" id="MesInputLogMap">
+        <result property="id" column="id" jdbcType="BIGINT"/>
+        <result property="inputId" column="input_id" jdbcType="BIGINT"/>
+        <result property="inputName" column="input_name" jdbcType="VARCHAR"/>
+        <result property="inputCode" column="input_code" jdbcType="VARCHAR"/>
+        <result property="inputType" column="input_type" jdbcType="VARCHAR"/>
+        <result property="inputSn" column="input_sn" jdbcType="VARCHAR"/>
+        <result property="inputWireType" column="input_wire_type" jdbcType="VARCHAR"/>
+        <result property="workstageId" column="workstage_id" jdbcType="BIGINT"/>
+        <result property="workstageName" column="workstage_name" jdbcType="VARCHAR"/>
+        <result property="workstageCode" column="workstage_code" jdbcType="VARCHAR"/>
+        <result property="workstationId" column="workstation_id" jdbcType="BIGINT"/>
+        <result property="workstationName" column="workstation_name" jdbcType="VARCHAR"/>
+        <result property="workstationCode" column="workstation_code" jdbcType="VARCHAR"/>
+        <result property="orderId" column="order_id" jdbcType="BIGINT"/>
+        <result property="orderSn" column="order_sn" jdbcType="VARCHAR"/>
+        <result property="orderDetailId" column="order_detail_id" jdbcType="BIGINT"/>
+        <result property="clientId" column="client_id" jdbcType="BIGINT"/>
+        <result property="clientName" column="client_name" jdbcType="VARCHAR"/>
+        <result property="workorderId" column="workorder_id" jdbcType="BIGINT"/>
+        <result property="workorderSn" column="workorder_sn" jdbcType="VARCHAR"/>
+        <result property="workorderEntryId" column="workorder_entry_id" jdbcType="BIGINT"/>
+        <result property="taskId" column="task_id" jdbcType="BIGINT"/>
+        <result property="taskSn" column="task_sn" jdbcType="VARCHAR"/>
+        <result property="productId" column="product_id" jdbcType="BIGINT"/>
+        <result property="productName" column="product_name" jdbcType="VARCHAR"/>
+        <result property="productCode" column="product_code" jdbcType="VARCHAR"/>
+        <result property="productSpecification" column="product_specification" jdbcType="VARCHAR"/>
+        <result property="inputNum" column="input_num" jdbcType="DECIMAL"/>
+        <result property="inputWeight" column="input_weight" jdbcType="DECIMAL"/>
+        <result property="workgroupId" column="workgroup_id" jdbcType="BIGINT"/>
+        <result property="workgroupName" column="workgroup_name" jdbcType="VARCHAR"/>
+        <result property="workgroupCode" column="workgroup_code" jdbcType="VARCHAR"/>
+        <result property="remark" column="remark" jdbcType="VARCHAR"/>
+        <result property="version" column="version" jdbcType="INTEGER"/>
+        <result property="isDeleted" column="is_deleted" jdbcType="INTEGER"/>
+        <result property="createBy" column="create_by" jdbcType="VARCHAR"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="updateBy" column="update_by" jdbcType="VARCHAR"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+        <result property="attr1" column="attr1" jdbcType="VARCHAR"/>
+        <result property="attr2" column="attr2" jdbcType="INTEGER"/>
+        <result property="attr3" column="attr3" jdbcType="VARCHAR"/>
+        <result property="batchCode" column="batch_code" jdbcType="VARCHAR"/>
+        <result property="partNumber" column="part_number" jdbcType="VARCHAR"/>
+        <result property="measureName" column="measure_name" jdbcType="VARCHAR"/>
+        <result property="itemSpecification" column="item_specification" jdbcType="VARCHAR"/>
+        <result property="jobNumber" column="job_number" jdbcType="VARCHAR"/>
+        <result property="productModel" column="product_model" jdbcType="VARCHAR"/>
+        <result property="taskType" column="task_type" jdbcType="VARCHAR"/>
+        <result property="axleNumber" column="axle_number" jdbcType="VARCHAR"/>
+        <result property="orderType" column="order_type" jdbcType="VARCHAR"/>
+        <result property="alexPositionNumber" column="alex_position_number" jdbcType="INTEGER"/>
+    </resultMap>
+    <resultMap type="com.cuixing.system.api.domain.md.MdProduct" id="MdProductMap">
+        <result property="id" column="id" jdbcType="BIGINT"/>
+        <result property="productCode" column="product_code" jdbcType="VARCHAR"/>
+        <result property="productName" column="product_name" jdbcType="VARCHAR"/>
+        <result property="productSize" column="product_size" jdbcType="VARCHAR"/>
+        <result property="specification" column="specification" jdbcType="VARCHAR"/>
+        <result property="numMeasureId" column="num_measure_id" jdbcType="BIGINT"/>
+        <result property="numMeasureName" column="num_measure_name" jdbcType="VARCHAR"/>
+        <result property="weightMeasureId" column="weight_measure_id" jdbcType="BIGINT"/>
+        <result property="weightMeasureName" column="weight_measure_name" jdbcType="VARCHAR"/>
+        <result property="processRouteId" column="process_route_id" jdbcType="BIGINT"/>
+        <result property="processRouteName" column="process_route_name" jdbcType="VARCHAR"/>
+        <result property="productTypeId" column="product_type_id" jdbcType="BIGINT"/>
+        <result property="productTypeCode" column="product_type_code" jdbcType="VARCHAR"/>
+        <result property="productTypeName" column="product_type_name" jdbcType="VARCHAR"/>
+        <result property="version" column="version" jdbcType="INTEGER"/>
+        <result property="isDeleted" column="is_deleted" jdbcType="INTEGER"/>
+        <result property="createBy" column="create_by" jdbcType="VARCHAR"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="updateBy" column="update_by" jdbcType="VARCHAR"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+        <result property="attr1" column="attr1" jdbcType="VARCHAR"/>
+        <result property="attr2" column="attr2" jdbcType="INTEGER"/>
+        <result property="attr3" column="attr3" jdbcType="VARCHAR"/>
+        <result property="productSizeInternational" column="product_size_international" jdbcType="VARCHAR"/>
+        <result property="batchNumber" column="batch_number" jdbcType="VARCHAR"/>
+        <result property="axialType" column="axial_type" jdbcType="VARCHAR"/>
+        <result property="coefficient" column="coefficient" jdbcType="VARCHAR"/>
+        <result property="materialCode" column="material_code" jdbcType="VARCHAR"/>
+    </resultMap>
+    <resultMap type="com.cuixing.mes.entity.MesOuputLog" id="MesOuputLogMap">
+        <result property="id" column="id" jdbcType="BIGINT"/>
+        <result property="outputId" column="output_id" jdbcType="BIGINT"/>
+        <result property="outputName" column="output_name" jdbcType="VARCHAR"/>
+        <result property="outputCode" column="output_code" jdbcType="VARCHAR"/>
+        <result property="outputType" column="output_type" jdbcType="VARCHAR"/>
+        <result property="outputSn" column="output_sn" jdbcType="VARCHAR"/>
+        <result property="workstageId" column="workstage_id" jdbcType="BIGINT"/>
+        <result property="workstageName" column="workstage_name" jdbcType="VARCHAR"/>
+        <result property="workstageCode" column="workstage_code" jdbcType="VARCHAR"/>
+        <result property="workstationId" column="workstation_id" jdbcType="BIGINT"/>
+        <result property="workstationName" column="workstation_name" jdbcType="VARCHAR"/>
+        <result property="workstationCode" column="workstation_code" jdbcType="VARCHAR"/>
+        <result property="orderId" column="order_id" jdbcType="BIGINT"/>
+        <result property="orderSn" column="order_sn" jdbcType="VARCHAR"/>
+        <result property="inputId" column="input_id" jdbcType="BIGINT"/>
+        <result property="inputSn" column="input_sn" jdbcType="VARCHAR"/>
+        <result property="orderDetailId" column="order_detail_id" jdbcType="BIGINT"/>
+        <result property="clientId" column="client_id" jdbcType="BIGINT"/>
+        <result property="clientName" column="client_name" jdbcType="VARCHAR"/>
+        <result property="workorderId" column="workorder_id" jdbcType="BIGINT"/>
+        <result property="workorderSn" column="workorder_sn" jdbcType="VARCHAR"/>
+        <result property="workorderEntryId" column="workorder_entry_id" jdbcType="BIGINT"/>
+        <result property="taskId" column="task_id" jdbcType="BIGINT"/>
+        <result property="taskSn" column="task_sn" jdbcType="VARCHAR"/>
+        <result property="productId" column="product_id" jdbcType="BIGINT"/>
+        <result property="productName" column="product_name" jdbcType="VARCHAR"/>
+        <result property="productCode" column="product_code" jdbcType="VARCHAR"/>
+        <result property="productSpecification" column="product_specification" jdbcType="VARCHAR"/>
+        <result property="outputNum" column="output_num" jdbcType="DECIMAL"/>
+        <result property="outputWeight" column="output_weight" jdbcType="DECIMAL"/>
+        <result property="workgroupId" column="workgroup_id" jdbcType="BIGINT"/>
+        <result property="workgroupName" column="workgroup_name" jdbcType="VARCHAR"/>
+        <result property="workgroupCode" column="workgroup_code" jdbcType="VARCHAR"/>
+        <result property="remark" column="remark" jdbcType="VARCHAR"/>
+        <result property="version" column="version" jdbcType="INTEGER"/>
+        <result property="isDeleted" column="is_deleted" jdbcType="INTEGER"/>
+        <result property="createBy" column="create_by" jdbcType="VARCHAR"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="updateBy" column="update_by" jdbcType="VARCHAR"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+        <result property="attr1" column="attr1" jdbcType="VARCHAR"/>
+        <result property="attr2" column="attr2" jdbcType="INTEGER"/>
+        <result property="attr3" column="attr3" jdbcType="VARCHAR"/>
+        <result property="batchCode" column="batch_code" jdbcType="VARCHAR"/>
+        <result property="partNumber" column="part_number" jdbcType="VARCHAR"/>
+        <result property="inputWireType" column="input_wire_type" jdbcType="VARCHAR"/>
+        <result property="jobNumber" column="job_number" jdbcType="VARCHAR"/>
+        <result property="taskType" column="task_type" jdbcType="VARCHAR"/>
+        <result property="itemSpecification" column="item_specification" jdbcType="VARCHAR"/>
+        <result property="measureName" column="measure_name" jdbcType="VARCHAR"/>
+        <result property="productModel" column="product_model" jdbcType="VARCHAR"/>
+        <result property="orderType" column="order_type" jdbcType="VARCHAR"/>
+        <result property="alexPositionNumber" column="alex_position_number" jdbcType="INTEGER"/>
+        <result property="alexLot" column="alex_lot" jdbcType="VARCHAR"/>
+        <result property="alexLotNumber" column="alex_lot_number" jdbcType="INTEGER"/>
+        <result property="reelWight" column="reel_wight" jdbcType="DECIMAL"/>
+        <result property="qbWorkstationCode" column="qb_workstation_code" jdbcType="VARCHAR"/>
+        <result property="wireDisc" column="wire_disc" jdbcType="VARCHAR"/>
+        <result property="qbPrintValue" column="qb_print_value" jdbcType="INTEGER"/>
+        <result property="workgroupValue" column="workgroup_value" jdbcType="VARCHAR"/>
+        <result property="standardName" column="standard_name" jdbcType="VARCHAR"/>
+        <result property="standardValue" column="standard_value" jdbcType="INTEGER"/>
+        <result property="productSizeInternational" column="product_size_international" jdbcType="VARCHAR"/>
+        <result property="outputGrossWeight" column="output_gross_weight" jdbcType="DECIMAL"/>
+        <result property="outputTareWeight" column="output_tare_weight" jdbcType="DECIMAL"/>
+        <result property="ingredientsName" column="ingredients_name" jdbcType="VARCHAR"/>
+        <result property="manufacturerName" column="manufacturer_name" jdbcType="VARCHAR"/>
+        <result property="weightTime" column="weight_time" jdbcType="TIMESTAMP"/>
+        <result property="alexNumber" column="alex_number" jdbcType="VARCHAR"/>
+        <result property="wmsStatus" column="wms_status" jdbcType="INTEGER"/>
+        <result property="wireDiscId" column="wire_disc_id" jdbcType="BIGINT"/>
+        <!-- 新增的班次计划字段 -->
+        <result property="shiftScheduleId" column="shift_schedule_id" jdbcType="BIGINT"/>
+        <result property="shiftScheduleName" column="shift_schedule_name" jdbcType="VARCHAR"/>
+        <result property="shiftScheduleWeight" column="shift_schedule_weight" jdbcType="DECIMAL"/>
+    </resultMap>
+    <!-- 通过ID查询单条数据 -->
+    <select id="queryById" resultMap="MesInputLogMap">
+        select
+        id,input_id,input_name,input_code,input_type,input_sn,input_wire_type,workstage_id,workstage_name,workstage_code,workstation_id,workstation_name,workstation_code,order_id,order_sn,order_detail_id,client_id,client_name,workorder_id,workorder_sn,workorder_entry_id,task_id,task_sn,product_id,product_name,product_code,product_specification,input_num,input_weight,workgroup_id,workgroup_name,workgroup_code,remark,version,is_deleted,create_by,create_time,update_by,update_time,attr1,attr2,attr3,batch_code,part_number,measure_name,item_specification,job_number,product_model,task_type,axle_number,order_type,alex_position_number
+        from mes_input_log
+        where is_deleted = 0 and id = #{id}
+    </select>
+
+
+    <!-- 通过机台查询单条数据 -->
+    <select id="queryByWorkstationId" resultMap="MesInputLogMap">
+        WITH RankedLogs AS (
+            SELECT
+                id,
+                input_id,
+                input_name,
+                input_code,
+                input_type,
+                input_sn,
+                input_wire_type,
+                workstage_id,
+                workstage_name,
+                workstage_code,
+                workstation_id,
+                workstation_name,
+                workstation_code,
+                order_id,
+                order_sn,
+                order_detail_id,
+                client_id,
+                client_name,
+                workorder_id,
+                workorder_sn,
+                workorder_entry_id,
+                task_id,
+                task_sn,
+                product_id,
+                product_name,
+                product_code,
+                product_specification,
+                input_num,
+                input_weight,
+                workgroup_id,
+                workgroup_name,
+                workgroup_code,
+                remark,
+                version,
+                is_deleted,
+                create_by,
+                create_time,
+                update_by,
+                update_time,
+                attr1,
+                attr2,
+                attr3,
+                batch_code,
+                part_number,
+                measure_name,
+                item_specification,
+                job_number,
+                product_model,
+                task_type,
+                axle_number,
+                order_type,
+                alex_position_number,
+                ROW_NUMBER() OVER (
+            PARTITION BY workorder_id
+            ORDER BY create_time DESC
+        ) AS row_num
+            FROM mes_input_log
+            WHERE is_deleted = 0
+              AND workstation_id = #{workstationId}
+              AND task_type = '0'
+              AND (attr1 != 1 OR attr1 IS NULL)
+        )
+        SELECT *
+        FROM RankedLogs
+        WHERE row_num = 1
+        ORDER BY create_time;
+    </select>
+
+    <!-- 漆包通过机台、轴号查询单条数据 -->
+    <select id="queryByWorkstationIdAndAxleNumber" resultMap="MesInputLogMap">
+        select
+            id,input_id,input_name,input_code,input_type,input_sn,input_wire_type,workstage_id,workstage_name,workstage_code,workstation_id,workstation_name,workstation_code,order_id,order_sn,order_detail_id,client_id,client_name,workorder_id,workorder_sn,
+               workorder_entry_id,task_id,task_sn,product_id,product_name,product_code,product_specification,input_num,input_weight,workgroup_id,workgroup_name,workgroup_code,remark,version,is_deleted,create_by,create_time,update_by,update_time,attr1,attr2,attr3,
+               batch_code,part_number,measure_name,item_specification,job_number,product_model,task_type,axle_number,order_type,alex_position_number
+        from mes_input_log
+        where is_deleted = 0 and workstation_id = #{workstationId} and axle_number like concat('%',#{axleNumber},'%') order by create_time desc limit 1;
+    </select>
+
+    <!-- 漆包通过机台、轴位置数查询单条数据 -->
+    <select id="getInfoByWorkstationIdAndAlexPositionNumberAndAxleNumber" resultMap="MesInputLogMap">
+        select
+            id,input_id,input_name,input_code,input_type,input_sn,input_wire_type,workstage_id,workstage_name,workstage_code,workstation_id,workstation_name,workstation_code,order_id,order_sn,order_detail_id,client_id,client_name,workorder_id,workorder_sn,
+            workorder_entry_id,task_id,task_sn,product_id,product_name,product_code,product_specification,input_num,input_weight,workgroup_id,workgroup_name,workgroup_code,remark,version,is_deleted,create_by,create_time,update_by,update_time,attr1,attr2,attr3,
+            batch_code,part_number,measure_name,item_specification,job_number,product_model,task_type,axle_number,order_type,alex_position_number
+        from mes_input_log
+        where is_deleted = 0 and workstation_id = #{workstationId} and alex_position_number =#{alexPositionNumber} and axle_number = #{axleNumber} order by create_time desc limit 1;
+    </select>
+
+    <select id="getInfoByWorkstationIdAndAxleNumber" resultMap="MesInputLogMap">
+        select
+            id,input_id,input_name,input_code,input_type,input_sn,input_wire_type,workstage_id,workstage_name,workstage_code,workstation_id,workstation_name,workstation_code,order_id,order_sn,order_detail_id,client_id,client_name,workorder_id,workorder_sn,
+            workorder_entry_id,task_id,task_sn,product_id,product_name,product_code,product_specification,input_num,input_weight,workgroup_id,workgroup_name,workgroup_code,remark,version,is_deleted,create_by,create_time,update_by,update_time,attr1,attr2,attr3,
+            batch_code,part_number,measure_name,item_specification,job_number,product_model,task_type,axle_number,order_type,alex_position_number
+        from mes_input_log
+        where is_deleted = 0 and workstation_id = #{workstationId} and axle_number = #{axleNumber} and workorder_sn = #{workorderSn} order by create_time desc limit 1;
+    </select>
+
+    <select id="getInfoByWorkstationCodeAndWorkorderSn" resultMap="MesInputLogMap">
+        select
+            id,input_id,input_name,input_code,input_type,input_sn,input_wire_type,workstage_id,workstage_name,workstage_code,workstation_id,workstation_name,workstation_code,order_id,order_sn,order_detail_id,client_id,client_name,workorder_id,workorder_sn,
+            workorder_entry_id,task_id,task_sn,product_id,product_name,product_code,product_specification,input_num,input_weight,workgroup_id,workgroup_name,workgroup_code,remark,version,is_deleted,create_by,create_time,update_by,update_time,attr1,attr2,attr3,
+            batch_code,part_number,measure_name,item_specification,job_number,product_model,task_type,axle_number,order_type,alex_position_number
+        from mes_input_log
+        where is_deleted = 0 and workstation_code = #{workstationCode} and workorder_sn = #{workorderSn} order by create_time desc limit 1;
+    </select>
+
+    <!--分页查询指定行数据-->
+    <select id="selectMesInputLogList" resultMap="MesInputLogMap" parameterType="com.cuixing.mes.entity.MesInputLog">
+        select
+        d.id,d.input_id,d.input_name,d.input_code,d.input_type,d.input_sn,d.input_wire_type,d.workstage_id,d.workstage_name,d.workstage_code,d.workstation_id,d.workstation_name,d.workstation_code,d.order_id,d.order_sn,d.order_detail_id,d.client_id,d.client_name,d.workorder_id,d.workorder_sn,d.workorder_entry_id,d.task_id,d.task_sn,d.product_id,d.product_name,d.product_code,d.product_specification,d.input_num,d.input_weight,d.workgroup_id,d.workgroup_name,d.workgroup_code,d.remark,d.version,d.is_deleted,d.create_by,d.create_time,d.update_by,d.update_time,d.attr1,d.attr2,d.attr3,d.batch_code,d.part_number,d.measure_name,d.item_specification,d.task_type,d.axle_number,d.product_model,d.order_type,d.alex_position_number
+        from mes_input_log d
+        <where>
+            is_deleted = 0
+            <if test="id != null ">
+                and id = #{id}
+            </if>
+            <if test="inputId != null ">
+                and input_id = #{inputId}
+            </if>
+            <if test="inputName != null and inputName != ''">
+                and input_name = #{inputName}
+            </if>
+            <if test="inputCode != null and inputCode != ''">
+                and input_code = #{inputCode}
+            </if>
+            <if test="inputType != null and inputType != ''">
+                and input_type = #{inputType}
+            </if>
+            <if test="inputSn != null and inputSn != ''">
+                and input_sn = #{inputSn}
+            </if>
+            <if test="inputWireType != null and inputWireType != ''">
+                and input_wire_type = #{inputWireType}
+            </if>
+            <if test="workstageId != null ">
+                and workstage_id = #{workstageId}
+            </if>
+            <if test="workstageName != null and workstageName != ''">
+                and workstage_name = #{workstageName}
+            </if>
+            <if test="workstageCode != null and workstageCode != ''">
+                and workstage_code = #{workstageCode}
+            </if>
+            <if test="workstationId != null ">
+                and workstation_id = #{workstationId}
+            </if>
+            <if test="workstationName != null and workstationName != ''">
+                and workstation_name = #{workstationName}
+            </if>
+            <if test="workstationCode != null and workstationCode != ''">
+                and workstation_code like concat('%', #{workstationCode},'%')
+            </if>
+            <if test="orderId != null ">
+                and order_id = #{orderId}
+            </if>
+            <if test="orderSn != null and orderSn != ''">
+                and order_sn = #{orderSn}
+            </if>
+            <if test="orderDetailId != null ">
+                and order_detail_id = #{orderDetailId}
+            </if>
+            <if test="clientId != null ">
+                and client_id = #{clientId}
+            </if>
+            <if test="clientName != null and clientName != ''">
+                and client_name = #{clientName}
+            </if>
+            <if test="workorderId != null ">
+                and workorder_id = #{workorderId}
+            </if>
+            <if test="workorderSn != null and workorderSn != ''">
+                and workorder_sn = #{workorderSn}
+            </if>
+            <if test="workorderEntryId != null ">
+                and workorder_entry_id = #{workorderEntryId}
+            </if>
+            <if test="taskId != null ">
+                and task_id = #{taskId}
+            </if>
+            <if test="taskSn != null and taskSn != ''">
+                and task_sn = #{taskSn}
+            </if>
+            <if test="productId != null ">
+                and product_id = #{productId}
+            </if>
+            <if test="productName != null and productName != ''">
+                and product_name = #{productName}
+            </if>
+            <if test="productCode != null and productCode != ''">
+                and product_code = #{productCode}
+            </if>
+            <if test="productSpecification != null and productSpecification != ''">
+                and product_specification = #{productSpecification}
+            </if>
+            <if test="inputNum != null ">
+                and input_num = #{inputNum}
+            </if>
+            <if test="inputWeight != null ">
+                and input_weight = #{inputWeight}
+            </if>
+            <if test="workgroupId != null ">
+                and workgroup_id = #{workgroupId}
+            </if>
+            <if test="workgroupName != null and workgroupName != ''">
+                and workgroup_name = #{workgroupName}
+            </if>
+            <if test="workgroupCode != null and workgroupCode != ''">
+                and workgroup_code = #{workgroupCode}
+            </if>
+            <if test="remark != null and remark != ''">
+                and remark = #{remark}
+            </if>
+            <if test="version != null ">
+                and version = #{version}
+            </if>
+            <if test="isDeleted != null ">
+                and is_deleted = #{isDeleted}
+            </if>
+            <if test="createBy != null and createBy != ''">
+                and create_by = #{createBy}
+            </if>
+            <if test="createTime != null ">
+                and create_time = #{createTime}
+            </if>
+            <if test="updateBy != null and updateBy != ''">
+                and update_by = #{updateBy}
+            </if>
+            <if test="updateTime != null ">
+                and update_time = #{updateTime}
+            </if>
+            <if test="attr1 != null and attr1 != ''">
+                and attr1 = #{attr1}
+            </if>
+            <if test="attr2 != null ">
+                and attr2 = #{attr2}
+            </if>
+            <if test="attr3 != null and attr3 != ''">
+                and attr3 = #{attr3}
+            </if>
+            <if test="batchCode != null and batchCode != ''">
+                and batch_code = #{batchCode}
+            </if>
+            <if test="measureName != null and measureName != ''">
+                and measure_name = #{measureName}
+            </if>
+            <if test="partNumber != null and partNumber != ''">
+                and part_number = #{partNumber}
+            </if>
+            <if test="itemSpecification != null and itemSpecification != ''">
+                and item_specification = #{itemSpecification}
+            </if>
+            <if test="jobNumber != null and jobNumber != ''">
+                and job_number = #{jobNumber}
+            </if>
+            <if test="productModel != null and productModel != ''">
+                and product_model = #{productModel}
+            </if>
+            <if test="taskType != null and taskType != ''">
+                and task_type = #{taskType}
+            </if>
+            <if test="axleNumber != null and axleNumber != ''">
+                and axle_number = #{axleNumber}
+            </if>
+            <if test="inputType != null and inputType != ''">
+                and input_type = #{inputType}
+            </if>
+            <if test="inputWireType != null and inputWireType != ''">
+                and input_wire_type = #{inputWireType}
+            </if>
+            <if test="alexPositionNumber != null and alexPositionNumber != ''">
+                and alex_position_number = #{alexPositionNumber}
+            </if>
+        </where>
+        order by create_time desc
+    </select>
+
+    <!--统计总行数-->
+    <select id="count" resultType="java.lang.Long">
+        select count(1)
+        from mes_input_log
+        <where>
+            is_deleted = 0
+            <if test="id != null ">
+                and id = #{id}
+            </if>
+            <if test="inputId != null ">
+                and input_id = #{inputId}
+            </if>
+            <if test="inputName != null and inputName != ''">
+                and input_name = #{inputName}
+            </if>
+            <if test="inputCode != null and inputCode != ''">
+                and input_code = #{inputCode}
+            </if>
+            <if test="inputType != null and inputType != ''">
+                and input_type = #{inputType}
+            </if>
+            <if test="inputSn != null and inputSn != ''">
+                and input_sn = #{inputSn}
+            </if>
+            <if test="inputWireType != null and inputWireType != ''">
+                and input_wire_type = #{inputWireType}
+            </if>
+            <if test="workstageId != null ">
+                and workstage_id = #{workstageId}
+            </if>
+            <if test="workstageName != null and workstageName != ''">
+                and workstage_name = #{workstageName}
+            </if>
+            <if test="workstageCode != null and workstageCode != ''">
+                and workstage_code = #{workstageCode}
+            </if>
+            <if test="workstationId != null ">
+                and workstation_id = #{workstationId}
+            </if>
+            <if test="workstationName != null and workstationName != ''">
+                and workstation_name = #{workstationName}
+            </if>
+            <if test="workstationCode != null and workstationCode != ''">
+                and workstation_code = #{workstationCode}
+            </if>
+            <if test="orderId != null ">
+                and order_id = #{orderId}
+            </if>
+            <if test="orderSn != null and orderSn != ''">
+                and order_sn = #{orderSn}
+            </if>
+            <if test="orderDetailId != null ">
+                and order_detail_id = #{orderDetailId}
+            </if>
+            <if test="clientId != null ">
+                and client_id = #{clientId}
+            </if>
+            <if test="clientName != null and clientName != ''">
+                and client_name = #{clientName}
+            </if>
+            <if test="workorderId != null ">
+                and workorder_id = #{workorderId}
+            </if>
+            <if test="workorderSn != null and workorderSn != ''">
+                and workorder_sn = #{workorderSn}
+            </if>
+            <if test="workorderEntryId != null ">
+                and workorder_entry_id = #{workorderEntryId}
+            </if>
+            <if test="taskId != null ">
+                and task_id = #{taskId}
+            </if>
+            <if test="taskSn != null and taskSn != ''">
+                and task_sn = #{taskSn}
+            </if>
+            <if test="productId != null ">
+                and product_id = #{productId}
+            </if>
+            <if test="productName != null and productName != ''">
+                and product_name = #{productName}
+            </if>
+            <if test="productCode != null and productCode != ''">
+                and product_code = #{productCode}
+            </if>
+            <if test="productSpecification != null and productSpecification != ''">
+                and product_specification = #{productSpecification}
+            </if>
+            <if test="inputNum != null ">
+                and input_num = #{inputNum}
+            </if>
+            <if test="inputWeight != null ">
+                and input_weight = #{inputWeight}
+            </if>
+            <if test="workgroupId != null ">
+                and workgroup_id = #{workgroupId}
+            </if>
+            <if test="workgroupName != null and workgroupName != ''">
+                and workgroup_name = #{workgroupName}
+            </if>
+            <if test="workgroupCode != null and workgroupCode != ''">
+                and workgroup_code = #{workgroupCode}
+            </if>
+            <if test="remark != null and remark != ''">
+                and remark = #{remark}
+            </if>
+            <if test="version != null ">
+                and version = #{version}
+            </if>
+            <if test="isDeleted != null ">
+                and is_deleted = #{isDeleted}
+            </if>
+            <if test="createBy != null and createBy != ''">
+                and create_by = #{createBy}
+            </if>
+            <if test="createTime != null ">
+                and create_time = #{createTime}
+            </if>
+            <if test="updateBy != null and updateBy != ''">
+                and update_by = #{updateBy}
+            </if>
+            <if test="updateTime != null ">
+                and update_time = #{updateTime}
+            </if>
+            <if test="attr1 != null and attr1 != ''">
+                and attr1 = #{attr1}
+            </if>
+            <if test="attr2 != null ">
+                and attr2 = #{attr2}
+            </if>
+            <if test="attr3 != null and attr3 != ''">
+                and attr3 = #{attr3}
+            </if>
+            <if test="batchCode != null and batchCode != ''">
+                and batch_code = #{batchCode}
+            </if>
+            <if test="measureName != null and measureName != ''">
+                and measure_name = #{measureName}
+            </if>
+            <if test="partNumber != null and partNumber != ''">
+                and part_number = #{partNumber}
+            </if>
+            <if test="itemSpecification != null and itemSpecification != ''">
+                and item_specification = #{itemSpecification}
+            </if>
+            <if test="jobNumber != null and jobNumber != ''">
+                and job_number = #{jobNumber}
+            </if>
+            <if test="productModel != null and productModel != ''">
+                and product_model = #{productModel}
+            </if>
+            <if test="taskType != null and taskType != ''">
+                and task_type = #{taskType}
+            </if>
+            <if test="axleNumber != null and axleNumber != ''">
+                and axle_number = #{axleNumber}
+            </if>
+            <if test="inputType != null and inputType != ''">
+                and input_type = #{inputType}
+            </if>
+            <if test="alexPositionNumber != null and alexPositionNumber != ''">
+                and alex_position_number = #{alexPositionNumber}
+            </if>
+        </where>
+    </select>
+
+    <!--新增数据-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into mes_input_log
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="inputId != null ">input_id,</if>
+            <if test="inputName != null and inputName != ''">input_name,</if>
+            <if test="inputCode != null and inputCode != ''">input_code,</if>
+            <if test="inputType != null and inputType != ''">input_type,</if>
+            <if test="inputSn != null and inputSn != ''">input_sn,</if>
+            <if test="inputWireType != null and inputWireType != ''">input_wire_type,</if>
+            <if test="workstageId != null ">workstage_id,</if>
+            <if test="workstageName != null and workstageName != ''">workstage_name,</if>
+            <if test="workstageCode != null and workstageCode != ''">workstage_code,</if>
+            <if test="workstationId != null ">workstation_id,</if>
+            <if test="workstationName != null and workstationName != ''">workstation_name,</if>
+            <if test="workstationCode != null and workstationCode != ''">workstation_code,</if>
+            <if test="orderId != null ">order_id,</if>
+            <if test="orderSn != null and orderSn != ''">order_sn,</if>
+            <if test="orderDetailId != null ">order_detail_id,</if>
+            <if test="clientId != null ">client_id,</if>
+            <if test="clientName != null and clientName != ''">client_name,</if>
+            <if test="workorderId != null ">workorder_id,</if>
+            <if test="workorderSn != null and workorderSn != ''">workorder_sn,</if>
+            <if test="workorderEntryId != null ">workorder_entry_id,</if>
+            <if test="taskId != null ">task_id,</if>
+            <if test="taskSn != null and taskSn != ''">task_sn,</if>
+            <if test="productId != null ">product_id,</if>
+            <if test="productName != null and productName != ''">product_name,</if>
+            <if test="productCode != null and productCode != ''">product_code,</if>
+            <if test="productSpecification != null and productSpecification != ''">product_specification,</if>
+            <if test="inputNum != null ">input_num,</if>
+            <if test="inputWeight != null ">input_weight,</if>
+            <if test="workgroupId != null ">workgroup_id,</if>
+            <if test="workgroupName != null and workgroupName != ''">workgroup_name,</if>
+            <if test="workgroupCode != null and workgroupCode != ''">workgroup_code,</if>
+            <if test="remark != null and remark != ''">remark,</if>
+            <if test="version != null ">version,</if>
+            <if test="isDeleted != null ">is_deleted,</if>
+            <if test="createBy != null and createBy != ''">create_by,</if>
+            <if test="createTime != null ">create_time,</if>
+            <if test="updateBy != null and updateBy != ''">update_by,</if>
+            <if test="updateTime != null ">update_time,</if>
+            <if test="attr1 != null and attr1 != ''">attr1,</if>
+            <if test="attr2 != null ">attr2,</if>
+            <if test="attr3 != null and attr3 != ''">attr3,</if>
+            <if test="batchCode != null and batchCode != ''">batch_code,</if>
+            <if test="measureName != null and measureName != ''">measure_name,</if>
+            <if test="partNumber != null and partNumber != ''">part_number,</if>
+            <if test="itemSpecification != null and itemSpecification != ''">item_specification,</if>
+            <if test="jobNumber != null and jobNumber != ''">job_number,</if>
+            <if test="productModel != null and productModel != ''">product_model,</if>
+            <if test="taskType != null and taskType != ''">task_type,</if>
+            <if test="axleNumber != null and axleNumber != ''">axle_number,</if>
+            <if test="orderType != null and orderType != ''">order_type,</if>
+            <if test="alexPositionNumber != null and alexPositionNumber != ''">alex_position_number,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="inputId != null ">#{inputId},</if>
+            <if test="inputName != null and inputName != ''">#{inputName},</if>
+            <if test="inputCode != null and inputCode != ''">#{inputCode},</if>
+            <if test="inputType != null and inputType != ''">#{inputType},</if>
+            <if test="inputSn != null and inputSn != ''">#{inputSn},</if>
+            <if test="inputWireType != null and inputWireType != ''">#{inputWireType},</if>
+            <if test="workstageId != null ">#{workstageId},</if>
+            <if test="workstageName != null and workstageName != ''">#{workstageName},</if>
+            <if test="workstageCode != null and workstageCode != ''">#{workstageCode},</if>
+            <if test="workstationId != null ">#{workstationId},</if>
+            <if test="workstationName != null and workstationName != ''">#{workstationName},</if>
+            <if test="workstationCode != null and workstationCode != ''">#{workstationCode},</if>
+            <if test="orderId != null ">#{orderId},</if>
+            <if test="orderSn != null and orderSn != ''">#{orderSn},</if>
+            <if test="orderDetailId != null ">#{orderDetailId},</if>
+            <if test="clientId != null ">#{clientId},</if>
+            <if test="clientName != null and clientName != ''">#{clientName},</if>
+            <if test="workorderId != null ">#{workorderId},</if>
+            <if test="workorderSn != null and workorderSn != ''">#{workorderSn},</if>
+            <if test="workorderEntryId != null ">#{workorderEntryId},</if>
+            <if test="taskId != null ">#{taskId},</if>
+            <if test="taskSn != null and taskSn != ''">#{taskSn},</if>
+            <if test="productId != null ">#{productId},</if>
+            <if test="productName != null and productName != ''">#{productName},</if>
+            <if test="productCode != null and productCode != ''">#{productCode},</if>
+            <if test="productSpecification != null and productSpecification != ''">#{productSpecification},</if>
+            <if test="inputNum != null ">#{inputNum},</if>
+            <if test="inputWeight != null ">#{inputWeight},</if>
+            <if test="workgroupId != null ">#{workgroupId},</if>
+            <if test="workgroupName != null and workgroupName != ''">#{workgroupName},</if>
+            <if test="workgroupCode != null and workgroupCode != ''">#{workgroupCode},</if>
+            <if test="remark != null and remark != ''">#{remark},</if>
+            <if test="version != null ">#{version},</if>
+            <if test="isDeleted != null ">#{isDeleted},</if>
+            <if test="createBy != null and createBy != ''">#{createBy},</if>
+            <if test="createTime != null ">#{createTime},</if>
+            <if test="updateBy != null and updateBy != ''">#{updateBy},</if>
+            <if test="updateTime != null ">#{updateTime},</if>
+            <if test="attr1 != null and attr1 != ''">#{attr1},</if>
+            <if test="attr2 != null ">#{attr2},</if>
+            <if test="attr3 != null and attr3 != ''">#{attr3},</if>
+            <if test="batchCode != null and batchCode != ''">#{batchCode},</if>
+            <if test="measureName != null and measureName != ''">#{measureName},</if>
+            <if test="partNumber != null and partNumber != ''">#{partNumber},</if>
+            <if test="itemSpecification != null and itemSpecification != ''">#{itemSpecification},</if>
+            <if test="jobNumber != null and jobNumber != ''">#{jobNumber},</if>
+            <if test="productModel != null and productModel != ''">#{productModel},</if>
+            <if test="taskType != null and taskType != ''">#{taskType},</if>
+            <if test="axleNumber != null and axleNumber != ''">#{axleNumber},</if>
+            <if test="orderType != null and orderType != ''">#{orderType},</if>
+            <if test="alexPositionNumber != null and alexPositionNumber != ''">#{alexPositionNumber},</if>
+        </trim>
+    </insert>
+
+
+    <!-- 批量新增或按主键更新数据 -->
+    <insert id="insertOrUpdateBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into mes_input_log(id,input_id,input_name,input_code,input_type,input_sn,workstage_id,workstage_name,workstage_code,workstation_id,workstation_name,workstation_code,order_id,order_sn,order_detail_id,client_id,client_name,workorder_id,workorder_sn,workorder_entry_id,task_id,task_sn,product_id,product_name,product_code,product_specification,input_num,input_weight,workgroup_id,workgroup_name,workgroup_code,remark,version,is_deleted,create_by,create_time,update_by,update_time,attr1,attr2,attr3,measure_name,part_number,item_specification,batch_code,job_number,product_model,task_type,axle_number,order_type,alex_position_number)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.id},#{entity.inputId},#{entity.inputName},#{entity.inputCode},#{entity.inputType},#{entity.inputSn},#{entity.workstageId},#{entity.workstageName},#{entity.workstageCode},#{entity.workstationId},#{entity.workstationName},#{entity.workstationCode},#{entity.orderId},#{entity.orderSn},#{entity.orderDetailId},#{entity.clientId},#{entity.clientName},#{entity.workorderId},#{entity.workorderSn},#{entity.workorderEntryId},#{entity.taskId},#{entity.taskSn},#{entity.productId},#{entity.productName},#{entity.productCode},#{entity.productSpecification},#{entity.inputNum},#{entity.inputWeight},#{entity.workgroupId},#{entity.workgroupName},#{entity.workgroupCode},#{entity.remark},#{entity.version},#{entity.isDeleted},#{entity.createBy},#{entity.createTime},#{entity.updateBy},#{entity.updateTime},#{entity.attr1},#{entity.attr2},#{entity.attr3},#{entities.batchCode},#{entities.partNumber},#{entities.itemSpecification},#{entities.measureName},#{entities.jobNumber},#{entities.productModel},#{entities.taskType},#{entities.axleNumber},#{entities.orderType},#{entities.alexPositionNumber})
+        </foreach>
+        on duplicate key update
+        id=values(id),
+        input_id=values(input_id),
+        input_name=values(input_name),
+        input_code=values(input_code),
+        input_type=values(input_type),
+        input_sn=values(input_sn),
+        input_wire_type=values(input_wire_type),
+        workstage_id=values(workstage_id),
+        workstage_name=values(workstage_name),
+        workstage_code=values(workstage_code),
+        workstation_id=values(workstation_id),
+        workstation_name=values(workstation_name),
+        workstation_code=values(workstation_code),
+        order_id=values(order_id),
+        order_sn=values(order_sn),
+        order_detail_id=values(order_detail_id),
+        client_id=values(client_id),
+        client_name=values(client_name),
+        workorder_id=values(workorder_id),
+        workorder_sn=values(workorder_sn),
+        workorder_entry_id=values(workorder_entry_id),
+        task_id=values(task_id),
+        task_sn=values(task_sn),
+        product_id=values(product_id),
+        product_name=values(product_name),
+        product_code=values(product_code),
+        product_specification=values(product_specification),
+        input_num=values(input_num),
+        input_weight=values(input_weight),
+        workgroup_id=values(workgroup_id),
+        workgroup_name=values(workgroup_name),
+        workgroup_code=values(workgroup_code),
+        remark=values(remark),
+        version=values(version),
+        is_deleted=values(is_deleted),
+        create_by=values(create_by),
+        create_time=values(create_time),
+        update_by=values(update_by),
+        update_time=values(update_time),
+        attr1=values(attr1),
+        attr2=values(attr2),
+        attr3=values(attr3),
+        batch_code=values(batch_code),
+        part_number=values(part_number),
+        measure_name=values(measure_name),
+        item_specification=values(item_specification),
+        job_number=values(job_number),
+        product_model=values(product_model),
+        task_type=values(task_type),
+        axle_number=values(axle_number),
+        order_type=values(order_type),
+        alex_position_number=values(alex_position_number),
+    </insert>
+    <insert id="insertBatch" keyProperty="id" useGeneratedKeys="true">
+        INSERT INTO mes_input_log (
+        input_id, input_name, input_code, input_type, input_sn,
+        input_wire_type, workstage_id, workstage_name, workstage_code,
+        workstation_id, workstation_name, workstation_code, order_id,
+        order_sn, order_detail_id, client_id, client_name, workorder_id,
+        workorder_sn, workorder_entry_id, task_id, task_sn, product_id,
+        product_name, product_code, product_specification, input_num,
+        input_weight, workgroup_id, workgroup_name, workgroup_code,
+        remark, version, is_deleted, create_by, create_time, update_by,
+        update_time, attr1, attr2, attr3, batch_code, part_number,
+        measure_name, item_specification, job_number, product_model,
+        task_type, axle_number, order_type, alex_position_number
+        ) VALUES
+        <foreach collection="list" item="item" separator=",">
+            (
+            #{item.inputId, jdbcType=BIGINT},
+            #{item.inputName, jdbcType=VARCHAR},
+            #{item.inputCode, jdbcType=VARCHAR},
+            #{item.inputType, jdbcType=VARCHAR},
+            #{item.inputSn, jdbcType=VARCHAR},
+            #{item.inputWireType, jdbcType=VARCHAR},
+            #{item.workstageId, jdbcType=BIGINT},
+            #{item.workstageName, jdbcType=VARCHAR},
+            #{item.workstageCode, jdbcType=VARCHAR},
+            #{item.workstationId, jdbcType=BIGINT},
+            #{item.workstationName, jdbcType=VARCHAR},
+            #{item.workstationCode, jdbcType=VARCHAR},
+            #{item.orderId, jdbcType=BIGINT},
+            #{item.orderSn, jdbcType=VARCHAR},
+            #{item.orderDetailId, jdbcType=BIGINT},
+            #{item.clientId, jdbcType=BIGINT},
+            #{item.clientName, jdbcType=VARCHAR},
+            #{item.workorderId, jdbcType=BIGINT},
+            #{item.workorderSn, jdbcType=VARCHAR},
+            #{item.workorderEntryId, jdbcType=BIGINT},
+            #{item.taskId, jdbcType=BIGINT},
+            #{item.taskSn, jdbcType=VARCHAR},
+            #{item.productId, jdbcType=BIGINT},
+            #{item.productName, jdbcType=VARCHAR},
+            #{item.productCode, jdbcType=VARCHAR},
+            #{item.productSpecification, jdbcType=VARCHAR},
+            #{item.inputNum, jdbcType=DECIMAL},
+            #{item.inputWeight, jdbcType=DECIMAL},
+            #{item.workgroupId, jdbcType=BIGINT},
+            #{item.workgroupName, jdbcType=VARCHAR},
+            #{item.workgroupCode, jdbcType=VARCHAR},
+            #{item.remark, jdbcType=VARCHAR},
+            #{item.version, jdbcType=INTEGER},
+            #{item.isDeleted, jdbcType=INTEGER},
+            #{item.createBy, jdbcType=VARCHAR},
+            #{item.createTime, jdbcType=TIMESTAMP},
+            #{item.updateBy, jdbcType=VARCHAR},
+            #{item.updateTime, jdbcType=TIMESTAMP},
+            #{item.attr1, jdbcType=VARCHAR},
+            #{item.attr2, jdbcType=INTEGER},
+            #{item.attr3, jdbcType=VARCHAR},
+            #{item.batchCode, jdbcType=VARCHAR},
+            #{item.partNumber, jdbcType=VARCHAR},
+            #{item.measureName, jdbcType=VARCHAR},
+            #{item.itemSpecification, jdbcType=VARCHAR},
+            #{item.jobNumber, jdbcType=VARCHAR},
+            #{item.productModel, jdbcType=VARCHAR},
+            #{item.taskType, jdbcType=VARCHAR},
+            #{item.axleNumber, jdbcType=VARCHAR},
+            #{item.orderType, jdbcType=VARCHAR},
+            #{item.alexPositionNumber, jdbcType=INTEGER}
+            )
+        </foreach>
+    </insert>
+
+    <!-- 更新数据 -->
+    <update id="update">
+        update mes_input_log
+        <set>
+            <trim suffixOverrides=",">
+                <if test="inputId != null">
+                    input_id = #{inputId},
+                </if>
+                <if test="inputName != null">
+                    input_name = #{inputName},
+                </if>
+                <if test="inputCode != null">
+                    input_code = #{inputCode},
+                </if>
+                <if test="inputType != null">
+                    input_type = #{inputType},
+                </if>
+                <if test="inputSn != null">
+                    input_sn = #{inputSn},
+                </if>
+                <if test="inputWireType != null">
+                    input_wire_type = #{inputWireType},
+                </if>
+                <if test="workstageId != null">
+                    workstage_id = #{workstageId},
+                </if>
+                <if test="workstageName != null">
+                    workstage_name = #{workstageName},
+                </if>
+                <if test="workstageCode != null">
+                    workstage_code = #{workstageCode},
+                </if>
+                <if test="workstationId != null">
+                    workstation_id = #{workstationId},
+                </if>
+                <if test="workstationName != null">
+                    workstation_name = #{workstationName},
+                </if>
+                <if test="workstationCode != null">
+                    workstation_code = #{workstationCode},
+                </if>
+                <if test="orderId != null">
+                    order_id = #{orderId},
+                </if>
+                <if test="orderSn != null">
+                    order_sn = #{orderSn},
+                </if>
+                <if test="orderDetailId != null">
+                    order_detail_id = #{orderDetailId},
+                </if>
+                <if test="clientId != null">
+                    client_id = #{clientId},
+                </if>
+                <if test="clientName != null">
+                    client_name = #{clientName},
+                </if>
+                <if test="workorderId != null">
+                    workorder_id = #{workorderId},
+                </if>
+                <if test="workorderSn != null">
+                    workorder_sn = #{workorderSn},
+                </if>
+                <if test="workorderEntryId != null">
+                    workorder_entry_id = #{workorderEntryId},
+                </if>
+                <if test="taskId != null">
+                    task_id = #{taskId},
+                </if>
+                <if test="taskSn != null">
+                    task_sn = #{taskSn},
+                </if>
+                <if test="productId != null">
+                    product_id = #{productId},
+                </if>
+                <if test="productName != null">
+                    product_name = #{productName},
+                </if>
+                <if test="productCode != null">
+                    product_code = #{productCode},
+                </if>
+                <if test="productSpecification != null">
+                    product_specification = #{productSpecification},
+                </if>
+                <if test="inputNum != null">
+                    input_num = #{inputNum},
+                </if>
+                <if test="inputWeight != null">
+                    input_weight = #{inputWeight},
+                </if>
+                <if test="workgroupId != null">
+                    workgroup_id = #{workgroupId},
+                </if>
+                <if test="workgroupName != null">
+                    workgroup_name = #{workgroupName},
+                </if>
+                <if test="workgroupCode != null">
+                    workgroup_code = #{workgroupCode},
+                </if>
+                <if test="remark != null">
+                    remark = #{remark},
+                </if>
+                <if test="version != null">
+                    version = #{version}+1,
+                </if>
+                <if test="isDeleted != null">
+                    is_deleted = #{isDeleted},
+                </if>
+                <if test="createBy != null">
+                    create_by = #{createBy},
+                </if>
+                <if test="createTime != null">
+                    create_time = #{createTime},
+                </if>
+                <if test="updateBy != null">
+                    update_by = #{updateBy},
+                </if>
+                <if test="updateTime != null">
+                    update_time = #{updateTime},
+                </if>
+                <if test="attr1 != null">
+                    attr1 = #{attr1},
+                </if>
+                <if test="attr2 != null">
+                    attr2 = #{attr2},
+                </if>
+                <if test="attr3 != null">
+                    attr3 = #{attr3},
+                </if>
+                <if test="batchCode != null">
+                    batch_code = #{batchCode},
+                </if>
+                <if test="measureName != null">
+                    measure_name = #{measureName},
+                </if>
+                <if test="partNumber != null">
+                    part_number = #{partNumber},
+                </if>
+                <if test="itemSpecification != null">
+                    item_specification = #{itemSpecification},
+                </if>
+                <if test="jobNumber != null">
+                    job_number = #{jobNumber},
+                </if>
+                <if test="productModel != null">
+                    product_model = #{productModel},
+                </if>
+                <if test="taskType != null">
+                    task_type = #{taskType},
+                </if>
+                <if test="axleNumber != null">
+                    axle_number = #{axleNumber},
+                </if>
+                <if test="inputType != null">
+                    input_type = #{inputType},
+                </if>
+                <if test="alexPositionNumber != null">
+                    alex_position_number = #{alexPositionNumber},
+                </if>
+            </trim>
+        </set>
+        where id = #{id} and version = #{version}
+    </update>
+
+    <!--逻辑删除-->
+    <update id="deleteById">
+        update mes_input_log set is_deleted = 1 where id = #{id}
+    </update>
+
+    <!--批量逻辑删除-->
+    <update id="deleteByIds">
+        update mes_input_log set is_deleted = 1 where id in
+        <foreach collection="array" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </update>
+    <update id="updateWorkorderComplete">
+        update mes_input_log set attr1='1' where id=#{id}
+    </update>
+    <select id="getInfoByInputSn" resultMap="MesInputLogMap">
+        select
+            id,input_id,input_name,input_code,input_type,input_sn,input_wire_type,workstage_id,workstage_name,workstage_code,workstation_id,workstation_name,workstation_code,order_id,order_sn,order_detail_id,client_id,client_name,workorder_id,workorder_sn,
+            workorder_entry_id,task_id,task_sn,product_id,product_name,product_code,product_specification,input_num,input_weight,workgroup_id,workgroup_name,workgroup_code,remark,version,is_deleted,create_by,create_time,update_by,update_time,attr1,attr2,attr3,
+            batch_code,part_number,measure_name,item_specification,job_number,product_model,task_type,axle_number,order_type,alex_position_number
+        from mes_input_log
+        where is_deleted = 0 and input_sn=#{inputSn}
+    </select>
+    <select id="getWiringInputLog" resultMap="MesInputLogMap">
+        select
+            id,input_id,input_name,input_code,input_type,input_sn,input_wire_type,workstage_id,workstage_name,workstage_code,workstation_id,workstation_name,workstation_code,order_id,order_sn,order_detail_id,client_id,client_name,workorder_id,workorder_sn,
+            workorder_entry_id,task_id,task_sn,product_id,product_name,product_code,product_specification,input_num,input_weight,workgroup_id,workgroup_name,workgroup_code,remark,version,is_deleted,create_by,create_time,update_by,update_time,attr1,attr2,attr3,
+            batch_code,part_number,measure_name,item_specification,job_number,product_model,task_type,axle_number,order_type,alex_position_number
+        from mes_input_log
+        where workstation_id=999
+        order by create_time desc LIMIT 1
+    </select>
+    <select id="findByWorkOrderIdAndEquipmentAndTimeRange" resultMap="MesOuputLogMap">
+        select
+            id,output_id,output_name,output_code,output_type,output_sn,workstage_id,workstage_name,workstage_code,workstation_id,workstation_name,workstation_code,order_id,order_sn,order_detail_id,client_id,client_name,workorder_id,workorder_sn,workorder_entry_id,task_id,task_sn,product_id,product_name,product_code,product_specification,output_num,output_weight,workgroup_id,workgroup_name,workgroup_code,remark,version,is_deleted,create_by,create_time,update_by,update_time,attr1,attr2,attr3,batch_code,part_number,input_wire_type,job_number,task_type,item_specification,measure_name,product_model,input_id,input_sn,order_type,alex_position_number,alex_lot,alex_lot_number,reel_wight,qb_workstation_code,wire_disc,qb_print_value,workgroup_value,standard_name,standard_value,product_size_international,output_gross_weight,output_tare_weight,ingredients_name,manufacturer_name,weight_time,alex_number,wms_status,wire_disc_id,
+            shift_schedule_id,shift_schedule_name,shift_schedule_weight
+        from mes_ouput_log
+        where DATE(create_time) = #{startTime}
+    </select>
+    <select id="selectMdProduct" resultMap="MdProductMap">
+        select
+            id,product_code,product_name,product_size,specification,num_measure_id,num_measure_name,
+            weight_measure_id,weight_measure_name,process_route_id,process_route_name,product_type_id,
+            product_type_code,product_type_name,version,is_deleted,create_by,create_time,update_by,update_time,
+            attr1,attr2,attr3,product_size_international,batch_number,axial_type,coefficient,material_code
+        from md_product
+        where id=#{productId}
+    </select>
+    <select id="queryByIds" resultMap="MesOuputLogMap">
+        select
+        id,input_id,input_name,input_code,input_type,input_sn,input_wire_type,workstage_id,workstage_name,workstage_code,workstation_id,workstation_name,workstation_code,order_id,order_sn,order_detail_id,client_id,client_name,workorder_id,workorder_sn,
+        workorder_entry_id,task_id,task_sn,product_id,product_name,product_code,product_specification,input_num,input_weight,workgroup_id,workgroup_name,workgroup_code,remark,version,is_deleted,create_by,create_time,update_by,update_time,attr1,attr2,attr3,
+        batch_code,part_number,measure_name,item_specification,job_number,product_model,task_type,axle_number,order_type,alex_position_number
+        from mes_input_log
+        where input_id in
+        <foreach collection="inputIds" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </select>
+    <!--物理删除-->
+    <delete id="removeById">
+        delete from mes_input_log where id = #{id}
+    </delete>
+</mapper>

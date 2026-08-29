@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" xmlns:xlink="http://www.w3.org/1999/xlink" width="20"
+	height="20" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"
+	class="feather feather-apps">
+	<path d="M104 160a56 56 0 1 1 56-56a56.06 56.06 0 0 1-56 56z" fill="currentColor"></path>
+	<path d="M256 160a56 56 0 1 1 56-56a56.06 56.06 0 0 1-56 56z" fill="currentColor"></path>
+	<path d="M408 160a56 56 0 1 1 56-56a56.06 56.06 0 0 1-56 56z" fill="currentColor"></path>
+	<path d="M104 312a56 56 0 1 1 56-56a56.06 56.06 0 0 1-56 56z" fill="currentColor"></path>
+	<path d="M256 312a56 56 0 1 1 56-56a56.06 56.06 0 0 1-56 56z" fill="currentColor"></path>
+	<path d="M408 312a56 56 0 1 1 56-56a56.06 56.06 0 0 1-56 56z" fill="currentColor"></path>
+	<path d="M104 464a56 56 0 1 1 56-56a56.06 56.06 0 0 1-56 56z" fill="currentColor"></path>
+	<path d="M256 464a56 56 0 1 1 56-56a56.06 56.06 0 0 1-56 56z" fill="currentColor"></path>
+	<path d="M408 464a56 56 0 1 1 56-56a56.06 56.06 0 0 1-56 56z" fill="currentColor"></path>
+</svg>

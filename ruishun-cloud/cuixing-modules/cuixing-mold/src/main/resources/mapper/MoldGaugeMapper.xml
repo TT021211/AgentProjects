@@ -1,0 +1,364 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cuixing.mold.mapper.MoldGaugeMapper">
+
+    <resultMap type="com.cuixing.mold.entity.MoldGauge" id="MoldGaugeMap">
+        <result property="moldGaugeId" column="mold_gauge_id" jdbcType="INTEGER"/>
+        <result property="clientId" column="client_id" jdbcType="INTEGER"/>
+        <result property="moldId" column="mold_id" jdbcType="INTEGER"/>
+        <result property="lsDeviceId" column="ls_device_id" jdbcType="INTEGER"/>
+        <result property="moldBeforSpec" column="mold_befor_spec" jdbcType="VARCHAR"/>
+        <result property="moldAfterSpec" column="mold_after_spec" jdbcType="VARCHAR"/>
+        <result property="startTime" column="start_time" jdbcType="TIMESTAMP"/>
+        <result property="endTime" column="end_time" jdbcType="TIMESTAMP"/>
+        <result property="moldBeforeId" column="mold_before_id" jdbcType="INTEGER"/>
+        <result property="model" column="model" jdbcType="VARCHAR"/>
+        <result property="spec" column="spec" jdbcType="VARCHAR"/>
+        <result property="quantity" column="quantity" jdbcType="VARCHAR"/>
+        <result property="qbDeviceId" column="qb_device_id" jdbcType="INTEGER"/>
+        <result property="remark" column="remark" jdbcType="VARCHAR"/>
+        <result property="orderDate" column="order_date" jdbcType="TIMESTAMP"/>
+        <result property="attr1" column="attr1" jdbcType="VARCHAR"/>
+        <result property="attr2" column="attr2" jdbcType="VARCHAR"/>
+        <result property="attr3" column="attr3" jdbcType="INTEGER"/>
+        <result property="attr4" column="attr4" jdbcType="INTEGER"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="createBy" column="create_by" jdbcType="VARCHAR"/>
+        <result property="updateBy" column="update_by" jdbcType="VARCHAR"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <sql id="selectMoldGaugeVo">
+        SELECT mold_gauge_id,
+               client_id,
+               mold_id,
+               ls_device_id,
+               mold_befor_spec,
+               mold_after_spec,
+               start_time,
+               end_time,
+               mold_before_id,
+               model,
+               spec,
+               quantity,
+               qb_device_id,
+               remark,
+               order_date,
+               attr1,
+               attr2,
+               attr3,
+               attr4,
+               create_time,
+               create_by,
+               update_by,
+               update_time
+        FROM mold_gauge
+    </sql>
+
+    <select id="selectMoldGaugeList" parameterType="MoldGauge" resultMap="MoldGaugeMap">
+        <include refid="selectMoldGaugeVo"/>
+        <where>
+            <if test="moldGaugeId != null">
+                and mold_gauge_id = #{moldGaugeId}
+            </if>
+            <if test="clientId != null">
+                and client_id = #{clientId}
+            </if>
+            <if test="moldId != null">
+                and mold_id = #{moldId}
+            </if>
+            <if test="lsDeviceId != null">
+                and ls_device_id = #{lsDeviceId}
+            </if>
+            <if test="moldBeforSpec != null and moldBeforSpec != ''">
+                and mold_befor_spec = #{moldBeforSpec}
+            </if>
+            <if test="moldAfterSpec != null and moldAfterSpec != ''">
+                and mold_after_spec = #{moldAfterSpec}
+            </if>
+            <if test="startTime != null">
+                and start_time LIKE CONCAT('%', #{startTime}, '%')
+            </if>
+            <if test="endTime != null">
+                and end_time LIKE CONCAT('%', #{endTime}, '%')
+            </if>
+            <if test="moldBeforeId != null">
+                and mold_before_id = #{moldBeforeId}
+            </if>
+            <if test="model != null and model != ''">
+                and model = #{model}
+            </if>
+            <if test="spec != null and spec != ''">
+                and spec = #{spec}
+            </if>
+            <if test="quantity != null and quantity != ''">
+                and quantity = #{quantity}
+            </if>
+            <if test="qbDeviceId != null">
+                and qb_device_id = #{qbDeviceId}
+            </if>
+            <if test="remark != null and remark != ''">
+                and remark = #{remark}
+            </if>
+            <if test="orderDate != null">
+                and order_date LIKE CONCAT('%', #{orderDate}, '%')
+            </if>
+            <if test="attr1 != null and attr1 != ''">
+                and attr1 = #{attr1}
+            </if>
+            <if test="attr2 != null and attr2 != ''">
+                and attr2 = #{attr2}
+            </if>
+            <if test="attr3 != null">
+                and attr3 = #{attr3}
+            </if>
+            <if test="attr4 != null">
+                and attr4 = #{attr4}
+            </if>
+            <if test="createTime != null">
+                and create_time = #{createTime}
+            </if>
+            <if test="createBy != null and createBy != ''">
+                and create_by = #{createBy}
+            </if>
+            <if test="updateBy != null and updateBy != ''">
+                and update_by = #{updateBy}
+            </if>
+            <if test="updateTime != null">
+                and update_time = #{updateTime}
+            </if>
+        </where>
+        ORDER BY
+        CASE
+        WHEN attr2 = 'N' THEN 1
+        ELSE 2
+        END,
+        order_date DESC,
+        CASE
+        WHEN update_time IS NOT NULL THEN update_time
+        ELSE create_time
+        END DESC
+    </select>
+
+    <!--统计总行数-->
+    <select id="count" resultType="java.lang.Long">
+        select count(1)
+        from mold_gauge
+        <where>
+            <if test="moldGaugeId != null">
+                and mold_gauge_id = #{moldGaugeId}
+            </if>
+            <if test="clientId != null">
+                and client_id = #{clientId}
+            </if>
+            <if test="moldId != null">
+                and mold_id = #{moldId}
+            </if>
+            <if test="lsDeviceId != null">
+                and ls_device_id = #{lsDeviceId}
+            </if>
+            <if test="moldBeforSpec != null and moldBeforSpec != ''">
+                and mold_befor_spec = #{moldBeforSpec}
+            </if>
+            <if test="moldAfterSpec != null and moldAfterSpec != ''">
+                and mold_after_spec = #{moldAfterSpec}
+            </if>
+            <if test="startTime != null">
+                and start_time = #{startTime}
+            </if>
+            <if test="endTime != null">
+                and end_time = #{endTime}
+            </if>
+            <if test="moldBeforeId != null">
+                and mold_before_id = #{moldBeforeId}
+            </if>
+            <if test="model != null and model != ''">
+                and model = #{model}
+            </if>
+            <if test="spec != null and spec != ''">
+                and spec = #{spec}
+            </if>
+            <if test="quantity != null and quantity != ''">
+                and quantity = #{quantity}
+            </if>
+            <if test="qbDeviceId != null">
+                and qb_device_id = #{qbDeviceId}
+            </if>
+            <if test="remark != null and remark != ''">
+                and remark = #{remark}
+            </if>
+            <if test="orderDate != null">
+                and order_date = #{orderDate}
+            </if>
+            <if test="attr1 != null and attr1 != ''">
+                and attr1 = #{attr1}
+            </if>
+            <if test="attr2 != null and attr2 != ''">
+                and attr2 = #{attr2}
+            </if>
+            <if test="attr3 != null">
+                and attr3 = #{attr3}
+            </if>
+            <if test="attr4 != null">
+                and attr4 = #{attr4}
+            </if>
+            <if test="createTime != null">
+                and create_time = #{createTime}
+            </if>
+            <if test="createBy != null and createBy != ''">
+                and create_by = #{createBy}
+            </if>
+            <if test="updateBy != null and updateBy != ''">
+                and update_by = #{updateBy}
+            </if>
+            <if test="updateTime != null">
+                and update_time = #{updateTime}
+            </if>
+        </where>
+    </select>
+
+    <!-- 查询单个 -->
+    <select id="queryById" resultMap="MoldGaugeMap">
+        SELECT mold_gauge_id, client_id, mold_id, ls_device_id, mold_befor_spec, mold_after_spec, start_time, end_time, mold_before_id, model, spec, quantity, qb_device_id, remark, order_date, attr1, attr2, attr3, attr4, create_time, create_by, update_by, update_time
+        FROM mold_gauge
+        WHERE mold_gauge_id = #{moldGaugeId}
+    </select>
+
+    <!-- 新增所有列 -->
+    <insert id="insert" keyProperty="moldGaugeId" useGeneratedKeys="true">
+        INSERT INTO mold_gauge (
+            client_id, mold_id, ls_device_id, mold_befor_spec, mold_after_spec, start_time, end_time, mold_before_id, model, spec, quantity, qb_device_id, remark, order_date, attr1, attr2, attr3, attr4, create_time, create_by, update_by, update_time
+        )
+        VALUES (
+                   #{clientId}, #{moldId}, #{lsDeviceId}, #{moldBeforSpec}, #{moldAfterSpec}, #{startTime}, #{endTime}, #{moldBeforeId}, #{model}, #{spec}, #{quantity}, #{qbDeviceId}, #{remark}, #{orderDate}, #{attr1}, #{attr2}, #{attr3}, #{attr4}, #{createTime}, #{createBy}, #{updateBy}, #{updateTime}
+               )
+    </insert>
+
+    <!-- 批量插入 -->
+    <insert id="insertBatch" keyProperty="moldGaugeId" useGeneratedKeys="true">
+        INSERT INTO mold_gauge (
+        client_id, mold_id, ls_device_id, mold_befor_spec, mold_after_spec, start_time, end_time, mold_before_id, model, spec, quantity, qb_device_id, remark, order_date, attr1, attr2, attr3, attr4, create_time, create_by, update_by, update_time
+        )
+        VALUES
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.clientId}, #{entity.moldId}, #{entity.lsDeviceId}, #{entity.moldBeforSpec}, #{entity.moldAfterSpec}, #{entity.startTime}, #{entity.endTime}, #{entity.moldBeforeId}, #{entity.model}, #{entity.spec}, #{entity.quantity}, #{entity.qbDeviceId}, #{entity.remark}, #{entity.orderDate}, #{entity.attr1}, #{entity.attr2}, #{entity.attr3}, #{entity.attr4}, #{entity.createTime}, #{entity.createBy}, #{entity.updateBy}, #{entity.updateTime})
+        </foreach>
+    </insert>
+
+    <!-- 插入或更新批处理 -->
+    <insert id="insertOrUpdateBatch" keyProperty="moldGaugeId" useGeneratedKeys="true">
+        INSERT INTO mold_gauge (
+        client_id, mold_id, ls_device_id, mold_befor_spec, mold_after_spec, start_time, end_time, mold_before_id, model, spec, quantity, qb_device_id, remark, order_date, attr1, attr2, attr3, attr4, create_time, create_by, update_by, update_time
+        )
+        VALUES
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.clientId}, #{entity.moldId}, #{entity.lsDeviceId}, #{entity.moldBeforSpec}, #{entity.moldAfterSpec}, #{entity.startTime}, #{entity.endTime}, #{entity.moldBeforeId}, #{entity.model}, #{entity.spec}, #{entity.quantity}, #{entity.qbDeviceId}, #{entity.remark}, #{entity.orderDate}, #{entity.attr1}, #{entity.attr2}, #{entity.attr3}, #{entity.attr4}, #{entity.createTime}, #{entity.createBy}, #{entity.updateBy}, #{entity.updateTime})
+        </foreach>
+        ON DUPLICATE KEY UPDATE
+        client_id = VALUES(client_id),
+        mold_id = VALUES(mold_id),
+        ls_device_id = VALUES(ls_device_id),
+        mold_befor_spec = VALUES(mold_befor_spec),
+        mold_after_spec = VALUES(mold_after_spec),
+        start_time = VALUES(start_time),
+        end_time = VALUES(end_time),
+        mold_before_id = VALUES(mold_before_id),
+        model = VALUES(model),
+        spec = VALUES(spec),
+        quantity = VALUES(quantity),
+        qb_device_id = VALUES(qb_device_id),
+        remark = VALUES(remark),
+        order_date = VALUES(order_date),
+        attr1 = VALUES(attr1),
+        attr2 = VALUES(attr2),
+        attr3 = VALUES(attr3),
+        attr4 = VALUES(attr4),
+        create_time = VALUES(create_time),
+        create_by = VALUES(create_by),
+        update_by = VALUES(update_by),
+        update_time = VALUES(update_time)
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update mold_gauge
+        <set>
+            <if test="clientId != null">
+                client_id = #{clientId},
+            </if>
+            <if test="moldId != null">
+                mold_id = #{moldId},
+            </if>
+            <if test="lsDeviceId != null">
+                ls_device_id = #{lsDeviceId},
+            </if>
+            <if test="moldBeforSpec != null and moldBeforSpec != ''">
+                mold_befor_spec = #{moldBeforSpec},
+            </if>
+            <if test="moldAfterSpec != null and moldAfterSpec != ''">
+                mold_after_spec = #{moldAfterSpec},
+            </if>
+            <if test="startTime != null">
+                start_time = #{startTime},
+            </if>
+            <if test="endTime != null">
+                end_time = #{endTime},
+            </if>
+            <if test="moldBeforeId != null">
+                mold_before_id = #{moldBeforeId},
+            </if>
+            <if test="model != null and model != ''">
+                model = #{model},
+            </if>
+            <if test="spec != null and spec != ''">
+                spec = #{spec},
+            </if>
+            <if test="quantity != null and quantity != ''">
+                quantity = #{quantity},
+            </if>
+            <if test="qbDeviceId != null">
+                qb_device_id = #{qbDeviceId},
+            </if>
+            <if test="remark != null and remark != ''">
+                remark = #{remark},
+            </if>
+            <if test="orderDate != null">
+                order_date = #{orderDate},
+            </if>
+            <if test="attr1 != null and attr1 != ''">
+                attr1 = #{attr1},
+            </if>
+            <if test="attr2 != null and attr2 != ''">
+                attr2 = #{attr2},
+            </if>
+            <if test="attr3 != null">
+                attr3 = #{attr3},
+            </if>
+            <if test="attr4 != null">
+                attr4 = #{attr4},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime},
+            </if>
+            <if test="createBy != null and createBy != ''">
+                create_by = #{createBy},
+            </if>
+            <if test="updateBy != null and updateBy != ''">
+                update_by = #{updateBy},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime},
+            </if>
+        </set>
+        where mold_gauge_id = #{moldGaugeId}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete
+        from mold_gauge
+        where mold_gauge_id = #{moldGaugeId}
+    </delete>
+
+</mapper>
+

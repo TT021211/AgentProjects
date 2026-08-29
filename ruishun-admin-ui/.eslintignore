@@ -1,0 +1,10 @@
+!.env-config.ts
+router-page.d.ts
+**/kanBan/**.vue
+**/kanBan/**/**.vue
+**/kanBan/**.js
+**/kanBan/compents/dashboard/mixins/**.js
+**/kanBan/compents/options/**.js
+**/client/analyse/options/address.js
+**/client/information/options/address.js
+**/storage/storageRecording/compents/options/right_top_options.js

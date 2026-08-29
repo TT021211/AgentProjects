@@ -1,0 +1,364 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cuixing.mold.mapper.MoldRestructuringMapper">
+
+    <resultMap type="com.cuixing.mold.entity.MoldRestructuring" id="MoldRestructuringMap">
+        <result property="moldRestructuringId" column="mold_restructuring_id" jdbcType="INTEGER"/>
+        <result property="moldId" column="mold_id" jdbcType="INTEGER"/>
+        <result property="nestingMoldId" column="nesting_mold_id" jdbcType="INTEGER"/>
+        <result property="restructuringDate" column="restructuring_date" jdbcType="TIMESTAMP"/>
+        <result property="remark" column="remark" jdbcType="VARCHAR"/>
+        <result property="attr1" column="attr1" jdbcType="VARCHAR"/>
+        <result property="attr2" column="attr2" jdbcType="VARCHAR"/>
+        <result property="attr3" column="attr3" jdbcType="INTEGER"/>
+        <result property="attr4" column="attr4" jdbcType="INTEGER"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="createBy" column="create_by" jdbcType="VARCHAR"/>
+        <result property="updateBy" column="update_by" jdbcType="VARCHAR"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+        <result property="beforeAperture" column="before_aperture" jdbcType="VARCHAR"/>
+        <result property="nowAperture" column="now_aperture" jdbcType="VARCHAR"/>
+        <result property="moldCode" column="mold_code" jdbcType="VARCHAR"/>
+        <result property="moldType" column="mold_type" jdbcType="VARCHAR"/>
+        <result property="moldSpec" column="mold_spec" jdbcType="VARCHAR"/>
+        <result property="moldMaterial" column="mold_material" jdbcType="VARCHAR"/>
+        <result property="engineeringTolerance" column="engineering_tolerance" jdbcType="DECIMAL"/>
+        <result property="clientId" column="client_id" jdbcType="INTEGER"/> <!-- New field -->
+        <result property="clientName" column="client_name" jdbcType="VARCHAR"/> <!-- New field -->
+        <result property="beforeEngineeringTolerance" column="before_engineering_tolerance" jdbcType="DECIMAL"/> <!-- New field -->
+    </resultMap>
+
+
+    <sql id="selectMoldRestructuringVo">
+        SELECT mold_restructuring_id,
+        mold_id,
+        nesting_mold_id,
+        restructuring_date,
+        remark,
+        attr1,
+        attr2,
+        attr3,
+        attr4,
+        create_time,
+        create_by,
+        update_by,
+        update_time,
+        before_aperture,
+        now_aperture,
+        mold_code,
+        mold_type,
+        mold_spec,
+        mold_material,
+        engineering_tolerance,
+        client_id, <!-- New field -->
+        client_name, <!-- New field -->
+        before_engineering_tolerance <!-- New field -->
+        FROM mold_restructuring
+    </sql>
+
+
+    <select id="selectMoldRestructuringList" parameterType="MoldRestructuring" resultMap="MoldRestructuringMap">
+        <include refid="selectMoldRestructuringVo"/>
+        <where>
+            <if test="moldRestructuringId != null">
+                and mold_restructuring_id = #{moldRestructuringId}
+            </if>
+            <if test="moldId != null">
+                and mold_id = #{moldId}
+            </if>
+            <if test="nestingMoldId != null">
+                and nesting_mold_id = #{nestingMoldId}
+            </if>
+            <if test="startDate != null and endDate != null">
+                and restructuring_date BETWEEN #{startDate} AND #{endDate}
+            </if>
+            <if test="remark != null and remark != ''">
+                and remark = #{remark}
+            </if>
+            <if test="attr1 != null and attr1 != ''">
+                and attr1 = #{attr1}
+            </if>
+            <if test="attr2 != null and attr2 != ''">
+                and attr2 = #{attr2}
+            </if>
+            <if test="attr3 != null">
+                and attr3 = #{attr3}
+            </if>
+            <if test="attr4 != null">
+                and attr4 = #{attr4}
+            </if>
+            <if test="createTime != null">
+                and create_time = #{createTime}
+            </if>
+            <if test="createBy != null and createBy != ''">
+                and create_by = #{createBy}
+            </if>
+            <if test="updateBy != null and updateBy != ''">
+                and update_by = #{updateBy}
+            </if>
+            <if test="updateTime != null">
+                and update_time = #{updateTime}
+            </if>
+            <if test="beforeAperture != null and beforeAperture != ''">
+                and before_aperture = #{beforeAperture}
+            </if>
+            <if test="nowAperture != null and nowAperture != ''">
+                and now_aperture = #{nowAperture}
+            </if>
+            <if test="moldCode != null and moldCode != ''">
+                and mold_code = #{moldCode}
+            </if>
+            <if test="moldType != null and moldType != ''">
+                and mold_type = #{moldType}
+            </if>
+            <if test="moldSpec != null and moldSpec != ''">
+                and mold_spec = #{moldSpec}
+            </if>
+            <if test="moldMaterial != null and moldMaterial != ''">
+                and mold_material = #{moldMaterial}
+            </if>
+            <if test="engineeringTolerance != null">
+                and engineering_tolerance = #{engineeringTolerance}
+            </if>
+            <if test="clientId != null">
+                and client_id = #{clientId}
+            </if>
+            <if test="clientName != null and clientName != ''">
+                and client_name = #{clientName}
+            </if>
+            <if test="beforeEngineeringTolerance != null">
+                and before_engineering_tolerance = #{beforeEngineeringTolerance}
+            </if>
+        </where>
+        ORDER BY restructuring_date DESC
+    </select>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="MoldRestructuringMap">
+        <include refid="selectMoldRestructuringVo"/>
+        where mold_restructuring_id = #{moldRestructuringId}
+    </select>
+
+    <!--统计总行数-->
+    <select id="count" resultType="java.lang.Long">
+        select count(1)
+        from mold_restructuring
+        <where>
+            <if test="moldRestructuringId != null">
+                and mold_restructuring_id = #{moldRestructuringId}
+            </if>
+            <if test="moldId != null">
+                and mold_id = #{moldId}
+            </if>
+            <if test="nestingMoldId != null">
+                and nesting_mold_id = #{nestingMoldId}
+            </if>
+            <if test="restructuringDate != null">
+                and restructuring_date = #{restructuringDate}
+            </if>
+            <if test="remark != null and remark != ''">
+                and remark = #{remark}
+            </if>
+            <if test="attr1 != null and attr1 != ''">
+                and attr1 = #{attr1}
+            </if>
+            <if test="attr2 != null and attr2 != ''">
+                and attr2 = #{attr2}
+            </if>
+            <if test="attr3 != null">
+                and attr3 = #{attr3}
+            </if>
+            <if test="attr4 != null">
+                and attr4 = #{attr4}
+            </if>
+            <if test="createTime != null">
+                and create_time = #{createTime}
+            </if>
+            <if test="createBy != null and createBy != ''">
+                and create_by = #{createBy}
+            </if>
+            <if test="updateBy != null and updateBy != ''">
+                and update_by = #{updateBy}
+            </if>
+            <if test="updateTime != null">
+                and update_time = #{updateTime}
+            </if>
+            <if test="beforeAperture != null and beforeAperture != ''">
+                and before_aperture = #{beforeAperture}
+            </if>
+            <if test="nowAperture != null and nowAperture != ''">
+                and now_aperture = #{nowAperture}
+            </if>
+            <if test="moldCode != null and moldCode != ''">
+                and mold_code = #{moldCode}
+            </if>
+            <if test="moldType != null and moldType != ''">
+                and mold_type = #{moldType}
+            </if>
+            <if test="moldSpec != null and moldSpec != ''">
+                and mold_spec = #{moldSpec}
+            </if>
+            <if test="moldMaterial != null and moldMaterial != ''">
+                and mold_material = #{moldMaterial}
+            </if>
+            <if test="engineeringTolerance != null">
+                and engineering_tolerance = #{engineeringTolerance}
+            </if>
+            <if test="clientId != null">
+                and client_id = #{clientId}
+            </if>
+            <if test="clientName != null and clientName != ''">
+                and client_name = #{clientName}
+            </if>
+            <if test="beforeEngineeringTolerance != null">
+                and before_engineering_tolerance = #{beforeEngineeringTolerance}
+            </if>
+        </where>
+    </select>
+
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="moldRestructuringId" useGeneratedKeys="true">
+        insert into mold_restructuring(mold_id, nesting_mold_id, restructuring_date, remark, attr1, attr2, attr3, attr4,
+                                       create_time, create_by, update_by, update_time, before_aperture, now_aperture,
+                                       mold_code, mold_type, mold_spec, mold_material, engineering_tolerance, client_id, client_name, before_engineering_tolerance)
+        values (#{moldId}, #{nestingMoldId}, #{restructuringDate}, #{remark}, #{attr1}, #{attr2}, #{attr3}, #{attr4},
+                #{createTime}, #{createBy}, #{updateBy}, #{updateTime}, #{beforeAperture}, #{nowAperture}, #{moldCode},
+                #{moldType}, #{moldSpec}, #{moldMaterial}, #{engineeringTolerance}, #{clientId}, #{clientName}, #{beforeEngineeringTolerance})
+    </insert>
+
+    <insert id="insertBatch" keyProperty="moldRestructuringId" useGeneratedKeys="true">
+        insert into mold_restructuring(mold_id, nesting_mold_id, restructuring_date, remark, attr1, attr2, attr3, attr4,
+        create_time, create_by, update_by, update_time, before_aperture, now_aperture, mold_code, mold_type, mold_spec,
+        mold_material, engineering_tolerance, client_id, client_name, before_engineering_tolerance)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.moldId}, #{entity.nestingMoldId}, #{entity.restructuringDate}, #{entity.remark}, #{entity.attr1},
+            #{entity.attr2}, #{entity.attr3}, #{entity.attr4}, #{entity.createTime}, #{entity.createBy},
+            #{entity.updateBy}, #{entity.updateTime}, #{entity.beforeAperture}, #{entity.nowAperture},
+            #{entity.moldCode}, #{entity.moldType}, #{entity.moldSpec}, #{entity.moldMaterial}, #{entity.engineeringTolerance},
+            #{entity.clientId}, #{entity.clientName}, #{entity.beforeEngineeringTolerance})
+        </foreach>
+    </insert>
+
+
+    <insert id="insertOrUpdateBatch" keyProperty="moldRestructuringId" useGeneratedKeys="true">
+        insert into mold_restructuring(mold_id, nesting_mold_id, restructuring_date, remark, attr1, attr2, attr3, attr4,
+        create_time, create_by, update_by, update_time, before_aperture, now_aperture, mold_code, mold_type, mold_spec,
+        mold_material,engineering_tolerance, client_id, client_name, before_engineering_tolerance)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.moldId}, #{entity.nestingMoldId}, #{entity.restructuringDate}, #{entity.remark}, #{entity.attr1},
+            #{entity.attr2}, #{entity.attr3}, #{entity.attr4}, #{entity.createTime}, #{entity.createBy},
+            #{entity.updateBy}, #{entity.updateTime}, #{entity.beforeAperture}, #{entity.nowAperture},
+            #{entity.moldCode}, #{entity.moldType}, #{entity.moldSpec}, #{entity.moldMaterial},#{entity.engineeringTolerance},#{entity.clientId}, #{entity.clientName}, #{entity.beforeEngineeringTolerance})
+        </foreach>
+        on duplicate key update
+        mold_id = values(mold_id),
+        nesting_mold_id = values(nesting_mold_id),
+        restructuring_date = values(restructuring_date),
+        remark = values(remark),
+        attr1 = values(attr1),
+        attr2 = values(attr2),
+        attr3 = values(attr3),
+        attr4 = values(attr4),
+        create_time = values(create_time),
+        create_by = values(create_by),
+        update_by = values(update_by),
+        update_time = values(update_time),
+        before_aperture = values(before_aperture),
+        now_aperture = values(now_aperture),
+        mold_code = values(mold_code),
+        mold_type = values(mold_type),
+        mold_spec = values(mold_spec),
+        mold_material = values(mold_material),
+        engineering_tolerance = values(engineering_tolerance),
+        client_id = values(client_id),
+        client_name = values(client_name),
+        before_engineering_tolerance = values(before_engineering_tolerance)
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update mold_restructuring
+        <set>
+            <if test="moldId != null">
+                mold_id = #{moldId},
+            </if>
+            <if test="nestingMoldId != null">
+                nesting_mold_id = #{nestingMoldId},
+            </if>
+            <if test="restructuringDate != null">
+                restructuring_date = #{restructuringDate},
+            </if>
+            <if test="remark != null and remark != ''">
+                remark = #{remark},
+            </if>
+            <if test="engineeringTolerance != null">
+                engineering_tolerance = #{engineeringTolerance},
+            </if>
+            <if test="clientId != null">
+                client_id = #{clientId},
+            </if>
+            <if test="clientName != null and clientName != ''">
+                client_name = #{clientName},
+            </if>
+            <if test="beforeEngineeringTolerance != null">
+                before_engineering_tolerance = #{beforeEngineeringTolerance},
+            </if>
+            <if test="attr1 != null and attr1 != ''">
+                attr1 = #{attr1},
+            </if>
+            <if test="attr2 != null and attr2 != ''">
+                attr2 = #{attr2},
+            </if>
+            <if test="attr3 != null">
+                attr3 = #{attr3},
+            </if>
+            <if test="attr4 != null">
+                attr4 = #{attr4},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime},
+            </if>
+            <if test="createBy != null and createBy != ''">
+                create_by = #{createBy},
+            </if>
+            <if test="updateBy != null and updateBy != ''">
+                update_by = #{updateBy},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime},
+            </if>
+            <if test="beforeAperture != null and beforeAperture != ''">
+                before_aperture = #{beforeAperture},
+            </if>
+            <if test="nowAperture != null and nowAperture != ''">
+                now_aperture = #{nowAperture},
+            </if>
+            <if test="moldCode != null and moldCode != ''">
+                mold_code = #{moldCode},
+            </if>
+            <if test="moldType != null and moldType != ''">
+                mold_type = #{moldType},
+            </if>
+            <if test="moldSpec != null and moldSpec != ''">
+                mold_spec = #{moldSpec},
+            </if>
+            <if test="moldMaterial != null and moldMaterial != ''">
+                mold_material = #{moldMaterial},
+            </if>
+        </set>
+        where mold_restructuring_id = #{moldRestructuringId}
+    </update>
+
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete
+        from mold_restructuring
+        where mold_restructuring_id = #{moldRestructuringId}
+    </delete>
+
+</mapper>
+

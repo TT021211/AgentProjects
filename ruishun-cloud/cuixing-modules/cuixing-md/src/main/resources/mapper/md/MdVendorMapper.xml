@@ -1,0 +1,567 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cuixing.md.mapper.MdVendorMapper">
+    <resultMap type="com.cuixing.md.entity.MdVendor" id="MdVendorMap">
+        <result property="id" column="id" jdbcType="BIGINT"/>
+        <result property="vendorCode" column="vendor_code" jdbcType="VARCHAR"/>
+        <result property="vendorName" column="vendor_name" jdbcType="VARCHAR"/>
+        <result property="vendorNick" column="vendor_nick" jdbcType="VARCHAR"/>
+        <result property="vendorEn" column="vendor_en" jdbcType="VARCHAR"/>
+        <result property="vendorDes" column="vendor_des" jdbcType="VARCHAR"/>
+        <result property="vendorLogo" column="vendor_logo" jdbcType="VARCHAR"/>
+        <result property="vendorLevel" column="vendor_level" jdbcType="VARCHAR"/>
+        <result property="vendorScore" column="vendor_score" jdbcType="INTEGER"/>
+        <result property="address" column="address" jdbcType="VARCHAR"/>
+        <result property="website" column="website" jdbcType="VARCHAR"/>
+        <result property="email" column="email" jdbcType="VARCHAR"/>
+        <result property="tel" column="tel" jdbcType="VARCHAR"/>
+        <result property="contact1" column="contact1" jdbcType="VARCHAR"/>
+        <result property="contact1Tel" column="contact1_tel" jdbcType="VARCHAR"/>
+        <result property="contact1Email" column="contact1_email" jdbcType="VARCHAR"/>
+        <result property="contact2" column="contact2" jdbcType="VARCHAR"/>
+        <result property="contact2Tel" column="contact2_tel" jdbcType="VARCHAR"/>
+        <result property="contact2Email" column="contact2_email" jdbcType="VARCHAR"/>
+        <result property="creditCode" column="credit_code" jdbcType="VARCHAR"/>
+        <result property="isEnabled" column="is_enabled" jdbcType="INTEGER"/>
+        <result property="attr1" column="attr1" jdbcType="VARCHAR"/>
+        <result property="attr2" column="attr2" jdbcType="INTEGER"/>
+        <result property="attr3" column="attr3" jdbcType="VARCHAR"/>
+        <result property="createBy" column="create_by" jdbcType="VARCHAR"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="updateBy" column="update_by" jdbcType="VARCHAR"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+        <result property="remark" column="remark" jdbcType="VARCHAR"/>
+        <result property="version" column="version" jdbcType="INTEGER"/>
+        <result property="isDeleted" column="is_deleted" jdbcType="INTEGER"/>
+        <result property="erpJson" column="erp_json" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!-- 通过ID查询单条数据 -->
+    <select id="queryById" resultMap="MdVendorMap">
+        select
+        id,vendor_code,vendor_name,vendor_nick,vendor_en,vendor_des,vendor_logo,vendor_level,vendor_score,address,website,email,tel,contact1,contact1_tel,contact1_email,contact2,contact2_tel,contact2_email,credit_code,is_enabled,attr1,attr2,attr3,create_by,create_time,update_by,update_time,remark,version,is_deleted,erp_json
+        from md_vendor
+        where is_deleted = 0 and id = #{id}
+    </select>
+
+    <!--分页查询指定行数据-->
+    <select id="selectMdVendorList" resultMap="MdVendorMap" parameterType="MdVendor">
+        select
+        d.id,d.vendor_code,d.vendor_name,d.vendor_nick,d.vendor_en,d.vendor_des,d.vendor_logo,d.vendor_level,d.vendor_score,d.address,d.website,d.email,d.tel,d.contact1,d.contact1_tel,d.contact1_email,d.contact2,d.contact2_tel,d.contact2_email,d.credit_code,d.is_enabled,d.attr1,d.attr2,d.attr3,d.create_by,d.create_time,d.update_by,d.update_time,d.remark,d.version,d.is_deleted,d.erp_json
+        from md_vendor d
+        <where>
+            is_deleted = 0
+            <if test="id != null ">
+                and id = #{id}
+            </if>
+            <if test="vendorCode != null and vendorCode != ''">
+                and vendor_code = #{vendorCode}
+            </if>
+            <if test="vendorName != null and vendorName != ''">
+                and vendor_name = #{vendorName}
+            </if>
+            <if test="vendorNick != null and vendorNick != ''">
+                and vendor_nick = #{vendorNick}
+            </if>
+            <if test="vendorEn != null and vendorEn != ''">
+                and vendor_en = #{vendorEn}
+            </if>
+            <if test="vendorDes != null and vendorDes != ''">
+                and vendor_des = #{vendorDes}
+            </if>
+            <if test="vendorLogo != null and vendorLogo != ''">
+                and vendor_logo = #{vendorLogo}
+            </if>
+            <if test="vendorLevel != null and vendorLevel != ''">
+                and vendor_level = #{vendorLevel}
+            </if>
+            <if test="vendorScore != null ">
+                and vendor_score = #{vendorScore}
+            </if>
+            <if test="address != null and address != ''">
+                and address = #{address}
+            </if>
+            <if test="website != null and website != ''">
+                and website = #{website}
+            </if>
+            <if test="email != null and email != ''">
+                and email = #{email}
+            </if>
+            <if test="tel != null and tel != ''">
+                and tel = #{tel}
+            </if>
+            <if test="contact1 != null and contact1 != ''">
+                and contact1 = #{contact1}
+            </if>
+            <if test="contact1Tel != null and contact1Tel != ''">
+                and contact1_tel = #{contact1Tel}
+            </if>
+            <if test="contact1Email != null and contact1Email != ''">
+                and contact1_email = #{contact1Email}
+            </if>
+            <if test="contact2 != null and contact2 != ''">
+                and contact2 = #{contact2}
+            </if>
+            <if test="contact2Tel != null and contact2Tel != ''">
+                and contact2_tel = #{contact2Tel}
+            </if>
+            <if test="contact2Email != null and contact2Email != ''">
+                and contact2_email = #{contact2Email}
+            </if>
+            <if test="creditCode != null and creditCode != ''">
+                and credit_code = #{creditCode}
+            </if>
+            <if test="isEnabled != null ">
+                and is_enabled = #{isEnabled}
+            </if>
+            <if test="attr1 != null and attr1 != ''">
+                and attr1 = #{attr1}
+            </if>
+            <if test="attr2 != null ">
+                and attr2 = #{attr2}
+            </if>
+            <if test="attr3 != null and attr3 != ''">
+                and attr3 = #{attr3}
+            </if>
+            <if test="createBy != null and createBy != ''">
+                and create_by = #{createBy}
+            </if>
+            <if test="createTime != null ">
+                and create_time = #{createTime}
+            </if>
+            <if test="updateBy != null and updateBy != ''">
+                and update_by = #{updateBy}
+            </if>
+            <if test="updateTime != null ">
+                and update_time = #{updateTime}
+            </if>
+            <if test="remark != null and remark != ''">
+                and remark = #{remark}
+            </if>
+            <if test="version != null ">
+                and version = #{version}
+            </if>
+            <if test="isDeleted != null ">
+                and is_deleted = #{isDeleted}
+            </if>
+            <if test="erpJson != null and erpJson != ''">
+                and erp_json = #{erpJson}
+            </if>
+        </where>
+        order by create_time desc
+    </select>
+
+    <!--统计总行数-->
+    <select id="count" resultType="java.lang.Long">
+        select count(1)
+        from md_vendor
+        <where>
+            is_deleted = 0
+            <if test="id != null ">
+                and id = #{id}
+            </if>
+            <if test="vendorCode != null and vendorCode != ''">
+                and vendor_code = #{vendorCode}
+            </if>
+            <if test="vendorName != null and vendorName != ''">
+                and vendor_name = #{vendorName}
+            </if>
+            <if test="vendorNick != null and vendorNick != ''">
+                and vendor_nick = #{vendorNick}
+            </if>
+            <if test="vendorEn != null and vendorEn != ''">
+                and vendor_en = #{vendorEn}
+            </if>
+            <if test="vendorDes != null and vendorDes != ''">
+                and vendor_des = #{vendorDes}
+            </if>
+            <if test="vendorLogo != null and vendorLogo != ''">
+                and vendor_logo = #{vendorLogo}
+            </if>
+            <if test="vendorLevel != null and vendorLevel != ''">
+                and vendor_level = #{vendorLevel}
+            </if>
+            <if test="vendorScore != null ">
+                and vendor_score = #{vendorScore}
+            </if>
+            <if test="address != null and address != ''">
+                and address = #{address}
+            </if>
+            <if test="website != null and website != ''">
+                and website = #{website}
+            </if>
+            <if test="email != null and email != ''">
+                and email = #{email}
+            </if>
+            <if test="tel != null and tel != ''">
+                and tel = #{tel}
+            </if>
+            <if test="contact1 != null and contact1 != ''">
+                and contact1 = #{contact1}
+            </if>
+            <if test="contact1Tel != null and contact1Tel != ''">
+                and contact1_tel = #{contact1Tel}
+            </if>
+            <if test="contact1Email != null and contact1Email != ''">
+                and contact1_email = #{contact1Email}
+            </if>
+            <if test="contact2 != null and contact2 != ''">
+                and contact2 = #{contact2}
+            </if>
+            <if test="contact2Tel != null and contact2Tel != ''">
+                and contact2_tel = #{contact2Tel}
+            </if>
+            <if test="contact2Email != null and contact2Email != ''">
+                and contact2_email = #{contact2Email}
+            </if>
+            <if test="creditCode != null and creditCode != ''">
+                and credit_code = #{creditCode}
+            </if>
+            <if test="isEnabled != null ">
+                and is_enabled = #{isEnabled}
+            </if>
+            <if test="attr1 != null and attr1 != ''">
+                and attr1 = #{attr1}
+            </if>
+            <if test="attr2 != null ">
+                and attr2 = #{attr2}
+            </if>
+            <if test="attr3 != null and attr3 != ''">
+                and attr3 = #{attr3}
+            </if>
+            <if test="createBy != null and createBy != ''">
+                and create_by = #{createBy}
+            </if>
+            <if test="createTime != null ">
+                and create_time = #{createTime}
+            </if>
+            <if test="updateBy != null and updateBy != ''">
+                and update_by = #{updateBy}
+            </if>
+            <if test="updateTime != null ">
+                and update_time = #{updateTime}
+            </if>
+            <if test="remark != null and remark != ''">
+                and remark = #{remark}
+            </if>
+            <if test="version != null ">
+                and version = #{version}
+            </if>
+            <if test="isDeleted != null ">
+                and is_deleted = #{isDeleted}
+            </if>
+            <if test="erpJson != null and erpJson != ''">
+                and erp_json = #{erpJson}
+            </if>
+        </where>
+    </select>
+
+    <!--新增数据-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into md_vendor
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="vendorCode != null and vendorCode != ''">vendor_code,</if>
+            <if test="vendorName != null and vendorName != ''">vendor_name,</if>
+            <if test="vendorNick != null and vendorNick != ''">vendor_nick,</if>
+            <if test="vendorEn != null and vendorEn != ''">vendor_en,</if>
+            <if test="vendorDes != null and vendorDes != ''">vendor_des,</if>
+            <if test="vendorLogo != null and vendorLogo != ''">vendor_logo,</if>
+            <if test="vendorLevel != null and vendorLevel != ''">vendor_level,</if>
+            <if test="vendorScore != null ">vendor_score,</if>
+            <if test="address != null and address != ''">address,</if>
+            <if test="website != null and website != ''">website,</if>
+            <if test="email != null and email != ''">email,</if>
+            <if test="tel != null and tel != ''">tel,</if>
+            <if test="contact1 != null and contact1 != ''">contact1,</if>
+            <if test="contact1Tel != null and contact1Tel != ''">contact1_tel,</if>
+            <if test="contact1Email != null and contact1Email != ''">contact1_email,</if>
+            <if test="contact2 != null and contact2 != ''">contact2,</if>
+            <if test="contact2Tel != null and contact2Tel != ''">contact2_tel,</if>
+            <if test="contact2Email != null and contact2Email != ''">contact2_email,</if>
+            <if test="creditCode != null and creditCode != ''">credit_code,</if>
+            <if test="isEnabled != null ">is_enabled,</if>
+            <if test="attr1 != null and attr1 != ''">attr1,</if>
+            <if test="attr2 != null ">attr2,</if>
+            <if test="attr3 != null and attr3 != ''">attr3,</if>
+            <if test="createBy != null and createBy != ''">create_by,</if>
+            <if test="createTime != null ">create_time,</if>
+            <if test="updateBy != null and updateBy != ''">update_by,</if>
+            <if test="updateTime != null ">update_time,</if>
+            <if test="remark != null and remark != ''">remark,</if>
+            <if test="version != null ">version,</if>
+            <if test="isDeleted != null ">is_deleted,</if>
+            <if test="erpJson != null and erpJson != ''">erp_json,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="vendorCode != null and vendorCode != ''">#{vendorCode},</if>
+            <if test="vendorName != null and vendorName != ''">#{vendorName},</if>
+            <if test="vendorNick != null and vendorNick != ''">#{vendorNick},</if>
+            <if test="vendorEn != null and vendorEn != ''">#{vendorEn},</if>
+            <if test="vendorDes != null and vendorDes != ''">#{vendorDes},</if>
+            <if test="vendorLogo != null and vendorLogo != ''">#{vendorLogo},</if>
+            <if test="vendorLevel != null and vendorLevel != ''">#{vendorLevel},</if>
+            <if test="vendorScore != null ">#{vendorScore},</if>
+            <if test="address != null and address != ''">#{address},</if>
+            <if test="website != null and website != ''">#{website},</if>
+            <if test="email != null and email != ''">#{email},</if>
+            <if test="tel != null and tel != ''">#{tel},</if>
+            <if test="contact1 != null and contact1 != ''">#{contact1},</if>
+            <if test="contact1Tel != null and contact1Tel != ''">#{contact1Tel},</if>
+            <if test="contact1Email != null and contact1Email != ''">#{contact1Email},</if>
+            <if test="contact2 != null and contact2 != ''">#{contact2},</if>
+            <if test="contact2Tel != null and contact2Tel != ''">#{contact2Tel},</if>
+            <if test="contact2Email != null and contact2Email != ''">#{contact2Email},</if>
+            <if test="creditCode != null and creditCode != ''">#{creditCode},</if>
+            <if test="isEnabled != null ">#{isEnabled},</if>
+            <if test="attr1 != null and attr1 != ''">#{attr1},</if>
+            <if test="attr2 != null ">#{attr2},</if>
+            <if test="attr3 != null and attr3 != ''">#{attr3},</if>
+            <if test="createBy != null and createBy != ''">#{createBy},</if>
+            <if test="createTime != null ">#{createTime},</if>
+            <if test="updateBy != null and updateBy != ''">#{updateBy},</if>
+            <if test="updateTime != null ">#{updateTime},</if>
+            <if test="remark != null and remark != ''">#{remark},</if>
+            <if test="version != null ">#{version},</if>
+            <if test="isDeleted != null ">#{isDeleted},</if>
+            <if test="erpJson != null and erpJson != ''">#{erpJson},</if>
+        </trim>
+    </insert>
+
+    <!-- 批量新增数据 -->
+    <!--<insert id="insertBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into md_vendor
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="vendorCode != null and vendorCode != ''">vendor_code,</if>
+            <if test="vendorName != null and vendorName != ''">vendor_name,</if>
+            <if test="vendorNick != null and vendorNick != ''">vendor_nick,</if>
+            <if test="vendorEn != null and vendorEn != ''">vendor_en,</if>
+            <if test="vendorDes != null and vendorDes != ''">vendor_des,</if>
+            <if test="vendorLogo != null and vendorLogo != ''">vendor_logo,</if>
+            <if test="vendorLevel != null and vendorLevel != ''">vendor_level,</if>
+            <if test="vendorScore != null ">vendor_score,</if>
+            <if test="address != null and address != ''">address,</if>
+            <if test="website != null and website != ''">website,</if>
+            <if test="email != null and email != ''">email,</if>
+            <if test="tel != null and tel != ''">tel,</if>
+            <if test="contact1 != null and contact1 != ''">contact1,</if>
+            <if test="contact1Tel != null and contact1Tel != ''">contact1_tel,</if>
+            <if test="contact1Email != null and contact1Email != ''">contact1_email,</if>
+            <if test="contact2 != null and contact2 != ''">contact2,</if>
+            <if test="contact2Tel != null and contact2Tel != ''">contact2_tel,</if>
+            <if test="contact2Email != null and contact2Email != ''">contact2_email,</if>
+            <if test="creditCode != null and creditCode != ''">credit_code,</if>
+            <if test="isEnabled != null ">is_enabled,</if>
+            <if test="attr1 != null and attr1 != ''">attr1,</if>
+            <if test="attr2 != null ">attr2,</if>
+            <if test="attr3 != null and attr3 != ''">attr3,</if>
+            <if test="createBy != null and createBy != ''">create_by,</if>
+            <if test="createTime != null ">create_time,</if>
+            <if test="updateBy != null and updateBy != ''">update_by,</if>
+            <if test="updateTime != null ">update_time,</if>
+            <if test="remark != null and remark != ''">remark,</if>
+            <if test="version != null ">version,</if>
+            <if test="isDeleted != null ">is_deleted,</if>
+            <if test="erpJson != null and erpJson != ''">erp_json,</if>
+        </trim>
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            <trim prefix="(" suffix=")" suffixOverrides=",">
+                    <if test="entity.id != null ">#{entity.id},</if>
+                    <if test="entity.vendorCode != null and entity.vendorCode != ''">#{entity.vendorCode},</if>
+                    <if test="entity.vendorName != null and entity.vendorName != ''">#{entity.vendorName},</if>
+                    <if test="entity.vendorNick != null and entity.vendorNick != ''">#{entity.vendorNick},</if>
+                    <if test="entity.vendorEn != null and entity.vendorEn != ''">#{entity.vendorEn},</if>
+                    <if test="entity.vendorDes != null and entity.vendorDes != ''">#{entity.vendorDes},</if>
+                    <if test="entity.vendorLogo != null and entity.vendorLogo != ''">#{entity.vendorLogo},</if>
+                    <if test="entity.vendorLevel != null and entity.vendorLevel != ''">#{entity.vendorLevel},</if>
+                    <if test="entity.vendorScore != null ">#{entity.vendorScore},</if>
+                    <if test="entity.address != null and entity.address != ''">#{entity.address},</if>
+                    <if test="entity.website != null and entity.website != ''">#{entity.website},</if>
+                    <if test="entity.email != null and entity.email != ''">#{entity.email},</if>
+                    <if test="entity.tel != null and entity.tel != ''">#{entity.tel},</if>
+                    <if test="entity.contact1 != null and entity.contact1 != ''">#{entity.contact1},</if>
+                    <if test="entity.contact1Tel != null and entity.contact1Tel != ''">#{entity.contact1Tel},</if>
+                    <if test="entity.contact1Email != null and entity.contact1Email != ''">#{entity.contact1Email},</if>
+                    <if test="entity.contact2 != null and entity.contact2 != ''">#{entity.contact2},</if>
+                    <if test="entity.contact2Tel != null and entity.contact2Tel != ''">#{entity.contact2Tel},</if>
+                    <if test="entity.contact2Email != null and entity.contact2Email != ''">#{entity.contact2Email},</if>
+                    <if test="entity.creditCode != null and entity.creditCode != ''">#{entity.creditCode},</if>
+                    <if test="entity.isEnabled != null ">#{entity.isEnabled},</if>
+                    <if test="entity.attr1 != null and entity.attr1 != ''">#{entity.attr1},</if>
+                    <if test="entity.attr2 != null ">#{entity.attr2},</if>
+                    <if test="entity.attr3 != null and entity.attr3 != ''">#{entity.attr3},</if>
+                    <if test="entity.createBy != null and entity.createBy != ''">#{entity.createBy},</if>
+                    <if test="entity.createTime != null ">#{entity.createTime},</if>
+                    <if test="entity.updateBy != null and entity.updateBy != ''">#{entity.updateBy},</if>
+                    <if test="entity.updateTime != null ">#{entity.updateTime},</if>
+                    <if test="entity.remark != null and entity.remark != ''">#{entity.remark},</if>
+                    <if test="entity.version != null ">#{entity.version},</if>
+                    <if test="entity.isDeleted != null ">#{entity.isDeleted},</if>
+                    <if test="entity.erpJson != null and entity.erpJson != ''">#{entity.erpJson},</if>
+            </trim>
+        </foreach>
+    </insert>-->
+
+    <!-- 批量新增或按主键更新数据 -->
+    <insert id="insertOrUpdateBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into md_vendor(id,vendor_code,vendor_name,vendor_nick,vendor_en,vendor_des,vendor_logo,vendor_level,vendor_score,address,website,email,tel,contact1,contact1_tel,contact1_email,contact2,contact2_tel,contact2_email,credit_code,is_enabled,attr1,attr2,attr3,create_by,create_time,update_by,update_time,remark,version,is_deleted,erp_json)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.id},#{entity.vendorCode},#{entity.vendorName},#{entity.vendorNick},#{entity.vendorEn},#{entity.vendorDes},#{entity.vendorLogo},#{entity.vendorLevel},#{entity.vendorScore},#{entity.address},#{entity.website},#{entity.email},#{entity.tel},#{entity.contact1},#{entity.contact1Tel},#{entity.contact1Email},#{entity.contact2},#{entity.contact2Tel},#{entity.contact2Email},#{entity.creditCode},#{entity.isEnabled},#{entity.attr1},#{entity.attr2},#{entity.attr3},#{entity.createBy},#{entity.createTime},#{entity.updateBy},#{entity.updateTime},#{entity.remark},#{entity.version},#{entity.isDeleted},#{entity.erpJson})
+        </foreach>
+        on duplicate key update
+        id=values(id),
+        vendor_code=values(vendor_code),
+        vendor_name=values(vendor_name),
+        vendor_nick=values(vendor_nick),
+        vendor_en=values(vendor_en),
+        vendor_des=values(vendor_des),
+        vendor_logo=values(vendor_logo),
+        vendor_level=values(vendor_level),
+        vendor_score=values(vendor_score),
+        address=values(address),
+        website=values(website),
+        email=values(email),
+        tel=values(tel),
+        contact1=values(contact1),
+        contact1_tel=values(contact1_tel),
+        contact1_email=values(contact1_email),
+        contact2=values(contact2),
+        contact2_tel=values(contact2_tel),
+        contact2_email=values(contact2_email),
+        credit_code=values(credit_code),
+        is_enabled=values(is_enabled),
+        attr1=values(attr1),
+        attr2=values(attr2),
+        attr3=values(attr3),
+        create_by=values(create_by),
+        create_time=values(create_time),
+        update_by=values(update_by),
+        update_time=values(update_time),
+        remark=values(remark),
+        version=values(version),
+        is_deleted=values(is_deleted),
+        erp_json=values(erp_json)
+    </insert>
+
+    <!-- 更新数据 -->
+    <update id="update">
+        update md_vendor
+        <set>
+            <trim suffixOverrides=",">
+                <if test="vendorCode != null">
+                    vendor_code = #{vendorCode},
+                </if>
+                <if test="vendorName != null">
+                    vendor_name = #{vendorName},
+                </if>
+                <if test="vendorNick != null">
+                    vendor_nick = #{vendorNick},
+                </if>
+                <if test="vendorEn != null">
+                    vendor_en = #{vendorEn},
+                </if>
+                <if test="vendorDes != null">
+                    vendor_des = #{vendorDes},
+                </if>
+                <if test="vendorLogo != null">
+                    vendor_logo = #{vendorLogo},
+                </if>
+                <if test="vendorLevel != null">
+                    vendor_level = #{vendorLevel},
+                </if>
+                <if test="vendorScore != null">
+                    vendor_score = #{vendorScore},
+                </if>
+                <if test="address != null">
+                    address = #{address},
+                </if>
+                <if test="website != null">
+                    website = #{website},
+                </if>
+                <if test="email != null">
+                    email = #{email},
+                </if>
+                <if test="tel != null">
+                    tel = #{tel},
+                </if>
+                <if test="contact1 != null">
+                    contact1 = #{contact1},
+                </if>
+                <if test="contact1Tel != null">
+                    contact1_tel = #{contact1Tel},
+                </if>
+                <if test="contact1Email != null">
+                    contact1_email = #{contact1Email},
+                </if>
+                <if test="contact2 != null">
+                    contact2 = #{contact2},
+                </if>
+                <if test="contact2Tel != null">
+                    contact2_tel = #{contact2Tel},
+                </if>
+                <if test="contact2Email != null">
+                    contact2_email = #{contact2Email},
+                </if>
+                <if test="creditCode != null">
+                    credit_code = #{creditCode},
+                </if>
+                <if test="isEnabled != null">
+                    is_enabled = #{isEnabled},
+                </if>
+                <if test="attr1 != null">
+                    attr1 = #{attr1},
+                </if>
+                <if test="attr2 != null">
+                    attr2 = #{attr2},
+                </if>
+                <if test="attr3 != null">
+                    attr3 = #{attr3},
+                </if>
+                <if test="createBy != null">
+                    create_by = #{createBy},
+                </if>
+                <if test="createTime != null">
+                    create_time = #{createTime},
+                </if>
+                <if test="updateBy != null">
+                    update_by = #{updateBy},
+                </if>
+                <if test="updateTime != null">
+                    update_time = #{updateTime},
+                </if>
+                <if test="remark != null">
+                    remark = #{remark},
+                </if>
+                <if test="version != null">
+                    version = #{version}+1,
+                </if>
+                <if test="isDeleted != null">
+                    is_deleted = #{isDeleted},
+                </if>
+                <if test="erpJson != null">
+                    erp_json = #{erpJson},
+                </if>
+            </trim>
+        </set>
+        where id = #{id} and version = #{version}
+    </update>
+
+    <!--逻辑删除-->
+    <update id="deleteById">
+        update md_vendor set is_deleted = 1 where id = #{id}
+    </update>
+
+    <!--批量逻辑删除-->
+    <update id="deleteByIds">
+        update md_vendor set is_deleted = 1 where id in
+        <foreach collection="array" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </update>
+
+    <!--物理删除-->
+    <delete id="removeById">
+        delete from md_vendor where id = #{id}
+    </delete>
+</mapper>

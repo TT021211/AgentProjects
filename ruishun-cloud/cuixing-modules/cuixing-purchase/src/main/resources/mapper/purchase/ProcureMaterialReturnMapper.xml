@@ -1,0 +1,406 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cuixing.purchase.mapper.ProcureMaterialReturnMapper">
+
+    <resultMap type="com.cuixing.purchase.entity.ProcureMaterialReturn" id="ProcureMaterialReturnMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="materialType" column="material_type" jdbcType="VARCHAR"/>
+        <result property="procureCode" column="procure_code" jdbcType="VARCHAR"/>
+        <result property="procureWeight" column="procure_weight" jdbcType="NUMERIC"/>
+        <result property="procureNumber" column="procure_number" jdbcType="INTEGER"/>
+        <result property="procureQrcode" column="procure_qrcode" jdbcType="VARCHAR"/>
+        <result property="procureName" column="procure_name" jdbcType="VARCHAR"/>
+        <result property="procureModel" column="procure_model" jdbcType="VARCHAR"/>
+        <result property="procureSpec" column="procure_spec" jdbcType="VARCHAR"/>
+        <result property="procureClient" column="procure_client" jdbcType="VARCHAR"/>
+        <result property="procureDate" column="procure_date" jdbcType="TIMESTAMP"/>
+        <result property="isDeleted" column="is_deleted" jdbcType="INTEGER"/>
+        <result property="version" column="version" jdbcType="VARCHAR"/>
+        <result property="createBy" column="create_by" jdbcType="VARCHAR"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="updateBy" column="update_by" jdbcType="VARCHAR"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+        <result property="attr1" column="attr1" jdbcType="VARCHAR"/>
+        <result property="attr2" column="attr2" jdbcType="INTEGER"/>
+        <result property="attr3" column="attr3" jdbcType="VARCHAR"/>
+        <result property="attr4" column="attr4" jdbcType="NUMERIC"/>
+        <result property="attr5" column="attr5" jdbcType="VARCHAR"/>
+        <result property="attr6" column="attr6" jdbcType="VARCHAR"/>
+        <result property="attr7" column="attr7" jdbcType="VARCHAR"/>
+        <result property="attr8" column="attr8" jdbcType="VARCHAR"/>
+        <result property="attr9" column="attr9" jdbcType="VARCHAR"/>
+    </resultMap>
+   
+    <sql id="selectProcureMaterialReturnVo">
+        SELECT 
+           id ,
+           material_type ,
+           procure_code ,
+           procure_weight ,
+           procure_number ,
+           procure_qrcode ,
+           procure_name ,
+           procure_model ,
+           procure_spec ,
+           procure_client ,
+           procure_date ,
+           is_deleted ,
+           version ,
+           create_by ,
+           create_time ,
+           update_by ,
+           update_time ,
+           attr1 ,
+           attr2 ,
+           attr3 ,
+           attr4 ,
+           attr5 ,
+           attr6 ,
+           attr7 ,
+           attr8 ,
+           attr9 
+        FROM procure_material_return
+    </sql>
+    
+     <select id="selectProcureMaterialReturnList" parameterType="ProcureMaterialReturn" resultMap="ProcureMaterialReturnMap">
+        <include refid="selectProcureMaterialReturnVo"/>
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="materialType != null and materialType != ''">
+                and material_type = #{materialType}
+            </if>
+            <if test="procureCode != null and procureCode != ''">
+                and procure_code = #{procureCode}
+            </if>
+            <if test="procureWeight != null">
+                and procure_weight = #{procureWeight}
+            </if>
+            <if test="procureNumber != null">
+                and procure_number = #{procureNumber}
+            </if>
+            <if test="procureQrcode != null and procureQrcode != ''">
+                and procure_qrcode = #{procureQrcode}
+            </if>
+            <if test="procureName != null and procureName != ''">
+                and procure_name = #{procureName}
+            </if>
+            <if test="procureModel != null and procureModel != ''">
+                and procure_model = #{procureModel}
+            </if>
+            <if test="procureSpec != null and procureSpec != ''">
+                and procure_spec = #{procureSpec}
+            </if>
+            <if test="procureClient != null and procureClient != ''">
+                and procure_client = #{procureClient}
+            </if>
+            <if test="procureDate != null">
+                and procure_date = #{procureDate}
+            </if>
+            <if test="isDeleted != null">
+                and is_deleted = #{isDeleted}
+            </if>
+            <if test="version != null and version != ''">
+                and version = #{version}
+            </if>
+            <if test="createBy != null and createBy != ''">
+                and create_by = #{createBy}
+            </if>
+            <if test="createTime != null">
+                and create_time = #{createTime}
+            </if>
+            <if test="updateBy != null and updateBy != ''">
+                and update_by = #{updateBy}
+            </if>
+            <if test="updateTime != null">
+                and update_time = #{updateTime}
+            </if>
+            <if test="attr1 != null and attr1 != ''">
+                and attr1 = #{attr1}
+            </if>
+            <if test="attr2 != null">
+                and attr2 = #{attr2}
+            </if>
+            <if test="attr3 != null">
+                and attr3 = #{attr3}
+            </if>
+            <if test="attr4 != null">
+                and attr4 = #{attr4}
+            </if>
+            <if test="attr5 != null and attr5 != ''">
+                and attr5 = #{attr5}
+            </if>
+            <if test="attr6 != null and attr6 != ''">
+                and attr6 = #{attr6}
+            </if>
+            <if test="attr7 != null and attr7 != ''">
+                and attr7 = #{attr7}
+            </if>
+            <if test="attr8 != null and attr8 != ''">
+                and attr8 = #{attr8}
+            </if>
+            <if test="attr9 != null and attr9 != ''">
+                and attr9 = #{attr9}
+            </if>
+        </where>
+    </select>
+    
+    <!--查询单个-->
+    <select id="queryById" resultMap="ProcureMaterialReturnMap">
+        select
+           id ,
+           material_type ,
+           procure_code ,
+           procure_weight ,
+           procure_number ,
+           procure_qrcode ,
+           procure_name ,
+           procure_model ,
+           procure_spec ,
+           procure_client ,
+           procure_date ,
+           is_deleted ,
+           version ,
+           create_by ,
+           create_time ,
+           update_by ,
+           update_time ,
+           attr1 ,
+           attr2 ,
+           attr3 ,
+           attr4 ,
+           attr5 ,
+           attr6 ,
+           attr7 ,
+           attr8 ,
+           attr9 
+
+        from procure_material_return
+        where id = #{id}
+    </select>
+
+    <!--统计总行数-->
+    <select id="count" resultType="java.lang.Long">
+        select count(1)
+        from procure_material_return
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="materialType != null and materialType != ''">
+                and material_type = #{materialType}
+            </if>
+            <if test="procureCode != null and procureCode != ''">
+                and procure_code = #{procureCode}
+            </if>
+            <if test="procureWeight != null">
+                and procure_weight = #{procureWeight}
+            </if>
+            <if test="procureNumber != null">
+                and procure_number = #{procureNumber}
+            </if>
+            <if test="procureQrcode != null and procureQrcode != ''">
+                and procure_qrcode = #{procureQrcode}
+            </if>
+            <if test="procureName != null and procureName != ''">
+                and procure_name = #{procureName}
+            </if>
+            <if test="procureModel != null and procureModel != ''">
+                and procure_model = #{procureModel}
+            </if>
+            <if test="procureSpec != null and procureSpec != ''">
+                and procure_spec = #{procureSpec}
+            </if>
+            <if test="procureClient != null and procureClient != ''">
+                and procure_client = #{procureClient}
+            </if>
+            <if test="procureDate != null">
+                and procure_date = #{procureDate}
+            </if>
+            <if test="isDeleted != null">
+                and is_deleted = #{isDeleted}
+            </if>
+            <if test="version != null and version != ''">
+                and version = #{version}
+            </if>
+            <if test="createBy != null and createBy != ''">
+                and create_by = #{createBy}
+            </if>
+            <if test="createTime != null">
+                and create_time = #{createTime}
+            </if>
+            <if test="updateBy != null and updateBy != ''">
+                and update_by = #{updateBy}
+            </if>
+            <if test="updateTime != null">
+                and update_time = #{updateTime}
+            </if>
+            <if test="attr1 != null and attr1 != ''">
+                and attr1 = #{attr1}
+            </if>
+            <if test="attr2 != null">
+                and attr2 = #{attr2}
+            </if>
+            <if test="attr3 != null">
+                and attr3 = #{attr3}
+            </if>
+            <if test="attr4 != null">
+                and attr4 = #{attr4}
+            </if>
+            <if test="attr5 != null and attr5 != ''">
+                and attr5 = #{attr5}
+            </if>
+            <if test="attr6 != null and attr6 != ''">
+                and attr6 = #{attr6}
+            </if>
+            <if test="attr7 != null and attr7 != ''">
+                and attr7 = #{attr7}
+            </if>
+            <if test="attr8 != null and attr8 != ''">
+                and attr8 = #{attr8}
+            </if>
+            <if test="attr9 != null and attr9 != ''">
+                and attr9 = #{attr9}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into procure_material_return(material_type, procure_code, procure_weight, procure_number, procure_qrcode, procure_name, procure_model, procure_spec, procure_client, procure_date, is_deleted, version, create_by, create_time, update_by, update_time, attr1, attr2, attr3, attr4, attr5, attr6, attr7, attr8, attr9)
+        values (#{materialType}, #{procureCode}, #{procureWeight}, #{procureNumber}, #{procureQrcode}, #{procureName}, #{procureModel}, #{procureSpec}, #{procureClient}, #{procureDate}, #{isDeleted}, #{version}, #{createBy}, #{createTime}, #{updateBy}, #{updateTime}, #{attr1}, #{attr2}, #{attr3}, #{attr4}, #{attr5}, #{attr6}, #{attr7}, #{attr8}, #{attr9})
+    </insert>
+
+    <insert id="insertBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into procure_material_return(material_type, procure_code, procure_weight, procure_number, procure_qrcode, procure_name, procure_model, procure_spec, procure_client, procure_date, is_deleted, version, create_by, create_time, update_by, update_time, attr1, attr2, attr3, attr4, attr5, attr6, attr7, attr8, attr9)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+        (#{entity.materialType}, #{entity.procureCode}, #{entity.procureWeight}, #{entity.procureNumber}, #{entity.procureQrcode}, #{entity.procureName}, #{entity.procureModel}, #{entity.procureSpec}, #{entity.procureClient}, #{entity.procureDate}, #{entity.isDeleted}, #{entity.version}, #{entity.createBy}, #{entity.createTime}, #{entity.updateBy}, #{entity.updateTime}, #{entity.attr1}, #{entity.attr2}, #{entity.attr3}, #{entity.attr4}, #{entity.attr5}, #{entity.attr6}, #{entity.attr7}, #{entity.attr8}, #{entity.attr9})
+        </foreach>
+    </insert>
+
+    <insert id="insertOrUpdateBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into procure_material_return(material_type, procure_code, procure_weight, procure_number, procure_qrcode, procure_name, procure_model, procure_spec, procure_client, procure_date, is_deleted, version, create_by, create_time, update_by, update_time, attr1, attr2, attr3, attr4, attr5, attr6, attr7, attr8, attr9)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.materialType}, #{entity.procureCode}, #{entity.procureWeight}, #{entity.procureNumber}, #{entity.procureQrcode}, #{entity.procureName}, #{entity.procureModel}, #{entity.procureSpec}, #{entity.procureClient}, #{entity.procureDate}, #{entity.isDeleted}, #{entity.version}, #{entity.createBy}, #{entity.createTime}, #{entity.updateBy}, #{entity.updateTime}, #{entity.attr1}, #{entity.attr2}, #{entity.attr3}, #{entity.attr4}, #{entity.attr5}, #{entity.attr6}, #{entity.attr7}, #{entity.attr8}, #{entity.attr9})
+        </foreach>
+        on duplicate key update
+material_type = values(material_type),
+procure_code = values(procure_code),
+procure_weight = values(procure_weight),
+procure_number = values(procure_number),
+procure_qrcode = values(procure_qrcode),
+procure_name = values(procure_name),
+procure_model = values(procure_model),
+procure_spec = values(procure_spec),
+procure_client = values(procure_client),
+procure_date = values(procure_date),
+is_deleted = values(is_deleted),
+version = values(version),
+create_by = values(create_by),
+create_time = values(create_time),
+update_by = values(update_by),
+update_time = values(update_time),
+attr1 = values(attr1),
+attr2 = values(attr2),
+attr3 = values(attr3),
+attr4 = values(attr4),
+attr5 = values(attr5),
+attr6 = values(attr6),
+attr7 = values(attr7),
+attr8 = values(attr8),
+attr9 = values(attr9)
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update procure_material_return
+        <set>
+            <if test="materialType != null and materialType != ''">
+                material_type = #{materialType},
+            </if>
+            <if test="procureCode != null and procureCode != ''">
+                procure_code = #{procureCode},
+            </if>
+            <if test="procureWeight != null">
+                procure_weight = #{procureWeight},
+            </if>
+            <if test="procureNumber != null">
+                procure_number = #{procureNumber},
+            </if>
+            <if test="procureQrcode != null and procureQrcode != ''">
+                procure_qrcode = #{procureQrcode},
+            </if>
+            <if test="procureName != null and procureName != ''">
+                procure_name = #{procureName},
+            </if>
+            <if test="procureModel != null and procureModel != ''">
+                procure_model = #{procureModel},
+            </if>
+            <if test="procureSpec != null and procureSpec != ''">
+                procure_spec = #{procureSpec},
+            </if>
+            <if test="procureClient != null and procureClient != ''">
+                procure_client = #{procureClient},
+            </if>
+            <if test="procureDate != null">
+                procure_date = #{procureDate},
+            </if>
+            <if test="isDeleted != null">
+                is_deleted = #{isDeleted},
+            </if>
+            <if test="version != null and version != ''">
+                version = #{version},
+            </if>
+            <if test="createBy != null and createBy != ''">
+                create_by = #{createBy},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime},
+            </if>
+            <if test="updateBy != null and updateBy != ''">
+                update_by = #{updateBy},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime},
+            </if>
+            <if test="attr1 != null and attr1 != ''">
+                attr1 = #{attr1},
+            </if>
+            <if test="attr2 != null">
+                attr2 = #{attr2},
+            </if>
+            <if test="attr3 != null">
+                attr3 = #{attr3},
+            </if>
+            <if test="attr4 != null">
+                attr4 = #{attr4},
+            </if>
+            <if test="attr5 != null and attr5 != ''">
+                attr5 = #{attr5},
+            </if>
+            <if test="attr6 != null and attr6 != ''">
+                attr6 = #{attr6},
+            </if>
+            <if test="attr7 != null and attr7 != ''">
+                attr7 = #{attr7},
+            </if>
+            <if test="attr8 != null and attr8 != ''">
+                attr8 = #{attr8},
+            </if>
+            <if test="attr9 != null and attr9 != ''">
+                attr9 = #{attr9},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from procure_material_return where id = #{id}
+    </delete>
+
+</mapper>
+

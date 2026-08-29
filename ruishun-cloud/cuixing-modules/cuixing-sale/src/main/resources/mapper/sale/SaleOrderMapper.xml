@@ -1,0 +1,285 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cuixing.sale.mapper.SaleOrderMapper">
+    <resultMap type="com.cuixing.sale.entity.SaleOrder" id="SaleOrderMap">
+        <result property="id" column="id" jdbcType="BIGINT"/>
+        <result property="orderType" column="order_type" jdbcType="CHAR"/>
+        <result property="customerName" column="customer_name" jdbcType="VARCHAR"/>
+        <result property="orderCode" column="order_code" jdbcType="VARCHAR"/>
+        <result property="specification" column="specification" jdbcType="VARCHAR"/>
+        <result property="model" column="model" jdbcType="VARCHAR"/>
+        <result property="weight" column="weight" jdbcType="DECIMAL"/>
+        <result property="measureId" column="measure_id" jdbcType="BIGINT"/>
+        <result property="measureName" column="measure_name" jdbcType="VARCHAR"/>
+        <result property="payTime" column="pay_time" jdbcType="TIMESTAMP"/>
+        <result property="status" column="status" jdbcType="CHAR"/>
+        <result property="isDeleted" column="is_deleted" jdbcType="TINYINT"/>
+        <result property="version" column="version" jdbcType="INTEGER"/>
+        <result property="createBy" column="create_by" jdbcType="VARCHAR"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="updateBy" column="update_by" jdbcType="VARCHAR"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+        <result property="attr1" column="attr1" jdbcType="VARCHAR"/>
+        <result property="attr2" column="attr2" jdbcType="INTEGER"/>
+        <result property="attr3" column="attr3" jdbcType="VARCHAR"/>
+        <result property="productId" column="product_id" jdbcType="BIGINT"/>
+        <result property="customerId" column="customer_id" jdbcType="BIGINT"/>
+        <result property="technicalRequirements" column="technical_requirements" jdbcType="VARCHAR"/>
+        <result property="remark" column="remark" jdbcType="VARCHAR"/>
+        <result property="standardId" column="standard_id" jdbcType="BIGINT"/>
+        <result property="standardName" column="standard_name" jdbcType="VARCHAR"/>
+        <result property="artt4" column="artt4" jdbcType="VARCHAR"/>
+        <result property="artt5" column="artt5" jdbcType="VARCHAR"/>
+        <result property="artt6" column="artt6" jdbcType="VARCHAR"/>
+        <result property="artt7" column="artt7" jdbcType="VARCHAR"/>
+        <result property="artt8" column="artt8" jdbcType="VARCHAR"/>
+        <result property="artt9" column="artt9" jdbcType="VARCHAR"/>
+        <result property="artt10" column="artt10" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!-- 通过ID查询单条数据 -->
+    <select id="queryById" resultMap="SaleOrderMap">
+        select
+            id, order_type, customer_name, order_code, product_id, specification, model, weight,
+            measure_id, measure_name, pay_time, status, is_deleted, version, create_by, create_time,
+            update_by, update_time, attr1, attr2, attr3, customer_id, technical_requirements,
+            remark, standard_id, standard_name, artt4, artt5, artt6, artt7, artt8, artt9, artt10
+        from sale_order
+        where is_deleted = 0 and id = #{id}
+    </select>
+
+    <!-- 获取列表 -->
+    <select id="selectAll" resultMap="SaleOrderMap">
+        select
+            id, order_type, customer_name, order_code, product_id, specification, model, weight,
+            measure_id, measure_name, pay_time, status, is_deleted, version, create_by, create_time,
+            update_by, update_time, attr1, attr2, attr3, customer_id, technical_requirements,
+            remark, standard_id, standard_name, artt4, artt5, artt6, artt7, artt8, artt9, artt10
+        from sale_order
+        where is_deleted = 0
+    </select>
+
+    <!-- 分页查询指定行数据 -->
+    <select id="selectMdSaleOrderList" resultMap="SaleOrderMap">
+        select
+        id, order_type, customer_name, order_code, product_id, specification, model, weight,
+        measure_id, measure_name, pay_time, status, is_deleted, version, create_by, create_time,
+        update_by, update_time, attr1, attr2, attr3, customer_id, technical_requirements,
+        remark, standard_id, standard_name, artt4, artt5, artt6, artt7, artt8, artt9, artt10
+        from sale_order
+        <where>
+            is_deleted = 0
+            <if test="id != null and id != ''"> and id = #{id}</if>
+            <if test="orderType != null and orderType != ''"> and order_type = #{orderType}</if>
+            <if test="customerName != null and customerName != ''"> and customer_name = #{customerName}</if>
+            <if test="orderCode != null and orderCode != ''"> and order_code = #{orderCode}</if>
+            <if test="specification != null and specification != ''"> and specification = #{specification}</if>
+            <if test="model != null and model != ''"> and model = #{model}</if>
+            <if test="weight != null and weight != ''"> and weight = #{weight}</if>
+            <if test="measureId != null and measureId != ''"> and measure_id = #{measureId}</if>
+            <if test="measureName != null and measureName != ''"> and measure_name = #{measureName}</if>
+            <if test="payTime != null and payTime != ''"> and pay_time = #{payTime}</if>
+            <if test="status != null and status != ''"> and status = #{status}</if>
+            <if test="isDeleted != null and isDeleted != ''"> and is_deleted = #{isDeleted}</if>
+            <if test="version != null and version != ''"> and version = #{version}</if>
+            <if test="createBy != null and createBy != ''"> and create_by = #{createBy}</if>
+            <if test="createTime != null and createTime != ''"> and create_time = #{createTime}</if>
+            <if test="updateBy != null and updateBy != ''"> and update_by = #{updateBy}</if>
+            <if test="updateTime != null and updateTime != ''"> and update_time = #{updateTime}</if>
+            <if test="attr1 != null and attr1 != ''"> and attr1 = #{attr1}</if>
+            <if test="attr2 != null and attr2 != ''"> and attr2 = #{attr2}</if>
+            <if test="attr3 != null and attr3 != ''"> and attr3 = #{attr3}</if>
+            <if test="productId != null and productId != ''"> and product_id = #{productId}</if>
+            <if test="customerId != null and customerId != ''"> and customer_id = #{customerId}</if>
+            <if test="technicalRequirements != null and technicalRequirements != ''"> and technical_requirements = #{technicalRequirements}</if>
+            <if test="remark != null and remark != ''"> and remark = #{remark}</if>
+            <if test="standardId != null"> and standard_id = #{standardId}</if>
+            <if test="standardName != null and standardName != ''"> and standard_name = #{standardName}</if>
+            <if test="artt4 != null and artt4 != ''"> and artt4 = #{artt4}</if>
+            <if test="artt5 != null and artt5 != ''"> and artt5 = #{artt5}</if>
+            <if test="artt6 != null and artt6 != ''"> and artt6 = #{artt6}</if>
+            <if test="artt7 != null and artt7 != ''"> and artt7 = #{artt7}</if>
+            <if test="artt8 != null and artt8 != ''"> and artt8 = #{artt8}</if>
+            <if test="artt9 != null and artt9 != ''"> and artt9 = #{artt9}</if>
+            <if test="artt10 != null and artt10 != ''"> and artt10 = #{artt10}</if>
+        </where>
+        order by status asc, create_time desc
+    </select>
+
+    <!-- 新增数据 -->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into sale_order
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">id,</if>
+            <if test="orderType != null and orderType != ''">order_type,</if>
+            <if test="customerName != null and customerName != ''">customer_name,</if>
+            <if test="orderCode != null and orderCode != ''">order_code,</if>
+            <if test="specification != null and specification != ''">specification,</if>
+            <if test="model != null and model != ''">model,</if>
+            <if test="weight != null">weight,</if>
+            <if test="measureId != null">measure_id,</if>
+            <if test="measureName != null and measureName != ''">measure_name,</if>
+            <if test="payTime != null">pay_time,</if>
+            <if test="status != null and status != ''">status,</if>
+            <if test="isDeleted != null">is_deleted,</if>
+            <if test="version != null">version,</if>
+            <if test="createBy != null and createBy != ''">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null and updateBy != ''">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="attr1 != null and attr1 != ''">attr1,</if>
+            <if test="attr2 != null">attr2,</if>
+            <if test="attr3 != null and attr3 != ''">attr3,</if>
+            <if test="productId != null">product_id,</if>
+            <if test="customerId != null">customer_id,</if>
+            <if test="technicalRequirements != null and technicalRequirements != ''">technical_requirements,</if>
+            <if test="remark != null and remark != ''">remark,</if>
+            <if test="standardId != null">standard_id,</if>
+            <if test="standardName != null and standardName != ''">standard_name,</if>
+            <if test="artt4 != null and artt4 != ''">artt4,</if>
+            <if test="artt5 != null and artt5 != ''">artt5,</if>
+            <if test="artt6 != null and artt6 != ''">artt6,</if>
+            <if test="artt7 != null and artt7 != ''">artt7,</if>
+            <if test="artt8 != null and artt8 != ''">artt8,</if>
+            <if test="artt9 != null and artt9 != ''">artt9,</if>
+            <if test="artt10 != null and artt10 != ''">artt10,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">#{id},</if>
+            <if test="orderType != null and orderType != ''">#{orderType},</if>
+            <if test="customerName != null and customerName != ''">#{customerName},</if>
+            <if test="orderCode != null and orderCode != ''">#{orderCode},</if>
+            <if test="specification != null and specification != ''">#{specification},</if>
+            <if test="model != null and model != ''">#{model},</if>
+            <if test="weight != null">#{weight},</if>
+            <if test="measureId != null">#{measureId},</if>
+            <if test="measureName != null and measureName != ''">#{measureName},</if>
+            <if test="payTime != null">#{payTime},</if>
+            <if test="status != null and status != ''">#{status},</if>
+            <if test="isDeleted != null">#{isDeleted},</if>
+            <if test="version != null">#{version},</if>
+            <if test="createBy != null and createBy != ''">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null and updateBy != ''">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="attr1 != null and attr1 != ''">#{attr1},</if>
+            <if test="attr2 != null">#{attr2},</if>
+            <if test="attr3 != null and attr3 != ''">#{attr3},</if>
+            <if test="productId != null">#{productId},</if>
+            <if test="customerId != null">#{customerId},</if>
+            <if test="technicalRequirements != null and technicalRequirements != ''">#{technicalRequirements},</if>
+            <if test="remark != null and remark != ''">#{remark},</if>
+            <if test="standardId != null">#{standardId},</if>
+            <if test="standardName != null and standardName != ''">#{standardName},</if>
+            <if test="artt4 != null and artt4 != ''">#{artt4},</if>
+            <if test="artt5 != null and artt5 != ''">#{artt5},</if>
+            <if test="artt6 != null and artt6 != ''">#{artt6},</if>
+            <if test="artt7 != null and artt7 != ''">#{artt7},</if>
+            <if test="artt8 != null and artt8 != ''">#{artt8},</if>
+            <if test="artt9 != null and artt9 != ''">#{artt9},</if>
+            <if test="artt10 != null and artt10 != ''">#{artt10},</if>
+        </trim>
+    </insert>
+    <insert id="insertBatch" parameterType="java.util.List" useGeneratedKeys="true" keyProperty="id">
+        <if test="list != null and list.size() > 0">
+            INSERT INTO sale_order (
+             order_type, customer_id, customer_name, order_code,
+            specification, model, weight, measure_id, measure_name,
+            pay_time, status, is_deleted, version, create_by,
+            create_time, update_by, update_time, attr1, attr2,
+            attr3, product_id, technical_requirements, remark, standard_id,
+            standard_name, artt4, artt5, artt6, artt7,
+            artt8, artt9, artt10
+            )
+            VALUES
+            <foreach collection="list" item="item" separator=",">
+                (
+                #{item.orderType,jdbcType=VARCHAR},
+                #{item.customerId,jdbcType=BIGINT},
+                #{item.customerName,jdbcType=VARCHAR},
+                #{item.orderCode,jdbcType=VARCHAR},
+                #{item.specification,jdbcType=VARCHAR},
+                #{item.model,jdbcType=VARCHAR},
+                #{item.weight,jdbcType=DECIMAL},
+                #{item.measureId,jdbcType=BIGINT},
+                #{item.measureName,jdbcType=VARCHAR},
+                #{item.payTime,jdbcType=TIMESTAMP},
+                #{item.status,jdbcType=VARCHAR},
+                #{item.isDeleted,jdbcType=INTEGER},
+                #{item.version,jdbcType=INTEGER},
+                #{item.createBy,jdbcType=VARCHAR},
+                #{item.createTime,jdbcType=TIMESTAMP},
+                #{item.updateBy,jdbcType=VARCHAR},
+                #{item.updateTime,jdbcType=TIMESTAMP},
+                #{item.attr1,jdbcType=VARCHAR},
+                #{item.attr2,jdbcType=VARCHAR},
+                #{item.attr3,jdbcType=VARCHAR},
+                #{item.productId,jdbcType=BIGINT},
+                #{item.technicalRequirements,jdbcType=VARCHAR},
+                #{item.remark,jdbcType=VARCHAR},
+                #{item.standardId,jdbcType=BIGINT},
+                #{item.standardName,jdbcType=VARCHAR},
+                #{item.artt4,jdbcType=VARCHAR},
+                #{item.artt5,jdbcType=VARCHAR},
+                #{item.artt6,jdbcType=VARCHAR},
+                #{item.artt7,jdbcType=VARCHAR},
+                #{item.artt8,jdbcType=VARCHAR},
+                #{item.artt9,jdbcType=VARCHAR},
+                #{item.artt10,jdbcType=VARCHAR}
+                )
+            </foreach>
+        </if>
+    </insert>
+
+    <!-- 更新数据 -->
+    <update id="update">
+        update sale_order
+        <set>
+            <if test="orderType != null"> order_type = #{orderType}, </if>
+            <if test="customerName != null"> customer_name = #{customerName}, </if>
+            <if test="orderCode != null"> order_code = #{orderCode}, </if>
+            <if test="specification != null"> specification = #{specification}, </if>
+            <if test="model != null"> model = #{model}, </if>
+            <if test="weight != null"> weight = #{weight}, </if>
+            <if test="measureId != null"> measure_id = #{measureId}, </if>
+            <if test="measureName != null"> measure_name = #{measureName}, </if>
+            <if test="payTime != null"> pay_time = #{payTime}, </if>
+            <if test="status != null"> status = #{status}, </if>
+            <if test="isDeleted != null"> is_deleted = #{isDeleted}, </if>
+            <if test="version != null"> version = #{version}, </if>
+            <if test="createBy != null"> create_by = #{createBy}, </if>
+            <if test="createTime != null"> create_time = #{createTime}, </if>
+            <if test="updateBy != null"> update_by = #{updateBy}, </if>
+            <if test="updateTime != null"> update_time = #{updateTime}, </if>
+            <if test="attr1 != null"> attr1 = #{attr1}, </if>
+            <if test="attr2 != null"> attr2 = #{attr2}, </if>
+            <if test="attr3 != null"> attr3 = #{attr3}, </if>
+            <if test="productId != null"> product_id = #{productId}, </if>
+            <if test="customerId != null"> customer_id = #{customerId}, </if>
+            <if test="technicalRequirements != null"> technical_requirements = #{technicalRequirements}, </if>
+            <if test="remark != null"> remark = #{remark}, </if>
+            <if test="standardId != null"> standard_id = #{standardId}, </if>
+            <if test="standardName != null"> standard_name = #{standardName}, </if>
+            <if test="artt4 != null"> artt4 = #{artt4}, </if>
+            <if test="artt5 != null"> artt5 = #{artt5}, </if>
+            <if test="artt6 != null"> artt6 = #{artt6}, </if>
+            <if test="artt7 != null"> artt7 = #{artt7}, </if>
+            <if test="artt8 != null"> artt8 = #{artt8}, </if>
+            <if test="artt9 != null"> artt9 = #{artt9}, </if>
+            <if test="artt10 != null"> artt10 = #{artt10}, </if>
+        </set>
+        where id = #{id} and version = #{version}
+    </update>
+    <!--逻辑删除删除-->
+    <update id="deleteById">
+        update sale_order set is_deleted = 1 where id = #{id}
+    </update>
+
+    <!--批量逻辑删除-->
+    <update id="deleteByIds">
+        update sale_order set is_deleted = 1 where id in
+        <foreach collection="array" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </update>
+</mapper>

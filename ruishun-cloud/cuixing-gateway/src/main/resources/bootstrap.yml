@@ -1,0 +1,94 @@
+
+# Tomcat
+server:
+  port: 8081
+
+# Spring
+spring:
+  application:
+    # 应用名称
+    name: ruishun-gateway
+  profiles:
+    # 环境配置
+    active: ${SPRING_PROFILES_ACTIVE}
+  cloud:
+    nacos:
+      discovery:
+        # 服务注册地址
+        server-addr: ${NACOS_HOST:127.0.0.1}:${NACOS_PORT:8848}
+        namespace: ${NACOS_NAMESPACE:ab4ce481-b3b5-4306-b751-2d7484f20620}
+      username: ${NACOS_USERNAME:nacos}
+      password: ${NACOS_PASSWORD:nacos}
+      config:
+        # 配置中心地址
+        server-addr: ${NACOS_HOST:127.0.0.1}:${NACOS_PORT:8848}
+        namespace: ${NACOS_NAMESPACE:ab4ce481-b3b5-4306-b751-2d7484f20620}
+        # 配置文件格式
+        file-extension: yml
+        # 共享配置
+        shared-configs:
+          - application-${SPRING_PROFILES_ACTIVE}.${SPRING_CLOUD_NACOS_CONFIG_FILE_EXTENSION}
+    sentinel:
+      # 取消控制台懒加载
+      eager: true
+      transport:
+        # 控制台地址
+        dashboard: 192.168.10.77:8718
+      # nacos配置持久化
+      datasource:
+        ds1:
+          nacos:
+            server-addr: ${NACOS_HOST:127.0.0.1}:${NACOS_PORT:8848}
+            dataId: sentinel-cuixing-gateway
+            groupId: DEFAULT_GROUP
+            data-type: json
+            rule-type: gw-flow
+
+
+
+
+
+## Tomcat
+#server:
+#  port: 8080
+#
+## Spring
+#spring:
+#  application:
+#    # 应用名称
+#    name: cuixing-gateway
+#  profiles:
+#    # 环境配置
+#    active: dev
+#  cloud:
+#    nacos:
+#      discovery:
+#        # 服务注册地址
+#        #        毕设 127.0.0.1:8851
+#        server-addr: 192.168.9.237:18848
+#      config:
+#        # 配置中心地址
+#        server-addr: 192.168.9.237:18848
+#        # 配置文件格式
+#        file-extension: yml
+#        # 共享配置
+#        shared-configs:
+#          - application-${spring.profiles.active}.${spring.cloud.nacos.config.file-extension}
+#    sentinel:
+#      # 取消控制台懒加载
+#      eager: true
+#      transport:
+#        # 控制台地址
+#        dashboard: 192.168.200.237:8718
+#      # nacos配置持久化
+#      datasource:
+#        ds1:
+#          nacos:
+#            server-addr: 192.168.9.237:18848
+#            dataId: sentinel-cuixing-gateway
+#            groupId: DEFAULT_GROUP
+#            data-type: json
+#            rule-type: gw-flow
+
+
+

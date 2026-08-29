@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cuixing.wms.mapper.WmsNoticeInvoiceRecordMapper">
+
+    <resultMap type="com.cuixing.wms.entity.WmsNoticeInvoiceRecord" id="WmsNoticeInvoiceRecordMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="noticeInvoiceId" column="notice_invoice_id" jdbcType="INTEGER"/>
+        <result property="noticeInvoiceCode" column="notice_invoice_code" jdbcType="VARCHAR"/>
+        <result property="beforeStatus" column="before_status" jdbcType="VARCHAR"/>
+        <result property="afterStatus" column="after_status" jdbcType="VARCHAR"/>
+        <result property="action" column="action" jdbcType="VARCHAR"/>
+        <result property="remake" column="remake" jdbcType="VARCHAR"/>
+        <result property="createBy" column="create_by" jdbcType="VARCHAR"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="artt1" column="artt1" jdbcType="VARCHAR"/>
+        <result property="artt2" column="artt2" jdbcType="VARCHAR"/>
+        <result property="artt3" column="artt3" jdbcType="INTEGER"/>
+        <result property="artt4" column="artt4" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <sql id="selectWmsNoticeInvoiceRecordVo">
+        SELECT
+           id ,
+           notice_invoice_id ,
+           notice_invoice_code ,
+           before_status ,
+           after_status ,
+           action ,
+           remake ,
+           create_by ,
+           create_time ,
+           artt1 ,
+           artt2 ,
+           artt3 ,
+           artt4
+        FROM wms_notice_invoice_record
+    </sql>
+
+     <select id="selectWmsNoticeInvoiceRecordList" parameterType="WmsNoticeInvoiceRecord" resultMap="WmsNoticeInvoiceRecordMap">
+        <include refid="selectWmsNoticeInvoiceRecordVo"/>
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="noticeInvoiceId != null">
+                and notice_invoice_id = #{noticeInvoiceId}
+            </if>
+            <if test="noticeInvoiceCode != null and noticeInvoiceCode != ''">
+                and notice_invoice_code = #{noticeInvoiceCode}
+            </if>
+            <if test="beforeStatus != null and beforeStatus != ''">
+                and before_status = #{beforeStatus}
+            </if>
+            <if test="afterStatus != null and afterStatus != ''">
+                and after_status = #{afterStatus}
+            </if>
+            <if test="action != null and action != ''">
+                and action = #{action}
+            </if>
+            <if test="remake != null and remake != ''">
+                and remake = #{remake}
+            </if>
+            <if test="createBy != null and createBy != ''">
+                and create_by = #{createBy}
+            </if>
+            <if test="createTime != null">
+                and create_time = #{createTime}
+            </if>
+            <if test="artt1 != null and artt1 != ''">
+                and artt1 = #{artt1}
+            </if>
+            <if test="artt2 != null and artt2 != ''">
+                and artt2 = #{artt2}
+            </if>
+            <if test="artt3 != null">
+                and artt3 = #{artt3}
+            </if>
+            <if test="artt4 != null">
+                and artt4 = #{artt4}
+            </if>
+        </where>
+    </select>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="WmsNoticeInvoiceRecordMap">
+        select
+           id ,
+           notice_invoice_id ,
+           notice_invoice_code ,
+           before_status ,
+           after_status ,
+           action ,
+           remake ,
+           create_by ,
+           create_time ,
+           artt1 ,
+           artt2 ,
+           artt3 ,
+           artt4
+
+        from wms_notice_invoice_record
+        where id = #{id}
+    </select>
+
+    <!--统计总行数-->
+    <select id="count" resultType="java.lang.Long">
+        select count(1)
+        from wms_notice_invoice_record
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="noticeInvoiceId != null">
+                and notice_invoice_id = #{noticeInvoiceId}
+            </if>
+            <if test="noticeInvoiceCode != null and noticeInvoiceCode != ''">
+                and notice_invoice_code = #{noticeInvoiceCode}
+            </if>
+            <if test="beforeStatus != null and beforeStatus != ''">
+                and before_status = #{beforeStatus}
+            </if>
+            <if test="afterStatus != null and afterStatus != ''">
+                and after_status = #{afterStatus}
+            </if>
+            <if test="action != null and action != ''">
+                and action = #{action}
+            </if>
+            <if test="remake != null and remake != ''">
+                and remake = #{remake}
+            </if>
+            <if test="createBy != null and createBy != ''">
+                and create_by = #{createBy}
+            </if>
+            <if test="createTime != null">
+                and create_time = #{createTime}
+            </if>
+            <if test="artt1 != null and artt1 != ''">
+                and artt1 = #{artt1}
+            </if>
+            <if test="artt2 != null and artt2 != ''">
+                and artt2 = #{artt2}
+            </if>
+            <if test="artt3 != null">
+                and artt3 = #{artt3}
+            </if>
+            <if test="artt4 != null">
+                and artt4 = #{artt4}
+            </if>
+        </where>
+    </select>
+    <select id="selectWmsNoticeInvoiceRecordList2" resultMap="WmsNoticeInvoiceRecordMap">
+        <include refid="selectWmsNoticeInvoiceRecordVo"/>
+         where notice_invoice_id=#{noticeInvoiceId}
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into wms_notice_invoice_record(notice_invoice_id, notice_invoice_code, before_status, after_status, action, remake, create_by, create_time, artt1, artt2, artt3, artt4)
+        values (#{noticeInvoiceId}, #{noticeInvoiceCode}, #{beforeStatus}, #{afterStatus}, #{action}, #{remake}, #{createBy}, #{createTime}, #{artt1}, #{artt2}, #{artt3}, #{artt4})
+    </insert>
+
+    <insert id="insertBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into wms_notice_invoice_record(notice_invoice_id, notice_invoice_code, before_status, after_status, action, remake, create_by, create_time, artt1, artt2, artt3, artt4)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+        (#{entity.noticeInvoiceId}, #{entity.noticeInvoiceCode}, #{entity.beforeStatus}, #{entity.afterStatus}, #{entity.action}, #{entity.remake}, #{entity.createBy}, #{entity.createTime}, #{entity.artt1}, #{entity.artt2}, #{entity.artt3}, #{entity.artt4})
+        </foreach>
+    </insert>
+
+    <insert id="insertOrUpdateBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into wms_notice_invoice_record(notice_invoice_id, notice_invoice_code, before_status, after_status, action, remake, create_by, create_time, artt1, artt2, artt3, artt4)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.noticeInvoiceId}, #{entity.noticeInvoiceCode}, #{entity.beforeStatus}, #{entity.afterStatus}, #{entity.action}, #{entity.remake}, #{entity.createBy}, #{entity.createTime}, #{entity.artt1}, #{entity.artt2}, #{entity.artt3}, #{entity.artt4})
+        </foreach>
+        on duplicate key update
+notice_invoice_id = values(notice_invoice_id),
+notice_invoice_code = values(notice_invoice_code),
+before_status = values(before_status),
+after_status = values(after_status),
+action = values(action),
+remake = values(remake),
+create_by = values(create_by),
+create_time = values(create_time),
+artt1 = values(artt1),
+artt2 = values(artt2),
+artt3 = values(artt3),
+artt4 = values(artt4)
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update wms_notice_invoice_record
+        <set>
+            <if test="noticeInvoiceId != null">
+                notice_invoice_id = #{noticeInvoiceId},
+            </if>
+            <if test="noticeInvoiceCode != null and noticeInvoiceCode != ''">
+                notice_invoice_code = #{noticeInvoiceCode},
+            </if>
+            <if test="beforeStatus != null and beforeStatus != ''">
+                before_status = #{beforeStatus},
+            </if>
+            <if test="afterStatus != null and afterStatus != ''">
+                after_status = #{afterStatus},
+            </if>
+            <if test="action != null and action != ''">
+                action = #{action},
+            </if>
+            <if test="remake != null and remake != ''">
+                remake = #{remake},
+            </if>
+            <if test="createBy != null and createBy != ''">
+                create_by = #{createBy},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime},
+            </if>
+            <if test="artt1 != null and artt1 != ''">
+                artt1 = #{artt1},
+            </if>
+            <if test="artt2 != null and artt2 != ''">
+                artt2 = #{artt2},
+            </if>
+            <if test="artt3 != null">
+                artt3 = #{artt3},
+            </if>
+            <if test="artt4 != null">
+                artt4 = #{artt4},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from wms_notice_invoice_record where id = #{id}
+    </delete>
+
+</mapper>
+

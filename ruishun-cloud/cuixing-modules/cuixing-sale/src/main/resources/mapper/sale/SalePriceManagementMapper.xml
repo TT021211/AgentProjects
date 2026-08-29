@@ -1,0 +1,497 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cuixing.sale.mapper.SalePriceManagementMapper">
+
+    <resultMap type="com.cuixing.sale.entity.SalePriceManagement" id="SalePriceManagementMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="clientName" column="client_name" jdbcType="VARCHAR"/>
+        <result property="saleContractId" column="sale_contract_id" jdbcType="INTEGER"/>
+        <result property="saleContractCode" column="sale_contract_code" jdbcType="VARCHAR"/>
+        <result property="saleContractDate" column="sale_contract_date" jdbcType="TIMESTAMP"/>
+        <result property="productId" column="product_id" jdbcType="INTEGER"/>
+        <result property="productName" column="product_name" jdbcType="VARCHAR"/>
+        <result property="productSpec" column="product_spec" jdbcType="VARCHAR"/>
+        <result property="saleContractWeight" column="sale_contract_weight" jdbcType="NUMERIC"/>
+        <result property="copperPrice" column="copper_price" jdbcType="NUMERIC"/>
+        <result property="processingFee" column="processing_fee" jdbcType="NUMERIC"/>
+        <result property="unitPrice" column="unit_price" jdbcType="NUMERIC"/>
+        <result property="shipmentDate" column="shipment_date" jdbcType="TIMESTAMP"/>
+        <result property="deliveryWeight" column="delivery_weight" jdbcType="NUMERIC"/>
+        <result property="totalAmount" column="total_amount" jdbcType="NUMERIC"/>
+        <result property="loan" column="loan" jdbcType="VARCHAR"/>
+        <result property="isDeleted" column="is_deleted" jdbcType="INTEGER"/>
+        <result property="version" column="version" jdbcType="INTEGER"/>
+        <result property="createBy" column="create_by" jdbcType="VARCHAR"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="updateBy" column="update_by" jdbcType="VARCHAR"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+        <result property="remark" column="remark" jdbcType="VARCHAR"/>
+        <result property="attr1" column="attr1" jdbcType="VARCHAR"/>
+        <result property="attr2" column="attr2" jdbcType="INTEGER"/>
+        <result property="attr3" column="attr3" jdbcType="VARCHAR"/>
+        <result property="artt4" column="artt4" jdbcType="VARCHAR"/>
+        <result property="artt5" column="artt5" jdbcType="VARCHAR"/>
+        <result property="artt6" column="artt6" jdbcType="VARCHAR"/>
+        <result property="artt7" column="artt7" jdbcType="VARCHAR"/>
+        <result property="artt8" column="artt8" jdbcType="VARCHAR"/>
+        <result property="artt9" column="artt9" jdbcType="VARCHAR"/>
+        <result property="artt10" column="artt10" jdbcType="VARCHAR"/>
+    </resultMap>
+   
+    <sql id="selectSalePriceManagementVo">
+        SELECT 
+           id ,
+           client_name ,
+           sale_contract_id ,
+           sale_contract_code ,
+           sale_contract_date ,
+           product_id ,
+           product_name ,
+           product_spec ,
+           sale_contract_weight ,
+           copper_price ,
+           processing_fee ,
+           unit_price ,
+           shipment_date ,
+           delivery_weight ,
+           total_amount ,
+           loan ,
+           is_deleted ,
+           version ,
+           create_by ,
+           create_time ,
+           update_by ,
+           update_time ,
+           remark ,
+           attr1 ,
+           attr2 ,
+           attr3 ,
+           artt4 ,
+           artt5 ,
+           artt6 ,
+           artt7 ,
+           artt8 ,
+           artt9 ,
+           artt10 
+        FROM sale_price_management
+    </sql>
+    
+     <select id="selectSalePriceManagementList" parameterType="SalePriceManagement" resultMap="SalePriceManagementMap">
+        <include refid="selectSalePriceManagementVo"/>
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="clientName != null and clientName != ''">
+                and client_name = #{clientName}
+            </if>
+            <if test="saleContractId != null">
+                and sale_contract_id = #{saleContractId}
+            </if>
+            <if test="saleContractCode != null and saleContractCode != ''">
+                and sale_contract_code = #{saleContractCode}
+            </if>
+            <if test="saleContractDate != null">
+                and sale_contract_date = #{saleContractDate}
+            </if>
+            <if test="productId != null">
+                and product_id = #{productId}
+            </if>
+            <if test="productName != null and productName != ''">
+                and product_name = #{productName}
+            </if>
+            <if test="productSpec != null and productSpec != ''">
+                and product_spec = #{productSpec}
+            </if>
+            <if test="saleContractWeight != null">
+                and sale_contract_weight = #{saleContractWeight}
+            </if>
+            <if test="copperPrice != null">
+                and copper_price = #{copperPrice}
+            </if>
+            <if test="processingFee != null">
+                and processing_fee = #{processingFee}
+            </if>
+            <if test="unitPrice != null">
+                and unit_price = #{unitPrice}
+            </if>
+            <if test="shipmentDate != null">
+                and shipment_date = #{shipmentDate}
+            </if>
+            <if test="deliveryWeight != null">
+                and delivery_weight = #{deliveryWeight}
+            </if>
+            <if test="totalAmount != null">
+                and total_amount = #{totalAmount}
+            </if>
+            <if test="loan != null and loan != ''">
+                and loan = #{loan}
+            </if>
+            <if test="isDeleted != null">
+                and is_deleted = #{isDeleted}
+            </if>
+            <if test="version != null">
+                and version = #{version}
+            </if>
+            <if test="createBy != null and createBy != ''">
+                and create_by = #{createBy}
+            </if>
+            <if test="createTime != null">
+                and create_time = #{createTime}
+            </if>
+            <if test="updateBy != null and updateBy != ''">
+                and update_by = #{updateBy}
+            </if>
+            <if test="updateTime != null">
+                and update_time = #{updateTime}
+            </if>
+            <if test="remark != null and remark != ''">
+                and remark = #{remark}
+            </if>
+            <if test="attr1 != null and attr1 != ''">
+                and attr1 = #{attr1}
+            </if>
+            <if test="attr2 != null">
+                and attr2 = #{attr2}
+            </if>
+            <if test="attr3 != null">
+                and attr3 = #{attr3}
+            </if>
+            <if test="artt4 != null and artt4 != ''">
+                and artt4 = #{artt4}
+            </if>
+            <if test="artt5 != null and artt5 != ''">
+                and artt5 = #{artt5}
+            </if>
+            <if test="artt6 != null and artt6 != ''">
+                and artt6 = #{artt6}
+            </if>
+            <if test="artt7 != null and artt7 != ''">
+                and artt7 = #{artt7}
+            </if>
+            <if test="artt8 != null and artt8 != ''">
+                and artt8 = #{artt8}
+            </if>
+            <if test="artt9 != null and artt9 != ''">
+                and artt9 = #{artt9}
+            </if>
+            <if test="artt10 != null and artt10 != ''">
+                and artt10 = #{artt10}
+            </if>
+        </where>
+    </select>
+    
+    <!--查询单个-->
+    <select id="queryById" resultMap="SalePriceManagementMap">
+        select
+           id ,
+           client_name ,
+           sale_contract_id ,
+           sale_contract_code ,
+           sale_contract_date ,
+           product_id ,
+           product_name ,
+           product_spec ,
+           sale_contract_weight ,
+           copper_price ,
+           processing_fee ,
+           unit_price ,
+           shipment_date ,
+           delivery_weight ,
+           total_amount ,
+           loan ,
+           is_deleted ,
+           version ,
+           create_by ,
+           create_time ,
+           update_by ,
+           update_time ,
+           remark ,
+           attr1 ,
+           attr2 ,
+           attr3 ,
+           artt4 ,
+           artt5 ,
+           artt6 ,
+           artt7 ,
+           artt8 ,
+           artt9 ,
+           artt10 
+
+        from sale_price_management
+        where id = #{id}
+    </select>
+
+    <!--统计总行数-->
+    <select id="count" resultType="java.lang.Long">
+        select count(1)
+        from sale_price_management
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="clientName != null and clientName != ''">
+                and client_name = #{clientName}
+            </if>
+            <if test="saleContractId != null">
+                and sale_contract_id = #{saleContractId}
+            </if>
+            <if test="saleContractCode != null and saleContractCode != ''">
+                and sale_contract_code = #{saleContractCode}
+            </if>
+            <if test="saleContractDate != null">
+                and sale_contract_date = #{saleContractDate}
+            </if>
+            <if test="productId != null">
+                and product_id = #{productId}
+            </if>
+            <if test="productName != null and productName != ''">
+                and product_name = #{productName}
+            </if>
+            <if test="productSpec != null and productSpec != ''">
+                and product_spec = #{productSpec}
+            </if>
+            <if test="saleContractWeight != null">
+                and sale_contract_weight = #{saleContractWeight}
+            </if>
+            <if test="copperPrice != null">
+                and copper_price = #{copperPrice}
+            </if>
+            <if test="processingFee != null">
+                and processing_fee = #{processingFee}
+            </if>
+            <if test="unitPrice != null">
+                and unit_price = #{unitPrice}
+            </if>
+            <if test="shipmentDate != null">
+                and shipment_date = #{shipmentDate}
+            </if>
+            <if test="deliveryWeight != null">
+                and delivery_weight = #{deliveryWeight}
+            </if>
+            <if test="totalAmount != null">
+                and total_amount = #{totalAmount}
+            </if>
+            <if test="loan != null and loan != ''">
+                and loan = #{loan}
+            </if>
+            <if test="isDeleted != null">
+                and is_deleted = #{isDeleted}
+            </if>
+            <if test="version != null">
+                and version = #{version}
+            </if>
+            <if test="createBy != null and createBy != ''">
+                and create_by = #{createBy}
+            </if>
+            <if test="createTime != null">
+                and create_time = #{createTime}
+            </if>
+            <if test="updateBy != null and updateBy != ''">
+                and update_by = #{updateBy}
+            </if>
+            <if test="updateTime != null">
+                and update_time = #{updateTime}
+            </if>
+            <if test="remark != null and remark != ''">
+                and remark = #{remark}
+            </if>
+            <if test="attr1 != null and attr1 != ''">
+                and attr1 = #{attr1}
+            </if>
+            <if test="attr2 != null">
+                and attr2 = #{attr2}
+            </if>
+            <if test="attr3 != null">
+                and attr3 = #{attr3}
+            </if>
+            <if test="artt4 != null and artt4 != ''">
+                and artt4 = #{artt4}
+            </if>
+            <if test="artt5 != null and artt5 != ''">
+                and artt5 = #{artt5}
+            </if>
+            <if test="artt6 != null and artt6 != ''">
+                and artt6 = #{artt6}
+            </if>
+            <if test="artt7 != null and artt7 != ''">
+                and artt7 = #{artt7}
+            </if>
+            <if test="artt8 != null and artt8 != ''">
+                and artt8 = #{artt8}
+            </if>
+            <if test="artt9 != null and artt9 != ''">
+                and artt9 = #{artt9}
+            </if>
+            <if test="artt10 != null and artt10 != ''">
+                and artt10 = #{artt10}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into sale_price_management(client_name, sale_contract_id, sale_contract_code, sale_contract_date, product_id, product_name, product_spec, sale_contract_weight, copper_price, processing_fee, unit_price, shipment_date, delivery_weight, total_amount, loan, is_deleted, version, create_by, create_time, update_by, update_time, remark, attr1, attr2, attr3, artt4, artt5, artt6, artt7, artt8, artt9, artt10)
+        values (#{clientName}, #{saleContractId}, #{saleContractCode}, #{saleContractDate}, #{productId}, #{productName}, #{productSpec}, #{saleContractWeight}, #{copperPrice}, #{processingFee}, #{unitPrice}, #{shipmentDate}, #{deliveryWeight}, #{totalAmount}, #{loan}, #{isDeleted}, #{version}, #{createBy}, #{createTime}, #{updateBy}, #{updateTime}, #{remark}, #{attr1}, #{attr2}, #{attr3}, #{artt4}, #{artt5}, #{artt6}, #{artt7}, #{artt8}, #{artt9}, #{artt10})
+    </insert>
+
+    <insert id="insertBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into sale_price_management(client_name, sale_contract_id, sale_contract_code, sale_contract_date, product_id, product_name, product_spec, sale_contract_weight, copper_price, processing_fee, unit_price, shipment_date, delivery_weight, total_amount, loan, is_deleted, version, create_by, create_time, update_by, update_time, remark, attr1, attr2, attr3, artt4, artt5, artt6, artt7, artt8, artt9, artt10)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+        (#{entity.clientName}, #{entity.saleContractId}, #{entity.saleContractCode}, #{entity.saleContractDate}, #{entity.productId}, #{entity.productName}, #{entity.productSpec}, #{entity.saleContractWeight}, #{entity.copperPrice}, #{entity.processingFee}, #{entity.unitPrice}, #{entity.shipmentDate}, #{entity.deliveryWeight}, #{entity.totalAmount}, #{entity.loan}, #{entity.isDeleted}, #{entity.version}, #{entity.createBy}, #{entity.createTime}, #{entity.updateBy}, #{entity.updateTime}, #{entity.remark}, #{entity.attr1}, #{entity.attr2}, #{entity.attr3}, #{entity.artt4}, #{entity.artt5}, #{entity.artt6}, #{entity.artt7}, #{entity.artt8}, #{entity.artt9}, #{entity.artt10})
+        </foreach>
+    </insert>
+
+    <insert id="insertOrUpdateBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into sale_price_management(client_name, sale_contract_id, sale_contract_code, sale_contract_date, product_id, product_name, product_spec, sale_contract_weight, copper_price, processing_fee, unit_price, shipment_date, delivery_weight, total_amount, loan, is_deleted, version, create_by, create_time, update_by, update_time, remark, attr1, attr2, attr3, artt4, artt5, artt6, artt7, artt8, artt9, artt10)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.clientName}, #{entity.saleContractId}, #{entity.saleContractCode}, #{entity.saleContractDate}, #{entity.productId}, #{entity.productName}, #{entity.productSpec}, #{entity.saleContractWeight}, #{entity.copperPrice}, #{entity.processingFee}, #{entity.unitPrice}, #{entity.shipmentDate}, #{entity.deliveryWeight}, #{entity.totalAmount}, #{entity.loan}, #{entity.isDeleted}, #{entity.version}, #{entity.createBy}, #{entity.createTime}, #{entity.updateBy}, #{entity.updateTime}, #{entity.remark}, #{entity.attr1}, #{entity.attr2}, #{entity.attr3}, #{entity.artt4}, #{entity.artt5}, #{entity.artt6}, #{entity.artt7}, #{entity.artt8}, #{entity.artt9}, #{entity.artt10})
+        </foreach>
+        on duplicate key update
+client_name = values(client_name),
+sale_contract_id = values(sale_contract_id),
+sale_contract_code = values(sale_contract_code),
+sale_contract_date = values(sale_contract_date),
+product_id = values(product_id),
+product_name = values(product_name),
+product_spec = values(product_spec),
+sale_contract_weight = values(sale_contract_weight),
+copper_price = values(copper_price),
+processing_fee = values(processing_fee),
+unit_price = values(unit_price),
+shipment_date = values(shipment_date),
+delivery_weight = values(delivery_weight),
+total_amount = values(total_amount),
+loan = values(loan),
+is_deleted = values(is_deleted),
+version = values(version),
+create_by = values(create_by),
+create_time = values(create_time),
+update_by = values(update_by),
+update_time = values(update_time),
+remark = values(remark),
+attr1 = values(attr1),
+attr2 = values(attr2),
+attr3 = values(attr3),
+artt4 = values(artt4),
+artt5 = values(artt5),
+artt6 = values(artt6),
+artt7 = values(artt7),
+artt8 = values(artt8),
+artt9 = values(artt9),
+artt10 = values(artt10)
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update sale_price_management
+        <set>
+            <if test="clientName != null and clientName != ''">
+                client_name = #{clientName},
+            </if>
+            <if test="saleContractId != null">
+                sale_contract_id = #{saleContractId},
+            </if>
+            <if test="saleContractCode != null and saleContractCode != ''">
+                sale_contract_code = #{saleContractCode},
+            </if>
+            <if test="saleContractDate != null">
+                sale_contract_date = #{saleContractDate},
+            </if>
+            <if test="productId != null">
+                product_id = #{productId},
+            </if>
+            <if test="productName != null and productName != ''">
+                product_name = #{productName},
+            </if>
+            <if test="productSpec != null and productSpec != ''">
+                product_spec = #{productSpec},
+            </if>
+            <if test="saleContractWeight != null">
+                sale_contract_weight = #{saleContractWeight},
+            </if>
+            <if test="copperPrice != null">
+                copper_price = #{copperPrice},
+            </if>
+            <if test="processingFee != null">
+                processing_fee = #{processingFee},
+            </if>
+            <if test="unitPrice != null">
+                unit_price = #{unitPrice},
+            </if>
+            <if test="shipmentDate != null">
+                shipment_date = #{shipmentDate},
+            </if>
+            <if test="deliveryWeight != null">
+                delivery_weight = #{deliveryWeight},
+            </if>
+            <if test="totalAmount != null">
+                total_amount = #{totalAmount},
+            </if>
+            <if test="loan != null and loan != ''">
+                loan = #{loan},
+            </if>
+            <if test="isDeleted != null">
+                is_deleted = #{isDeleted},
+            </if>
+            <if test="version != null">
+                version = #{version},
+            </if>
+            <if test="createBy != null and createBy != ''">
+                create_by = #{createBy},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime},
+            </if>
+            <if test="updateBy != null and updateBy != ''">
+                update_by = #{updateBy},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime},
+            </if>
+            <if test="remark != null and remark != ''">
+                remark = #{remark},
+            </if>
+            <if test="attr1 != null and attr1 != ''">
+                attr1 = #{attr1},
+            </if>
+            <if test="attr2 != null">
+                attr2 = #{attr2},
+            </if>
+            <if test="attr3 != null">
+                attr3 = #{attr3},
+            </if>
+            <if test="artt4 != null and artt4 != ''">
+                artt4 = #{artt4},
+            </if>
+            <if test="artt5 != null and artt5 != ''">
+                artt5 = #{artt5},
+            </if>
+            <if test="artt6 != null and artt6 != ''">
+                artt6 = #{artt6},
+            </if>
+            <if test="artt7 != null and artt7 != ''">
+                artt7 = #{artt7},
+            </if>
+            <if test="artt8 != null and artt8 != ''">
+                artt8 = #{artt8},
+            </if>
+            <if test="artt9 != null and artt9 != ''">
+                artt9 = #{artt9},
+            </if>
+            <if test="artt10 != null and artt10 != ''">
+                artt10 = #{artt10},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from sale_price_management where id = #{id}
+    </delete>
+
+</mapper>
+

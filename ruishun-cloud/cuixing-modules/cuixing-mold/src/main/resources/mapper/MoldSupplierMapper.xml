@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cuixing.mold.mapper.MoldSupplierMapper">
+
+    <resultMap type="com.cuixing.mold.entity.MoldSupplier" id="MoldSupplierMap">
+        <result property="moldSupplierId" column="mold_supplier_id" jdbcType="INTEGER"/>
+        <result property="supplierName" column="supplier_name" jdbcType="VARCHAR"/>
+        <result property="remark" column="remark" jdbcType="VARCHAR"/>
+        <result property="attr1" column="attr1" jdbcType="VARCHAR"/>
+        <result property="attr2" column="attr2" jdbcType="VARCHAR"/>
+        <result property="attr3" column="attr3" jdbcType="INTEGER"/>
+        <result property="attr4" column="attr4" jdbcType="INTEGER"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="createBy" column="create_by" jdbcType="VARCHAR"/>
+        <result property="updateBy" column="update_by" jdbcType="VARCHAR"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <sql id="selectMoldSupplierVo">
+        SELECT mold_supplier_id,
+               supplier_name,
+               remark,
+               attr1,
+               attr2,
+               attr3,
+               attr4,
+               create_time,
+               create_by,
+               update_by,
+               update_time
+        FROM mold_supplier
+    </sql>
+
+    <select id="selectMoldSupplierList" parameterType="MoldSupplier" resultMap="MoldSupplierMap">
+        <include refid="selectMoldSupplierVo"/>
+        <where>
+            <if test="moldSupplierId != null">
+                and mold_supplier_id = #{moldSupplierId}
+            </if>
+            <if test="supplierName != null and supplierName != ''">
+                and supplier_name = #{supplierName}
+            </if>
+            <if test="remark != null and remark != ''">
+                and remark = #{remark}
+            </if>
+            <if test="attr1 != null and attr1 != ''">
+                and attr1 = #{attr1}
+            </if>
+            <if test="attr2 != null and attr2 != ''">
+                and attr2 = #{attr2}
+            </if>
+            <if test="attr3 != null">
+                and attr3 = #{attr3}
+            </if>
+            <if test="attr4 != null">
+                and attr4 = #{attr4}
+            </if>
+            <if test="createTime != null">
+                and create_time = #{createTime}
+            </if>
+            <if test="createBy != null and createBy != ''">
+                and create_by = #{createBy}
+            </if>
+            <if test="updateBy != null and updateBy != ''">
+                and update_by = #{updateBy}
+            </if>
+            <if test="updateTime != null">
+                and update_time = #{updateTime}
+            </if>
+        </where>
+    </select>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="MoldSupplierMap">
+        <include refid="selectMoldSupplierVo"/>
+        where mold_supplier_id = #{moldSupplierId}
+    </select>
+
+    <!--统计总行数-->
+    <select id="count" resultType="java.lang.Long">
+        select count(1)
+        from mold_supplier
+        <where>
+            <if test="moldSupplierId != null">
+                and mold_supplier_id = #{moldSupplierId}
+            </if>
+            <if test="supplierName != null and supplierName != ''">
+                and supplier_name = #{supplierName}
+            </if>
+            <if test="remark != null and remark != ''">
+                and remark = #{remark}
+            </if>
+            <if test="attr1 != null and attr1 != ''">
+                and attr1 = #{attr1}
+            </if>
+            <if test="attr2 != null and attr2 != ''">
+                and attr2 = #{attr2}
+            </if>
+            <if test="attr3 != null">
+                and attr3 = #{attr3}
+            </if>
+            <if test="attr4 != null">
+                and attr4 = #{attr4}
+            </if>
+            <if test="createTime != null">
+                and create_time = #{createTime}
+            </if>
+            <if test="createBy != null and createBy != ''">
+                and create_by = #{createBy}
+            </if>
+            <if test="updateBy != null and updateBy != ''">
+                and update_by = #{updateBy}
+            </if>
+            <if test="updateTime != null">
+                and update_time = #{updateTime}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="moldSupplierId" useGeneratedKeys="true">
+        insert into mold_supplier(supplier_name, remark, attr1, attr2, attr3, attr4, create_time, create_by, update_by,
+                                  update_time)
+        values (#{supplierName}, #{remark}, #{attr1}, #{attr2}, #{attr3}, #{attr4}, #{createTime}, #{createBy},
+                #{updateBy}, #{updateTime})
+    </insert>
+
+    <insert id="insertBatch" keyProperty="moldSupplierId" useGeneratedKeys="true">
+        insert into mold_supplier(supplier_name, remark, attr1, attr2, attr3, attr4, create_time, create_by, update_by,
+        update_time)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.supplierName}, #{entity.remark}, #{entity.attr1}, #{entity.attr2}, #{entity.attr3},
+            #{entity.attr4}, #{entity.createTime}, #{entity.createBy}, #{entity.updateBy}, #{entity.updateTime})
+        </foreach>
+    </insert>
+
+    <insert id="insertOrUpdateBatch" keyProperty="moldSupplierId" useGeneratedKeys="true">
+        insert into mold_supplier(supplier_name, remark, attr1, attr2, attr3, attr4, create_time, create_by, update_by,
+        update_time)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.supplierName}, #{entity.remark}, #{entity.attr1}, #{entity.attr2}, #{entity.attr3},
+            #{entity.attr4}, #{entity.createTime}, #{entity.createBy}, #{entity.updateBy}, #{entity.updateTime})
+        </foreach>
+        on duplicate key update
+        supplier_name = values(supplier_name),
+        remark = values(remark),
+        attr1 = values(attr1),
+        attr2 = values(attr2),
+        attr3 = values(attr3),
+        attr4 = values(attr4),
+        create_time = values(create_time),
+        create_by = values(create_by),
+        update_by = values(update_by),
+        update_time = values(update_time)
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update mold_supplier
+        <set>
+            <if test="supplierName != null and supplierName != ''">
+                supplier_name = #{supplierName},
+            </if>
+            <if test="remark != null and remark != ''">
+                remark = #{remark},
+            </if>
+            <if test="attr1 != null and attr1 != ''">
+                attr1 = #{attr1},
+            </if>
+            <if test="attr2 != null and attr2 != ''">
+                attr2 = #{attr2},
+            </if>
+            <if test="attr3 != null">
+                attr3 = #{attr3},
+            </if>
+            <if test="attr4 != null">
+                attr4 = #{attr4},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime},
+            </if>
+            <if test="createBy != null and createBy != ''">
+                create_by = #{createBy},
+            </if>
+            <if test="updateBy != null and updateBy != ''">
+                update_by = #{updateBy},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime},
+            </if>
+        </set>
+        where mold_supplier_id = #{moldSupplierId}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete
+        from mold_supplier
+        where mold_supplier_id = #{moldSupplierId}
+    </delete>
+
+</mapper>
+

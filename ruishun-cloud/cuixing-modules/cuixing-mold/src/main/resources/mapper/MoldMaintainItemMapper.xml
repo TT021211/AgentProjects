@@ -1,0 +1,326 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cuixing.mold.mapper.MoldMaintainItemMapper">
+
+    <resultMap type="com.cuixing.mold.entity.MoldMaintainItem" id="MoldMaintainItemMap">
+        <result property="maintainItemId" column="maintain_item_id" jdbcType="INTEGER"/>
+        <result property="maintainItemName" column="maintain_item_name" jdbcType="VARCHAR"/>
+        <result property="maintainItemContent" column="maintain_item_content" jdbcType="VARCHAR"/>
+        <result property="maintainItemStandard" column="maintain_item_standard" jdbcType="VARCHAR"/>
+        <result property="maintainItemEnable" column="maintain_item_enable" jdbcType="VARCHAR"/>
+        <result property="maintainItemRemark" column="maintain_item_remark" jdbcType="VARCHAR"/>
+        <result property="attr1" column="attr1" jdbcType="VARCHAR"/>
+        <result property="attr2" column="attr2" jdbcType="VARCHAR"/>
+        <result property="attr3" column="attr3" jdbcType="INTEGER"/>
+        <result property="attr4" column="attr4" jdbcType="INTEGER"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="createBy" column="create_by" jdbcType="VARCHAR"/>
+        <result property="updateBy" column="update_by" jdbcType="VARCHAR"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <sql id="selectMoldMaintainItemVo">
+        SELECT maintain_item_id,
+               maintain_item_name,
+               maintain_item_content,
+               maintain_item_standard,
+               maintain_item_enable,
+               maintain_item_remark,
+               attr1,
+               attr2,
+               attr3,
+               attr4,
+               create_time,
+               create_by,
+               update_by,
+               update_time
+        FROM mold_maintain_item
+    </sql>
+
+    <select id="selectMoldMaintainItemList" parameterType="MoldMaintainItem" resultMap="MoldMaintainItemMap">
+        <include refid="selectMoldMaintainItemVo"/>
+        <where>
+            <if test="maintainItemId != null">
+                and maintain_item_id = #{maintainItemId}
+            </if>
+            <if test="maintainItemName != null and maintainItemName != ''">
+                and maintain_item_name = #{maintainItemName}
+            </if>
+            <if test="maintainItemContent != null and maintainItemContent != ''">
+                and maintain_item_content = #{maintainItemContent}
+            </if>
+            <if test="maintainItemStandard != null and maintainItemStandard != ''">
+                and maintain_item_standard = #{maintainItemStandard}
+            </if>
+            <if test="maintainItemEnable != null and maintainItemEnable != ''">
+                and maintain_item_enable = #{maintainItemEnable}
+            </if>
+            <if test="maintainItemRemark != null and maintainItemRemark != ''">
+                and maintain_item_remark = #{maintainItemRemark}
+            </if>
+            <if test="attr1 != null and attr1 != ''">
+                and attr1 = #{attr1}
+            </if>
+            <if test="attr2 != null and attr2 != ''">
+                and attr2 = #{attr2}
+            </if>
+            <if test="attr3 != null">
+                and attr3 = #{attr3}
+            </if>
+            <if test="attr4 != null">
+                and attr4 = #{attr4}
+            </if>
+            <if test="createTime != null">
+                and create_time = #{createTime}
+            </if>
+            <if test="createBy != null and createBy != ''">
+                and create_by = #{createBy}
+            </if>
+            <if test="updateBy != null and updateBy != ''">
+                and update_by = #{updateBy}
+            </if>
+            <if test="updateTime != null">
+                and update_time = #{updateTime}
+            </if>
+        </where>
+        ORDER BY
+        CASE
+        WHEN update_time IS NOT NULL THEN update_time
+        ELSE create_time
+        END DESC
+    </select>
+    <select id="selectMoldMaintainItemList2" parameterType="MoldMaintainItem" resultMap="MoldMaintainItemMap">
+        <include refid="selectMoldMaintainItemVo"/>
+        <where>
+            <if test="maintainItemId != null">
+                and maintain_item_id = #{maintainItemId}
+            </if>
+            <if test="maintainItemName != null and maintainItemName != ''">
+                and maintain_item_name = #{maintainItemName}
+            </if>
+            <if test="maintainItemContent != null and maintainItemContent != ''">
+                and maintain_item_content = #{maintainItemContent}
+            </if>
+            <if test="maintainItemStandard != null and maintainItemStandard != ''">
+                and maintain_item_standard = #{maintainItemStandard}
+            </if>
+                and maintain_item_enable = 'Y'
+            <if test="maintainItemRemark != null and maintainItemRemark != ''">
+                and maintain_item_remark = #{maintainItemRemark}
+            </if>
+            <if test="attr1 != null and attr1 != ''">
+                and attr1 = #{attr1}
+            </if>
+            <if test="attr2 != null and attr2 != ''">
+                and attr2 = #{attr2}
+            </if>
+            <if test="attr3 != null">
+                and attr3 = #{attr3}
+            </if>
+            <if test="attr4 != null">
+                and attr4 = #{attr4}
+            </if>
+            <if test="createTime != null">
+                and create_time = #{createTime}
+            </if>
+            <if test="createBy != null and createBy != ''">
+                and create_by = #{createBy}
+            </if>
+            <if test="updateBy != null and updateBy != ''">
+                and update_by = #{updateBy}
+            </if>
+            <if test="updateTime != null">
+                and update_time = #{updateTime}
+            </if>
+        </where>
+        ORDER BY
+        CASE
+        WHEN update_time IS NOT NULL THEN update_time
+        ELSE create_time
+        END DESC
+    </select>
+
+    <!-- 查询单个 -->
+    <select id="queryById" resultMap="MoldMaintainItemMap">
+        SELECT
+            maintain_item_id, maintain_item_name, maintain_item_content, maintain_item_standard,
+            maintain_item_enable, maintain_item_remark, attr1, attr2, attr3, attr4,
+            create_time, create_by, update_by, update_time
+        FROM
+            mold_maintain_item
+        WHERE
+            maintain_item_id = #{maintainItemId}
+    </select>
+
+
+    <!--统计总行数-->
+    <select id="count" resultType="java.lang.Long">
+        select count(1)
+        from mold_maintain_item
+        <where>
+            <if test="maintainItemId != null">
+                and maintain_item_id = #{maintainItemId}
+            </if>
+            <if test="maintainItemName != null and maintainItemName != ''">
+                and maintain_item_name = #{maintainItemName}
+            </if>
+            <if test="maintainItemContent != null and maintainItemContent != ''">
+                and maintain_item_content = #{maintainItemContent}
+            </if>
+            <if test="maintainItemStandard != null and maintainItemStandard != ''">
+                and maintain_item_standard = #{maintainItemStandard}
+            </if>
+            <if test="maintainItemEnable != null and maintainItemEnable != ''">
+                and maintain_item_enable = #{maintainItemEnable}
+            </if>
+            <if test="maintainItemRemark != null and maintainItemRemark != ''">
+                and maintain_item_remark = #{maintainItemRemark}
+            </if>
+            <if test="attr1 != null and attr1 != ''">
+                and attr1 = #{attr1}
+            </if>
+            <if test="attr2 != null and attr2 != ''">
+                and attr2 = #{attr2}
+            </if>
+            <if test="attr3 != null">
+                and attr3 = #{attr3}
+            </if>
+            <if test="attr4 != null">
+                and attr4 = #{attr4}
+            </if>
+            <if test="createTime != null">
+                and create_time = #{createTime}
+            </if>
+            <if test="createBy != null and createBy != ''">
+                and create_by = #{createBy}
+            </if>
+            <if test="updateBy != null and updateBy != ''">
+                and update_by = #{updateBy}
+            </if>
+            <if test="updateTime != null">
+                and update_time = #{updateTime}
+            </if>
+        </where>
+    </select>
+
+    <!-- 新增所有列 -->
+    <insert id="insert" keyProperty="maintainItemId" useGeneratedKeys="true">
+        INSERT INTO mold_maintain_item(
+            maintain_item_name, maintain_item_content, maintain_item_standard,
+            maintain_item_enable, maintain_item_remark, attr1, attr2, attr3, attr4,
+            create_time, create_by, update_by, update_time
+        )
+        VALUES (
+                   #{maintainItemName}, #{maintainItemContent}, #{maintainItemStandard},
+                   #{maintainItemEnable}, #{maintainItemRemark}, #{attr1}, #{attr2}, #{attr3}, #{attr4},
+                   #{createTime}, #{createBy}, #{updateBy}, #{updateTime}
+               )
+    </insert>
+
+
+    <insert id="insertBatch" keyProperty="maintainItemId" useGeneratedKeys="true">
+        INSERT INTO mold_maintain_item(
+        maintain_item_name, maintain_item_content, maintain_item_standard,
+        maintain_item_enable, maintain_item_remark, attr1, attr2, attr3, attr4,
+        create_time, create_by, update_by, update_time
+        )
+        VALUES
+        <foreach collection="list" item="entity" index="index" separator=",">
+            (
+            #{entity.maintainItemName}, #{entity.maintainItemContent}, #{entity.maintainItemStandard},
+            #{entity.maintainItemEnable}, #{entity.maintainItemRemark}, #{entity.attr1}, #{entity.attr2},
+            #{entity.attr3}, #{entity.attr4}, #{entity.createTime}, #{entity.createBy},
+            #{entity.updateBy}, #{entity.updateTime}
+            )
+        </foreach>
+    </insert>
+
+
+    <insert id="insertOrUpdateBatch" keyProperty="maintainItemId" useGeneratedKeys="true">
+        INSERT INTO mold_maintain_item(
+        maintain_item_name, maintain_item_content, maintain_item_standard,
+        maintain_item_enable, maintain_item_remark, attr1, attr2, attr3, attr4,
+        create_time, create_by, update_by, update_time
+        )
+        VALUES
+        <foreach collection="list" item="entity" index="index" separator=",">
+            (
+            #{entity.maintainItemName}, #{entity.maintainItemContent}, #{entity.maintainItemStandard},
+            #{entity.maintainItemEnable}, #{entity.maintainItemRemark}, #{entity.attr1}, #{entity.attr2},
+            #{entity.attr3}, #{entity.attr4}, #{entity.createTime}, #{entity.createBy},
+            #{entity.updateBy}, #{entity.updateTime}
+            )
+        </foreach>
+        ON DUPLICATE KEY UPDATE
+        maintain_item_name = VALUES(maintain_item_name),
+        maintain_item_content = VALUES(maintain_item_content),
+        maintain_item_standard = VALUES(maintain_item_standard),
+        maintain_item_enable = VALUES(maintain_item_enable),
+        maintain_item_remark = VALUES(maintain_item_remark),
+        attr1 = VALUES(attr1),
+        attr2 = VALUES(attr2),
+        attr3 = VALUES(attr3),
+        attr4 = VALUES(attr4),
+        create_time = VALUES(create_time),
+        create_by = VALUES(create_by),
+        update_by = VALUES(update_by),
+        update_time = VALUES(update_time)
+    </insert>
+
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update mold_maintain_item
+        <set>
+            <if test="maintainItemName != null and maintainItemName != ''">
+                maintain_item_name = #{maintainItemName},
+            </if>
+            <if test="maintainItemContent != null and maintainItemContent != ''">
+                maintain_item_content = #{maintainItemContent},
+            </if>
+            <if test="maintainItemStandard != null and maintainItemStandard != ''">
+                maintain_item_standard = #{maintainItemStandard},
+            </if>
+            <if test="maintainItemEnable != null and maintainItemEnable != ''">
+                maintain_item_enable = #{maintainItemEnable},
+            </if>
+            <if test="maintainItemRemark != null and maintainItemRemark != ''">
+                maintain_item_remark = #{maintainItemRemark},
+            </if>
+            <if test="attr1 != null and attr1 != ''">
+                attr1 = #{attr1},
+            </if>
+            <if test="attr2 != null and attr2 != ''">
+                attr2 = #{attr2},
+            </if>
+            <if test="attr3 != null">
+                attr3 = #{attr3},
+            </if>
+            <if test="attr4 != null">
+                attr4 = #{attr4},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime},
+            </if>
+            <if test="createBy != null and createBy != ''">
+                create_by = #{createBy},
+            </if>
+            <if test="updateBy != null and updateBy != ''">
+                update_by = #{updateBy},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime},
+            </if>
+        </set>
+        where maintain_item_id = #{maintainItemId}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete
+        from mold_maintain_item
+        where maintain_item_id = #{maintainItemId}
+    </delete>
+
+</mapper>
+

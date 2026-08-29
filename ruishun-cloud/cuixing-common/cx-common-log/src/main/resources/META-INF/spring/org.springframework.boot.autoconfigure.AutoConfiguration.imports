@@ -1,0 +1,2 @@
+com.cuixing.common.log.service.AsyncLogService
+com.cuixing.common.log.aspect.LogAspect

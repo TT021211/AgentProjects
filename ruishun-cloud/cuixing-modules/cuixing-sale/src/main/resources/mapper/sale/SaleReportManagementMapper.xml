@@ -1,0 +1,482 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cuixing.sale.mapper.SaleReportManagementMapper">
+
+    <resultMap type="com.cuixing.sale.entity.SaleReportManagement" id="SaleReportManagementMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="saleOrderDate" column="sale_order_date" jdbcType="TIMESTAMP"/>
+        <result property="clientName" column="client_name" jdbcType="VARCHAR"/>
+        <result property="productName" column="product_name" jdbcType="VARCHAR"/>
+        <result property="productModel" column="product_model" jdbcType="VARCHAR"/>
+        <result property="unit" column="unit" jdbcType="VARCHAR"/>
+        <result property="saleContractNumber" column="sale_contract_number" jdbcType="INTEGER"/>
+        <result property="actualCount" column="actual_count" jdbcType="INTEGER"/>
+        <result property="price" column="price" jdbcType="NUMERIC"/>
+        <result property="totalPrice" column="total_price" jdbcType="NUMERIC"/>
+        <result property="invoice" column="invoice" jdbcType="VARCHAR"/>
+        <result property="paymentTime" column="payment_time" jdbcType="TIMESTAMP"/>
+        <result property="deliveryTime" column="delivery_time" jdbcType="TIMESTAMP"/>
+        <result property="isDeleted" column="is_deleted" jdbcType="INTEGER"/>
+        <result property="version" column="version" jdbcType="INTEGER"/>
+        <result property="createBy" column="create_by" jdbcType="VARCHAR"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="updateBy" column="update_by" jdbcType="VARCHAR"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+        <result property="remark" column="remark" jdbcType="VARCHAR"/>
+        <result property="attr1" column="attr1" jdbcType="VARCHAR"/>
+        <result property="attr2" column="attr2" jdbcType="INTEGER"/>
+        <result property="attr3" column="attr3" jdbcType="VARCHAR"/>
+        <result property="artt4" column="artt4" jdbcType="VARCHAR"/>
+        <result property="artt5" column="artt5" jdbcType="VARCHAR"/>
+        <result property="artt6" column="artt6" jdbcType="VARCHAR"/>
+        <result property="artt7" column="artt7" jdbcType="VARCHAR"/>
+        <result property="artt8" column="artt8" jdbcType="VARCHAR"/>
+        <result property="artt9" column="artt9" jdbcType="VARCHAR"/>
+        <result property="artt10" column="artt10" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="selectSaleReportManagementVo">
+        SELECT id,
+               sale_order_date,
+               client_name,
+               product_name,
+               product_model,
+               unit,
+               sale_contract_number,
+               actual_count,
+               price,
+               total_price,
+               invoice,
+               payment_time,
+               delivery_time,
+               is_deleted,
+               version,
+               create_by,
+               create_time,
+               update_by,
+               update_time,
+               remark,
+               attr1,
+               attr2,
+               attr3,
+               artt4,
+               artt5,
+               artt6,
+               artt7,
+               artt8,
+               artt9,
+               artt10
+        FROM sale_report_management
+    </sql>
+
+    <select id="selectSaleReportManagementList" parameterType="SaleReportManagement"
+            resultMap="SaleReportManagementMap">
+        <include refid="selectSaleReportManagementVo"/>
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="saleOrderDate != null">
+                and sale_order_date = #{saleOrderDate}
+            </if>
+            <if test="clientName != null and clientName != ''">
+                and client_name = #{clientName}
+            </if>
+            <if test="productName != null and productName != ''">
+                and product_name = #{productName}
+            </if>
+            <if test="productModel != null and productModel != ''">
+                and product_model = #{productModel}
+            </if>
+            <if test="unit != null and unit != ''">
+                and unit = #{unit}
+            </if>
+            <if test="saleContractNumber != null">
+                and sale_contract_number = #{saleContractNumber}
+            </if>
+            <if test="actualCount != null">
+                and actual_count = #{actualCount}
+            </if>
+            <if test="price != null">
+                and price = #{price}
+            </if>
+            <if test="totalPrice != null">
+                and total_price = #{totalPrice}
+            </if>
+            <if test="invoice != null and invoice != ''">
+                and invoice = #{invoice}
+            </if>
+            <if test="paymentTime != null">
+                and payment_time = #{paymentTime}
+            </if>
+            <if test="deliveryTime != null">
+                and delivery_time = #{deliveryTime}
+            </if>
+            <if test="isDeleted != null">
+                and is_deleted = #{isDeleted}
+            </if>
+            <if test="version != null">
+                and version = #{version}
+            </if>
+            <if test="createBy != null and createBy != ''">
+                and create_by = #{createBy}
+            </if>
+            <if test="createTime != null">
+                and create_time = #{createTime}
+            </if>
+            <if test="updateBy != null and updateBy != ''">
+                and update_by = #{updateBy}
+            </if>
+            <if test="updateTime != null">
+                and update_time = #{updateTime}
+            </if>
+            <if test="remark != null and remark != ''">
+                and remark = #{remark}
+            </if>
+            <if test="attr1 != null and attr1 != ''">
+                and attr1 = #{attr1}
+            </if>
+            <if test="attr2 != null">
+                and attr2 = #{attr2}
+            </if>
+            <if test="attr3 != null">
+                and attr3 = #{attr3}
+            </if>
+            <if test="artt4 != null and artt4 != ''">
+                and artt4 = #{artt4}
+            </if>
+            <if test="artt5 != null and artt5 != ''">
+                and artt5 = #{artt5}
+            </if>
+            <if test="artt6 != null and artt6 != ''">
+                and artt6 = #{artt6}
+            </if>
+            <if test="artt7 != null and artt7 != ''">
+                and artt7 = #{artt7}
+            </if>
+            <if test="artt8 != null and artt8 != ''">
+                and artt8 = #{artt8}
+            </if>
+            <if test="artt9 != null and artt9 != ''">
+                and artt9 = #{artt9}
+            </if>
+            <if test="artt10 != null and artt10 != ''">
+                and artt10 = #{artt10}
+            </if>
+        </where>
+    </select>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="SaleReportManagementMap">
+        select id,
+               sale_order_date,
+               client_name,
+               product_name,
+               product_model,
+               unit,
+               sale_contract_number,
+               actual_count,
+               price,
+               total_price,
+               invoice,
+               payment_time,
+               delivery_time,
+               is_deleted,
+               version,
+               create_by,
+               create_time,
+               update_by,
+               update_time,
+               remark,
+               attr1,
+               attr2,
+               attr3,
+               artt4,
+               artt5,
+               artt6,
+               artt7,
+               artt8,
+               artt9,
+               artt10
+
+        from sale_report_management
+        where id = #{id}
+    </select>
+
+    <!--统计总行数-->
+    <select id="count" resultType="java.lang.Long">
+        select count(1)
+        from sale_report_management
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="saleOrderDate != null">
+                and sale_order_date = #{saleOrderDate}
+            </if>
+            <if test="clientName != null and clientName != ''">
+                and client_name = #{clientName}
+            </if>
+            <if test="productName != null and productName != ''">
+                and product_name = #{productName}
+            </if>
+            <if test="productModel != null and productModel != ''">
+                and product_model = #{productModel}
+            </if>
+            <if test="unit != null and unit != ''">
+                and unit = #{unit}
+            </if>
+            <if test="saleContractNumber != null">
+                and sale_contract_number = #{saleContractNumber}
+            </if>
+            <if test="actualCount != null">
+                and actual_count = #{actualCount}
+            </if>
+            <if test="price != null">
+                and price = #{price}
+            </if>
+            <if test="totalPrice != null">
+                and total_price = #{totalPrice}
+            </if>
+            <if test="invoice != null and invoice != ''">
+                and invoice = #{invoice}
+            </if>
+            <if test="paymentTime != null">
+                and payment_time = #{paymentTime}
+            </if>
+            <if test="deliveryTime != null">
+                and delivery_time = #{deliveryTime}
+            </if>
+            <if test="isDeleted != null">
+                and is_deleted = #{isDeleted}
+            </if>
+            <if test="version != null">
+                and version = #{version}
+            </if>
+            <if test="createBy != null and createBy != ''">
+                and create_by = #{createBy}
+            </if>
+            <if test="createTime != null">
+                and create_time = #{createTime}
+            </if>
+            <if test="updateBy != null and updateBy != ''">
+                and update_by = #{updateBy}
+            </if>
+            <if test="updateTime != null">
+                and update_time = #{updateTime}
+            </if>
+            <if test="remark != null and remark != ''">
+                and remark = #{remark}
+            </if>
+            <if test="attr1 != null and attr1 != ''">
+                and attr1 = #{attr1}
+            </if>
+            <if test="attr2 != null">
+                and attr2 = #{attr2}
+            </if>
+            <if test="attr3 != null">
+                and attr3 = #{attr3}
+            </if>
+            <if test="artt4 != null and artt4 != ''">
+                and artt4 = #{artt4}
+            </if>
+            <if test="artt5 != null and artt5 != ''">
+                and artt5 = #{artt5}
+            </if>
+            <if test="artt6 != null and artt6 != ''">
+                and artt6 = #{artt6}
+            </if>
+            <if test="artt7 != null and artt7 != ''">
+                and artt7 = #{artt7}
+            </if>
+            <if test="artt8 != null and artt8 != ''">
+                and artt8 = #{artt8}
+            </if>
+            <if test="artt9 != null and artt9 != ''">
+                and artt9 = #{artt9}
+            </if>
+            <if test="artt10 != null and artt10 != ''">
+                and artt10 = #{artt10}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into sale_report_management(sale_order_date, client_name, product_name, product_model, unit,
+                                           sale_contract_number, actual_count, price, total_price, invoice,
+                                           payment_time, delivery_time, is_deleted, version, create_by, create_time,
+                                           update_by, update_time, remark, attr1, attr2, attr3, artt4, artt5, artt6,
+                                           artt7, artt8, artt9, artt10)
+        values (#{saleOrderDate}, #{clientName}, #{productName}, #{productModel}, #{unit}, #{saleContractNumber},
+                #{actualCount}, #{price}, #{totalPrice}, #{invoice}, #{paymentTime}, #{deliveryTime}, #{isDeleted},
+                #{version}, #{createBy}, #{createTime}, #{updateBy}, #{updateTime}, #{remark}, #{attr1}, #{attr2},
+                #{attr3}, #{artt4}, #{artt5}, #{artt6}, #{artt7}, #{artt8}, #{artt9}, #{artt10})
+    </insert>
+
+    <insert id="insertBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into sale_report_management(sale_order_date, client_name, product_name, product_model, unit,
+        sale_contract_number, actual_count, price, total_price, invoice, payment_time, delivery_time, is_deleted,
+        version, create_by, create_time, update_by, update_time, remark, attr1, attr2, attr3, artt4, artt5, artt6,
+        artt7, artt8, artt9, artt10)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.saleOrderDate}, #{entity.clientName}, #{entity.productName}, #{entity.productModel},
+            #{entity.unit}, #{entity.saleContractNumber}, #{entity.actualCount}, #{entity.price}, #{entity.totalPrice},
+            #{entity.invoice}, #{entity.paymentTime}, #{entity.deliveryTime}, #{entity.isDeleted}, #{entity.version},
+            #{entity.createBy}, #{entity.createTime}, #{entity.updateBy}, #{entity.updateTime}, #{entity.remark},
+            #{entity.attr1}, #{entity.attr2}, #{entity.attr3}, #{entity.artt4}, #{entity.artt5}, #{entity.artt6},
+            #{entity.artt7}, #{entity.artt8}, #{entity.artt9}, #{entity.artt10})
+        </foreach>
+    </insert>
+
+    <insert id="insertOrUpdateBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into sale_report_management(sale_order_date, client_name, product_name, product_model, unit,
+        sale_contract_number, actual_count, price, total_price, invoice, payment_time, delivery_time, is_deleted,
+        version, create_by, create_time, update_by, update_time, remark, attr1, attr2, attr3, artt4, artt5, artt6,
+        artt7, artt8, artt9, artt10)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.saleOrderDate}, #{entity.clientName}, #{entity.productName}, #{entity.productModel},
+            #{entity.unit}, #{entity.saleContractNumber}, #{entity.actualCount}, #{entity.price}, #{entity.totalPrice},
+            #{entity.invoice}, #{entity.paymentTime}, #{entity.deliveryTime}, #{entity.isDeleted}, #{entity.version},
+            #{entity.createBy}, #{entity.createTime}, #{entity.updateBy}, #{entity.updateTime}, #{entity.remark},
+            #{entity.attr1}, #{entity.attr2}, #{entity.attr3}, #{entity.artt4}, #{entity.artt5}, #{entity.artt6},
+            #{entity.artt7}, #{entity.artt8}, #{entity.artt9}, #{entity.artt10})
+        </foreach>
+        on duplicate key update
+        sale_order_date = values(sale_order_date),
+        client_name = values(client_name),
+        product_name = values(product_name),
+        product_model = values(product_model),
+        unit = values(unit),
+        sale_contract_number = values(sale_contract_number),
+        actual_count = values(actual_count),
+        price = values(price),
+        total_price = values(total_price),
+        invoice = values(invoice),
+        payment_time = values(payment_time),
+        delivery_time = values(delivery_time),
+        is_deleted = values(is_deleted),
+        version = values(version),
+        create_by = values(create_by),
+        create_time = values(create_time),
+        update_by = values(update_by),
+        update_time = values(update_time),
+        remark = values(remark),
+        attr1 = values(attr1),
+        attr2 = values(attr2),
+        attr3 = values(attr3),
+        artt4 = values(artt4),
+        artt5 = values(artt5),
+        artt6 = values(artt6),
+        artt7 = values(artt7),
+        artt8 = values(artt8),
+        artt9 = values(artt9),
+        artt10 = values(artt10)
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update sale_report_management
+        <set>
+            <if test="saleOrderDate != null">
+                sale_order_date = #{saleOrderDate},
+            </if>
+            <if test="clientName != null and clientName != ''">
+                client_name = #{clientName},
+            </if>
+            <if test="productName != null and productName != ''">
+                product_name = #{productName},
+            </if>
+            <if test="productModel != null and productModel != ''">
+                product_model = #{productModel},
+            </if>
+            <if test="unit != null and unit != ''">
+                unit = #{unit},
+            </if>
+            <if test="saleContractNumber != null">
+                sale_contract_number = #{saleContractNumber},
+            </if>
+            <if test="actualCount != null">
+                actual_count = #{actualCount},
+            </if>
+            <if test="price != null">
+                price = #{price},
+            </if>
+            <if test="totalPrice != null">
+                total_price = #{totalPrice},
+            </if>
+            <if test="invoice != null and invoice != ''">
+                invoice = #{invoice},
+            </if>
+            <if test="paymentTime != null">
+                payment_time = #{paymentTime},
+            </if>
+            <if test="deliveryTime != null">
+                delivery_time = #{deliveryTime},
+            </if>
+            <if test="isDeleted != null">
+                is_deleted = #{isDeleted},
+            </if>
+            <if test="version != null">
+                version = #{version},
+            </if>
+            <if test="createBy != null and createBy != ''">
+                create_by = #{createBy},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime},
+            </if>
+            <if test="updateBy != null and updateBy != ''">
+                update_by = #{updateBy},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime},
+            </if>
+            <if test="remark != null and remark != ''">
+                remark = #{remark},
+            </if>
+            <if test="attr1 != null and attr1 != ''">
+                attr1 = #{attr1},
+            </if>
+            <if test="attr2 != null">
+                attr2 = #{attr2},
+            </if>
+            <if test="attr3 != null">
+                attr3 = #{attr3},
+            </if>
+            <if test="artt4 != null and artt4 != ''">
+                artt4 = #{artt4},
+            </if>
+            <if test="artt5 != null and artt5 != ''">
+                artt5 = #{artt5},
+            </if>
+            <if test="artt6 != null and artt6 != ''">
+                artt6 = #{artt6},
+            </if>
+            <if test="artt7 != null and artt7 != ''">
+                artt7 = #{artt7},
+            </if>
+            <if test="artt8 != null and artt8 != ''">
+                artt8 = #{artt8},
+            </if>
+            <if test="artt9 != null and artt9 != ''">
+                artt9 = #{artt9},
+            </if>
+            <if test="artt10 != null and artt10 != ''">
+                artt10 = #{artt10},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete
+        from sale_report_management
+        where id = #{id}
+    </delete>
+
+</mapper>
+

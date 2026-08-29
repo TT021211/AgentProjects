@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cuixing.wms.mapper.WmsIngredientsLogMapper">
+    <resultMap type="com.cuixing.wms.entity.WmsIngredientsLog" id="WmsIngredientsLogMap">
+        <result property="id" column="id" jdbcType="BIGINT"/>
+        <result property="codeSn" column="code_sn" jdbcType="VARCHAR"/>
+        <result property="ingredientsId" column="ingredients_id" jdbcType="BIGINT"/>
+        <result property="ingredientsName" column="ingredients_name" jdbcType="VARCHAR"/>
+        <result property="manufacturerId" column="manufacturer_id" jdbcType="BIGINT"/>
+        <result property="manufacturerName" column="manufacturer_name" jdbcType="VARCHAR"/>
+        <result property="partNumber" column="part_number" jdbcType="VARCHAR"/>
+        <result property="lotNumber" column="lot_number" jdbcType="VARCHAR"/>
+        <result property="productId" column="product_id" jdbcType="BIGINT"/>
+        <result property="productName" column="product_name" jdbcType="VARCHAR"/>
+        <result property="itemId" column="item_id" jdbcType="BIGINT"/>
+        <result property="itemSpecification" column="item_specification" jdbcType="VARCHAR"/>
+        <result property="netWeight" column="net_weight" jdbcType="DECIMAL"/>
+        <result property="grossWeight" column="gross_weight" jdbcType="DECIMAL"/>
+        <result property="tareWeight" column="tare_weight" jdbcType="DECIMAL"/>
+        <result property="measureId" column="measure_id" jdbcType="BIGINT"/>
+        <result property="measureName" column="measure_name" jdbcType="VARCHAR"/>
+        <result property="jobNumber" column="job_number" jdbcType="VARCHAR"/>
+        <result property="status" column="status" jdbcType="CHAR"/>
+        <result property="isDeleted" column="is_deleted" jdbcType="TINYINT"/>
+        <result property="version" column="version" jdbcType="INTEGER"/>
+        <result property="createBy" column="create_by" jdbcType="VARCHAR"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="updateBy" column="update_by" jdbcType="VARCHAR"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+        <result property="attr1" column="attr1" jdbcType="VARCHAR"/>
+        <result property="attr2" column="attr2" jdbcType="INTEGER"/>
+        <result property="attr3" column="attr3" jdbcType="VARCHAR"/>
+    </resultMap>
+    <resultMap id="WmsIngredientsLog12VoMap" type="com.cuixing.wms.entity.vo.WmsIngredientsLog12Vo">
+        <result property="month" column="month"  jdbcType="VARCHAR"/>
+        <result property="totalInboundWeight" column="totalInboundWeight"  jdbcType="DOUBLE"/>
+        <result property="totalInboundNum" column="totalInboundNum"  jdbcType="INTEGER"/>
+        <result property="totalOutboundWeight" column="totalOutboundWeight"  jdbcType="DOUBLE"/>
+        <result property="totalOutboundNum" column="totalOutboundNum"  jdbcType="INTEGER"/>
+    </resultMap>
+    <!-- 通过ID查询单条数据 -->
+    <select id="queryById" resultMap="WmsIngredientsLogMap">
+        select
+            id,code_sn,ingredients_id,ingredients_name,manufacturer_id,manufacturer_name,part_number,lot_number,product_id,product_name,item_specification,net_weight,gross_weight,tare_weight,measure_id,measure_name,job_number,status,is_deleted,version,create_by,create_time,update_by,update_time,attr1,attr2,attr3,item_id
+        from wms_ingredients_log
+        where is_deleted = 0 and  id = #{id}
+    </select>
+
+    <!-- 通过codeSn查询单条数据 -->
+    <select id="queryByCodeSn" resultMap="WmsIngredientsLogMap">
+        select
+            id,code_sn,ingredients_id,ingredients_name,manufacturer_id,manufacturer_name,part_number,lot_number,product_id,product_name,item_specification,net_weight,gross_weight,tare_weight,measure_id,measure_name,job_number,status,is_deleted,version,create_by,create_time,update_by,update_time,attr1,attr2,attr3,item_id
+        from wms_ingredients_log
+        where is_deleted = 0 and  code_sn = #{codeSn} limit 1;
+    </select>
+    
+    <!--分页查询指定行数据-->
+    <select id="selectWmsIngredientsLogList" resultMap="WmsIngredientsLogMap">
+        select
+            id,code_sn,ingredients_id,ingredients_name,manufacturer_id,manufacturer_name,part_number,lot_number,product_id,product_name,item_specification,net_weight,gross_weight,tare_weight,measure_id,measure_name,job_number,status,is_deleted,version,create_by,create_time,update_by,update_time,attr1,attr2,attr3,item_id
+        from wms_ingredients_log
+        <where>
+            is_deleted = 0
+            <if test="id != null and id != ''"> and id = #{id}</if>
+            <if test="codeSn != null and codeSn != ''"> and code_sn = #{codeSn}</if>
+            <if test="ingredientsId != null and ingredientsId != ''"> and ingredients_id = #{ingredientsId}</if>
+            <if test="ingredientsName != null and ingredientsName != ''"> and ingredients_name = #{ingredientsName}</if>
+            <if test="manufacturerId != null and manufacturerId != ''"> and manufacturer_id = #{manufacturerId}</if>
+            <if test="manufacturerName != null and manufacturerName != ''"> and manufacturer_name = #{manufacturerName}</if>
+            <if test="partNumber != null and partNumber != ''"> and part_number = #{partNumber}</if>
+            <if test="lotNumber != null and lotNumber != ''"> and lot_number = #{lotNumber}</if>
+            <if test="productId != null and productId != ''"> and product_id = #{productId}</if>
+            <if test="productName != null and productName != ''"> and product_name = #{productName}</if>
+            <if test="itemSpecification != null and itemSpecification != ''"> and item_specification = #{itemSpecification}</if>
+            <if test="netWeight != null and netWeight != ''"> and net_weight = #{netWeight}</if>
+            <if test="grossWeight != null and grossWeight != ''"> and gross_weight = #{grossWeight}</if>
+            <if test="tareWeight != null and tareWeight != ''"> and tare_weight = #{tareWeight}</if>
+            <if test="measureId != null and measureId != ''"> and measure_id = #{measureId}</if>
+            <if test="measureName != null and measureName != ''"> and measure_name = #{measureName}</if>
+            <if test="jobNumber != null and jobNumber != ''"> and job_number = #{jobNumber}</if>
+            <if test="status != null and status != ''"> and status = #{status}</if>
+            <if test="isDeleted != null and isDeleted != ''"> and is_deleted = #{isDeleted}</if>
+            <if test="version != null and version != ''"> and version = #{version}</if>
+            <if test="createBy != null and createBy != ''"> and create_by = #{createBy}</if>
+            <if test="createTime != null and createTime != ''"> and create_time = #{createTime}</if>
+            <if test="updateBy != null and updateBy != ''"> and update_by = #{updateBy}</if>
+            <if test="updateTime != null and updateTime != ''"> and update_time = #{updateTime}</if>
+            <if test="attr1 != null and attr1 != ''"> and attr1 = #{attr1}</if>
+            <if test="attr2 != null and attr2 != ''"> and attr2 = #{attr2}</if>
+            <if test="attr3 != null and attr3 != ''"> and attr3 = #{attr3}</if>
+            <if test="itemId != null and itemId != ''"> and item_id = #{itemId}</if>
+            <if test="params.beginTime != null and params.beginTime != ''"><!-- 开始时间检索 -->
+                AND date_format(create_time,'%y%m%d') &gt;= date_format(#{params.beginTime},'%y%m%d')
+            </if>
+            <if test="params.endTime != null and params.endTime != ''"><!-- 结束时间检索 -->
+                AND date_format(create_time,'%y%m%d') &lt;= date_format(#{params.endTime},'%y%m%d')
+            </if>
+            <!-- 数据范围过滤 -->
+            ${params.dataScope}
+        </where>
+        order by create_time desc
+    </select>
+    <select id="getCountIngredientsLogWeight" resultType="java.math.BigDecimal">
+        select sum(net_weight) from wms_ingredients_log where is_deleted = 0 and status = #{status}
+    </select>
+    <select id="getCountBoxDataToYear" resultMap="WmsIngredientsLog12VoMap">
+        SELECT
+            MONTH(create_time) AS month,
+            SUM(CASE WHEN status = 0 THEN net_weight ELSE 0 END) AS totalInboundWeight,
+            COUNT(CASE WHEN status = 0 THEN net_weight ELSE 0 END) AS totalInboundNum,
+            SUM(CASE WHEN status = 1 THEN net_weight ELSE 0 END) AS totalOutboundWeight,
+            COUNT(CASE WHEN status = 0 THEN net_weight ELSE 0 END) AS totalOutboundNum
+        FROM
+            wms_ingredients_log
+        WHERE
+            YEAR(create_time) = YEAR(CURDATE())
+        GROUP BY
+            MONTH(create_time)
+        ORDER BY
+            month;
+    </select>
+    <select id="selectMaxBatch" resultMap="WmsIngredientsLogMap">
+        SELECT * from wms_ingredients_log where manufacturer_name like #{manufacturerName} and  DATE(create_time) = CURDATE()
+    </select>
+
+    <!--新增数据-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into wms_ingredients_log
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null ">id,</if>
+            <if test="codeSn != null and codeSn != ''">code_sn,</if>
+            <if test="ingredientsId != null ">ingredients_id,</if>
+            <if test="ingredientsName != null and ingredientsName != ''">ingredients_name,</if>
+            <if test="manufacturerId != null ">manufacturer_id,</if>
+            <if test="manufacturerName != null and manufacturerName != ''">manufacturer_name,</if>
+            <if test="partNumber != null and partNumber != ''">part_number,</if>
+            <if test="lotNumber != null and lotNumber != ''">lot_number,</if>
+            <if test="productId != null ">product_id,</if>
+            <if test="productName != null and productName != ''">product_name,</if>
+            <if test="itemSpecification != null and itemSpecification != ''">item_specification,</if>
+            <if test="netWeight != null ">net_weight,</if>
+            <if test="grossWeight != null ">gross_weight,</if>
+            <if test="tareWeight != null ">tare_weight,</if>
+            <if test="measureId != null ">measure_id,</if>
+            <if test="measureName != null and measureName != ''">measure_name,</if>
+            <if test="jobNumber != null and jobNumber != ''">job_number,</if>
+            <if test="status != null and status != ''">status,</if>
+            <if test="isDeleted != null ">is_deleted,</if>
+            <if test="version != null ">version,</if>
+            <if test="createBy != null and createBy != ''">create_by,</if>
+            <if test="createTime != null ">create_time,</if>
+            <if test="updateBy != null and updateBy != ''">update_by,</if>
+            <if test="updateTime != null ">update_time,</if>
+            <if test="attr1 != null and attr1 != ''">attr1,</if>
+            <if test="attr2 != null ">attr2,</if>
+            <if test="attr3 != null and attr3 != ''">attr3,</if>
+            <if test="itemId != null ">item_id,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">#{id},</if>
+            <if test="codeSn != null and codeSn != ''">#{codeSn},</if>
+            <if test="ingredientsId != null">#{ingredientsId},</if>
+            <if test="ingredientsName != null and ingredientsName != ''">#{ingredientsName},</if>
+            <if test="manufacturerId != null">#{manufacturerId},</if>
+            <if test="manufacturerName != null and manufacturerName != ''">#{manufacturerName},</if>
+            <if test="partNumber != null and partNumber != ''">#{partNumber},</if>
+            <if test="lotNumber != null and lotNumber != ''">#{lotNumber},</if>
+            <if test="productId != null">#{productId},</if>
+            <if test="productName != null and productName != ''">#{productName},</if>
+            <if test="itemSpecification != null and itemSpecification != ''">#{itemSpecification},</if>
+            <if test="netWeight != null">#{netWeight},</if>
+            <if test="grossWeight != null">#{grossWeight},</if>
+            <if test="tareWeight != null">#{tareWeight},</if>
+            <if test="measureId != null">#{measureId},</if>
+            <if test="measureName != null and measureName != ''">#{measureName},</if>
+            <if test="jobNumber != null and jobNumber != ''">#{jobNumber},</if>
+            <if test="status != null and status != ''">#{status},</if>
+            <if test="isDeleted != null">#{isDeleted},</if>
+            <if test="version != null">#{version},</if>
+            <if test="createBy != null and createBy != ''">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null and updateBy != ''">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="attr1 != null and attr1 != ''">#{attr1},</if>
+            <if test="attr2 != null">#{attr2},</if>
+            <if test="attr3 != null and attr3 != ''">#{attr3},</if>
+            <if test="itemId != null">#{itemId},</if>
+        </trim>
+    </insert>
+    
+    <!-- 更新数据 -->
+    <update id="update">
+        update wms_ingredients_log
+        <set>
+            <trim suffixOverrides=",">
+                <if test="codeSn != null "> code_sn = #{codeSn}, </if>
+                <if test="ingredientsId != null "> ingredients_id = #{ingredientsId}, </if>
+                <if test="ingredientsName != null "> ingredients_name = #{ingredientsName}, </if>
+                <if test="manufacturerId != null "> manufacturer_id = #{manufacturerId}, </if>
+                <if test="manufacturerName != null "> manufacturer_name = #{manufacturerName}, </if>
+                <if test="partNumber != null "> part_number = #{partNumber}, </if>
+                <if test="lotNumber != null "> lot_number = #{lotNumber}, </if>
+                <if test="productId != null "> product_id = #{productId}, </if>
+                <if test="productName != null "> product_name = #{productName}, </if>
+                <if test="itemSpecification != null "> item_specification = #{itemSpecification}, </if>
+                <if test="netWeight != null "> net_weight = #{netWeight}, </if>
+                <if test="grossWeight != null "> gross_weight = #{grossWeight}, </if>
+                <if test="tareWeight != null "> tare_weight = #{tareWeight}, </if>
+                <if test="measureId != null "> measure_id = #{measureId}, </if>
+                <if test="measureName != null "> measure_name = #{measureName}, </if>
+                <if test="jobNumber != null "> job_number = #{jobNumber}, </if>
+                <if test="status != null "> status = #{status}, </if>
+                <if test="isDeleted != null "> is_deleted = #{isDeleted}, </if>
+                <if test="version != null "> version = #{version}, </if>
+                <if test="createBy != null "> create_by = #{createBy}, </if>
+                <if test="createTime != null "> create_time = #{createTime}, </if>
+                <if test="updateBy != null "> update_by = #{updateBy}, </if>
+                <if test="updateTime != null "> update_time = #{updateTime}, </if>
+                <if test="attr1 != null "> attr1 = #{attr1}, </if>
+                <if test="attr2 != null "> attr2 = #{attr2}, </if>
+                <if test="attr3 != null "> attr3 = #{attr3}, </if>
+                <if test="itemId != null "> item_id = #{itemId}, </if>
+            </trim>
+        </set>
+        where id = #{id} and version = #{version}
+    </update>
+    
+    <!--逻辑删除删除-->
+    <update id="deleteById">
+        update wms_ingredients_log set is_deleted = 1 where id = #{id}
+    </update>
+    
+    <!--批量逻辑删除-->
+    <update id="deleteByIds">
+        update wms_ingredients_log set is_deleted = 1 where id in
+        <foreach collection="array" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </update>
+</mapper>

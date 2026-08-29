@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cuixing.mold.mapper.MoldScheduledTaskMapper">
+
+    <resultMap type="com.cuixing.mold.entity.MoldScheduledTask" id="MoldScheduledTaskMap">
+        <result property="taskId" column="task_id" jdbcType="VARCHAR"/>
+        <result property="jobClass" column="job_class" jdbcType="VARCHAR"/>
+        <result property="jobName" column="job_name" jdbcType="VARCHAR"/>
+        <result property="triggerName" column="trigger_name" jdbcType="VARCHAR"/>
+        <result property="cronExpression" column="cron_expression" jdbcType="VARCHAR"/>
+        <result property="startDateStr" column="start_date_str" jdbcType="VARCHAR"/>
+        <result property="endDateStr" column="end_date_str" jdbcType="VARCHAR"/>
+        <result property="jobDataMapJson" column="job_data_map_json" jdbcType="VARCHAR"/>
+        <result property="jobGroupName" column="job_group_name" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="selectMoldScheduledTaskVo">
+        SELECT task_id,
+               job_class,
+               job_name,
+               trigger_name,
+               cron_expression,
+               start_date_str,
+               end_date_str,
+               job_data_map_json,
+               job_group_name
+        FROM mold_scheduled_task
+    </sql>
+
+    <select id="selectMoldScheduledTaskList" parameterType="MoldScheduledTask" resultMap="MoldScheduledTaskMap">
+        <include refid="selectMoldScheduledTaskVo"/>
+        <where>
+            <if test="taskId != null and taskId != ''">
+                and task_id = #{taskId}
+            </if>
+            <if test="jobClass != null and jobClass != ''">
+                and job_class = #{jobClass}
+            </if>
+            <if test="jobName != null and jobName != ''">
+                and job_name = #{jobName}
+            </if>
+            <if test="triggerName != null and triggerName != ''">
+                and trigger_name = #{triggerName}
+            </if>
+            <if test="cronExpression != null and cronExpression != ''">
+                and cron_expression = #{cronExpression}
+            </if>
+            <if test="startDateStr != null and startDateStr != ''">
+                and start_date_str = #{startDateStr}
+            </if>
+            <if test="endDateStr != null and endDateStr != ''">
+                and end_date_str = #{endDateStr}
+            </if>
+            <if test="jobDataMapJson != null and jobDataMapJson != ''">
+                and job_data_map_json = #{jobDataMapJson}
+            </if>
+            <if test="jobGroupName != null and jobGroupName != ''">
+                and job_group_name = #{jobGroupName}
+            </if>
+        </where>
+    </select>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="MoldScheduledTaskMap">
+        <include refid="selectMoldScheduledTaskVo"/>
+        where task_id = #{taskId}
+    </select>
+
+    <!--统计总行数-->
+    <select id="count" resultType="java.lang.Long">
+        select count(1)
+        from mold_scheduled_task
+        <where>
+            <if test="taskId != null and taskId != ''">
+                and task_id = #{taskId}
+            </if>
+            <if test="jobClass != null and jobClass != ''">
+                and job_class = #{jobClass}
+            </if>
+            <if test="jobName != null and jobName != ''">
+                and job_name = #{jobName}
+            </if>
+            <if test="triggerName != null and triggerName != ''">
+                and trigger_name = #{triggerName}
+            </if>
+            <if test="cronExpression != null and cronExpression != ''">
+                and cron_expression = #{cronExpression}
+            </if>
+            <if test="startDateStr != null and startDateStr != ''">
+                and start_date_str = #{startDateStr}
+            </if>
+            <if test="endDateStr != null and endDateStr != ''">
+                and end_date_str = #{endDateStr}
+            </if>
+            <if test="jobDataMapJson != null and jobDataMapJson != ''">
+                and job_data_map_json = #{jobDataMapJson}
+            </if>
+            <if test="jobGroupName != null and jobGroupName != ''">
+                and job_group_name = #{jobGroupName}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="taskId" useGeneratedKeys="true">
+        insert into mold_scheduled_task(job_class, job_name, trigger_name, cron_expression, start_date_str,
+                                        end_date_str, job_data_map_json, job_group_name)
+        values (#{jobClass}, #{jobName}, #{triggerName}, #{cronExpression}, #{startDateStr}, #{endDateStr},
+                #{jobDataMapJson}, #{jobGroupName})
+    </insert>
+
+    <insert id="insertBatch" keyProperty="taskId" useGeneratedKeys="true">
+        insert into mold_scheduled_task(job_class, job_name, trigger_name, cron_expression, start_date_str,
+        end_date_str, job_data_map_json, job_group_name)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.jobClass}, #{entity.jobName}, #{entity.triggerName}, #{entity.cronExpression},
+            #{entity.startDateStr}, #{entity.endDateStr}, #{entity.jobDataMapJson}, #{entity.jobGroupName})
+        </foreach>
+    </insert>
+
+    <insert id="insertOrUpdateBatch" keyProperty="taskId" useGeneratedKeys="true">
+        insert into mold_scheduled_task(job_class, job_name, trigger_name, cron_expression, start_date_str,
+        end_date_str, job_data_map_json, job_group_name)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.jobClass}, #{entity.jobName}, #{entity.triggerName}, #{entity.cronExpression},
+            #{entity.startDateStr}, #{entity.endDateStr}, #{entity.jobDataMapJson}, #{entity.jobGroupName})
+        </foreach>
+        on duplicate key update
+        job_class = values(job_class),
+        job_name = values(job_name),
+        trigger_name = values(trigger_name),
+        cron_expression = values(cron_expression),
+        start_date_str = values(start_date_str),
+        end_date_str = values(end_date_str),
+        job_data_map_json = values(job_data_map_json),
+        job_group_name = values(job_group_name)
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update mold_scheduled_task
+        <set>
+            <if test="jobClass != null and jobClass != ''">
+                job_class = #{jobClass},
+            </if>
+            <if test="jobName != null and jobName != ''">
+                job_name = #{jobName},
+            </if>
+            <if test="triggerName != null and triggerName != ''">
+                trigger_name = #{triggerName},
+            </if>
+            <if test="cronExpression != null and cronExpression != ''">
+                cron_expression = #{cronExpression},
+            </if>
+            <if test="startDateStr != null and startDateStr != ''">
+                start_date_str = #{startDateStr},
+            </if>
+            <if test="endDateStr != null and endDateStr != ''">
+                end_date_str = #{endDateStr},
+            </if>
+            <if test="jobDataMapJson != null and jobDataMapJson != ''">
+                job_data_map_json = #{jobDataMapJson},
+            </if>
+            <if test="jobGroupName != null and jobGroupName != ''">
+                job_group_name = #{jobGroupName},
+            </if>
+        </set>
+        where task_id = #{taskId}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete
+        from mold_scheduled_task
+        where task_id = #{taskId}
+    </delete>
+
+</mapper>
+

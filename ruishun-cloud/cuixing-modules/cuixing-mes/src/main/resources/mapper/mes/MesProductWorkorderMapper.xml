@@ -1,0 +1,285 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cuixing.mes.mapper.MesProductWorkorderMapper">
+    <resultMap type="com.cuixing.mes.entity.MesProductWorkorder" id="MesProductWorkorderMap">
+        <result property="id" column="id" jdbcType="BIGINT"/>
+        <result property="orderId" column="order_id" jdbcType="BIGINT"/>
+        <result property="orderType" column="order_type" jdbcType="CHAR"/>
+        <result property="customerName" column="customer_name" jdbcType="VARCHAR"/>
+        <result property="orderCode" column="order_code" jdbcType="VARCHAR"/>
+        <result property="workorderCode" column="workorder_code" jdbcType="VARCHAR"/>
+        <result property="productModel" column="product_model" jdbcType="VARCHAR"/>
+        <result property="productSpecification" column="product_specification" jdbcType="VARCHAR"/>
+        <result property="routingId" column="routing_id" jdbcType="BIGINT"/>
+        <result property="routingName" column="routing_name" jdbcType="VARCHAR"/>
+        <result property="weight" column="weight" jdbcType="DECIMAL"/>
+        <result property="wiredrawingSchedulingWeight" column="wiredrawing_scheduling_weight" jdbcType="DECIMAL"/>
+        <result property="enamellingSchedulingWeight" column="enamelling_scheduling_weight" jdbcType="DECIMAL"/>
+        <result property="annealingSchedulingWeight" column="annealing_scheduling_weight" jdbcType="DECIMAL"/>
+        <result property="doublewireSchedulingWeight" column="doublewire_scheduling_weight" jdbcType="DECIMAL"/>
+        <result property="strandedwireSchedulingWeight" column="strandedwire_scheduling_weight" jdbcType="DECIMAL"/>
+        <result property="tinningSchedulingWeight" column="tinning_scheduling_weight" jdbcType="DECIMAL"/>
+        <result property="measureId" column="measure_id" jdbcType="BIGINT"/>
+        <result property="measureName" column="measure_name" jdbcType="VARCHAR"/>
+        <result property="payTime" column="pay_time" jdbcType="TIMESTAMP"/>
+        <result property="status" column="status" jdbcType="CHAR"/>
+        <result property="isDeleted" column="is_deleted" jdbcType="TINYINT"/>
+        <result property="version" column="version" jdbcType="INTEGER"/>
+        <result property="createBy" column="create_by" jdbcType="VARCHAR"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="updateBy" column="update_by" jdbcType="VARCHAR"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+        <result property="attr1" column="attr1" jdbcType="VARCHAR"/>
+        <result property="attr2" column="attr2" jdbcType="INTEGER"/>
+        <result property="attr3" column="attr3" jdbcType="VARCHAR"/>
+        <result property="productId" column="product_id" jdbcType="BIGINT"/>
+    </resultMap>
+    <resultMap id="MesProductWorkorderWeekMap" type="com.cuixing.mes.entity.vo.MesPageWeek">
+        <result property="date" column="date" jdbcType="DATE"/>
+        <result property="week" column="week" jdbcType="VARCHAR"/>
+        <result property="schedulingNum" column="schedulingNum" jdbcType="INTEGER"/>
+        <result property="completedNum" column="completedNum" jdbcType="INTEGER"/>
+    </resultMap>
+    <!-- 通过ID查询单条数据 -->
+    <select id="queryById" resultMap="MesProductWorkorderMap">
+        select
+            id,order_id,order_type,customer_name,order_code,workorder_code,product_id,product_model,product_specification,routing_id,routing_name,weight,wiredrawing_scheduling_weight,enamelling_scheduling_weight,annealing_scheduling_weight,doublewire_scheduling_weight,strandedwire_scheduling_weight,tinning_scheduling_weight,measure_id,measure_name,pay_time,status,is_deleted,version,create_by,create_time,update_by,update_time,attr1,attr2,attr3
+        from mes_product_workorder
+        where is_deleted = 0 and id = #{id}
+    </select>
+
+    <!-- 通过生产工单号查询单条数据 -->
+    <select id="queryByWorkorderCode" resultMap="MesProductWorkorderMap">
+        select
+            id,order_id,order_type,customer_name,order_code,workorder_code,product_id,product_model,product_specification,routing_id,routing_name,weight,wiredrawing_scheduling_weight,enamelling_scheduling_weight,annealing_scheduling_weight,doublewire_scheduling_weight,strandedwire_scheduling_weight,tinning_scheduling_weight,measure_id,measure_name,pay_time,status,is_deleted,version,create_by,create_time,update_by,update_time,attr1,attr2,attr3
+        from mes_product_workorder
+        where is_deleted = 0 and workorder_code = #{workorderCode}
+    </select>
+
+    <!--分页查询指定行数据-->
+    <select id="selectMesProductWorkorderList" resultMap="MesProductWorkorderMap">
+        select
+        id,order_id,order_type,customer_name,order_code,workorder_code,product_id,product_model,product_specification,routing_id,routing_name,weight,wiredrawing_scheduling_weight,enamelling_scheduling_weight,annealing_scheduling_weight,doublewire_scheduling_weight,strandedwire_scheduling_weight,tinning_scheduling_weight,measure_id,measure_name,pay_time,status,is_deleted,version,create_by,create_time,update_by,update_time,attr1,attr2,attr3
+        from mes_product_workorder
+        <where>
+            is_deleted = 0
+            <if test="id != null and id != ''"> and id = #{id}</if>
+            <if test="orderId != null and orderId != ''"> and order_id = #{orderId}</if>
+            <if test="orderType != null and orderType != ''"> and order_type = #{orderType}</if>
+            <if test="customerName != null and customerName != ''"> and customer_name = #{customerName}</if>
+            <if test="orderCode != null and orderCode != ''"> and order_code = #{orderCode}</if>
+            <if test="workorderCode != null and workorderCode != ''"> and workorder_code = #{workorderCode}</if>
+            <if test="productModel != null and productModel != ''"> and product_model = #{productModel}</if>
+            <if test="productSpecification != null and productSpecification != ''"> and product_specification = #{productSpecification}</if>
+            <if test="routingId != null and routingId != ''"> and routing_id = #{routingId}</if>
+            <if test="routingName != null and routingName != ''"> and routing_name = #{routingName}</if>
+            <if test="weight != null and weight != ''"> and weight = #{weight}</if>
+            <if test="wiredrawingSchedulingWeight != null and wiredrawingSchedulingWeight != ''"> and wiredrawing_scheduling_weight = #{wiredrawingSchedulingWeight}</if>
+            <if test="enamellingSchedulingWeight != null and enamellingSchedulingWeight != ''"> and enamelling_scheduling_weight = #{enamellingSchedulingWeight}</if>
+            <if test="annealingSchedulingWeight != null and annealingSchedulingWeight != ''"> and annealing_scheduling_weight = #{annealingSchedulingWeight}</if>
+            <if test="doublewireSchedulingWeight != null and doublewireSchedulingWeight != ''"> and doublewire_scheduling_weight = #{doublewireSchedulingWeight}</if>
+            <if test="strandedwireSchedulingWeight != null and strandedwireSchedulingWeight != ''"> and strandedwire_scheduling_weight = #{strandedwireSchedulingWeight}</if>
+            <if test="tinningSchedulingWeight != null and tinningSchedulingWeight != ''"> and tinning_scheduling_weight = #{tinningSchedulingWeight}</if>
+            <if test="measureId != null and measureId != ''"> and measure_id = #{measureId}</if>
+            <if test="measureName != null and measureName != ''"> and measure_name = #{measureName}</if>
+            <if test="payTime != null and payTime != ''"> and pay_time = #{payTime}</if>
+            <if test="status != null and status != ''"> and status = #{status}</if>
+            <if test="isDeleted != null and isDeleted != ''"> and is_deleted = #{isDeleted}</if>
+            <if test="version != null and version != ''"> and version = #{version}</if>
+            <if test="createBy != null and createBy != ''"> and create_by = #{createBy}</if>
+            <if test="createTime != null and createTime != ''"> and create_time = #{createTime}</if>
+            <if test="updateBy != null and updateBy != ''"> and update_by = #{updateBy}</if>
+            <if test="updateTime != null and updateTime != ''"> and update_time = #{updateTime}</if>
+            <if test="attr1 != null and attr1 != ''"> and attr1 = #{attr1}</if>
+            <if test="attr2 != null and attr2 != ''"> and attr2 = #{attr2}</if>
+            <if test="attr3 != null and attr3 != ''"> and attr3 = #{attr3}</if>
+            <if test="productId != null and productId != ''"> and product_id = #{productId}</if>
+            <if test="params.beginTime != null and params.beginTime != ''"><!-- 开始时间检索 -->
+                AND date_format(create_time,'%y%m%d') &gt;= date_format(#{params.beginTime},'%y%m%d')
+            </if>
+            <if test="params.endTime != null and params.endTime != ''"><!-- 结束时间检索 -->
+                AND date_format(create_time,'%y%m%d') &lt;= date_format(#{params.endTime},'%y%m%d')
+            </if>
+            <!-- 数据范围过滤 -->
+            ${params.dataScope}
+        </where>
+        order by status asc, create_time desc
+    </select>
+    <select id="getProductWorkorderNum" resultType="com.cuixing.mes.entity.vo.KanbanPage">
+        SELECT
+            SUM(CASE WHEN status = '1' THEN 1 ELSE 0 END) AS schedulingWorkorder,
+            SUM(CASE WHEN status = '2' THEN 1 ELSE 0 END) AS productionWorkorder,
+            SUM(CASE WHEN status = '3' THEN 1 ELSE 0 END) AS completeWorkorder
+        FROM
+            mes_product_workorder
+    </select>
+    <select id="getMesProductWorkorderWeek" resultMap="MesProductWorkorderWeekMap">
+        WITH date_range AS (
+            SELECT
+                DATE(DATE_SUB(CURDATE(), INTERVAL seq.seq DAY)) AS date
+            FROM
+                (SELECT 0 AS seq UNION SELECT 1 UNION SELECT 2 UNION SELECT 3 UNION SELECT 4 UNION SELECT 5 UNION SELECT 6) seq
+        )
+        SELECT
+            dr.date,
+            CASE
+                WHEN DAYOFWEEK(dr.date) = 2 THEN '周一'
+                WHEN DAYOFWEEK(dr.date) = 3 THEN '周二'
+                WHEN DAYOFWEEK(dr.date) = 4 THEN '周三'
+                WHEN DAYOFWEEK(dr.date) = 5 THEN '周四'
+                WHEN DAYOFWEEK(dr.date) = 6 THEN '周五'
+                WHEN DAYOFWEEK(dr.date) = 7 THEN '周六'
+                WHEN DAYOFWEEK(dr.date) = 1 THEN '周日'
+                END AS week,  -- 星期名称
+            COUNT(DISTINCT p1.id) AS schedulingNum,  -- 排产数量
+            COUNT(DISTINCT p2.id) AS completedNum   -- 完工数量
+        FROM
+            date_range dr
+                LEFT JOIN
+            mes_product_workorder p1
+            ON
+                DATE(p1.create_time) = dr.date  -- 排产数量：create_time 在当天
+                LEFT JOIN
+            mes_product_workorder p2
+            ON
+                DATE(p2.update_time) = dr.date  -- 完工数量：update_time 在当天
+                    AND p2.status = 3  -- 状态为完工
+        GROUP BY
+            dr.date
+        ORDER BY
+            dr.date
+    </select>
+
+    <!--新增数据-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into mes_product_workorder
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null ">id,</if>
+            <if test="orderId != null ">order_id,</if>
+            <if test="orderType != null and orderType != ''">order_type,</if>
+            <if test="customerName != null and customerName != ''">customer_name,</if>
+            <if test="orderCode != null and orderCode != ''">order_code,</if>
+            <if test="workorderCode != null and workorderCode != ''">workorder_code,</if>
+            <if test="productModel != null and productModel != ''">product_model,</if>
+            <if test="productSpecification != null and productSpecification != ''">product_specification,</if>
+            <if test="routingId != null ">routing_id,</if>
+            <if test="routingName != null and routingName != ''">routing_name,</if>
+            <if test="weight != null ">weight,</if>
+            <if test="wiredrawingSchedulingWeight != null ">wiredrawing_scheduling_weight,</if>
+            <if test="enamellingSchedulingWeight != null ">enamelling_scheduling_weight,</if>
+            <if test="annealingSchedulingWeight != null ">annealing_scheduling_weight,</if>
+            <if test="doublewireSchedulingWeight != null ">doublewire_scheduling_weight,</if>
+            <if test="strandedwireSchedulingWeight != null ">strandedwire_scheduling_weight,</if>
+            <if test="tinningSchedulingWeight != null ">tinning_scheduling_weight,</if>
+            <if test="measureId != null ">measure_id,</if>
+            <if test="measureName != null and measureName != ''">measure_name,</if>
+            <if test="payTime != null ">pay_time,</if>
+            <if test="status != null and status != ''">status,</if>
+            <if test="isDeleted != null ">is_deleted,</if>
+            <if test="version != null ">version,</if>
+            <if test="createBy != null and createBy != ''">create_by,</if>
+            <if test="createTime != null ">create_time,</if>
+            <if test="updateBy != null and updateBy != ''">update_by,</if>
+            <if test="updateTime != null ">update_time,</if>
+            <if test="attr1 != null and attr1 != ''">attr1,</if>
+            <if test="attr2 != null ">attr2,</if>
+            <if test="attr3 != null and attr3 != ''">attr3,</if>
+            <if test="productId != null and productId != ''">product_id,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">#{id},</if>
+            <if test="orderId != null">#{orderId},</if>
+            <if test="orderType != null and orderType != ''">#{orderType},</if>
+            <if test="customerName != null and customerName != ''">#{customerName},</if>
+            <if test="orderCode != null and orderCode != ''">#{orderCode},</if>
+            <if test="workorderCode != null and workorderCode != ''">#{workorderCode},</if>
+            <if test="productModel != null and productModel != ''">#{productModel},</if>
+            <if test="productSpecification != null and productSpecification != ''">#{productSpecification},</if>
+            <if test="routingId != null">#{routingId},</if>
+            <if test="routingName != null and routingName != ''">#{routingName},</if>
+            <if test="weight != null">#{weight},</if>
+            <if test="wiredrawingSchedulingWeight != null ">#{wiredrawingSchedulingWeight},</if>
+            <if test="enamellingSchedulingWeight != null ">#{enamellingSchedulingWeight},</if>
+            <if test="annealingSchedulingWeight != null ">#{annealingSchedulingWeight},</if>
+            <if test="doublewireSchedulingWeight != null ">#{doublewireSchedulingWeight},</if>
+            <if test="strandedwireSchedulingWeight != null ">#{strandedwireSchedulingWeight},</if>
+            <if test="tinningSchedulingWeight != null ">#{tinningSchedulingWeight},</if>
+            <if test="measureId != null">#{measureId},</if>
+            <if test="measureName != null and measureName != ''">#{measureName},</if>
+            <if test="payTime != null">#{payTime},</if>
+            <if test="status != null and status != ''">#{status},</if>
+            <if test="isDeleted != null">#{isDeleted},</if>
+            <if test="version != null">#{version},</if>
+            <if test="createBy != null and createBy != ''">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null and updateBy != ''">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="attr1 != null and attr1 != ''">#{attr1},</if>
+            <if test="attr2 != null">#{attr2},</if>
+            <if test="attr3 != null and attr3 != ''">#{attr3},</if>
+            <if test="productId != null and productId != ''">#{productId},</if>
+        </trim>
+    </insert>
+
+    <!-- 更新数据 -->
+    <update id="update">
+        update mes_product_workorder
+        <set>
+            <trim suffixOverrides=",">
+                <if test="orderId != null "> order_id = #{orderId}, </if>
+                <if test="orderType != null "> order_type = #{orderType}, </if>
+                <if test="customerName != null "> customer_name = #{customerName}, </if>
+                <if test="orderCode != null "> order_code = #{orderCode}, </if>
+                <if test="workorderCode != null "> workorder_code = #{workorderCode}, </if>
+                <if test="productModel != null and productModel != ''"> product_model = #{productModel}, </if>
+                <if test="productSpecification != null "> product_specification = #{productSpecification}, </if>
+                <if test="routingId != null "> routing_id = #{routingId}, </if>
+                <if test="routingName != null "> routing_name = #{routingName}, </if>
+                <if test="weight != null "> weight = #{weight}, </if>
+                <if test="wiredrawingSchedulingWeight != null">wiredrawing_scheduling_weight = #{wiredrawingSchedulingWeight},</if>
+                <if test="enamellingSchedulingWeight != null">enamelling_scheduling_weight = #{enamellingSchedulingWeight},</if>
+                <if test="annealingSchedulingWeight != null">annealing_scheduling_weight = #{annealingSchedulingWeight},</if>
+                <if test="doublewireSchedulingWeight != null">doublewire_scheduling_weight = #{doublewireSchedulingWeight},</if>
+                <if test="strandedwireSchedulingWeight != null">strandedwire_scheduling_weight = #{strandedwireSchedulingWeight},</if>
+                <if test="tinningSchedulingWeight != null">tinning_scheduling_weight = #{tinningSchedulingWeight},</if>
+                <if test="measureId != null "> measure_id = #{measureId}, </if>
+                <if test="measureName != null "> measure_name = #{measureName}, </if>
+                <if test="payTime != null "> pay_time = #{payTime}, </if>
+                <if test="status != null "> status = #{status}, </if>
+                <if test="isDeleted != null "> is_deleted = #{isDeleted}, </if>
+                <if test="version != null "> version = #{version}, </if>
+                <if test="createBy != null "> create_by = #{createBy}, </if>
+                <if test="createTime != null "> create_time = #{createTime}, </if>
+                <if test="updateBy != null "> update_by = #{updateBy}, </if>
+                <if test="updateTime != null "> update_time = #{updateTime}, </if>
+                <if test="attr1 != null "> attr1 = #{attr1}, </if>
+                <if test="attr2 != null "> attr2 = #{attr2}, </if>
+                <if test="attr3 != null "> attr3 = #{attr3}, </if>
+                <if test="productId != null "> product_id = #{productId}, </if>
+            </trim>
+        </set>
+        where id = #{id} and version = #{version}
+    </update>
+
+    <!--逻辑删除删除-->
+    <update id="updateStatus">
+        update mes_product_workorder set status = #{status} where id = #{id}
+    </update>
+
+    <!--逻辑删除删除-->
+    <update id="deleteById">
+        update mes_product_workorder set is_deleted = 1 where id = #{id}
+    </update>
+
+    <!--批量逻辑删除-->
+    <update id="deleteByIds">
+        update mes_product_workorder set is_deleted = 1 where id in
+        <foreach collection="array" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </update>
+
+    <update id="cancelById">
+        update mes_product_workorder set status = 4 where id = #{id}
+    </update>
+</mapper>

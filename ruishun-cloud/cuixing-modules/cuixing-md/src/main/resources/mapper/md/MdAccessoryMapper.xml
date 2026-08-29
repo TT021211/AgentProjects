@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cuixing.md.mapper.MdAccessoryMapper">
+    <resultMap type="com.cuixing.md.entity.MdAccessory" id="MdAccessoryMap">
+        <result property="id" column="id" jdbcType="BIGINT"/>
+        <result property="itemTypeId" column="item_type_id" jdbcType="BIGINT"/>
+        <result property="itemTypeCode" column="item_type_code" jdbcType="VARCHAR"/>
+        <result property="itemTypeName" column="item_type_name" jdbcType="VARCHAR"/>
+        <result property="model" column="model" jdbcType="VARCHAR"/>
+        <result property="measureId" column="measure_id" jdbcType="BIGINT"/>
+        <result property="measureName" column="measure_name" jdbcType="VARCHAR"/>
+        <result property="isDeleted" column="is_deleted" jdbcType="TINYINT"/>
+        <result property="version" column="version" jdbcType="INTEGER"/>
+        <result property="createBy" column="create_by" jdbcType="VARCHAR"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="updateBy" column="update_by" jdbcType="VARCHAR"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+        <result property="attr1" column="attr1" jdbcType="VARCHAR"/>
+        <result property="attr2" column="attr2" jdbcType="INTEGER"/>
+        <result property="attr3" column="attr3" jdbcType="VARCHAR"/>
+        <result property="parentModel" column="parent_model" jdbcType="VARCHAR"/>
+        <result property="parentModelId" column="parent_model_id" jdbcType="BIGINT"/>
+        <result property="weight" column="weight" jdbcType="DECIMAL"/>
+    </resultMap>
+    
+    <!-- 通过ID查询单条数据 -->
+    <select id="queryById" resultMap="MdAccessoryMap">
+        select
+            id,item_type_id,item_type_code,item_type_name,model,measure_id,measure_name,is_deleted,version,create_by,create_time,update_by,update_time,attr1,attr2,attr3,parent_model,parent_model_id,weight
+        from md_accessory
+        where is_deleted = 0 and  id = #{id}
+    </select>
+    
+    <!--分页查询指定行数据-->
+    <select id="selectMdAccessoryList" resultMap="MdAccessoryMap">
+        select
+            id,item_type_id,item_type_code,item_type_name,model,measure_id,measure_name,is_deleted,version,create_by,create_time,update_by,update_time,attr1,attr2,attr3,parent_model,parent_model_id,weight
+        from md_accessory
+        <where>
+            is_deleted = 0
+            <if test="id != null and id != ''"> and id = #{id}</if>
+            <if test="itemTypeId != null and itemTypeId != ''"> and item_type_id = #{itemTypeId}</if>
+            <if test="itemTypeCode != null and itemTypeCode != ''"> and item_type_code = #{itemTypeCode}</if>
+            <if test="itemTypeName != null and itemTypeName != ''"> and item_type_name = #{itemTypeName}</if>
+            <if test="model != null and model != ''"> and model = #{model}</if>
+            <if test="measureId != null and measureId != ''"> and measure_id = #{measureId}</if>
+            <if test="measureName != null and measureName != ''"> and measure_name = #{measureName}</if>
+            <if test="isDeleted != null and isDeleted != ''"> and is_deleted = #{isDeleted}</if>
+            <if test="version != null and version != ''"> and version = #{version}</if>
+            <if test="createBy != null and createBy != ''"> and create_by = #{createBy}</if>
+            <if test="createTime != null and createTime != ''"> and create_time = #{createTime}</if>
+            <if test="updateBy != null and updateBy != ''"> and update_by = #{updateBy}</if>
+            <if test="updateTime != null and updateTime != ''"> and update_time = #{updateTime}</if>
+            <if test="attr1 != null and attr1 != ''"> and attr1 = #{attr1}</if>
+            <if test="attr2 != null and attr2 != ''"> and attr2 = #{attr2}</if>
+            <if test="attr3 != null and attr3 != ''"> and attr3 = #{attr3}</if>
+            <if test="parentModel != null and parentModel != ''"> and parent_model = #{parentModel}</if>
+            <if test="parentModelId != null and parentModelId != ''"> and parent_model_id = #{parentModelId}</if>
+            <if test="weight != null and weight != ''"> and weight = #{weight}</if>
+        </where>
+        order by create_time desc
+    </select>
+    
+    <!--新增数据-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into md_accessory
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null ">id,</if>
+            <if test="itemTypeId != null ">item_type_id,</if>
+            <if test="itemTypeCode != null and itemTypeCode != ''">item_type_code,</if>
+            <if test="itemTypeName != null and itemTypeName != ''">item_type_name,</if>
+            <if test="model != null and model != ''">model,</if>
+            <if test="measureId != null ">measure_id,</if>
+            <if test="measureName != null and measureName != ''">measure_name,</if>
+            <if test="isDeleted != null ">is_deleted,</if>
+            <if test="version != null ">version,</if>
+            <if test="createBy != null and createBy != ''">create_by,</if>
+            <if test="createTime != null ">create_time,</if>
+            <if test="updateBy != null and updateBy != ''">update_by,</if>
+            <if test="updateTime != null ">update_time,</if>
+            <if test="attr1 != null and attr1 != ''">attr1,</if>
+            <if test="attr2 != null ">attr2,</if>
+            <if test="attr3 != null and attr3 != ''">attr3,</if>
+            <if test="parentModel != null and parentModel != ''">parent_model,</if>
+            <if test="parentModelId != null">parent_model_id,</if>
+            <if test="weight != null">weight,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">#{id},</if>
+            <if test="itemTypeId != null">#{itemTypeId},</if>
+            <if test="itemTypeCode != null and itemTypeCode != ''">#{itemTypeCode},</if>
+            <if test="itemTypeName != null and itemTypeName != ''">#{itemTypeName},</if>
+            <if test="model != null and model != ''">#{model},</if>
+            <if test="measureId != null">#{measureId},</if>
+            <if test="measureName != null and measureName != ''">#{measureName},</if>
+            <if test="isDeleted != null">#{isDeleted},</if>
+            <if test="version != null">#{version},</if>
+            <if test="createBy != null and createBy != ''">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null and updateBy != ''">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="attr1 != null and attr1 != ''">#{attr1},</if>
+            <if test="attr2 != null">#{attr2},</if>
+            <if test="attr3 != null and attr3 != ''">#{attr3},</if>
+            <if test="parentModel != null and parentModel != ''">#{parentModel},</if>
+            <if test="parentModelId != null">#{parentModelId},</if>
+            <if test="weight != null">#{weight},</if>
+        </trim>
+    </insert>
+    
+    <!-- 更新数据 -->
+    <update id="update">
+        update md_accessory
+        <set>
+            <trim suffixOverrides=",">
+                <if test="itemTypeId != null "> item_type_id = #{itemTypeId}, </if>
+                <if test="itemTypeCode != null "> item_type_code = #{itemTypeCode}, </if>
+                <if test="itemTypeName != null "> item_type_name = #{itemTypeName}, </if>
+                <if test="model != null "> model = #{model}, </if>
+                <if test="measureId != null "> measure_id = #{measureId}, </if>
+                <if test="measureName != null "> measure_name = #{measureName}, </if>
+                <if test="isDeleted != null "> is_deleted = #{isDeleted}, </if>
+                <if test="version != null "> version = #{version}, </if>
+                <if test="createBy != null "> create_by = #{createBy}, </if>
+                <if test="createTime != null "> create_time = #{createTime}, </if>
+                <if test="updateBy != null "> update_by = #{updateBy}, </if>
+                <if test="updateTime != null "> update_time = #{updateTime}, </if>
+                <if test="attr1 != null "> attr1 = #{attr1}, </if>
+                <if test="attr2 != null "> attr2 = #{attr2}, </if>
+                <if test="attr3 != null "> attr3 = #{attr3}, </if>
+                <if test="parentModel != null "> parent_model = #{parentModel}, </if>
+                <if test="parentModelId != null"> parent_model_id = #{parentModelId},</if>
+                <if test="weight != null"> weight = #{weight},</if>
+            </trim>
+        </set>
+        where id = #{id} and version = #{version}
+    </update>
+    
+    <!--逻辑删除删除-->
+    <update id="deleteById">
+        update md_accessory set is_deleted = 1 where id = #{id}
+    </update>
+    
+    <!--批量逻辑删除-->
+    <update id="deleteByIds">
+        update md_accessory set is_deleted = 1 where id in
+        <foreach collection="array" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </update>
+</mapper>

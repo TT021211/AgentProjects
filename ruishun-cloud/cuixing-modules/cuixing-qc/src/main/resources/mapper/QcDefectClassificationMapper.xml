@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cuixing.qc.mapper.QcDefectClassificationMapper">
+
+    <resultMap type="com.cuixing.qc.entity.QcDefectClassification" id="QcDefectClassificationMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="defectClassificationCode" column="defect_classification_code" jdbcType="VARCHAR"/>
+        <result property="defectClassificationName" column="defect_classification_name" jdbcType="VARCHAR"/>
+        <result property="enable" column="enable" jdbcType="VARCHAR"/>
+        <result property="attr1" column="attr1" jdbcType="VARCHAR"/>
+        <result property="attr2" column="attr2" jdbcType="VARCHAR"/>
+        <result property="attr3" column="attr3" jdbcType="INTEGER"/>
+        <result property="attr4" column="attr4" jdbcType="INTEGER"/>
+        <result property="createBy" column="create_by" jdbcType="VARCHAR"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="updateBy" column="update_by" jdbcType="VARCHAR"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <sql id="selectQcDefectClassificationVo">
+        SELECT id,
+               defect_classification_code,
+               defect_classification_name,
+               enable,
+               attr1,
+               attr2,
+               attr3,
+               attr4,
+               create_by,
+               create_time,
+               update_by,
+               update_time
+        FROM qc_defect_classification
+    </sql>
+
+    <select id="selectQcDefectClassificationList" parameterType="QcDefectClassification"
+            resultMap="QcDefectClassificationMap">
+        <include refid="selectQcDefectClassificationVo"/>
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="defectClassificationCode != null and defectClassificationCode != ''">
+                and defect_classification_code = #{defectClassificationCode}
+            </if>
+            <if test="defectClassificationName != null and defectClassificationName != ''">
+                and defect_classification_name = #{defectClassificationName}
+            </if>
+            <if test="enable != null and enable != ''">
+                and enable = #{enable}
+            </if>
+            <if test="attr1 != null and attr1 != ''">
+                and attr1 = #{attr1}
+            </if>
+            <if test="attr2 != null and attr2 != ''">
+                and attr2 = #{attr2}
+            </if>
+            <if test="attr3 != null">
+                and attr3 = #{attr3}
+            </if>
+            <if test="attr4 != null">
+                and attr4 = #{attr4}
+            </if>
+            <if test="createBy != null and createBy != ''">
+                and create_by = #{createBy}
+            </if>
+            <if test="createTime != null">
+                and create_time = #{createTime}
+            </if>
+            <if test="updateBy != null and updateBy != ''">
+                and update_by = #{updateBy}
+            </if>
+            <if test="updateTime != null">
+                and update_time = #{updateTime}
+            </if>
+        </where>
+    </select>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="QcDefectClassificationMap">
+        select id,
+               defect_classification_code,
+               defect_classification_name,
+               enable,
+               attr1,
+               attr2,
+               attr3,
+               attr4,
+               create_by,
+               create_time,
+               update_by,
+               update_time
+        from qc_defect_classification
+        where id = #{id}
+    </select>
+
+    <!--统计总行数-->
+    <select id="count" resultType="java.lang.Long">
+        select count(1)
+        from qc_defect_classification
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="defectClassificationCode != null and defectClassificationCode != ''">
+                and defect_classification_code = #{defectClassificationCode}
+            </if>
+            <if test="defectClassificationName != null and defectClassificationName != ''">
+                and defect_classification_name = #{defectClassificationName}
+            </if>
+            <if test="enable != null and enable != ''">
+                and enable = #{enable}
+            </if>
+            <if test="attr1 != null and attr1 != ''">
+                and attr1 = #{attr1}
+            </if>
+            <if test="attr2 != null and attr2 != ''">
+                and attr2 = #{attr2}
+            </if>
+            <if test="attr3 != null">
+                and attr3 = #{attr3}
+            </if>
+            <if test="attr4 != null">
+                and attr4 = #{attr4}
+            </if>
+            <if test="createBy != null and createBy != ''">
+                and create_by = #{createBy}
+            </if>
+            <if test="createTime != null">
+                and create_time = #{createTime}
+            </if>
+            <if test="updateBy != null and updateBy != ''">
+                and update_by = #{updateBy}
+            </if>
+            <if test="updateTime != null">
+                and update_time = #{updateTime}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into qc_defect_classification(defect_classification_code, defect_classification_name, enable, attr1,
+                                             attr2, attr3, attr4, create_by, create_time, update_by, update_time)
+        values (#{defectClassificationCode}, #{defectClassificationName}, #{enable}, #{attr1}, #{attr2}, #{attr3},
+                #{attr4}, #{createBy}, #{createTime}, #{updateBy}, #{updateTime})
+    </insert>
+
+    <insert id="insertBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into qc_defect_classification(defect_classification_code, defect_classification_name, enable, attr1,
+        attr2, attr3, attr4, create_by, create_time, update_by, update_time)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.defectClassificationCode}, #{entity.defectClassificationName}, #{entity.enable}, #{entity.attr1},
+            #{entity.attr2}, #{entity.attr3}, #{entity.attr4}, #{entity.createBy}, #{entity.createTime},
+            #{entity.updateBy}, #{entity.updateTime})
+        </foreach>
+    </insert>
+
+    <insert id="insertOrUpdateBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into qc_defect_classification(defect_classification_code, defect_classification_name, enable, attr1,
+        attr2, attr3, attr4, create_by, create_time, update_by, update_time)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.defectClassificationCode}, #{entity.defectClassificationName}, #{entity.enable}, #{entity.attr1},
+            #{entity.attr2}, #{entity.attr3}, #{entity.attr4}, #{entity.createBy}, #{entity.createTime},
+            #{entity.updateBy}, #{entity.updateTime})
+        </foreach>
+        on duplicate key update
+        defect_classification_code = values(defect_classification_code),
+        defect_classification_name = values(defect_classification_name),
+        enable = values(enable),
+        attr1 = values(attr1),
+        attr2 = values(attr2),
+        attr3 = values(attr3),
+        attr4 = values(attr4),
+        create_by = values(create_by),
+        create_time = values(create_time),
+        update_by = values(update_by),
+        update_time = values(update_time)
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update qc_defect_classification
+        <set>
+            <if test="defectClassificationCode != null and defectClassificationCode != ''">
+                defect_classification_code = #{defectClassificationCode},
+            </if>
+            <if test="defectClassificationName != null and defectClassificationName != ''">
+                defect_classification_name = #{defectClassificationName},
+            </if>
+            <if test="enable != null and enable != ''">
+                enable = #{enable},
+            </if>
+            <if test="attr1 != null and attr1 != ''">
+                attr1 = #{attr1},
+            </if>
+            <if test="attr2 != null and attr2 != ''">
+                attr2 = #{attr2},
+            </if>
+            <if test="attr3 != null">
+                attr3 = #{attr3},
+            </if>
+            <if test="attr4 != null">
+                attr4 = #{attr4},
+            </if>
+            <if test="createBy != null and createBy != ''">
+                create_by = #{createBy},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime},
+            </if>
+            <if test="updateBy != null and updateBy != ''">
+                update_by = #{updateBy},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete
+        from qc_defect_classification
+        where id = #{id}
+    </delete>
+
+</mapper>
+

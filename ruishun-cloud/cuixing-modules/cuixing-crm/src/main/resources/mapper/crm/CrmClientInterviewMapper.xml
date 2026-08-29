@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cuixing.crm.mapper.CrmClientInterviewMapper">
+    <resultMap type="com.cuixing.crm.entity.CrmClientInterview" id="CrmClientInterviewMap">
+        <result property="id" column="id" jdbcType="BIGINT"/>
+        <result property="clientId" column="client_id" jdbcType="BIGINT"/>
+        <result property="clientName" column="client_name" jdbcType="VARCHAR"/>
+        <result property="interviewName" column="interview_name" jdbcType="VARCHAR"/>
+        <result property="interviewTime" column="interview_time" jdbcType="TIMESTAMP"/>
+        <result property="interviewAddress" column="interview_address" jdbcType="VARCHAR"/>
+        <result property="connectionName" column="connection_name" jdbcType="VARCHAR"/>
+        <result property="connectionPhone" column="connection_phone" jdbcType="VARCHAR"/>
+        <result property="interviewStatus" column="interview_status" jdbcType="VARCHAR"/>
+        <result property="description" column="description" jdbcType="VARCHAR"/>
+        <result property="remark" column="remark" jdbcType="VARCHAR"/>
+        <result property="isDeleted" column="is_deleted" jdbcType="TINYINT"/>
+        <result property="version" column="version" jdbcType="INTEGER"/>
+        <result property="createBy" column="create_by" jdbcType="VARCHAR"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="updateBy" column="update_by" jdbcType="VARCHAR"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+        <result property="attr1" column="attr1" jdbcType="VARCHAR"/>
+        <result property="attr2" column="attr2" jdbcType="INTEGER"/>
+        <result property="attr3" column="attr3" jdbcType="VARCHAR"/>
+    </resultMap>
+    
+    <!-- 通过ID查询单条数据 -->
+    <select id="queryById" resultMap="CrmClientInterviewMap">
+        select
+            id,client_id,client_name,interview_name,interview_time,interview_address,connection_name,connection_phone,interview_status,description,remark,is_deleted,version,create_by,create_time,update_by,update_time,attr1,attr2,attr3
+        from crm_client_interview
+        where is_deleted = 0 and  id = #{id}
+    </select>
+    
+    <!--分页查询指定行数据-->
+    <select id="selectCrmClientInterviewList" resultMap="CrmClientInterviewMap">
+        select
+            id,client_id,client_name,interview_name,interview_time,interview_address,connection_name,connection_phone,interview_status,description,remark,is_deleted,version,create_by,create_time,update_by,update_time,attr1,attr2,attr3
+        from crm_client_interview
+        <where>
+            is_deleted = 0
+            <if test="id != null and id != ''"> and id = #{id}</if>
+            <if test="clientId != null and clientId != ''"> and client_id = #{clientId}</if>
+            <if test="clientName != null and clientName != ''"> and client_name = #{clientName}</if>
+            <if test="interviewName != null and interviewName != ''"> and interview_name = #{interviewName}</if>
+            <if test="interviewTime != null and interviewTime != ''"> and interview_time = #{interviewTime}</if>
+            <if test="interviewAddress != null and interviewAddress != ''"> and interview_address = #{interviewAddress}</if>
+            <if test="connectionName != null and connectionName != ''"> and connection_name = #{connectionName}</if>
+            <if test="connectionPhone != null and connectionPhone != ''"> and connection_phone = #{connectionPhone}</if>
+            <if test="interviewStatus != null and interviewStatus != ''"> and interview_status = #{interviewStatus}</if>
+            <if test="description != null and description != ''"> and description = #{description}</if>
+            <if test="remark != null and remark != ''"> and remark = #{remark}</if>
+            <if test="isDeleted != null and isDeleted != ''"> and is_deleted = #{isDeleted}</if>
+            <if test="version != null and version != ''"> and version = #{version}</if>
+            <if test="createBy != null and createBy != ''"> and create_by = #{createBy}</if>
+            <if test="createTime != null and createTime != ''"> and create_time = #{createTime}</if>
+            <if test="updateBy != null and updateBy != ''"> and update_by = #{updateBy}</if>
+            <if test="updateTime != null and updateTime != ''"> and update_time = #{updateTime}</if>
+            <if test="attr1 != null and attr1 != ''"> and attr1 = #{attr1}</if>
+            <if test="attr2 != null and attr2 != ''"> and attr2 = #{attr2}</if>
+            <if test="attr3 != null and attr3 != ''"> and attr3 = #{attr3}</if>
+        </where>
+        order by interview_time desc
+    </select>
+    
+    <!--新增数据-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into crm_client_interview
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null ">id,</if>
+            <if test="clientId != null ">client_id,</if>
+            <if test="clientName != null and clientName != ''">client_name,</if>
+            <if test="interviewName != null and interviewName != ''">interview_name,</if>
+            <if test="interviewTime != null ">interview_time,</if>
+            <if test="interviewAddress != null and interviewAddress != ''">interview_address,</if>
+            <if test="connectionName != null and connectionName != ''">connection_name,</if>
+            <if test="connectionPhone != null and connectionPhone != ''">connection_phone,</if>
+            <if test="interviewStatus != null and interviewStatus != ''">interview_status,</if>
+            <if test="description != null and description != ''">description,</if>
+            <if test="remark != null and remark != ''">remark,</if>
+            <if test="isDeleted != null ">is_deleted,</if>
+            <if test="version != null ">version,</if>
+            <if test="createBy != null and createBy != ''">create_by,</if>
+            <if test="createTime != null ">create_time,</if>
+            <if test="updateBy != null and updateBy != ''">update_by,</if>
+            <if test="updateTime != null ">update_time,</if>
+            <if test="attr1 != null and attr1 != ''">attr1,</if>
+            <if test="attr2 != null ">attr2,</if>
+            <if test="attr3 != null and attr3 != ''">attr3,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">#{id},</if>
+            <if test="clientId != null">#{clientId},</if>
+            <if test="clientName != null and clientName != ''">#{clientName},</if>
+            <if test="interviewName != null and interviewName != ''">#{interviewName},</if>
+            <if test="interviewTime != null">#{interviewTime},</if>
+            <if test="interviewAddress != null and interviewAddress != ''">#{interviewAddress},</if>
+            <if test="connectionName != null and connectionName != ''">#{connectionName},</if>
+            <if test="connectionPhone != null and connectionPhone != ''">#{connectionPhone},</if>
+            <if test="interviewStatus != null and interviewStatus != ''">#{interviewStatus},</if>
+            <if test="description != null and description != ''">#{description},</if>
+            <if test="remark != null and remark != ''">#{remark},</if>
+            <if test="isDeleted != null">#{isDeleted},</if>
+            <if test="version != null">#{version},</if>
+            <if test="createBy != null and createBy != ''">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null and updateBy != ''">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="attr1 != null and attr1 != ''">#{attr1},</if>
+            <if test="attr2 != null">#{attr2},</if>
+            <if test="attr3 != null and attr3 != ''">#{attr3},</if>
+        </trim>
+    </insert>
+    
+    <!-- 更新数据 -->
+    <update id="update">
+        update crm_client_interview
+        <set>
+            <trim suffixOverrides=",">
+                <if test="clientId != null "> client_id = #{clientId}, </if>
+                <if test="clientName != null "> client_name = #{clientName}, </if>
+                <if test="interviewName != null "> interview_name = #{interviewName}, </if>
+                <if test="interviewTime != null "> interview_time = #{interviewTime}, </if>
+                <if test="interviewAddress != null "> interview_address = #{interviewAddress}, </if>
+                <if test="connectionName != null "> connection_name = #{connectionName}, </if>
+                <if test="connectionPhone != null "> connection_phone = #{connectionPhone}, </if>
+                <if test="interviewStatus != null "> interview_status = #{interviewStatus}, </if>
+                <if test="description != null "> description = #{description}, </if>
+                <if test="remark != null "> remark = #{remark}, </if>
+                <if test="isDeleted != null "> is_deleted = #{isDeleted}, </if>
+                <if test="version != null "> version = #{version}, </if>
+                <if test="createBy != null "> create_by = #{createBy}, </if>
+                <if test="createTime != null "> create_time = #{createTime}, </if>
+                <if test="updateBy != null "> update_by = #{updateBy}, </if>
+                <if test="updateTime != null "> update_time = #{updateTime}, </if>
+                <if test="attr1 != null "> attr1 = #{attr1}, </if>
+                <if test="attr2 != null "> attr2 = #{attr2}, </if>
+                <if test="attr3 != null "> attr3 = #{attr3}, </if>
+            </trim>
+        </set>
+        where id = #{id}
+    </update>
+    
+    <!--逻辑删除删除-->
+    <update id="deleteById">
+        update crm_client_interview set is_deleted = 1 where id = #{id}
+    </update>
+    
+    <!--批量逻辑删除-->
+    <update id="deleteByIds">
+        update crm_client_interview set is_deleted = 1 where id in
+        <foreach collection="array" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </update>
+
+    <select id="typeAnalyze" resultType="map">
+        select
+            CASE
+                WHEN interview_status is null THEN '未知'
+                WHEN interview_status = '0' THEN '微信联系'
+                WHEN interview_status = '1' THEN '电话沟通'
+                WHEN interview_status = '2' THEN '线下拜访'
+                WHEN interview_status = '3' THEN '其他'
+            END as type,
+            count(1) as totalClient
+        from crm_client_interview
+        where is_deleted = 0
+        group by interview_status
+    </select>
+
+    <select id="getInterviewClientMonth" resultType="map">
+        WITH months AS (
+        -- 生成过去12个月的时间段
+        SELECT DATE_FORMAT(DATE_SUB(CURDATE(), INTERVAL (t.n-1) MONTH), '%Y-%m') AS month
+        FROM (SELECT 1 AS n UNION SELECT 2 UNION SELECT 3 UNION SELECT 4 UNION
+        SELECT 5 UNION SELECT 6 UNION SELECT 7 UNION SELECT 8 UNION
+        SELECT 9 UNION SELECT 10 UNION SELECT 11 UNION SELECT 12) t
+        ),
+        followup_counts AS (
+        -- 统计每个月的跟进数量
+        SELECT DATE_FORMAT(f.interview_time, '%Y-%m') AS month, COUNT(*) AS count
+        FROM crm_client_interview f
+        WHERE f.interview_time >= DATE_FORMAT(DATE_SUB(CURDATE(), INTERVAL 11 MONTH), '%Y-%m-01')
+        AND f.interview_time &lt; DATE_FORMAT(DATE_ADD(CURDATE(), INTERVAL 1 MONTH), '%Y-%m-01')
+        GROUP BY month
+        )
+        -- 使用 LEFT JOIN 确保所有月份都显示，即使没有数据
+        SELECT m.month, COALESCE(f.count, 0) AS count
+        FROM months m
+        LEFT JOIN followup_counts f ON m.month = f.month
+        ORDER BY m.month;
+    </select>
+</mapper>

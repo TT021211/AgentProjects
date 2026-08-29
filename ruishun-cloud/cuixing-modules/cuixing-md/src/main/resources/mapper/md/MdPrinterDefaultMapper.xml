@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cuixing.md.mapper.MdPrinterDefaultMapper">
+
+    <resultMap type="MdPrinterDefault" id="MdPrinterDefaultResult">
+        <result property="printerDefaultId"    column="printer_default_id"    />
+        <result property="templateId"    column="template_id"    />
+        <result property="userId"    column="user_id"    />
+        <result property="printerName"    column="printer_name"    />
+    </resultMap>
+
+    <sql id="selectMdPrinterDefaultVo">
+        select printer_default_id, template_id, user_id, printer_name from md_printer_default
+    </sql>
+
+    <select id="selectMdPrinterDefaultList" parameterType="MdPrinterDefault" resultMap="MdPrinterDefaultResult">
+        <include refid="selectMdPrinterDefaultVo"/>
+        <where>
+            <if test="templateId != null "> and template_id = #{templateId}</if>
+            <if test="userId != null "> and user_id = #{userId}</if>
+            <if test="printerName != null  and printerName != ''"> and printer_name = #{printerName}</if>
+        </where>
+    </select>
+
+    <select id="selectMdPrinterDefaultByPrinterDefaultId" parameterType="Long" resultMap="MdPrinterDefaultResult">
+        <include refid="selectMdPrinterDefaultVo"/>
+        where printer_default_id = #{printerDefaultId}
+    </select>
+
+    <insert id="insertMdPrinterDefault" parameterType="MdPrinterDefault" useGeneratedKeys="true" keyProperty="printerDefaultId">
+        insert into md_printer_default
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="templateId != null">template_id,</if>
+            <if test="userId != null">user_id,</if>
+            <if test="printerName != null">printer_name,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="templateId != null">#{templateId},</if>
+            <if test="userId != null">#{userId},</if>
+            <if test="printerName != null">#{printerName},</if>
+         </trim>
+    </insert>
+
+    <update id="updateMdPrinterDefault" parameterType="MdPrinterDefault">
+        update md_printer_default
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="templateId != null">template_id = #{templateId},</if>
+            <if test="userId != null">user_id = #{userId},</if>
+            <if test="printerName != null">printer_name = #{printerName},</if>
+        </trim>
+        where printer_default_id = #{printerDefaultId}
+    </update>
+
+    <delete id="deleteMdPrinterDefaultByPrinterDefaultId" parameterType="Long">
+        delete from md_printer_default where printer_default_id = #{printerDefaultId}
+    </delete>
+
+    <delete id="deleteMdPrinterDefaultByPrinterDefaultIds" parameterType="String">
+        delete from md_printer_default where printer_default_id in
+        <foreach item="printerDefaultId" collection="array" open="(" separator="," close=")">
+            #{printerDefaultId}
+        </foreach>
+    </delete>
+</mapper>

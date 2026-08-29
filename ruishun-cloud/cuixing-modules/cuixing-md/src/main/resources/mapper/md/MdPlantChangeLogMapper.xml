@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cuixing.md.mapper.MdPlantChangeLogMapper">
+    <resultMap type="com.cuixing.md.entity.MdPlantChangeLog" id="MdPlantChangeLogMap">
+        <result property="id" column="id" jdbcType="BIGINT"/>
+        <result property="plantCode" column="plant_code" jdbcType="VARCHAR"/>
+        <result property="plantName" column="plant_name" jdbcType="VARCHAR"/>
+        <result property="plantType" column="plant_type" jdbcType="VARCHAR"/>
+        <result property="weight" column="weight" jdbcType="VARCHAR"/>
+        <result property="measureId" column="measure_id" jdbcType="BIGINT"/>
+        <result property="measureName" column="measure_name" jdbcType="VARCHAR"/>
+        <result property="workbenchId" column="workbench_id" jdbcType="BIGINT"/>
+        <result property="workbenchCode" column="workbench_code" jdbcType="VARCHAR"/>
+        <result property="outCreateBy" column="out_create_by" jdbcType="VARCHAR"/>
+        <result property="outJobNumber" column="out_job_number" jdbcType="VARCHAR"/>
+        <result property="outTime" column="out_time" jdbcType="TIMESTAMP"/>
+        <result property="changeWorkbench" column="change_workbench" jdbcType="VARCHAR"/>
+        <result property="isDeleted" column="is_deleted" jdbcType="TINYINT"/>
+        <result property="version" column="version" jdbcType="INTEGER"/>
+        <result property="jobNumber" column="job_number" jdbcType="VARCHAR"/>
+        <result property="createBy" column="create_by" jdbcType="VARCHAR"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="updateBy" column="update_by" jdbcType="VARCHAR"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+        <result property="attr1" column="attr1" jdbcType="VARCHAR"/>
+        <result property="attr2" column="attr2" jdbcType="INTEGER"/>
+        <result property="attr3" column="attr3" jdbcType="VARCHAR"/>
+    </resultMap>
+    
+    <!-- 通过ID查询单条数据 -->
+    <select id="queryById" resultMap="MdPlantChangeLogMap">
+        select
+            id,plant_code,plant_name,plant_type,weight,measure_id,measure_name,workbench_id,workbench_code,out_create_by,out_job_number,out_time,change_workbench,is_deleted,version,job_number,create_by,create_time,update_by,update_time,attr1,attr2,attr3
+        from md_plant_change_log
+        where is_deleted = 0 and  id = #{id}
+    </select>
+    
+    <!--分页查询指定行数据-->
+    <select id="selectMdPlantChangeLogList" resultMap="MdPlantChangeLogMap">
+        select
+            id,plant_code,plant_name,plant_type,weight,measure_id,measure_name,workbench_id,workbench_code,out_create_by,out_job_number,out_time,change_workbench,is_deleted,version,job_number,create_by,create_time,update_by,update_time,attr1,attr2,attr3
+        from md_plant_change_log
+        <where>
+            is_deleted = 0
+            <if test="id != null and id != ''"> and id = #{id}</if>
+            <if test="plantCode != null and plantCode != ''"> and plant_code like concat('%', #{plantCode},'%')</if>
+            <if test="plantName != null and plantName != ''"> and plant_name like concat('%', #{plantName},'%')</if>
+            <if test="plantType != null and plantType != ''"> and plant_type like concat('%', #{plantType},'%')</if>
+            <if test="weight != null and weight != ''"> and weight = #{weight}</if>
+            <if test="measureId != null and measureId != ''"> and measure_id = #{measureId}</if>
+            <if test="measureName != null and measureName != ''"> and measure_name = #{measureName}</if>
+            <if test="workbenchId != null and workbenchId != ''"> and workbench_id = #{workbenchId}</if>
+            <if test="workbenchCode != null and workbenchCode != ''"> and workbench_code = #{workbenchCode}</if>
+            <if test="outCreateBy != null and outCreateBy != ''"> and out_create_by = #{outCreateBy}</if>
+            <if test="outJobNumber != null and outJobNumber != ''"> and out_job_number = #{outJobNumber}</if>
+            <if test="outTime != null and outTime != ''"> and out_time = #{outTime}</if>
+            <if test="changeWorkbench != null and changeWorkbench != ''"> and change_workbench = #{changeWorkbench}</if>
+            <if test="isDeleted != null and isDeleted != ''"> and is_deleted = #{isDeleted}</if>
+            <if test="version != null and version != ''"> and version = #{version}</if>
+            <if test="jobNumber != null and jobNumber != ''"> and job_number = #{jobNumber}</if>
+            <if test="createBy != null and createBy != ''"> and create_by = #{createBy}</if>
+            <if test="createTime != null and createTime != ''"> and create_time = #{createTime}</if>
+            <if test="updateBy != null and updateBy != ''"> and update_by = #{updateBy}</if>
+            <if test="updateTime != null and updateTime != ''"> and update_time = #{updateTime}</if>
+            <if test="attr1 != null and attr1 != ''"> and attr1 = #{attr1}</if>
+            <if test="attr2 != null and attr2 != ''"> and attr2 = #{attr2}</if>
+            <if test="attr3 != null and attr3 != ''"> and attr3 = #{attr3}</if>
+            <if test="params.beginTime != null and params.beginTime != ''"><!-- 开始时间检索 -->
+                AND date_format(create_time,'%y%m%d') &gt;= date_format(#{params.beginTime},'%y%m%d')
+            </if>
+            <if test="params.endTime != null and params.endTime != ''"><!-- 结束时间检索 -->
+                AND date_format(create_time,'%y%m%d') &lt;= date_format(#{params.endTime},'%y%m%d')
+            </if>
+            <!-- 数据范围过滤 -->
+            ${params.dataScope}
+        </where>
+        order by create_time desc
+    </select>
+    
+    <!--新增数据-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into md_plant_change_log
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null ">id,</if>
+            <if test="plantCode != null and plantCode != ''">plant_code,</if>
+            <if test="plantName != null and plantName != ''">plant_name,</if>
+            <if test="plantType != null and plantType != ''">plant_type,</if>
+            <if test="weight != null and weight != ''">weight,</if>
+            <if test="measureId != null ">measure_id,</if>
+            <if test="measureName != null and measureName != ''">measure_name,</if>
+            <if test="workbenchId != null ">workbench_id,</if>
+            <if test="workbenchCode != null and workbenchCode != ''">workbench_code,</if>
+            <if test="outCreateBy != null and outCreateBy != ''">out_create_by,</if>
+            <if test="outJobNumber != null and outJobNumber != ''">out_job_number,</if>
+            <if test="outTime != null ">out_time,</if>
+            <if test="changeWorkbench != null and changeWorkbench != ''">change_workbench,</if>
+            <if test="isDeleted != null ">is_deleted,</if>
+            <if test="version != null ">version,</if>
+            <if test="jobNumber != null and jobNumber != ''">job_number,</if>
+            <if test="createBy != null and createBy != ''">create_by,</if>
+            <if test="createTime != null ">create_time,</if>
+            <if test="updateBy != null and updateBy != ''">update_by,</if>
+            <if test="updateTime != null ">update_time,</if>
+            <if test="attr1 != null and attr1 != ''">attr1,</if>
+            <if test="attr2 != null ">attr2,</if>
+            <if test="attr3 != null and attr3 != ''">attr3,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">#{id},</if>
+            <if test="plantCode != null and plantCode != ''">#{plantCode},</if>
+            <if test="plantName != null and plantName != ''">#{plantName},</if>
+            <if test="plantType != null and plantType != ''">#{plantType},</if>
+            <if test="weight != null and weight != ''">#{weight},</if>
+            <if test="measureId != null">#{measureId},</if>
+            <if test="measureName != null and measureName != ''">#{measureName},</if>
+            <if test="workbenchId != null">#{workbenchId},</if>
+            <if test="workbenchCode != null and workbenchCode != ''">#{workbenchCode},</if>
+            <if test="outCreateBy != null and outCreateBy != ''">#{outCreateBy},</if>
+            <if test="outJobNumber != null and outJobNumber != ''">#{outJobNumber},</if>
+            <if test="outTime != null">#{outTime},</if>
+            <if test="changeWorkbench != null and changeWorkbench != ''">#{changeWorkbench},</if>
+            <if test="isDeleted != null">#{isDeleted},</if>
+            <if test="version != null">#{version},</if>
+            <if test="jobNumber != null and jobNumber != ''">#{jobNumber},</if>
+            <if test="createBy != null and createBy != ''">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null and updateBy != ''">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="attr1 != null and attr1 != ''">#{attr1},</if>
+            <if test="attr2 != null">#{attr2},</if>
+            <if test="attr3 != null and attr3 != ''">#{attr3},</if>
+        </trim>
+    </insert>
+    
+    <!-- 更新数据 -->
+    <update id="update">
+        update md_plant_change_log
+        <set>
+            <trim suffixOverrides=",">
+                <if test="plantCode != null "> plant_code = #{plantCode}, </if>
+                <if test="plantName != null "> plant_name = #{plantName}, </if>
+                <if test="plantType != null "> plant_type = #{plantType}, </if>
+                <if test="weight != null "> weight = #{weight}, </if>
+                <if test="measureId != null "> measure_id = #{measureId}, </if>
+                <if test="measureName != null "> measure_name = #{measureName}, </if>
+                <if test="workbenchId != null "> workbench_id = #{workbenchId}, </if>
+                <if test="workbenchCode != null "> workbench_code = #{workbenchCode}, </if>
+                <if test="outCreateBy != null "> out_create_by = #{outCreateBy}, </if>
+                <if test="outJobNumber != null "> out_job_number = #{outJobNumber}, </if>
+                <if test="outTime != null "> out_time = #{outTime}, </if>
+                <if test="changeWorkbench != null "> change_workbench = #{changeWorkbench}, </if>
+                <if test="isDeleted != null "> is_deleted = #{isDeleted}, </if>
+                <if test="version != null "> version = #{version}, </if>
+                <if test="jobNumber != null "> job_number = #{jobNumber}, </if>
+                <if test="createBy != null "> create_by = #{createBy}, </if>
+                <if test="createTime != null "> create_time = #{createTime}, </if>
+                <if test="updateBy != null "> update_by = #{updateBy}, </if>
+                <if test="updateTime != null "> update_time = #{updateTime}, </if>
+                <if test="attr1 != null "> attr1 = #{attr1}, </if>
+                <if test="attr2 != null "> attr2 = #{attr2}, </if>
+                <if test="attr3 != null "> attr3 = #{attr3}, </if>
+            </trim>
+        </set>
+        where id = #{id} and version = #{version}
+    </update>
+    
+    <!--逻辑删除删除-->
+    <update id="deleteById">
+        update md_plant_change_log set is_deleted = 1 where id = #{id}
+    </update>
+    
+    <!--批量逻辑删除-->
+    <update id="deleteByIds">
+        update md_plant_change_log set is_deleted = 1 where id in
+        <foreach collection="array" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </update>
+</mapper>

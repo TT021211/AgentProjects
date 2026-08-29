@@ -1,0 +1,363 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cuixing.mold.mapper.MoldReturnedMapper">
+
+    <resultMap type="com.cuixing.mold.entity.MoldReturned" id="MoldReturnedMap">
+        <result property="moldReturnedId" column="mold_returned_id" jdbcType="INTEGER"/>
+        <result property="nestingMoldId" column="nesting_mold_id" jdbcType="INTEGER"/>
+        <result property="lsId" column="ls_id" jdbcType="INTEGER"/>
+        <result property="moldOutAperture" column="mold_out_aperture" jdbcType="VARCHAR"/>
+        <result property="moldOutCode" column="mold_out_code" jdbcType="VARCHAR"/>
+        <result property="moldOutArea" column="mold_out_area" jdbcType="VARCHAR"/>
+        <result property="moldId" column="mold_id" jdbcType="INTEGER"/>
+        <result property="attr1" column="attr1" jdbcType="VARCHAR"/>
+        <result property="attr2" column="attr2" jdbcType="VARCHAR"/>
+        <result property="attr3" column="attr3" jdbcType="INTEGER"/>
+        <result property="attr4" column="attr4" jdbcType="INTEGER"/>
+        <result property="qbId" column="qb_id" jdbcType="INTEGER"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="createBy" column="create_by" jdbcType="VARCHAR"/>
+        <result property="updateBy" column="update_by" jdbcType="VARCHAR"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+        <result property="inBy" column="in_by" jdbcType="VARCHAR"/>
+        <result property="nestingName" column="nesting_name" jdbcType="VARCHAR"/>
+        <result property="moldCode" column="mold_code" jdbcType="VARCHAR"/>
+        <result property="moldType" column="mold_type" jdbcType="VARCHAR"/>
+        <result property="moldSpec" column="mold_spec" jdbcType="VARCHAR"/>
+        <result property="moldMaterial" column="mold_material" jdbcType="VARCHAR"/>
+        <result property="moldArea" column="mold_area" jdbcType="VARCHAR"/>
+        <result property="moldName" column="mold_name" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="selectMoldReturnedVo">
+        SELECT
+           mold_returned_id ,
+           nesting_mold_id ,
+           ls_id ,
+           mold_out_aperture ,
+           mold_out_code ,
+           mold_out_area ,
+           mold_id ,
+           attr1 ,
+           attr2 ,
+           attr3 ,
+           attr4 ,
+           qb_id ,
+           create_time ,
+           create_by ,
+           update_by ,
+           update_time ,
+           in_by ,
+           nesting_name ,
+           mold_code ,
+           mold_type ,
+           mold_spec ,
+           mold_material ,
+           mold_area ,
+           mold_name
+        FROM mold_returned
+    </sql>
+
+     <select id="selectMoldReturnedList" parameterType="MoldReturned" resultMap="MoldReturnedMap">
+        <include refid="selectMoldReturnedVo"/>
+        <where>
+            <if test="moldReturnedId != null">
+                and mold_returned_id = #{moldReturnedId}
+            </if>
+            <if test="nestingMoldId != null">
+                and nesting_mold_id = #{nestingMoldId}
+            </if>
+            <if test="lsId != null">
+                and ls_id = #{lsId}
+            </if>
+            <if test="moldOutAperture != null and moldOutAperture != ''">
+                and mold_out_aperture = #{moldOutAperture}
+            </if>
+            <if test="moldOutCode != null and moldOutCode != ''">
+                and mold_out_code = #{moldOutCode}
+            </if>
+            <if test="moldOutArea != null and moldOutArea != ''">
+                and mold_out_area = #{moldOutArea}
+            </if>
+            <if test="moldId != null">
+                and mold_id = #{moldId}
+            </if>
+            <if test="attr1 != null and attr1 != ''">
+                and attr1 = #{attr1}
+            </if>
+            <if test="attr2 != null and attr2 != ''">
+                and attr2 = #{attr2}
+            </if>
+            <if test="attr3 != null">
+                and attr3 = #{attr3}
+            </if>
+            <if test="attr4 != null">
+                and attr4 = #{attr4}
+            </if>
+            <if test="qbId != null">
+                and qb_id = #{qbId}
+            </if>
+            <if test="createTime != null">
+                and create_time = #{createTime}
+            </if>
+            <if test="createBy != null and createBy != ''">
+                and create_by = #{createBy}
+            </if>
+            <if test="updateBy != null and updateBy != ''">
+                and update_by = #{updateBy}
+            </if>
+            <if test="updateTime != null">
+                and update_time = #{updateTime}
+            </if>
+            <if test="inBy != null and inBy != ''">
+                and in_by = #{inBy}
+            </if>
+            <if test="nestingName != null and nestingName != ''">
+                and nesting_name = #{nestingName}
+            </if>
+            <if test="moldCode != null and moldCode != ''">
+                and mold_code = #{moldCode}
+            </if>
+            <if test="moldType != null and moldType != ''">
+                and mold_type = #{moldType}
+            </if>
+            <if test="moldSpec != null and moldSpec != ''">
+                and mold_spec = #{moldSpec}
+            </if>
+            <if test="moldMaterial != null and moldMaterial != ''">
+                and mold_material = #{moldMaterial}
+            </if>
+            <if test="moldArea != null and moldArea != ''">
+                and mold_area = #{moldArea}
+            </if>
+            <if test="moldName != null and moldName != ''">
+                and mold_name = #{moldName}
+            </if>
+        </where>
+         ORDER BY
+         CASE
+         WHEN update_time IS NOT NULL THEN update_time
+         ELSE create_time
+         END DESC
+    </select>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="MoldReturnedMap">
+        <include refid="selectMoldReturnedVo"/>
+        where mold_returned_id = #{moldReturnedId}
+    </select>
+
+    <!--统计总行数-->
+    <select id="count" resultType="java.lang.Long">
+        select count(1)
+        from mold_returned
+        <where>
+            <if test="moldReturnedId != null">
+                and mold_returned_id = #{moldReturnedId}
+            </if>
+            <if test="nestingMoldId != null">
+                and nesting_mold_id = #{nestingMoldId}
+            </if>
+            <if test="lsId != null">
+                and ls_id = #{lsId}
+            </if>
+            <if test="moldOutAperture != null and moldOutAperture != ''">
+                and mold_out_aperture = #{moldOutAperture}
+            </if>
+            <if test="moldOutCode != null and moldOutCode != ''">
+                and mold_out_code = #{moldOutCode}
+            </if>
+            <if test="moldOutArea != null and moldOutArea != ''">
+                and mold_out_area = #{moldOutArea}
+            </if>
+            <if test="moldId != null">
+                and mold_id = #{moldId}
+            </if>
+            <if test="attr1 != null and attr1 != ''">
+                and attr1 = #{attr1}
+            </if>
+            <if test="attr2 != null and attr2 != ''">
+                and attr2 = #{attr2}
+            </if>
+            <if test="attr3 != null">
+                and attr3 = #{attr3}
+            </if>
+            <if test="attr4 != null">
+                and attr4 = #{attr4}
+            </if>
+            <if test="qbId != null">
+                and qb_id = #{qbId}
+            </if>
+            <if test="createTime != null">
+                and create_time = #{createTime}
+            </if>
+            <if test="createBy != null and createBy != ''">
+                and create_by = #{createBy}
+            </if>
+            <if test="updateBy != null and updateBy != ''">
+                and update_by = #{updateBy}
+            </if>
+            <if test="updateTime != null">
+                and update_time = #{updateTime}
+            </if>
+            <if test="inBy != null and inBy != ''">
+                and in_by = #{inBy}
+            </if>
+            <if test="nestingName != null and nestingName != ''">
+                and nesting_name = #{nestingName}
+            </if>
+            <if test="moldCode != null and moldCode != ''">
+                and mold_code = #{moldCode}
+            </if>
+            <if test="moldType != null and moldType != ''">
+                and mold_type = #{moldType}
+            </if>
+            <if test="moldSpec != null and moldSpec != ''">
+                and mold_spec = #{moldSpec}
+            </if>
+            <if test="moldMaterial != null and moldMaterial != ''">
+                and mold_material = #{moldMaterial}
+            </if>
+            <if test="moldArea != null and moldArea != ''">
+                and mold_area = #{moldArea}
+            </if>
+            <if test="moldName != null and moldName != ''">
+                and mold_name = #{moldName}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="moldReturnedId" useGeneratedKeys="true">
+        insert into mold_returned(nesting_mold_id, ls_id, mold_out_aperture, mold_out_code, mold_out_area, mold_id, attr1, attr2, attr3, attr4, qb_id, create_time, create_by, update_by, update_time, in_by, nesting_name, mold_code, mold_type, mold_spec, mold_material, mold_area, mold_name)
+        values (#{nestingMoldId}, #{lsId}, #{moldOutAperture}, #{moldOutCode}, #{moldOutArea}, #{moldId}, #{attr1}, #{attr2}, #{attr3}, #{attr4}, #{qbId}, #{createTime}, #{createBy}, #{updateBy}, #{updateTime}, #{inBy}, #{nestingName}, #{moldCode}, #{moldType}, #{moldSpec}, #{moldMaterial}, #{moldArea}, #{moldName})
+    </insert>
+
+    <insert id="insertBatch" keyProperty="moldReturnedId" useGeneratedKeys="true">
+        insert into mold_returned(nesting_mold_id, ls_id, mold_out_aperture, mold_out_code, mold_out_area, mold_id, attr1, attr2, attr3, attr4, qb_id, create_time, create_by, update_by, update_time, in_by, nesting_name, mold_code, mold_type, mold_spec, mold_material, mold_area, mold_name)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+        (#{entity.nestingMoldId}, #{entity.lsId}, #{entity.moldOutAperture}, #{entity.moldOutCode}, #{entity.moldOutArea}, #{entity.moldId}, #{entity.attr1}, #{entity.attr2}, #{entity.attr3}, #{entity.attr4}, #{entity.qbId}, #{entity.createTime}, #{entity.createBy}, #{entity.updateBy}, #{entity.updateTime}, #{entity.inBy}, #{entity.nestingName}, #{entity.moldCode}, #{entity.moldType}, #{entity.moldSpec}, #{entity.moldMaterial}, #{entity.moldArea}, #{entity.moldName})
+        </foreach>
+    </insert>
+
+    <insert id="insertOrUpdateBatch" keyProperty="moldReturnedId" useGeneratedKeys="true">
+        insert into mold_returned(nesting_mold_id, ls_id, mold_out_aperture, mold_out_code, mold_out_area, mold_id, attr1, attr2, attr3, attr4, qb_id, create_time, create_by, update_by, update_time, in_by, nesting_name, mold_code, mold_type, mold_spec, mold_material, mold_area, mold_name)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.nestingMoldId}, #{entity.lsId}, #{entity.moldOutAperture}, #{entity.moldOutCode}, #{entity.moldOutArea}, #{entity.moldId}, #{entity.attr1}, #{entity.attr2}, #{entity.attr3}, #{entity.attr4}, #{entity.qbId}, #{entity.createTime}, #{entity.createBy}, #{entity.updateBy}, #{entity.updateTime}, #{entity.inBy}, #{entity.nestingName}, #{entity.moldCode}, #{entity.moldType}, #{entity.moldSpec}, #{entity.moldMaterial}, #{entity.moldArea}, #{entity.moldName})
+        </foreach>
+        on duplicate key update
+        nesting_mold_id = values(nesting_mold_id),
+        ls_id = values(ls_id),
+        mold_out_aperture = values(mold_out_aperture),
+        mold_out_code = values(mold_out_code),
+        mold_out_area = values(mold_out_area),
+        mold_id = values(mold_id),
+        attr1 = values(attr1),
+        attr2 = values(attr2),
+        attr3 = values(attr3),
+        attr4 = values(attr4),
+        qb_id = values(qb_id),
+        create_time = values(create_time),
+        create_by = values(create_by),
+        update_by = values(update_by),
+        update_time = values(update_time),
+        in_by = values(in_by),
+        nesting_name = values(nesting_name),
+        mold_code = values(mold_code),
+        mold_type = values(mold_type),
+        mold_spec = values(mold_spec),
+        mold_material = values(mold_material),
+        mold_area = values(mold_area),
+        mold_name = values(mold_name)
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update mold_returned
+        <set>
+            <if test="nestingMoldId != null">
+                nesting_mold_id = #{nestingMoldId},
+            </if>
+            <if test="lsId != null">
+                ls_id = #{lsId},
+            </if>
+            <if test="moldOutAperture != null and moldOutAperture != ''">
+                mold_out_aperture = #{moldOutAperture},
+            </if>
+            <if test="moldOutCode != null and moldOutCode != ''">
+                mold_out_code = #{moldOutCode},
+            </if>
+            <if test="moldOutArea != null and moldOutArea != ''">
+                mold_out_area = #{moldOutArea},
+            </if>
+            <if test="moldId != null">
+                mold_id = #{moldId},
+            </if>
+            <if test="attr1 != null and attr1 != ''">
+                attr1 = #{attr1},
+            </if>
+            <if test="attr2 != null and attr2 != ''">
+                attr2 = #{attr2},
+            </if>
+            <if test="attr3 != null">
+                attr3 = #{attr3},
+            </if>
+            <if test="attr4 != null">
+                attr4 = #{attr4},
+            </if>
+            <if test="qbId != null">
+                qb_id = #{qbId},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime},
+            </if>
+            <if test="createBy != null and createBy != ''">
+                create_by = #{createBy},
+            </if>
+            <if test="updateBy != null and updateBy != ''">
+                update_by = #{updateBy},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime},
+            </if>
+            <if test="inBy != null and inBy != ''">
+                in_by = #{inBy},
+            </if>
+            <if test="nestingName != null and nestingName != ''">
+                nesting_name = #{nestingName},
+            </if>
+            <if test="moldCode != null and moldCode != ''">
+                mold_code = #{moldCode},
+            </if>
+            <if test="moldType != null and moldType != ''">
+                mold_type = #{moldType},
+            </if>
+            <if test="moldSpec != null and moldSpec != ''">
+                mold_spec = #{moldSpec},
+            </if>
+            <if test="moldMaterial != null and moldMaterial != ''">
+                mold_material = #{moldMaterial},
+            </if>
+            <if test="moldArea != null and moldArea != ''">
+                mold_area = #{moldArea},
+            </if>
+            <if test="moldName != null and moldName != ''">
+                mold_name = #{moldName},
+            </if>
+        </set>
+        where mold_returned_id = #{moldReturnedId}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from mold_returned where mold_returned_id = #{moldReturnedId}
+    </delete>
+
+    <update id="updateNum">
+        update mold_returned set attr3 = #{attr3} where mold_returned_id = #{moldReturnedId}
+    </update>
+
+</mapper>
+

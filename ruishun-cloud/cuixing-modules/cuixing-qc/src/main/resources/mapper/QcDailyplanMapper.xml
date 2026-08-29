@@ -1,0 +1,331 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cuixing.qc.mapper.QcDailyplanMapper">
+
+    <resultMap type="com.cuixing.qc.entity.QcDailyplan" id="QcDailyplanMap">
+        <result property="dailyplanId" column="dailyplan_id" jdbcType="INTEGER"/>
+        <result property="dailyplanCode" column="dailyplan_code" jdbcType="VARCHAR"/>
+        <result property="dailyplanName" column="dailyplan_name" jdbcType="VARCHAR"/>
+        <result property="dailyplanDevice" column="dailyplan_device" jdbcType="VARCHAR"/>
+        <result property="dailyplanAxle" column="dailyplan_axle" jdbcType="VARCHAR"/>
+        <result property="dailyplanBeforeSpec" column="dailyplan_before_spec" jdbcType="VARCHAR"/>
+        <result property="dailyplanAfterSpec" column="dailyplan_after_spec" jdbcType="VARCHAR"/>
+        <result property="dailyplanSpec" column="dailyplan_spec" jdbcType="VARCHAR"/>
+        <result property="dailyplanDate" column="dailyplan_date" jdbcType="TIMESTAMP"/>
+        <result property="dailyplanRemark" column="dailyplan_remark" jdbcType="VARCHAR"/>
+        <result property="dailyplanSubmitter" column="dailyplan_submitter" jdbcType="VARCHAR"/>
+        <result property="createBy" column="create_by" jdbcType="VARCHAR"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="updateBy" column="update_by" jdbcType="VARCHAR"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+        <result property="attr1" column="attr1" jdbcType="VARCHAR"/>
+        <result property="attr2" column="attr2" jdbcType="VARCHAR"/>
+        <result property="attr3" column="attr3" jdbcType="INTEGER"/>
+        <result property="attr4" column="attr4" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <sql id="selectQcDailyplanVo">
+        SELECT dailyplan_id,
+               dailyplan_code,
+               dailyplan_name,
+               dailyplan_device,
+               dailyplan_axle,
+               dailyplan_before_spec,
+               dailyplan_after_spec,
+               dailyplan_spec,
+               dailyplan_date,
+               dailyplan_remark,
+               dailyplan_submitter,
+               create_by,
+               create_time,
+               update_by,
+               update_time,
+               attr1,
+               attr2,
+               attr3,
+               attr4
+        FROM qc_dailyplan
+    </sql>
+
+    <select id="selectQcDailyplanList" parameterType="QcDailyplan" resultMap="QcDailyplanMap">
+        <include refid="selectQcDailyplanVo"/>
+        <where>
+            <if test="dailyplanId != null">
+                and dailyplan_id = #{dailyplanId}
+            </if>
+            <if test="dailyplanCode != null and dailyplanCode != ''">
+                and dailyplan_code = #{dailyplanCode}
+            </if>
+            <if test="dailyplanName != null and dailyplanName != ''">
+                and dailyplan_name = #{dailyplanName}
+            </if>
+            <if test="dailyplanDevice != null and dailyplanDevice != ''">
+                and dailyplan_device = #{dailyplanDevice}
+            </if>
+            <if test="dailyplanAxle != null and dailyplanAxle != ''">
+                and dailyplan_axle = #{dailyplanAxle}
+            </if>
+            <if test="dailyplanBeforeSpec != null and dailyplanBeforeSpec != ''">
+                and dailyplan_before_spec = #{dailyplanBeforeSpec}
+            </if>
+            <if test="dailyplanAfterSpec != null and dailyplanAfterSpec != ''">
+                and dailyplan_after_spec = #{dailyplanAfterSpec}
+            </if>
+            <if test="dailyplanSpec != null and dailyplanSpec != ''">
+                and dailyplan_spec = #{dailyplanSpec}
+            </if>
+            <if test="dailyplanDate != null">
+                and dailyplan_date = #{dailyplanDate}
+            </if>
+            <if test="dailyplanRemark != null and dailyplanRemark != ''">
+                and dailyplan_remark = #{dailyplanRemark}
+            </if>
+            <if test="dailyplanSubmitter != null and dailyplanSubmitter != ''">
+                and dailyplan_submitter = #{dailyplanSubmitter}
+            </if>
+            <if test="createBy != null and createBy != ''">
+                and create_by = #{createBy}
+            </if>
+            <if test="createTime != null">
+                and create_time = #{createTime}
+            </if>
+            <if test="updateBy != null and updateBy != ''">
+                and update_by = #{updateBy}
+            </if>
+            <if test="updateTime != null">
+                and update_time = #{updateTime}
+            </if>
+            <if test="attr1 != null and attr1 != ''">
+                and attr1 = #{attr1}
+            </if>
+            <if test="attr2 != null and attr2 != ''">
+                and attr2 = #{attr2}
+            </if>
+            <if test="attr3 != null">
+                and attr3 = #{attr3}
+            </if>
+            <if test="attr4 != null">
+                and attr4 = #{attr4}
+            </if>
+        </where>
+    </select>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="QcDailyplanMap">
+        select dailyplan_id,
+               dailyplan_code,
+               dailyplan_name,
+               dailyplan_device,
+               dailyplan_axle,
+               dailyplan_before_spec,
+               dailyplan_after_spec,
+               dailyplan_spec,
+               dailyplan_date,
+               dailyplan_remark,
+               dailyplan_submitter,
+               create_by,
+               create_time,
+               update_by,
+               update_time,
+               attr1,
+               attr2,
+               attr3,
+               attr4
+        from qc_dailyplan
+        where dailyplan_id = #{dailyplanId}
+    </select>
+
+    <!--统计总行数-->
+    <select id="count" resultType="java.lang.Long">
+        select count(1)
+        from qc_dailyplan
+        <where>
+            <if test="dailyplanId != null">
+                and dailyplan_id = #{dailyplanId}
+            </if>
+            <if test="dailyplanCode != null and dailyplanCode != ''">
+                and dailyplan_code = #{dailyplanCode}
+            </if>
+            <if test="dailyplanName != null and dailyplanName != ''">
+                and dailyplan_name = #{dailyplanName}
+            </if>
+            <if test="dailyplanDevice != null and dailyplanDevice != ''">
+                and dailyplan_device = #{dailyplanDevice}
+            </if>
+            <if test="dailyplanAxle != null and dailyplanAxle != ''">
+                and dailyplan_axle = #{dailyplanAxle}
+            </if>
+            <if test="dailyplanBeforeSpec != null and dailyplanBeforeSpec != ''">
+                and dailyplan_before_spec = #{dailyplanBeforeSpec}
+            </if>
+            <if test="dailyplanAfterSpec != null and dailyplanAfterSpec != ''">
+                and dailyplan_after_spec = #{dailyplanAfterSpec}
+            </if>
+            <if test="dailyplanSpec != null and dailyplanSpec != ''">
+                and dailyplan_spec = #{dailyplanSpec}
+            </if>
+            <if test="dailyplanDate != null">
+                and dailyplan_date = #{dailyplanDate}
+            </if>
+            <if test="dailyplanRemark != null and dailyplanRemark != ''">
+                and dailyplan_remark = #{dailyplanRemark}
+            </if>
+            <if test="dailyplanSubmitter != null and dailyplanSubmitter != ''">
+                and dailyplan_submitter = #{dailyplanSubmitter}
+            </if>
+            <if test="createBy != null and createBy != ''">
+                and create_by = #{createBy}
+            </if>
+            <if test="createTime != null">
+                and create_time = #{createTime}
+            </if>
+            <if test="updateBy != null and updateBy != ''">
+                and update_by = #{updateBy}
+            </if>
+            <if test="updateTime != null">
+                and update_time = #{updateTime}
+            </if>
+            <if test="attr1 != null and attr1 != ''">
+                and attr1 = #{attr1}
+            </if>
+            <if test="attr2 != null and attr2 != ''">
+                and attr2 = #{attr2}
+            </if>
+            <if test="attr3 != null">
+                and attr3 = #{attr3}
+            </if>
+            <if test="attr4 != null">
+                and attr4 = #{attr4}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="dailyplanId" useGeneratedKeys="true">
+        insert into qc_dailyplan(dailyplan_code, dailyplan_name, dailyplan_device, dailyplan_axle,
+                                 dailyplan_before_spec, dailyplan_after_spec, dailyplan_spec, dailyplan_date,
+                                 dailyplan_remark, dailyplan_submitter, create_by, create_time, update_by, update_time,
+                                 attr1, attr2, attr3, attr4)
+        values (#{dailyplanCode}, #{dailyplanName}, #{dailyplanDevice}, #{dailyplanAxle}, #{dailyplanBeforeSpec},
+                #{dailyplanAfterSpec}, #{dailyplanSpec}, #{dailyplanDate}, #{dailyplanRemark}, #{dailyplanSubmitter},
+                #{createBy}, #{createTime}, #{updateBy}, #{updateTime}, #{attr1}, #{attr2}, #{attr3}, #{attr4})
+    </insert>
+
+    <insert id="insertBatch" keyProperty="dailyplanId" useGeneratedKeys="true">
+        insert into qc_dailyplan(dailyplan_code, dailyplan_name, dailyplan_device, dailyplan_axle,
+        dailyplan_before_spec, dailyplan_after_spec, dailyplan_spec, dailyplan_date, dailyplan_remark,
+        dailyplan_submitter, create_by, create_time, update_by, update_time, attr1, attr2, attr3, attr4)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.dailyplanCode}, #{entity.dailyplanName}, #{entity.dailyplanDevice}, #{entity.dailyplanAxle},
+            #{entity.dailyplanBeforeSpec}, #{entity.dailyplanAfterSpec}, #{entity.dailyplanSpec},
+            #{entity.dailyplanDate}, #{entity.dailyplanRemark}, #{entity.dailyplanSubmitter}, #{entity.createBy},
+            #{entity.createTime}, #{entity.updateBy}, #{entity.updateTime}, #{entity.attr1}, #{entity.attr2},
+            #{entity.attr3}, #{entity.attr4})
+        </foreach>
+    </insert>
+
+    <insert id="insertOrUpdateBatch" keyProperty="dailyplanId" useGeneratedKeys="true">
+        insert into qc_dailyplan(dailyplan_code, dailyplan_name, dailyplan_device, dailyplan_axle,
+        dailyplan_before_spec, dailyplan_after_spec, dailyplan_spec, dailyplan_date, dailyplan_remark,
+        dailyplan_submitter, create_by, create_time, update_by, update_time, attr1, attr2, attr3, attr4)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.dailyplanCode}, #{entity.dailyplanName}, #{entity.dailyplanDevice}, #{entity.dailyplanAxle},
+            #{entity.dailyplanBeforeSpec}, #{entity.dailyplanAfterSpec}, #{entity.dailyplanSpec},
+            #{entity.dailyplanDate}, #{entity.dailyplanRemark}, #{entity.dailyplanSubmitter}, #{entity.createBy},
+            #{entity.createTime}, #{entity.updateBy}, #{entity.updateTime}, #{entity.attr1}, #{entity.attr2},
+            #{entity.attr3}, #{entity.attr4})
+        </foreach>
+        on duplicate key update
+        dailyplan_code = values(dailyplan_code),
+        dailyplan_name = values(dailyplan_name),
+        dailyplan_device = values(dailyplan_device),
+        dailyplan_axle = values(dailyplan_axle),
+        dailyplan_before_spec = values(dailyplan_before_spec),
+        dailyplan_after_spec = values(dailyplan_after_spec),
+        dailyplan_spec = values(dailyplan_spec),
+        dailyplan_date = values(dailyplan_date),
+        dailyplan_remark = values(dailyplan_remark),
+        dailyplan_submitter = values(dailyplan_submitter),
+        create_by = values(create_by),
+        create_time = values(create_time),
+        update_by = values(update_by),
+        update_time = values(update_time),
+        attr1 = values(attr1),
+        attr2 = values(attr2),
+        attr3 = values(attr3),
+        attr4 = values(attr4)
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update qc_dailyplan
+        <set>
+            <if test="dailyplanCode != null and dailyplanCode != ''">
+                dailyplan_code = #{dailyplanCode},
+            </if>
+            <if test="dailyplanName != null and dailyplanName != ''">
+                dailyplan_name = #{dailyplanName},
+            </if>
+            <if test="dailyplanDevice != null and dailyplanDevice != ''">
+                dailyplan_device = #{dailyplanDevice},
+            </if>
+            <if test="dailyplanAxle != null and dailyplanAxle != ''">
+                dailyplan_axle = #{dailyplanAxle},
+            </if>
+            <if test="dailyplanBeforeSpec != null and dailyplanBeforeSpec != ''">
+                dailyplan_before_spec = #{dailyplanBeforeSpec},
+            </if>
+            <if test="dailyplanAfterSpec != null and dailyplanAfterSpec != ''">
+                dailyplan_after_spec = #{dailyplanAfterSpec},
+            </if>
+            <if test="dailyplanSpec != null and dailyplanSpec != ''">
+                dailyplan_spec = #{dailyplanSpec},
+            </if>
+            <if test="dailyplanDate != null">
+                dailyplan_date = #{dailyplanDate},
+            </if>
+            <if test="dailyplanRemark != null and dailyplanRemark != ''">
+                dailyplan_remark = #{dailyplanRemark},
+            </if>
+            <if test="dailyplanSubmitter != null and dailyplanSubmitter != ''">
+                dailyplan_submitter = #{dailyplanSubmitter},
+            </if>
+            <if test="createBy != null and createBy != ''">
+                create_by = #{createBy},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime},
+            </if>
+            <if test="updateBy != null and updateBy != ''">
+                update_by = #{updateBy},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime},
+            </if>
+            <if test="attr1 != null and attr1 != ''">
+                attr1 = #{attr1},
+            </if>
+            <if test="attr2 != null and attr2 != ''">
+                attr2 = #{attr2},
+            </if>
+            <if test="attr3 != null">
+                attr3 = #{attr3},
+            </if>
+            <if test="attr4 != null">
+                attr4 = #{attr4},
+            </if>
+        </set>
+        where dailyplan_id = #{dailyplanId}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete
+        from qc_dailyplan
+        where dailyplan_id = #{dailyplanId}
+    </delete>
+
+</mapper>
+

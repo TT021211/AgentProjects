@@ -1,0 +1,256 @@
+package com.cuixing.system.api.domain.md;
+
+import com.cuixing.common.core.web.domain.BaseEntity;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
+
+import java.math.BigInteger;
+import java.util.Date;
+
+/**
+* 机台设置;
+* @author : http://www.chiner.pro
+* @date : 2024-6-4
+*/
+@ApiModel(value = "机台设置",description = "")
+public class MdWorkbenchWiredrawing extends BaseEntity{
+   /** 自增主键 */
+   @ApiModelProperty(name = "自增主键",notes = "")
+   private BigInteger id ;
+   /** 机台类型id */
+   @ApiModelProperty(name = "机台类型id",notes = "")
+   private BigInteger workbenchTypeId ;
+   /** 机台类型 */
+   @ApiModelProperty(name = "机台类型",notes = "")
+   private String workbenchType ;
+   /** 设备编码 */
+   @ApiModelProperty(name = "设备编码",notes = "")
+   private String equipmentCode ;
+   /** 设备名称 */
+   @ApiModelProperty(name = "设备名称",notes = "")
+   private String equipmentName ;
+   /** 生产上限 */
+   @ApiModelProperty(name = "生产上限",notes = "")
+   private Double productionUpperLimit ;
+   /** 生产下限 */
+   @ApiModelProperty(name = "生产下限",notes = "")
+   private Double productionLowerLimit ;
+   /** 工序id */
+   @ApiModelProperty(name = "工序id",notes = "")
+   private BigInteger processId ;
+   /** 所属工序 */
+   @ApiModelProperty(name = "所属工序",notes = "")
+   private String process ;
+   /** 逻辑删除 */
+   @ApiModelProperty(name = "逻辑删除",notes = "")
+   private Integer isDeleted ;
+   /** 乐观锁 */
+   @ApiModelProperty(name = "乐观锁",notes = "")
+   private Integer version ;
+   /** 创建人 */
+   @ApiModelProperty(name = "创建人",notes = "")
+   private String createBy ;
+   /** 创建时间 */
+   @ApiModelProperty(name = "创建时间",notes = "")
+   @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+   private Date createTime ;
+   /** 更新人 */
+   @ApiModelProperty(name = "更新人",notes = "")
+   private String updateBy ;
+   /** 更新时间 */
+   @ApiModelProperty(name = "更新时间",notes = "")
+   @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+   private Date updateTime ;
+   /** 预留字段1 */
+   @ApiModelProperty(name = "预留字段1",notes = "")
+   private String attr1 ;
+   /** 预留字段2 */
+   @ApiModelProperty(name = "预留字段2",notes = "")
+   private Integer attr2 ;
+   /** 预留字段3 */
+   @ApiModelProperty(name = "预留字段3",notes = "")
+   private String attr3 ;
+   /** 备注 */
+   @ApiModelProperty(name = "备注",notes = "")
+   private String remark ;
+
+   /** 自增主键 */
+   public BigInteger getId(){
+       return this.id;
+   }
+   /** 自增主键 */
+   public void setId(BigInteger id){
+       this.id=id;
+   }
+   /** 机台类型id */
+   public BigInteger getWorkbenchTypeId(){
+       return this.workbenchTypeId;
+   }
+   /** 机台类型id */
+   public void setWorkbenchTypeId(BigInteger workbenchTypeId){
+       this.workbenchTypeId=workbenchTypeId;
+   }
+   /** 机台类型 */
+   public String getWorkbenchType(){
+       return this.workbenchType;
+   }
+   /** 机台类型 */
+   public void setWorkbenchType(String workbenchType){
+       this.workbenchType=workbenchType;
+   }
+   /** 设备编码 */
+   public String getEquipmentCode(){
+       return this.equipmentCode;
+   }
+   /** 设备编码 */
+   public void setEquipmentCode(String equipmentCode){
+       this.equipmentCode=equipmentCode;
+   }
+   /** 设备名称 */
+   public String getEquipmentName(){
+       return this.equipmentName;
+   }
+   /** 设备名称 */
+   public void setEquipmentName(String equipmentName){
+       this.equipmentName=equipmentName;
+   }
+   /** 生产上限 */
+   public Double getProductionUpperLimit(){
+       return this.productionUpperLimit;
+   }
+   /** 生产上限 */
+   public void setProductionUpperLimit(Double productionUpperLimit){
+       this.productionUpperLimit=productionUpperLimit;
+   }
+   /** 生产下限 */
+   public Double getProductionLowerLimit(){
+       return this.productionLowerLimit;
+   }
+   /** 生产下限 */
+   public void setProductionLowerLimit(Double productionLowerLimit){
+       this.productionLowerLimit=productionLowerLimit;
+   }
+   /** 工序id */
+   public BigInteger getProcessId(){
+       return this.processId;
+   }
+   /** 工序id */
+   public void setProcessId(BigInteger processId){
+       this.processId=processId;
+   }
+   /** 所属工序 */
+   public String getProcess(){
+       return this.process;
+   }
+   /** 所属工序 */
+   public void setProcess(String process){
+       this.process=process;
+   }
+   /** 逻辑删除 */
+   public Integer getIsDeleted(){
+       return this.isDeleted;
+   }
+   /** 逻辑删除 */
+   public void setIsDeleted(Integer isDeleted){
+       this.isDeleted=isDeleted;
+   }
+   /** 乐观锁 */
+   public Integer getVersion(){
+       return this.version;
+   }
+   /** 乐观锁 */
+   public void setVersion(Integer version){
+       this.version=version;
+   }
+   /** 创建人 */
+   public String getCreateBy(){
+       return this.createBy;
+   }
+   /** 创建人 */
+   public void setCreateBy(String createBy){
+       this.createBy=createBy;
+   }
+   /** 创建时间 */
+   public Date getCreateTime(){
+       return this.createTime;
+   }
+   /** 创建时间 */
+   public void setCreateTime(Date createTime){
+       this.createTime=createTime;
+   }
+   /** 更新人 */
+   public String getUpdateBy(){
+       return this.updateBy;
+   }
+   /** 更新人 */
+   public void setUpdateBy(String updateBy){
+       this.updateBy=updateBy;
+   }
+   /** 更新时间 */
+   public Date getUpdateTime(){
+       return this.updateTime;
+   }
+   /** 更新时间 */
+   public void setUpdateTime(Date updateTime){
+       this.updateTime=updateTime;
+   }
+   /** 预留字段1 */
+   public String getAttr1(){
+       return this.attr1;
+   }
+   /** 预留字段1 */
+   public void setAttr1(String attr1){
+       this.attr1=attr1;
+   }
+   /** 预留字段2 */
+   public Integer getAttr2(){
+       return this.attr2;
+   }
+   /** 预留字段2 */
+   public void setAttr2(Integer attr2){
+       this.attr2=attr2;
+   }
+   /** 预留字段3 */
+   public String getAttr3(){
+       return this.attr3;
+   }
+   /** 预留字段3 */
+   public void setAttr3(String attr3){
+       this.attr3=attr3;
+   }
+   /** 备注 */
+   public String getRemark(){
+       return this.remark;
+   }
+   /** 备注 */
+   public void setRemark(String remark){
+       this.remark=remark;
+   }
+   @Override
+   public String toString() {
+       return new ToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE)
+           .append("id", getId())
+           .append("workbenchTypeId", getWorkbenchTypeId())
+           .append("workbenchType", getWorkbenchType())
+           .append("equipmentCode", getEquipmentCode())
+           .append("equipmentName", getEquipmentName())
+           .append("productionUpperLimit", getProductionUpperLimit())
+           .append("productionLowerLimit", getProductionLowerLimit())
+           .append("processId", getProcessId())
+           .append("process", getProcess())
+           .append("isDeleted", getIsDeleted())
+           .append("version", getVersion())
+           .append("createBy", getCreateBy())
+           .append("createTime", getCreateTime())
+           .append("updateBy", getUpdateBy())
+           .append("updateTime", getUpdateTime())
+           .append("attr1", getAttr1())
+           .append("attr2", getAttr2())
+           .append("attr3", getAttr3())
+           .append("remark", getRemark())
+       .toString();
+   }
+}

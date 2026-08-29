@@ -1,0 +1,563 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cuixing.wms.mapper.WmsBoxMapper">
+
+    <resultMap type="com.cuixing.wms.entity.WmsBox" id="WmsBoxMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="installationId" column="installation_id" jdbcType="INTEGER"/>
+        <result property="installationStatus" column="installation_status" jdbcType="VARCHAR"/>
+        <result property="installationCode" column="installation_code" jdbcType="VARCHAR"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="createBy" column="create_by" jdbcType="VARCHAR"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+        <result property="updateBy" column="update_by" jdbcType="VARCHAR"/>
+        <result property="boxCode" column="box_code" jdbcType="VARCHAR"/>
+        <result property="boxSerialNumber" column="box_serial_number" jdbcType="VARCHAR"/>
+        <result property="batchNumber" column="batch_number" jdbcType="VARCHAR"/>
+        <result property="batchNumber2" column="batch_number2" jdbcType="VARCHAR"/>
+        <result property="materialCode" column="material_code" jdbcType="VARCHAR"/>
+        <result property="boxPerNumber" column="box_per_number" jdbcType="INTEGER"/>
+        <result property="boxNumber" column="box_number" jdbcType="INTEGER"/>
+        <result property="itemCode" column="item_code" jdbcType="VARCHAR"/>
+        <result property="productName" column="product_name" jdbcType="VARCHAR"/>
+        <result property="wmsSpec" column="wms_spec" jdbcType="VARCHAR"/>
+        <result property="netWeight" column="net_weight" jdbcType="DOUBLE"/>
+        <result property="grossWeight" column="gross_weight" jdbcType="DOUBLE"/>
+        <result property="axleLoad" column="axle_load" jdbcType="DOUBLE"/>
+        <result property="wmsUnit" column="wms_unit" jdbcType="VARCHAR"/>
+        <result property="inboundStatus" column="inbound_status" jdbcType="VARCHAR"/>
+        <result property="artt1" column="artt1" jdbcType="VARCHAR"/>
+        <result property="artt2" column="artt2" jdbcType="VARCHAR"/>
+        <result property="artt3" column="artt3" jdbcType="INTEGER"/>
+        <result property="artt4" column="artt4" jdbcType="INTEGER"/>
+        <result property="materialNumber" column="material_number" jdbcType="VARCHAR"/>
+        <result property="trader" column="trader" jdbcType="VARCHAR"/>
+        <result property="noticeNumberCode" column="notice_number_code" jdbcType="VARCHAR"/>
+        <result property="artt5" column="artt5" jdbcType="VARCHAR"/>
+        <result property="artt6" column="artt6" jdbcType="VARCHAR"/>
+        <result property="snidCode" column="snid_code" jdbcType="VARCHAR"/>
+    </resultMap>
+    <resultMap id="WmsBoxData" type="com.cuixing.wms.entity.vo.WmsBoxListKanbanVo">
+        <result property="id" column="id"/>
+        <result property="batchNumber" column="batch_number"/>
+        <result property="wmsSpec" column="wms_spec"/>
+        <result property="countNumber" column="count_number"/>
+        <result property="sumWeight" column="sum_weight"/>
+    </resultMap>
+    <sql id="selectWmsBoxVo">
+        SELECT id,
+               installation_id,
+               installation_status,
+               installation_code,
+               create_time,
+               create_by,
+               update_time,
+               update_by,
+               box_code,
+               box_serial_number,
+               batch_number,
+               batch_number2,
+               box_per_number,
+               box_number,
+               material_code,
+               item_code,
+               product_name,
+               wms_spec,
+               net_weight,
+               gross_weight,
+               axle_load,
+               wms_unit,
+               inbound_status,
+               artt1,
+               artt2,
+               artt3,
+               artt4,
+               material_number,
+               trader,
+               notice_number_code,
+               artt5,
+               artt6,
+               snid_code
+        FROM wms_box
+    </sql>
+
+    <select id="selectWmsBoxList" parameterType="WmsBox" resultMap="WmsBoxMap">
+        <include refid="selectWmsBoxVo"/>
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="installationId != null">
+                and installation_id = #{installationId}
+            </if>
+            <if test="installationStatus != null and installationStatus != ''">
+                and installation_status = #{installationStatus}
+            </if>
+            <if test="installationCode != null and installationCode != ''">
+                and installation_code = REPLACE(#{installationCode}, ' ', '')
+            </if>
+            <if test="createTime != null">
+                and create_time = #{createTime}
+            </if>
+            <if test="startTime != null and endTime != null">
+                AND create_time BETWEEN #{startTime} AND #{endTime}
+            </if>
+            <if test="createBy != null and createBy != ''">
+                and create_by = #{createBy}
+            </if>
+            <if test="updateTime != null">
+                and update_time = #{updateTime}
+            </if>
+            <if test="updateBy != null and updateBy != ''">
+                and update_by = #{updateBy}
+            </if>
+            <if test="boxCode != null and boxCode != ''">
+                and box_code = #{boxCode}
+            </if>
+            <if test="boxSerialNumber != null and boxSerialNumber != ''">
+                and box_serial_number = #{boxSerialNumber}
+            </if>
+            <if test="batchNumber != null and batchNumber != ''">
+                and batch_number = #{batchNumber}
+            </if>
+            <if test="batchNumber2 != null and batchNumber2 != ''">
+                and batch_number2 = REPLACE(#{batchNumber2}, ' ', '')
+            </if>
+            <if test="materialCode != null and materialCode != ''">
+                and material_code = #{materialCode}
+            </if>
+            <if test="boxPerNumber != null">
+                and box_per_number = #{boxPerNumber}
+            </if>
+            <if test="boxNumber != null">
+                and box_number = #{boxNumber}
+            </if>
+            <if test="itemCode != null and itemCode != ''">
+                and item_code = #{itemCode}
+            </if>
+            <if test="productName != null and productName != ''">
+                and product_name = #{productName}
+            </if>
+            <if test="wmsSpec != null and wmsSpec != ''">
+                and wms_spec = REPLACE(#{wmsSpec}, ' ', '')
+            </if>
+            <if test="netWeight != null and netWeight != ''">
+                and net_weight = #{netWeight}
+            </if>
+            <if test="grossWeight != null and grossWeight != ''">
+                and gross_weight = #{grossWeight}
+            </if>
+            <if test="axleLoad != null and axleLoad != ''">
+                and axle_load = #{axleLoad}
+            </if>
+            <if test="wmsUnit != null and wmsUnit != ''">
+                and wms_unit = #{wmsUnit}
+            </if>
+            <if test="inboundStatus != null and inboundStatus != ''">
+                and inbound_status = #{inboundStatus}
+            </if>
+            <if test="artt1 != null and artt1 != ''">
+                and artt1 = #{artt1}
+            </if>
+            <if test="artt2 != null and artt2 != ''">
+                and artt2 = #{artt2}
+            </if>
+            <if test="artt3 != null">
+                and artt3 = #{artt3}
+            </if>
+            <if test="artt4 != null">
+                and artt4 = #{artt4}
+            </if>
+            <if test="materialNumber != null and materialNumber != ''">
+                and material_number = #{materialNumber}
+            </if>
+            <if test="trader != null and trader != ''">
+                and trader = #{trader}
+            </if>
+            <if test="noticeNumberCode != null and noticeNumberCode != ''">
+                and notice_number_code = #{noticeNumberCode}
+            </if>
+            <if test="artt5 != null and artt5 != ''">
+                and artt5 = #{artt5}
+            </if>
+            <if test="artt6 != null and artt6 != ''">
+                and artt6 = #{artt6}
+            </if>
+            <if test="snidCode != null and snidCode != ''">
+                and snid_code = #{snidCode}
+            </if>
+        </where>
+        ORDER BY
+        CASE
+        WHEN installation_status = 'OUT' AND update_time IS NOT NULL THEN update_time
+        ELSE create_time
+        END DESC,
+        id ASC
+    </select>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="WmsBoxMap">
+        <include refid="selectWmsBoxVo"/>
+        where id = #{id}
+    </select>
+
+    <!--统计总行数-->
+    <select id="count" resultType="java.lang.Long">
+        select count(1)
+        from wms_box
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="installationId != null">
+                and installation_id = #{installationId}
+            </if>
+            <if test="installationStatus != null and installationStatus != ''">
+                and installation_status = #{installationStatus}
+            </if>
+            <if test="installationCode != null and installationCode != ''">
+                and installation_code = #{installationCode}
+            </if>
+            <if test="createTime != null">
+                and create_time = #{createTime}
+            </if>
+            <if test="createBy != null and createBy != ''">
+                and create_by = #{createBy}
+            </if>
+            <if test="updateTime != null">
+                and update_time = #{updateTime}
+            </if>
+            <if test="updateBy != null and updateBy != ''">
+                and update_by = #{updateBy}
+            </if>
+            <if test="boxCode != null and boxCode != ''">
+                and box_code = #{boxCode}
+            </if>
+            <if test="boxSerialNumber != null and boxSerialNumber != ''">
+                and box_serial_number = #{boxSerialNumber}
+            </if>
+            <if test="batchNumber != null and batchNumber != ''">
+                and batch_number = #{batchNumber}
+            </if>
+            <if test="batchNumber2 != null and batchNumber2 != ''">
+                and batch_number2 = #{batchNumber2}
+            </if>
+            <if test="materialCode != null and materialCode != ''">
+                and material_code = #{materialCode}
+            </if>
+            <if test="boxPerNumber != null">
+                and box_per_number = #{boxPerNumber}
+            </if>
+            <if test="boxNumber != null">
+                and box_number = #{boxNumber}
+            </if>
+            <if test="itemCode != null and itemCode != ''">
+                and item_code = #{itemCode}
+            </if>
+            <if test="productName != null and productName != ''">
+                and product_name = #{productName}
+            </if>
+            <if test="wmsSpec != null and wmsSpec != ''">
+                and wms_spec = #{wmsSpec}
+            </if>
+            <if test="netWeight != null and netWeight != ''">
+                and net_weight = #{netWeight}
+            </if>
+            <if test="grossWeight != null and grossWeight != ''">
+                and gross_weight = #{grossWeight}
+            </if>
+            <if test="axleLoad != null and axleLoad != ''">
+                and axle_load = #{axleLoad}
+            </if>
+            <if test="wmsUnit != null and wmsUnit != ''">
+                and wms_unit = #{wmsUnit}
+            </if>
+            <if test="inboundStatus != null and inboundStatus != ''">
+                and inbound_status = #{inboundStatus}
+            </if>
+            <if test="artt1 != null and artt1 != ''">
+                and artt1 = #{artt1}
+            </if>
+            <if test="artt2 != null and artt2 != ''">
+                and artt2 = #{artt2}
+            </if>
+            <if test="artt3 != null">
+                and artt3 = #{artt3}
+            </if>
+            <if test="artt4 != null">
+                and artt4 = #{artt4}
+            </if>
+            <if test="materialNumber != null and materialNumber != ''">
+                and material_number = #{materialNumber}
+            </if>
+            <if test="trader != null and trader != ''">
+                and trader = #{trader}
+            </if>
+            <if test="noticeNumberCode != null and noticeNumberCode != ''">
+                and notice_number_code = #{noticeNumberCode}
+            </if>
+            <if test="artt5 != null and artt5 != ''">
+                and artt5 = #{artt5}
+            </if>
+            <if test="artt6 != null and artt6 != ''">
+                and artt6 = #{artt6}
+            </if>
+            <if test="snidCode != null and snidCode != ''">
+                and snid_code = #{snidCode}
+            </if>
+        </where>
+    </select>
+
+    <select id="selectInstallation" resultMap="WmsBoxMap">
+        <include refid="selectWmsBoxVo"/>
+        where installation_code in
+        <foreach item="code" collection="installationCodes" open="(" separator="," close=")">
+            #{code}
+        </foreach>
+    </select>
+    <select id="queryByDocumentNumber" resultMap="WmsBoxMap">
+        <include refid="selectWmsBoxVo"/>
+        where notice_number_code = #{documentNumber}
+    </select>
+    <select id="queryByCode" resultMap="WmsBoxMap">
+        <include refid="selectWmsBoxVo"/>
+        where box_code= #{boxCode}
+    </select>
+    <select id="getCountBoxNumber" resultType="java.lang.Integer">
+        SELECT COUNT(*) from wms_box where inbound_status=#{inboundStatus}
+    </select>
+    <select id="getCountWeight" resultType="java.math.BigDecimal">
+        SELECT SUM(net_weight) from wms_box where inbound_status=#{inboundStatus}
+    </select>
+    <select id="getCountBoxData" resultMap="WmsBoxData">
+        SELECT
+            ROW_NUMBER() OVER (ORDER BY COUNT(*) ASC) AS id,
+            batch_number2 AS batch_number,
+            wms_spec AS wms_spec,
+            COUNT(*) AS count_number,
+            SUM(net_weight) as sum_weight
+        FROM
+            wms_box WHERE
+            inbound_status=#{inboundStatus}
+        GROUP BY
+            batch_number2, wms_spec
+        ORDER BY
+            count_number ASC;
+    </select>
+    <select id="getCountBoxNumbertoDay" resultType="java.lang.Integer">
+        SELECT COUNT(*) FROM wms_box WHERE inbound_status=#{inboundStatus} and create_time BETWEEN CURDATE() AND CURDATE() + INTERVAL 1 DAY;
+    </select>
+    <select id="getCountWeighttoDay" resultType="java.math.BigDecimal">
+        SELECT SUM(net_weight) FROM wms_box WHERE inbound_status=#{inboundStatus} and create_time BETWEEN CURDATE() AND CURDATE() + INTERVAL 1 DAY;
+    </select>
+    <select id="selectWmsBoxListTowDay" resultMap="WmsBoxMap">
+        SELECT * FROM wms_box WHERE inbound_status = #{inboundStatus} AND create_time >= CURDATE() - INTERVAL 3 DAY  AND create_time <![CDATA[<]]> CURDATE();
+        </select>
+
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into wms_box(installation_id, installation_status, installation_code, create_time, create_by,
+                            update_time, update_by, box_code, box_serial_number, batch_number, batch_number2, material_code, box_per_number,
+                            box_number, item_code, product_name, wms_spec, net_weight, gross_weight, axle_load,
+                            wms_unit, inbound_status, artt1, artt2, artt3, artt4, material_number, trader,
+                            notice_number_code, artt5, artt6, snid_code)
+        values (#{installationId}, #{installationStatus}, #{installationCode}, #{createTime}, #{createBy},
+                #{updateTime}, #{updateBy}, #{boxCode}, #{boxSerialNumber}, #{batchNumber}, #{batchNumber2}, #{materialCode}, #{boxPerNumber},
+                #{boxNumber}, #{itemCode}, #{productName}, #{wmsSpec}, #{netWeight}, #{grossWeight}, #{axleLoad},
+                #{wmsUnit}, #{inboundStatus}, #{artt1}, #{artt2}, #{artt3}, #{artt4}, #{materialNumber}, #{trader},
+                #{noticeNumberCode}, #{artt5}, #{artt6}, #{snidCode})
+    </insert>
+
+    <insert id="insertBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into wms_box(installation_id, installation_status, installation_code, create_time, create_by,
+        update_time, update_by, box_code, box_serial_number, batch_number, batch_number2, material_code, box_per_number,
+        box_number, item_code, product_name, wms_spec, net_weight, gross_weight, axle_load,
+        wms_unit, inbound_status, artt1, artt2, artt3, artt4, material_number, trader,
+        notice_number_code, artt5, artt6, snid_code)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.installationId}, #{entity.installationStatus}, #{entity.installationCode}, #{entity.createTime},
+            #{entity.createBy}, #{entity.updateTime}, #{entity.updateBy}, #{entity.boxCode}, #{entity.boxSerialNumber},
+            #{entity.batchNumber}, #{entity.batchNumber2}, #{entity.materialCode}, #{entity.boxPerNumber}, #{entity.boxNumber}, #{entity.itemCode},
+            #{entity.productName}, #{entity.wmsSpec}, #{entity.netWeight}, #{entity.grossWeight}, #{entity.axleLoad},
+            #{entity.wmsUnit}, #{entity.inboundStatus}, #{entity.artt1}, #{entity.artt2}, #{entity.artt3},
+            #{entity.artt4}, #{entity.materialNumber}, #{entity.trader}, #{entity.noticeNumberCode}, #{entity.artt5},
+            #{entity.artt6}, #{entity.snidCode})
+        </foreach>
+    </insert>
+
+    <insert id="insertOrUpdateBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into wms_box(installation_id, installation_status, installation_code, create_time, create_by,
+        update_time, update_by, box_code, box_serial_number, batch_number, batch_number2, material_code, box_per_number,
+        box_number, item_code, product_name, wms_spec, net_weight, gross_weight, axle_load,
+        wms_unit, inbound_status, artt1, artt2, artt3, artt4, material_number, trader,
+        notice_number_code, artt5, artt6, snid_code)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.installationId}, #{entity.installationStatus}, #{entity.installationCode}, #{entity.createTime},
+            #{entity.createBy}, #{entity.updateTime}, #{entity.updateBy}, #{entity.boxCode}, #{entity.boxSerialNumber},
+            #{entity.batchNumber}, #{entity.batchNumber2}, #{entity.materialCode}, #{entity.boxPerNumber}, #{entity.boxNumber}, #{entity.itemCode},
+            #{entity.productName}, #{entity.wmsSpec}, #{entity.netWeight}, #{entity.grossWeight}, #{entity.axleLoad},
+            #{entity.wmsUnit}, #{entity.inboundStatus}, #{entity.artt1}, #{entity.artt2}, #{entity.artt3},
+            #{entity.artt4}, #{entity.materialNumber}, #{entity.trader}, #{entity.noticeNumberCode}, #{entity.artt5},
+            #{entity.artt6}, #{entity.snidCode})
+        </foreach>
+        on duplicate key update
+        installation_id = values(installation_id),
+        installation_status = values(installation_status),
+        installation_code = values(installation_code),
+        create_time = values(create_time),
+        create_by = values(create_by),
+        update_time = values(update_time),
+        update_by = values(update_by),
+        box_code = values(box_code),
+        box_serial_number = values(box_serial_number),
+        batch_number = values(batch_number),
+        batch_number2 = values(batch_number2),
+        box_per_number = values(box_per_number),
+        box_number = values(box_number),
+        material_code = values(material_code),
+        item_code = values(item_code),
+        product_name = values(product_name),
+        wms_spec = values(wms_spec),
+        net_weight = values(net_weight),
+        gross_weight = values(gross_weight),
+        axle_load = values(axle_load),
+        wms_unit = values(wms_unit),
+        inbound_status = values(inbound_status),
+        artt1 = values(artt1),
+        artt2 = values(artt2),
+        artt3 = values(artt3),
+        artt4 = values(artt4),
+        material_number = values(material_number),
+        trader = values(trader),
+        notice_number_code = values(notice_number_code),
+        artt5 = values(artt5),
+        artt6 = values(artt6),
+        snid_code = values(snid_code)
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update wms_box
+        <set>
+            <if test="installationId != null">
+                installation_id = #{installationId},
+            </if>
+            <if test="installationStatus != null and installationStatus != ''">
+                installation_status = #{installationStatus},
+            </if>
+            <if test="installationCode != null and installationCode != ''">
+                installation_code = #{installationCode},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime},
+            </if>
+            <if test="createBy != null and createBy != ''">
+                create_by = #{createBy},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime},
+            </if>
+            <if test="updateBy != null and updateBy != ''">
+                update_by = #{updateBy},
+            </if>
+            <if test="boxCode != null and boxCode != ''">
+                box_code = #{boxCode},
+            </if>
+            <if test="boxSerialNumber != null and boxSerialNumber != ''">
+                box_serial_number = #{boxSerialNumber},
+            </if>
+            <if test="batchNumber != null and batchNumber != ''">
+                batch_number = #{batchNumber},
+            </if>
+            <if test="batchNumber2 != null and batchNumber2 != ''">
+                batch_number2 = #{batchNumber2},
+            </if>
+            <if test="materialCode != null and materialCode != ''">
+                material_code = #{materialCode},
+            </if>
+            <if test="boxPerNumber != null">
+                box_per_number = #{boxPerNumber},
+            </if>
+            <if test="boxNumber != null">
+                box_number = #{boxNumber},
+            </if>
+            <if test="itemCode != null and itemCode != ''">
+                item_code = #{itemCode},
+            </if>
+            <if test="productName != null and productName != ''">
+                product_name = #{productName},
+            </if>
+            <if test="wmsSpec != null and wmsSpec != ''">
+                wms_spec = #{wmsSpec},
+            </if>
+            <if test="netWeight != null and netWeight != ''">
+                net_weight = #{netWeight},
+            </if>
+            <if test="grossWeight != null and grossWeight != ''">
+                gross_weight = #{grossWeight},
+            </if>
+            <if test="axleLoad != null and axleLoad != ''">
+                axle_load = #{axleLoad},
+            </if>
+            <if test="wmsUnit != null and wmsUnit != ''">
+                wms_unit = #{wmsUnit},
+            </if>
+            <if test="inboundStatus != null and inboundStatus != ''">
+                inbound_status = #{inboundStatus},
+            </if>
+            <if test="artt1 != null and artt1 != ''">
+                artt1 = #{artt1},
+            </if>
+            <if test="artt2 != null and artt2 != ''">
+                artt2 = #{artt2},
+            </if>
+            <if test="artt3 != null">
+                artt3 = #{artt3},
+            </if>
+            <if test="artt4 != null">
+                artt4 = #{artt4},
+            </if>
+            <if test="materialNumber != null and materialNumber != ''">
+                material_number = #{materialNumber},
+            </if>
+            <if test="trader != null and trader != ''">
+                trader = #{trader},
+            </if>
+            <if test="noticeNumberCode != null and noticeNumberCode != ''">
+                notice_number_code = #{noticeNumberCode},
+            </if>
+            <if test="artt5 != null and artt5 != ''">
+                artt5 = #{artt5},
+            </if>
+            <if test="artt6 != null and artt6 != ''">
+                artt6 = #{artt6},
+            </if>
+            <if test="snidCode != null and snidCode != ''">
+                snid_code = #{snidCode},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <update id="disassociation">
+        update wms_box set installation_id=null,installation_code=null,installation_status='OUT' where id=#{id}
+    </update>
+    <update id="updateToNotice">
+        update wms_box set notice_number_code=null where id=#{id}
+    </update>
+    <update id="updateWeight">
+        update wms_box set net_weight=#{countNetWeight},gross_weight=#{countGrossWeight} where id=#{id}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from wms_box where id = #{id}
+    </delete>
+    <delete id="deleteByBoxCode">
+        delete from wms_box where box_code = #{boxCode}
+    </delete>
+
+</mapper>

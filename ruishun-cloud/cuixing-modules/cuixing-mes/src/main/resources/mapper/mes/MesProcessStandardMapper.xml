@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cuixing.mes.mapper.MesProcessStandardMapper">
+    <resultMap type="com.cuixing.mes.entity.MesProcessStandard" id="MesProcessStandardMap">
+        <result property="id" column="id" jdbcType="BIGINT"/>
+        <result property="standardCode" column="standard_code" jdbcType="CHAR"/>
+        <result property="standardName" column="standard_name" jdbcType="VARCHAR"/>
+        <result property="customerId" column="customer_id" jdbcType="BIGINT"/>
+        <result property="customerName" column="customer_name" jdbcType="VARCHAR"/>
+        <result property="customerCode" column="customer_code" jdbcType="VARCHAR"/>
+        <result property="standardDiameter" column="standard_diameter" jdbcType="DECIMAL"/>
+        <result property="wireFilmMax" column="wire_film_max" jdbcType="DECIMAL"/>
+        <result property="wireThickMax" column="wire_thick_max" jdbcType="DECIMAL"/>
+        <result property="wireFilmMin" column="wire_film_min" jdbcType="DECIMAL"/>
+        <result property="wireThickMin" column="wire_thick_min" jdbcType="DECIMAL"/>
+        <result property="outsideDiameterMax" column="outside_diameter_max" jdbcType="DECIMAL"/>
+        <result property="conductorDeviation" column="conductor_deviation" jdbcType="DECIMAL"/>
+        <result property="conductorFNumber" column="Conductor_f_number" jdbcType="DECIMAL"/>
+        <result property="dcResistanceMin" column="dc_resistance_min" jdbcType="DECIMAL"/>
+        <result property="dcResistanceMax" column="dc_resistance_max" jdbcType="DECIMAL"/>
+        <result property="elongation" column="elongation" jdbcType="DECIMAL"/>
+        <result property="resilience" column="resilience" jdbcType="DECIMAL"/>
+        <result property="wind" column="wind" jdbcType="VARCHAR"/>
+        <result property="stretch" column="stretch" jdbcType="VARCHAR"/>
+        <result property="snapBreak" column="snap_break" jdbcType="VARCHAR"/>
+        <result property="strippingTwist" column="stripping_twist" jdbcType="VARCHAR"/>
+        <result property="thermalShock" column="thermal_shock" jdbcType="VARCHAR"/>
+        <result property="softeningImpact" column="softening_impact" jdbcType="VARCHAR"/>
+        <result property="softeningBreakdown" column="softening_breakdown" jdbcType="VARCHAR"/>
+        <result property="scraperPaintingOne" column="scraper_painting_one" jdbcType="DECIMAL"/>
+        <result property="scraperPaintingTwo" column="scraper_painting_two" jdbcType="DECIMAL"/>
+        <result property="solventResistance" column="solvent_resistance" jdbcType="VARCHAR"/>
+        <result property="roomtempBreakdown" column="roomtemp_breakdown" jdbcType="DECIMAL"/>
+        <result property="highPressurePinhole" column="high_pressure_pinhole" jdbcType="VARCHAR"/>
+        <result property="brinePinhole" column="brine_pinhole" jdbcType="VARCHAR"/>
+        <result property="solderability" column="solderability" jdbcType="VARCHAR"/>
+        <result property="appearance" column="appearance" jdbcType="VARCHAR"/>
+        <result property="packaged" column="packaged" jdbcType="VARCHAR"/>
+        <result property="envMaterial" column="env_material" jdbcType="VARCHAR"/>
+        <result property="otherRequirements" column="other_requirements" jdbcType="VARCHAR"/>
+        <result property="isDeleted" column="is_deleted" jdbcType="TINYINT"/>
+        <result property="version" column="version" jdbcType="INTEGER"/>
+        <result property="createBy" column="create_by" jdbcType="VARCHAR"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="updateBy" column="update_by" jdbcType="VARCHAR"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+        <result property="attr1" column="attr1" jdbcType="VARCHAR"/>
+        <result property="attr2" column="attr2" jdbcType="INTEGER"/>
+        <result property="attr3" column="attr3" jdbcType="VARCHAR"/>
+        <result property="attr5" column="attr5" jdbcType="DECIMAL"/>
+        <result property="attr6" column="attr6" jdbcType="VARCHAR"/>
+        <result property="attr7" column="attr7" jdbcType="VARCHAR"/>
+    </resultMap>
+    
+    <!-- 通过ID查询单条数据 -->
+    <select id="queryById" resultMap="MesProcessStandardMap">
+        select
+            id,standard_code,standard_name,customer_id,customer_name,customer_code,standard_diameter,wire_film_max,wire_thick_max,wire_film_min,wire_thick_min,outside_diameter_max,conductor_deviation,Conductor_f_number,dc_resistance_min,dc_resistance_max,elongation,resilience,wind,stretch,snap_break,stripping_twist,thermal_shock,softening_impact,softening_breakdown,scraper_painting_one,scraper_painting_two,solvent_resistance,roomtemp_breakdown,high_pressure_pinhole,brine_pinhole,solderability,appearance,packaged,env_material,other_requirements,is_deleted,version,create_by,create_time,update_by,update_time,attr1,attr2,attr3,attr5,attr6,attr7
+        from mes_process_standard
+        where is_deleted = 0 and  id = #{id}
+    </select>
+
+    <!-- 查询工艺标准 -->
+    <select id="getMesProcessStandardList" resultMap="MesProcessStandardMap">
+        select
+            id,standard_code,standard_name,customer_id,customer_name,customer_code,standard_diameter,wire_film_max,wire_thick_max,wire_film_min,wire_thick_min,outside_diameter_max,conductor_deviation,Conductor_f_number,dc_resistance_min,dc_resistance_max,elongation,resilience,wind,stretch,snap_break,stripping_twist,thermal_shock,softening_impact,softening_breakdown,scraper_painting_one,scraper_painting_two,solvent_resistance,roomtemp_breakdown,high_pressure_pinhole,brine_pinhole,solderability,appearance,packaged,env_material,other_requirements,is_deleted,version,create_by,create_time,update_by,update_time,attr1,attr2,attr3,attr5,attr6,attr7
+        from mes_process_standard
+        where is_deleted = 0 and  standard_code = #{standardCode}
+    </select>
+
+
+    
+    <!--分页查询指定行数据-->
+    <select id="selectMesProcessStandardList" resultMap="MesProcessStandardMap">
+        select
+            id,standard_code,standard_name,customer_id,customer_name,customer_code,standard_diameter,wire_film_max,wire_thick_max,wire_film_min,wire_thick_min,outside_diameter_max,conductor_deviation,Conductor_f_number,dc_resistance_min,dc_resistance_max,elongation,resilience,wind,stretch,snap_break,stripping_twist,thermal_shock,softening_impact,softening_breakdown,scraper_painting_one,scraper_painting_two,solvent_resistance,roomtemp_breakdown,high_pressure_pinhole,brine_pinhole,solderability,appearance,packaged,env_material,other_requirements,is_deleted,version,create_by,create_time,update_by,update_time,attr1,attr2,attr3,attr5,attr6,attr7
+        from mes_process_standard
+        <where>
+            is_deleted = 0
+            <if test="id != null and id != ''"> and id = #{id}</if>
+            <if test="standardCode != null and standardCode != ''"> and standard_code = #{standardCode}</if>
+            <if test="standardName != null and standardName != ''"> and standard_name = #{standardName}</if>
+            <if test="customerId != null and customerId != ''"> and customer_id = #{customerId}</if>
+            <if test="customerName != null and customerName != ''"> and customer_name = #{customerName}</if>
+            <if test="customerCode != null and customerCode != ''"> and customer_code = #{customerCode}</if>
+            <if test="standardDiameter != null and standardDiameter != ''"> and standard_diameter = #{standardDiameter}</if>
+            <if test="wireFilmMax != null and wireFilmMax != ''"> and wire_film_max = #{wireFilmMax}</if>
+            <if test="wireThickMax != null and wireThickMax != ''"> and wire_thick_max = #{wireThickMax}</if>
+            <if test="wireFilmMin != null and wireFilmMin != ''"> and wire_film_min = #{wireFilmMin}</if>
+            <if test="wireThickMin != null and wireThickMin != ''"> and wire_thick_min = #{wireThickMin}</if>
+            <if test="outsideDiameterMax != null and outsideDiameterMax != ''"> and outside_diameter_max = #{outsideDiameterMax}</if>
+            <if test="conductorDeviation != null and conductorDeviation != ''"> and conductor_deviation = #{conductorDeviation}</if>
+            <if test="conductorFNumber != null and conductorFNumber != ''"> and Conductor_f_number = #{conductorFNumber}</if>
+            <if test="dcResistanceMin != null and dcResistanceMin != ''"> and dc_resistance_min = #{dcResistanceMin}</if>
+            <if test="dcResistanceMax != null and dcResistanceMax != ''"> and dc_resistance_max = #{dcResistanceMax}</if>
+            <if test="elongation != null and elongation != ''"> and elongation = #{elongation}</if>
+            <if test="resilience != null and resilience != ''"> and resilience = #{resilience}</if>
+            <if test="wind != null and wind != ''"> and wind = #{wind}</if>
+            <if test="stretch != null and stretch != ''"> and stretch = #{stretch}</if>
+            <if test="snapBreak != null and snapBreak != ''"> and snap_break = #{snapBreak}</if>
+            <if test="strippingTwist != null and strippingTwist != ''"> and stripping_twist = #{strippingTwist}</if>
+            <if test="thermalShock != null and thermalShock != ''"> and thermal_shock = #{thermalShock}</if>
+            <if test="softeningImpact != null and softeningImpact != ''"> and softening_impact = #{softeningImpact}</if>
+            <if test="softeningBreakdown != null and softeningBreakdown != ''"> and softening_breakdown = #{softeningBreakdown}</if>
+            <if test="scraperPaintingOne != null and scraperPaintingOne != ''"> and scraper_painting_one = #{scraperPaintingOne}</if>
+            <if test="scraperPaintingTwo != null and scraperPaintingTwo != ''"> and scraper_painting_two = #{scraperPaintingTwo}</if>
+            <if test="solventResistance != null and solventResistance != ''"> and solvent_resistance = #{solventResistance}</if>
+            <if test="roomtempBreakdown != null and roomtempBreakdown != ''"> and roomtemp_breakdown = #{roomtempBreakdown}</if>
+            <if test="highPressurePinhole != null and highPressurePinhole != ''"> and high_pressure_pinhole = #{highPressurePinhole}</if>
+            <if test="brinePinhole != null and brinePinhole != ''"> and brine_pinhole = #{brinePinhole}</if>
+            <if test="solderability != null and solderability != ''"> and solderability = #{solderability}</if>
+            <if test="appearance != null and appearance != ''"> and appearance = #{appearance}</if>
+            <if test="packaged != null and packaged != ''"> and packaged = #{packaged}</if>
+            <if test="envMaterial != null and envMaterial != ''"> and env_material = #{envMaterial}</if>
+            <if test="otherRequirements != null and otherRequirements != ''"> and other_requirements = #{otherRequirements}</if>
+            <if test="isDeleted != null and isDeleted != ''"> and is_deleted = #{isDeleted}</if>
+            <if test="version != null and version != ''"> and version = #{version}</if>
+            <if test="createBy != null and createBy != ''"> and create_by = #{createBy}</if>
+            <if test="createTime != null and createTime != ''"> and create_time = #{createTime}</if>
+            <if test="updateBy != null and updateBy != ''"> and update_by = #{updateBy}</if>
+            <if test="updateTime != null and updateTime != ''"> and update_time = #{updateTime}</if>
+            <if test="attr1 != null and attr1 != ''"> and attr1 = #{attr1}</if>
+            <if test="attr2 != null and attr2 != ''"> and attr2 = #{attr2}</if>
+            <if test="attr3 != null and attr3 != ''"> and attr3 = #{attr3}</if>
+            <if test="attr5 != null and attr5 != ''"> and attr5 = #{attr5}</if>
+            <if test="attr6 != null and attr6 != ''"> and attr6 = #{attr6}</if>
+            <if test="attr7 != null and attr7 != ''"> and attr7 = #{attr7}</if>
+        </where>
+        order by create_time desc
+    </select>
+    
+    <!--新增数据-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into mes_process_standard
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null ">id,</if>
+            <if test="standardCode != null and standardCode != ''">standard_code,</if>
+            <if test="standardName != null and standardName != ''">standard_name,</if>
+            <if test="customerId != null ">customer_id,</if>
+            <if test="customerName != null and customerName != ''">customer_name,</if>
+            <if test="customerCode != null and customerCode != ''">customer_code,</if>
+            <if test="standardDiameter != null ">standard_diameter,</if>
+            <if test="wireFilmMax != null ">wire_film_max,</if>
+            <if test="wireThickMax != null ">wire_thick_max,</if>
+            <if test="wireFilmMin != null ">wire_film_min,</if>
+            <if test="wireThickMin != null ">wire_thick_min,</if>
+            <if test="outsideDiameterMax != null ">outside_diameter_max,</if>
+            <if test="conductorDeviation != null ">conductor_deviation,</if>
+            <if test="conductorFNumber != null ">Conductor_f_number,</if>
+            <if test="dcResistanceMin != null ">dc_resistance_min,</if>
+            <if test="dcResistanceMax != null ">dc_resistance_max,</if>
+            <if test="elongation != null ">elongation,</if>
+            <if test="resilience != null ">resilience,</if>
+            <if test="wind != null and wind != ''">wind,</if>
+            <if test="stretch != null and stretch != ''">stretch,</if>
+            <if test="snapBreak != null and snapBreak != ''">snap_break,</if>
+            <if test="strippingTwist != null and strippingTwist != ''">stripping_twist,</if>
+            <if test="thermalShock != null and thermalShock != ''">thermal_shock,</if>
+            <if test="softeningImpact != null and softeningImpact != ''">softening_impact,</if>
+            <if test="softeningBreakdown != null and softeningBreakdown != ''">softening_breakdown,</if>
+            <if test="scraperPaintingOne != null ">scraper_painting_one,</if>
+            <if test="scraperPaintingTwo != null ">scraper_painting_two,</if>
+            <if test="solventResistance != null and solventResistance != ''">solvent_resistance,</if>
+            <if test="roomtempBreakdown != null ">roomtemp_breakdown,</if>
+            <if test="highPressurePinhole != null and highPressurePinhole != ''">high_pressure_pinhole,</if>
+            <if test="brinePinhole != null and brinePinhole != ''">brine_pinhole,</if>
+            <if test="solderability != null and solderability != ''">solderability,</if>
+            <if test="appearance != null and appearance != ''">appearance,</if>
+            <if test="packaged != null and packaged != ''">packaged,</if>
+            <if test="envMaterial != null and envMaterial != ''">env_material,</if>
+            <if test="otherRequirements != null and otherRequirements != ''">other_requirements,</if>
+            <if test="isDeleted != null ">is_deleted,</if>
+            <if test="version != null ">version,</if>
+            <if test="createBy != null and createBy != ''">create_by,</if>
+            <if test="createTime != null ">create_time,</if>
+            <if test="updateBy != null and updateBy != ''">update_by,</if>
+            <if test="updateTime != null ">update_time,</if>
+            <if test="attr1 != null and attr1 != ''">attr1,</if>
+            <if test="attr2 != null ">attr2,</if>
+            <if test="attr3 != null and attr3 != ''">attr3,</if>
+            <if test="attr5 != null ">attr5,</if>
+            <if test="attr6 != null and attr6 != ''">attr6,</if>
+            <if test="attr7 != null and attr7 != ''">attr7,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">#{id},</if>
+            <if test="standardCode != null and standardCode != ''">#{standardCode},</if>
+            <if test="standardName != null and standardName != ''">#{standardName},</if>
+            <if test="customerId != null">#{customerId},</if>
+            <if test="customerName != null and customerName != ''">#{customerName},</if>
+            <if test="customerCode != null and customerCode != ''">#{customerCode},</if>
+            <if test="standardDiameter != null">#{standardDiameter},</if>
+            <if test="wireFilmMax != null">#{wireFilmMax},</if>
+            <if test="wireThickMax != null">#{wireThickMax},</if>
+            <if test="wireFilmMin != null">#{wireFilmMin},</if>
+            <if test="wireThickMin != null">#{wireThickMin},</if>
+            <if test="outsideDiameterMax != null">#{outsideDiameterMax},</if>
+            <if test="conductorDeviation != null">#{conductorDeviation},</if>
+            <if test="conductorFNumber != null">#{conductorFNumber},</if>
+            <if test="dcResistanceMin != null">#{dcResistanceMin},</if>
+            <if test="dcResistanceMax != null">#{dcResistanceMax},</if>
+            <if test="elongation != null">#{elongation},</if>
+            <if test="resilience != null">#{resilience},</if>
+            <if test="wind != null and wind != ''">#{wind},</if>
+            <if test="stretch != null and stretch != ''">#{stretch},</if>
+            <if test="snapBreak != null and snapBreak != ''">#{snapBreak},</if>
+            <if test="strippingTwist != null and strippingTwist != ''">#{strippingTwist},</if>
+            <if test="thermalShock != null and thermalShock != ''">#{thermalShock},</if>
+            <if test="softeningImpact != null and softeningImpact != ''">#{softeningImpact},</if>
+            <if test="softeningBreakdown != null and softeningBreakdown != ''">#{softeningBreakdown},</if>
+            <if test="scraperPaintingOne != null">#{scraperPaintingOne},</if>
+            <if test="scraperPaintingTwo != null">#{scraperPaintingTwo},</if>
+            <if test="solventResistance != null and solventResistance != ''">#{solventResistance},</if>
+            <if test="roomtempBreakdown != null">#{roomtempBreakdown},</if>
+            <if test="highPressurePinhole != null and highPressurePinhole != ''">#{highPressurePinhole},</if>
+            <if test="brinePinhole != null and brinePinhole != ''">#{brinePinhole},</if>
+            <if test="solderability != null and solderability != ''">#{solderability},</if>
+            <if test="appearance != null and appearance != ''">#{appearance},</if>
+            <if test="packaged != null and packaged != ''">#{packaged},</if>
+            <if test="envMaterial != null and envMaterial != ''">#{envMaterial},</if>
+            <if test="otherRequirements != null and otherRequirements != ''">#{otherRequirements},</if>
+            <if test="isDeleted != null">#{isDeleted},</if>
+            <if test="version != null">#{version},</if>
+            <if test="createBy != null and createBy != ''">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null and updateBy != ''">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="attr1 != null and attr1 != ''">#{attr1},</if>
+            <if test="attr2 != null">#{attr2},</if>
+            <if test="attr3 != null and attr3 != ''">#{attr3},</if>
+            <if test="attr5 != null">#{attr5},</if>
+            <if test="attr6 != null and attr6 != ''">#{attr6},</if>
+            <if test="attr7 != null and attr7 != ''">#{attr7},</if>
+        </trim>
+    </insert>
+    
+    <!-- 更新数据 -->
+    <update id="update">
+        update mes_process_standard
+        <set>
+            <trim suffixOverrides=",">
+                <if test="standardCode != null "> standard_code = #{standardCode}, </if>
+                <if test="standardName != null "> standard_name = #{standardName}, </if>
+                <if test="customerId != null "> customer_id = #{customerId}, </if>
+                <if test="customerName != null "> customer_name = #{customerName}, </if>
+                <if test="customerCode != null "> customer_code = #{customerCode}, </if>
+                <if test="standardDiameter != null "> standard_diameter = #{standardDiameter}, </if>
+                <if test="wireFilmMax != null "> wire_film_max = #{wireFilmMax}, </if>
+                <if test="wireThickMax != null "> wire_thick_max = #{wireThickMax}, </if>
+                <if test="wireFilmMin != null "> wire_film_min = #{wireFilmMin}, </if>
+                <if test="wireThickMin != null "> wire_thick_min = #{wireThickMin}, </if>
+                <if test="outsideDiameterMax != null "> outside_diameter_max = #{outsideDiameterMax}, </if>
+                <if test="conductorDeviation != null "> conductor_deviation = #{conductorDeviation}, </if>
+                <if test="conductorFNumber != null "> Conductor_f_number = #{conductorFNumber}, </if>
+                <if test="dcResistanceMin != null "> dc_resistance_min = #{dcResistanceMin}, </if>
+                <if test="dcResistanceMax != null "> dc_resistance_max = #{dcResistanceMax}, </if>
+                <if test="elongation != null "> elongation = #{elongation}, </if>
+                <if test="resilience != null "> resilience = #{resilience}, </if>
+                <if test="wind != null "> wind = #{wind}, </if>
+                <if test="stretch != null "> stretch = #{stretch}, </if>
+                <if test="snapBreak != null "> snap_break = #{snapBreak}, </if>
+                <if test="strippingTwist != null "> stripping_twist = #{strippingTwist}, </if>
+                <if test="thermalShock != null "> thermal_shock = #{thermalShock}, </if>
+                <if test="softeningImpact != null "> softening_impact = #{softeningImpact}, </if>
+                <if test="softeningBreakdown != null "> softening_breakdown = #{softeningBreakdown}, </if>
+                <if test="scraperPaintingOne != null "> scraper_painting_one = #{scraperPaintingOne}, </if>
+                <if test="scraperPaintingTwo != null "> scraper_painting_two = #{scraperPaintingTwo}, </if>
+                <if test="solventResistance != null "> solvent_resistance = #{solventResistance}, </if>
+                <if test="roomtempBreakdown != null "> roomtemp_breakdown = #{roomtempBreakdown}, </if>
+                <if test="highPressurePinhole != null "> high_pressure_pinhole = #{highPressurePinhole}, </if>
+                <if test="brinePinhole != null "> brine_pinhole = #{brinePinhole}, </if>
+                <if test="solderability != null "> solderability = #{solderability}, </if>
+                <if test="appearance != null "> appearance = #{appearance}, </if>
+                <if test="packaged != null "> packaged = #{packaged}, </if>
+                <if test="envMaterial != null "> env_material = #{envMaterial}, </if>
+                <if test="otherRequirements != null "> other_requirements = #{otherRequirements}, </if>
+                <if test="isDeleted != null "> is_deleted = #{isDeleted}, </if>
+                <if test="version != null "> version = #{version}, </if>
+                <if test="createBy != null "> create_by = #{createBy}, </if>
+                <if test="createTime != null "> create_time = #{createTime}, </if>
+                <if test="updateBy != null "> update_by = #{updateBy}, </if>
+                <if test="updateTime != null "> update_time = #{updateTime}, </if>
+                <if test="attr1 != null "> attr1 = #{attr1}, </if>
+                <if test="attr2 != null "> attr2 = #{attr2}, </if>
+                <if test="attr3 != null "> attr3 = #{attr3}, </if>
+                <if test="attr5 != null "> attr5 = #{attr5}, </if>
+                <if test="attr6 != null "> attr6 = #{attr6}, </if>
+                <if test="attr7 != null "> attr7 = #{attr7}, </if>
+            </trim>
+        </set>
+        where id = #{id} and version = #{version}
+    </update>
+    
+    <!--逻辑删除删除-->
+    <update id="deleteById">
+        update mes_process_standard set is_deleted = 1 where id = #{id}
+    </update>
+    
+    <!--批量逻辑删除-->
+    <update id="deleteByIds">
+        update mes_process_standard set is_deleted = 1 where id in
+        <foreach collection="array" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </update>
+</mapper>

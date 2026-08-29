@@ -1,0 +1,387 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cuixing.mes.mapper.MesProductWorkorderEntryMapper">
+    <resultMap type="com.cuixing.system.api.domain.mes.MesProductWorkorderEntry" id="MesProductWorkorderEntryMap">
+        <result property="id" column="id" jdbcType="BIGINT"/>
+        <result property="workorderId" column="workorder_id" jdbcType="BIGINT"/>
+        <result property="productId" column="product_id" jdbcType="BIGINT"/>
+        <result property="productCode" column="product_code" jdbcType="VARCHAR"/>
+        <result property="productName" column="product_name" jdbcType="VARCHAR"/>
+        <result property="productSize" column="product_size" jdbcType="VARCHAR"/>
+        <result property="routingId" column="routing_id" jdbcType="BIGINT"/>
+        <result property="planDate" column="plan_date" jdbcType="TIMESTAMP"/>
+        <result property="planWeight" column="plan_weight" jdbcType="DECIMAL"/>
+        <result property="planNum" column="plan_num" jdbcType="DECIMAL"/>
+        <result property="isDone" column="is_done" jdbcType="INTEGER"/>
+        <result property="version" column="version" jdbcType="INTEGER"/>
+        <result property="isDeleted" column="is_deleted" jdbcType="INTEGER"/>
+        <result property="createBy" column="create_by" jdbcType="VARCHAR"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="updateBy" column="update_by" jdbcType="VARCHAR"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+        <result property="attr1" column="attr1" jdbcType="VARCHAR"/>
+        <result property="attr2" column="attr2" jdbcType="INTEGER"/>
+        <result property="attr3" column="attr3" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!-- 通过ID查询单条数据 -->
+    <select id="queryById" resultMap="MesProductWorkorderEntryMap">
+        select
+        id,workorder_id,product_id,product_code,product_name,product_size,routing_id,plan_date,plan_weight,plan_num,is_done,version,is_deleted,create_by,create_time,update_by,update_time,attr1,attr2,attr3
+        from mes_product_workorder_entry
+        where is_deleted = 0 and id = #{id}
+    </select>
+
+    <!--分页查询指定行数据-->
+    <select id="selectMesProductWorkorderEntryList" resultMap="MesProductWorkorderEntryMap" parameterType="com.cuixing.system.api.domain.mes.MesProductWorkorderEntry">
+        select
+        d.id,d.workorder_id,d.product_id,d.product_code,d.product_name,d.product_size,d.routing_id,d.plan_date,d.plan_weight,d.plan_num,d.is_done,d.version,d.is_deleted,d.create_by,d.create_time,d.update_by,d.update_time,d.attr1,d.attr2,d.attr3
+        from mes_product_workorder_entry d
+        <where>
+            is_deleted = 0
+            <if test="id != null ">
+                and id = #{id}
+            </if>
+            <if test="workorderId != null ">
+                and workorder_id = #{workorderId}
+            </if>
+            <if test="productId != null ">
+                and product_id = #{productId}
+            </if>
+            <if test="productCode != null and productCode != ''">
+                and product_code = #{productCode}
+            </if>
+            <if test="productName != null and productName != ''">
+                and product_name = #{productName}
+            </if>
+            <if test="productSize != null and productSize != ''">
+                and product_size = #{productSize}
+            </if>
+            <if test="routingId != null ">
+                and routing_id = #{routingId}
+            </if>
+            <if test="planDate != null ">
+                and plan_date = #{planDate}
+            </if>
+            <if test="planWeight != null ">
+                and plan_weight = #{planWeight}
+            </if>
+            <if test="planNum != null ">
+                and plan_num = #{planNum}
+            </if>
+            <if test="isDone != null ">
+                and is_done = #{isDone}
+            </if>
+            <if test="version != null ">
+                and version = #{version}
+            </if>
+            <if test="isDeleted != null ">
+                and is_deleted = #{isDeleted}
+            </if>
+            <if test="createBy != null and createBy != ''">
+                and create_by = #{createBy}
+            </if>
+            <if test="createTime != null ">
+                and create_time = #{createTime}
+            </if>
+            <if test="updateBy != null and updateBy != ''">
+                and update_by = #{updateBy}
+            </if>
+            <if test="updateTime != null ">
+                and update_time = #{updateTime}
+            </if>
+            <if test="attr1 != null and attr1 != ''">
+                and attr1 = #{attr1}
+            </if>
+            <if test="attr2 != null ">
+                and attr2 = #{attr2}
+            </if>
+            <if test="attr3 != null and attr3 != ''">
+                and attr3 = #{attr3}
+            </if>
+        </where>
+        order by create_time desc
+    </select>
+
+    <!--统计总行数-->
+    <select id="count" resultType="java.lang.Long">
+        select count(1)
+        from mes_product_workorder_entry
+        <where>
+            is_deleted = 0
+            <if test="id != null ">
+                and id = #{id}
+            </if>
+            <if test="workorderId != null ">
+                and workorder_id = #{workorderId}
+            </if>
+            <if test="productId != null ">
+                and product_id = #{productId}
+            </if>
+            <if test="productCode != null and productCode != ''">
+                and product_code = #{productCode}
+            </if>
+            <if test="productName != null and productName != ''">
+                and product_name = #{productName}
+            </if>
+            <if test="productSize != null and productSize != ''">
+                and product_size = #{productSize}
+            </if>
+            <if test="routingId != null ">
+                and routing_id = #{routingId}
+            </if>
+            <if test="planDate != null ">
+                and plan_date = #{planDate}
+            </if>
+            <if test="planWeight != null ">
+                and plan_weight = #{planWeight}
+            </if>
+            <if test="planNum != null ">
+                and plan_num = #{planNum}
+            </if>
+            <if test="isDone != null ">
+                and is_done = #{isDone}
+            </if>
+            <if test="version != null ">
+                and version = #{version}
+            </if>
+            <if test="isDeleted != null ">
+                and is_deleted = #{isDeleted}
+            </if>
+            <if test="createBy != null and createBy != ''">
+                and create_by = #{createBy}
+            </if>
+            <if test="createTime != null ">
+                and create_time = #{createTime}
+            </if>
+            <if test="updateBy != null and updateBy != ''">
+                and update_by = #{updateBy}
+            </if>
+            <if test="updateTime != null ">
+                and update_time = #{updateTime}
+            </if>
+            <if test="attr1 != null and attr1 != ''">
+                and attr1 = #{attr1}
+            </if>
+            <if test="attr2 != null ">
+                and attr2 = #{attr2}
+            </if>
+            <if test="attr3 != null and attr3 != ''">
+                and attr3 = #{attr3}
+            </if>
+        </where>
+    </select>
+
+    <!--新增数据-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into mes_product_workorder_entry
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="workorderId != null ">workorder_id,</if>
+            <if test="productId != null ">product_id,</if>
+            <if test="productCode != null and productCode != ''">product_code,</if>
+            <if test="productName != null and productName != ''">product_name,</if>
+            <if test="productSize != null and productSize != ''">product_size,</if>
+            <if test="routingId != null ">routing_id,</if>
+            <if test="planDate != null ">plan_date,</if>
+            <if test="planWeight != null ">plan_weight,</if>
+            <if test="planNum != null ">plan_num,</if>
+            <if test="isDone != null ">is_done,</if>
+            <if test="version != null ">version,</if>
+            <if test="isDeleted != null ">is_deleted,</if>
+            <if test="createBy != null and createBy != ''">create_by,</if>
+            <if test="createTime != null ">create_time,</if>
+            <if test="updateBy != null and updateBy != ''">update_by,</if>
+            <if test="updateTime != null ">update_time,</if>
+            <if test="attr1 != null and attr1 != ''">attr1,</if>
+            <if test="attr2 != null ">attr2,</if>
+            <if test="attr3 != null and attr3 != ''">attr3,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="workorderId != null ">#{workorderId},</if>
+            <if test="productId != null ">#{productId},</if>
+            <if test="productCode != null and productCode != ''">#{productCode},</if>
+            <if test="productName != null and productName != ''">#{productName},</if>
+            <if test="productSize != null and productSize != ''">#{productSize},</if>
+            <if test="routingId != null ">#{routingId},</if>
+            <if test="planDate != null ">#{planDate},</if>
+            <if test="planWeight != null ">#{planWeight},</if>
+            <if test="planNum != null ">#{planNum},</if>
+            <if test="isDone != null ">#{isDone},</if>
+            <if test="version != null ">#{version},</if>
+            <if test="isDeleted != null ">#{isDeleted},</if>
+            <if test="createBy != null and createBy != ''">#{createBy},</if>
+            <if test="createTime != null ">#{createTime},</if>
+            <if test="updateBy != null and updateBy != ''">#{updateBy},</if>
+            <if test="updateTime != null ">#{updateTime},</if>
+            <if test="attr1 != null and attr1 != ''">#{attr1},</if>
+            <if test="attr2 != null ">#{attr2},</if>
+            <if test="attr3 != null and attr3 != ''">#{attr3},</if>
+        </trim>
+    </insert>
+
+    <!-- 批量新增数据 -->
+    <!--<insert id="insertBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into mes_product_workorder_entry
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="workorderId != null ">workorder_id,</if>
+            <if test="productId != null ">product_id,</if>
+            <if test="productCode != null and productCode != ''">product_code,</if>
+            <if test="productName != null and productName != ''">product_name,</if>
+            <if test="productSize != null and productSize != ''">product_size,</if>
+            <if test="routingId != null ">routing_id,</if>
+            <if test="planDate != null ">plan_date,</if>
+            <if test="planWeight != null ">plan_weight,</if>
+            <if test="planNum != null ">plan_num,</if>
+            <if test="isDone != null ">is_done,</if>
+            <if test="version != null ">version,</if>
+            <if test="isDeleted != null ">is_deleted,</if>
+            <if test="createBy != null and createBy != ''">create_by,</if>
+            <if test="createTime != null ">create_time,</if>
+            <if test="updateBy != null and updateBy != ''">update_by,</if>
+            <if test="updateTime != null ">update_time,</if>
+            <if test="attr1 != null and attr1 != ''">attr1,</if>
+            <if test="attr2 != null ">attr2,</if>
+            <if test="attr3 != null and attr3 != ''">attr3,</if>
+        </trim>
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            <trim prefix="(" suffix=")" suffixOverrides=",">
+                    <if test="entity.id != null ">#{entity.id},</if>
+                    <if test="entity.workorderId != null ">#{entity.workorderId},</if>
+                    <if test="entity.productId != null ">#{entity.productId},</if>
+                    <if test="entity.productCode != null and entity.productCode != ''">#{entity.productCode},</if>
+                    <if test="entity.productName != null and entity.productName != ''">#{entity.productName},</if>
+                    <if test="entity.productSize != null and entity.productSize != ''">#{entity.productSize},</if>
+                    <if test="entity.routingId != null ">#{entity.routingId},</if>
+                    <if test="entity.planDate != null ">#{entity.planDate},</if>
+                    <if test="entity.planWeight != null ">#{entity.planWeight},</if>
+                    <if test="entity.planNum != null ">#{entity.planNum},</if>
+                    <if test="entity.isDone != null ">#{entity.isDone},</if>
+                    <if test="entity.version != null ">#{entity.version},</if>
+                    <if test="entity.isDeleted != null ">#{entity.isDeleted},</if>
+                    <if test="entity.createBy != null and entity.createBy != ''">#{entity.createBy},</if>
+                    <if test="entity.createTime != null ">#{entity.createTime},</if>
+                    <if test="entity.updateBy != null and entity.updateBy != ''">#{entity.updateBy},</if>
+                    <if test="entity.updateTime != null ">#{entity.updateTime},</if>
+                    <if test="entity.attr1 != null and entity.attr1 != ''">#{entity.attr1},</if>
+                    <if test="entity.attr2 != null ">#{entity.attr2},</if>
+                    <if test="entity.attr3 != null and entity.attr3 != ''">#{entity.attr3},</if>
+            </trim>
+        </foreach>
+    </insert>-->
+
+    <!-- 批量新增或按主键更新数据 -->
+    <insert id="insertOrUpdateBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into mes_product_workorder_entry(id,workorder_id,product_id,product_code,product_name,product_size,routing_id,plan_date,plan_weight,plan_num,is_done,version,is_deleted,create_by,create_time,update_by,update_time,attr1,attr2,attr3)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.id},#{entity.workorderId},#{entity.productId},#{entity.productCode},#{entity.productName},#{entity.productSize},#{entity.routingId},#{entity.planDate},#{entity.planWeight},#{entity.planNum},#{entity.isDone},#{entity.version},#{entity.isDeleted},#{entity.createBy},#{entity.createTime},#{entity.updateBy},#{entity.updateTime},#{entity.attr1},#{entity.attr2},#{entity.attr3})
+        </foreach>
+        on duplicate key update
+        id=values(id),
+        workorder_id=values(workorder_id),
+        product_id=values(product_id),
+        product_code=values(product_code),
+        product_name=values(product_name),
+        product_size=values(product_size),
+        routing_id=values(routing_id),
+        plan_date=values(plan_date),
+        plan_weight=values(plan_weight),
+        plan_num=values(plan_num),
+        is_done=values(is_done),
+        version=values(version),
+        is_deleted=values(is_deleted),
+        create_by=values(create_by),
+        create_time=values(create_time),
+        update_by=values(update_by),
+        update_time=values(update_time),
+        attr1=values(attr1),
+        attr2=values(attr2),
+        attr3=values(attr3)
+    </insert>
+
+    <!-- 更新数据 -->
+    <update id="update">
+        update mes_product_workorder_entry
+        <set>
+            <trim suffixOverrides=",">
+                <if test="workorderId != null">
+                    workorder_id = #{workorderId},
+                </if>
+                <if test="productId != null">
+                    product_id = #{productId},
+                </if>
+                <if test="productCode != null">
+                    product_code = #{productCode},
+                </if>
+                <if test="productName != null">
+                    product_name = #{productName},
+                </if>
+                <if test="productSize != null">
+                    product_size = #{productSize},
+                </if>
+                <if test="routingId != null">
+                    routing_id = #{routingId},
+                </if>
+                <if test="planDate != null">
+                    plan_date = #{planDate},
+                </if>
+                <if test="planWeight != null">
+                    plan_weight = #{planWeight},
+                </if>
+                <if test="planNum != null">
+                    plan_num = #{planNum},
+                </if>
+                <if test="isDone != null">
+                    is_done = #{isDone},
+                </if>
+                <if test="version != null">
+                    version = #{version}+1,
+                </if>
+                <if test="isDeleted != null">
+                    is_deleted = #{isDeleted},
+                </if>
+                <if test="createBy != null">
+                    create_by = #{createBy},
+                </if>
+                <if test="createTime != null">
+                    create_time = #{createTime},
+                </if>
+                <if test="updateBy != null">
+                    update_by = #{updateBy},
+                </if>
+                <if test="updateTime != null">
+                    update_time = #{updateTime},
+                </if>
+                <if test="attr1 != null">
+                    attr1 = #{attr1},
+                </if>
+                <if test="attr2 != null">
+                    attr2 = #{attr2},
+                </if>
+                <if test="attr3 != null">
+                    attr3 = #{attr3},
+                </if>
+            </trim>
+        </set>
+        where id = #{id} and version = #{version}
+    </update>
+
+    <!--逻辑删除-->
+    <update id="deleteById">
+        update mes_product_workorder_entry set is_deleted = 1 where id = #{id}
+    </update>
+
+    <!--批量逻辑删除-->
+    <update id="deleteByIds">
+        update mes_product_workorder_entry set is_deleted = 1 where id in
+        <foreach collection="array" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </update>
+
+    <!--物理删除-->
+    <delete id="removeById">
+        delete from mes_product_workorder_entry where id = #{id}
+    </delete>
+</mapper>

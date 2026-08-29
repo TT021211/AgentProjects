@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.cuixing</groupId>
+        <artifactId>cuixing-modules</artifactId>
+        <version>1.0.1</version>
+    </parent>
+
+    <artifactId>cuixing-modules-ecm</artifactId>
+
+    <description>cuixing-modules-ecm模块</description>
+
+    <dependencies>
+        <!-- SpringCloud Alibaba Nacos -->
+        <dependency>
+            <groupId>com.alibaba.cloud</groupId>
+            <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
+        </dependency>
+
+        <!-- SpringCloud Alibaba Nacos Config -->
+        <dependency>
+            <groupId>com.alibaba.cloud</groupId>
+            <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
+        </dependency>
+
+        <!-- SpringCloud Alibaba Sentinel -->
+        <dependency>
+            <groupId>com.alibaba.cloud</groupId>
+            <artifactId>spring-cloud-starter-alibaba-sentinel</artifactId>
+        </dependency>
+
+
+        <!-- Mysql Connector -->
+        <dependency>
+            <groupId>com.mysql</groupId>
+            <artifactId>mysql-connector-j</artifactId>
+        </dependency>
+
+        <!-- cuixing Common DataSource -->
+        <dependency>
+            <groupId>com.cuixing</groupId>
+            <artifactId>cx-common-datasource</artifactId>
+        </dependency>
+
+        <!-- cuixing Common DataScope -->
+        <dependency>
+            <groupId>com.cuixing</groupId>
+            <artifactId>cx-common-datascope</artifactId>
+        </dependency>
+
+        <!-- cuixing Common Log -->
+        <dependency>
+            <groupId>com.cuixing</groupId>
+            <artifactId>cx-common-log</artifactId>
+        </dependency>
+
+        <!-- cuixing Common Swagger -->
+        <dependency>
+            <groupId>com.cuixing</groupId>
+            <artifactId>cx-common-swagger</artifactId>
+        </dependency>
+
+        <!--        <dependency>-->
+        <!--            <groupId>com.cuixing</groupId>-->
+        <!--            <artifactId>cuixing-common-seata</artifactId>-->
+        <!--        </dependency>-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.cuixing</groupId>
+            <artifactId>cx-common-security</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.ibm.icu</groupId>
+            <artifactId>icu4j</artifactId>
+            <version>61.1</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.cuixing</groupId>
+            <artifactId>cuixing-api-system</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+
+    <build>
+        <finalName>${project.artifactId}</finalName>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>

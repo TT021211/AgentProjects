@@ -1,0 +1,22 @@
+package com.cuixing;
+
+import com.cuixing.common.security.annotation.EnableCustomConfig;
+import com.cuixing.common.security.annotation.EnableRyFeignClients;
+import com.cuixing.common.swagger.annotation.EnableCustomSwagger2;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cache.annotation.EnableCaching;
+
+@EnableCustomConfig
+@EnableCustomSwagger2
+@EnableRyFeignClients
+@SpringBootApplication
+@EnableCaching
+public class CuixingProcureApplication {
+
+    public static void main(String[] args) {
+        SpringApplication.run(CuixingProcureApplication.class, args);
+        System.out.println("(♥◠‿◠)ﾉﾞ  销售服务启动成功   ლ(´ڡ`ლ)ﾞ  \n");
+    }
+
+}

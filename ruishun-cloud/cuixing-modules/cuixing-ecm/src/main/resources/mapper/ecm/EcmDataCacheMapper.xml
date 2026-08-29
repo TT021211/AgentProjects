@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cuixing.ecm.mapper.EcmDataCacheMapper">
+    <resultMap type="com.cuixing.ecm.domain.EcmDataCache" id="EcmDataCacheMap">
+        <result property="id" column="id" jdbcType="BIGINT"/>
+        <result property="electricDeviceCode" column="electric_device_code" jdbcType="VARCHAR"/>
+        <result property="type" column="type" jdbcType="VARCHAR"/>
+        <result property="date" column="date" jdbcType="VARCHAR"/>
+        <result property="value" column="value" jdbcType="DECIMAL"/>
+        <result property="electricCharge" column="electric_charge" jdbcType="DECIMAL"/>
+    </resultMap>
+    
+    <!-- 通过ID查询单条数据 -->
+    <select id="queryById" resultMap="EcmDataCacheMap">
+        select
+            id,electric_device_code,type,date,value,electric_charge
+        from ecm_data_cache
+        where  id = #{id}
+    </select>
+    
+    <!--分页查询指定行数据-->
+    <select id="selectEcmDataCacheList" resultMap="EcmDataCacheMap">
+        select
+            id,electric_device_code,type,date,value,electric_charge
+        from ecm_data_cache
+        <where>
+            is_deleted = 0
+            <if test="id != null and id != ''"> and id = #{id}</if>
+            <if test="electricDeviceCode != null and electricDeviceCode != ''"> and electric_device_code = #{electricDeviceCode}</if>
+            <if test="type != null and type != ''"> and type = #{type}</if>
+            <if test="date != null and date != ''"> and date = #{date}</if>
+            <if test="value != null and value != ''"> and value = #{value}</if>
+            <if test="electricCharge != null and electricCharge != ''"> and electric_charge = #{electricCharge}</if>
+        </where>
+        order by create_time desc
+    </select>
+    
+    <!--新增数据-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into ecm_data_cache
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null ">id,</if>
+            <if test="electricDeviceCode != null and electricDeviceCode != ''">electric_device_code,</if>
+            <if test="type != null and type != ''">type,</if>
+            <if test="date != null and date != ''">date,</if>
+            <if test="value != null ">value,</if>
+            <if test="electricCharge != null ">electric_charge,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">#{id},</if>
+            <if test="electricDeviceCode != null and electricDeviceCode != ''">#{electricDeviceCode},</if>
+            <if test="type != null and type != ''">#{type},</if>
+            <if test="date != null and date != ''">#{date},</if>
+            <if test="value != null">#{value},</if>
+            <if test="electricCharge != null">#{electricCharge},</if>
+        </trim>
+    </insert>
+    
+    <!-- 更新数据 -->
+    <update id="update">
+        update ecm_data_cache
+        <set>
+            <trim suffixOverrides=",">
+                <if test="electricDeviceCode != null "> electric_device_code = #{electricDeviceCode}, </if>
+                <if test="type != null "> type = #{type}, </if>
+                <if test="date != null "> date = #{date}, </if>
+                <if test="value != null "> value = #{value}, </if>
+                <if test="electricCharge != null "> electric_charge = #{electricCharge}, </if>
+            </trim>
+        </set>
+        where id = #{id} and version = #{version}
+    </update>
+    
+    <!--逻辑删除删除-->
+    <delete id="deleteById">
+       delete from ecm_data_cache where id = #{id}
+    </delete>
+    
+    <!--批量逻辑删除-->
+    <delete id="deleteByIds">
+        delete from ecm_data_cache where id in
+        <foreach collection="array" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

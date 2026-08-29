@@ -1,0 +1,510 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cuixing.md.mapper.MdItemMapper">
+	<resultMap type="com.cuixing.system.api.domain.md.MdItem" id="MdItemMap">
+		<result property="id" column="id" jdbcType="BIGINT"/>
+		<result property="itemCode" column="item_code" jdbcType="VARCHAR"/>
+		<result property="itemName" column="item_name" jdbcType="VARCHAR"/>
+		<result property="specification" column="specification" jdbcType="VARCHAR"/>
+		<result property="numMeasureId" column="num_measure_id" jdbcType="BIGINT"/>
+		<result property="numMeasureName" column="num_measure_name" jdbcType="VARCHAR"/>
+		<result property="weightMeasureId" column="weight_measure_id" jdbcType="BIGINT"/>
+		<result property="weightMeasureName" column="weight_measure_name" jdbcType="VARCHAR"/>
+		<result property="itemTypeId" column="item_type_id" jdbcType="BIGINT"/>
+		<result property="itemTypeCode" column="item_type_code" jdbcType="VARCHAR"/>
+		<result property="itemTypeName" column="item_type_name" jdbcType="VARCHAR"/>
+		<result property="workstageId" column="workstage_id" jdbcType="BIGINT"/>
+		<result property="workstageName" column="workstage_name" jdbcType="VARCHAR"/>
+		<result property="ifEnable" column="if_enable" jdbcType="INTEGER"/>
+		<result property="ifSafeStock" column="if_safe_stock" jdbcType="INTEGER"/>
+		<result property="minStock" column="min_stock" jdbcType="DECIMAL"/>
+		<result property="maxStock" column="max_stock" jdbcType="DECIMAL"/>
+		<result property="remark" column="remark" jdbcType="VARCHAR"/>
+		<result property="version" column="version" jdbcType="INTEGER"/>
+		<result property="isDeleted" column="is_deleted" jdbcType="INTEGER"/>
+		<result property="attr1" column="attr1" jdbcType="VARCHAR"/>
+		<result property="attr2" column="attr2" jdbcType="INTEGER"/>
+		<result property="attr3" column="attr3" jdbcType="VARCHAR"/>
+		<result property="createBy" column="create_by" jdbcType="VARCHAR"/>
+		<result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+		<result property="updateBy" column="update_by" jdbcType="VARCHAR"/>
+		<result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+	</resultMap>
+
+	<!-- 通过ID查询单条数据 -->
+	<select id="queryById" resultMap="MdItemMap">
+		select
+		id,item_code,item_name,specification,num_measure_id,num_measure_name,weight_measure_id,weight_measure_name,item_type_id,item_type_code,item_type_name,workstage_id,workstage_name,if_safe_stock,min_stock,max_stock,remark,version,is_deleted,attr1,attr2,attr3,create_by,create_time,update_by,update_time
+		from md_item
+		where is_deleted = 0 and id = #{id}
+	</select>
+
+	<!-- 通过产品规格查询单条数据 -->
+	<select id="getItemBySpecification" resultMap="MdItemMap">
+		select
+			id,item_code,item_name,specification,num_measure_id,num_measure_name,weight_measure_id,weight_measure_name,item_type_id,item_type_code,item_type_name,workstage_id,workstage_name,if_safe_stock,min_stock,max_stock,remark,version,is_deleted,attr1,attr2,attr3,create_by,create_time,update_by,update_time
+		from md_item
+		where is_deleted = 0 and specification = #{specification}
+	</select>
+
+	<!-- 通过工序id查询物料列表 -->
+	<select id="getItemByWorkstageId" resultMap="MdItemMap">
+		select
+			id,item_code,item_name,specification,num_measure_id,num_measure_name,weight_measure_id,weight_measure_name,item_type_id,item_type_code,item_type_name,workstage_id,workstage_name,if_safe_stock,min_stock,max_stock,remark,version,is_deleted,attr1,attr2,attr3,create_by,create_time,update_by,update_time
+		from md_item
+		where is_deleted = 0 and workstage_id = #{workstageId}
+	</select>
+
+	<!-- 通过工序名称查询物料列表 -->
+	<select id="getItemByWorkstageName" resultMap="MdItemMap">
+		select
+			id,item_code,item_name,specification,num_measure_id,num_measure_name,weight_measure_id,weight_measure_name,item_type_id,item_type_code,item_type_name,workstage_id,workstage_name,if_safe_stock,min_stock,max_stock,remark,version,is_deleted,attr1,attr2,attr3,create_by,create_time,update_by,update_time
+		from md_item
+		where is_deleted = 0 and workstage_name = #{workstageName}
+	</select>
+
+	<!--分页查询指定行数据-->
+	<select id="selectMdItemList" resultMap="MdItemMap" parameterType="com.cuixing.system.api.domain.md.MdItem">
+		select
+		d.id,d.item_code,d.item_name,d.specification,d.num_measure_id,d.num_measure_name,d.weight_measure_id,d.weight_measure_name,d.item_type_id,d.item_type_code,d.item_type_name,d.workstage_id,d.workstage_name,d.if_enable,d.if_safe_stock,d.min_stock,d.max_stock,d.remark,d.version,d.is_deleted,d.attr1,d.attr2,d.attr3,d.create_by,d.create_time,d.update_by,d.update_time
+		from md_item d
+		<where>
+			is_deleted = 0
+			<if test="id != null ">
+				and id = #{id}
+			</if>
+			<if test="itemCode != null and itemCode != ''">
+				and item_code = #{itemCode}
+			</if>
+			<if test="itemName != null and itemName != ''">
+				and item_name = #{itemName}
+			</if>
+			<if test="specification != null and specification != ''">
+				and specification = #{specification}
+			</if>
+			<if test="numMeasureId != null ">
+				and num_measure_id = #{numMeasureId}
+			</if>
+			<if test="numMeasureName != null and numMeasureName != ''">
+				and num_measure_name = #{numMeasureName}
+			</if>
+			<if test="weightMeasureId != null ">
+				and weight_measure_id = #{weightMeasureId}
+			</if>
+			<if test="weightMeasureName != null and weightMeasureName != ''">
+				and weight_measure_name = #{weightMeasureName}
+			</if>
+			<if test="itemTypeId != null ">
+				and item_type_id = #{itemTypeId}
+			</if>
+			<if test="itemTypeCode != null and itemTypeCode != ''">
+				and item_type_code = #{itemTypeCode}
+			</if>
+			<if test="itemTypeName != null and itemTypeName != ''">
+				and item_type_name = #{itemTypeName}
+			</if>
+			<if test="workstageId != null">
+				and workstage_id = #{workstageId}
+			</if>
+			<if test="workstageName != null and workstageName != ''">
+				and workstage_name = #{workstageName}
+			</if>
+			<if test="ifEnable != null ">
+				and if_enable = #{ifEnable}
+			</if>
+			<if test="ifSafeStock != null ">
+				and if_safe_stock = #{ifSafeStock}
+			</if>
+			<if test="minStock != null ">
+				and min_stock = #{minStock}
+			</if>
+			<if test="maxStock != null ">
+				and max_stock = #{maxStock}
+			</if>
+			<if test="remark != null and remark != ''">
+				and remark = #{remark}
+			</if>
+			<if test="version != null ">
+				and version = #{version}
+			</if>
+			<if test="isDeleted != null ">
+				and is_deleted = #{isDeleted}
+			</if>
+			<if test="attr1 != null and attr1 != ''">
+				and attr1 = #{attr1}
+			</if>
+			<if test="attr2 != null ">
+				and attr2 = #{attr2}
+			</if>
+			<if test="attr3 != null and attr3 != ''">
+				and attr3 = #{attr3}
+			</if>
+			<if test="createBy != null and createBy != ''">
+				and create_by = #{createBy}
+			</if>
+			<if test="createTime != null ">
+				and create_time = #{createTime}
+			</if>
+			<if test="updateBy != null and updateBy != ''">
+				and update_by = #{updateBy}
+			</if>
+			<if test="updateTime != null ">
+				and update_time = #{updateTime}
+			</if>
+		</where>
+		order by specification asc
+	</select>
+
+	<!--统计总行数-->
+	<select id="count" resultType="java.lang.Long">
+		select count(1)
+		from md_item
+		<where>
+			is_deleted = 0
+			<if test="id != null ">
+				and id = #{id}
+			</if>
+			<if test="itemCode != null and itemCode != ''">
+				and item_code = #{itemCode}
+			</if>
+			<if test="itemName != null and itemName != ''">
+				and item_name = #{itemName}
+			</if>
+			<if test="specification != null and specification != ''">
+				and specification = #{specification}
+			</if>
+			<if test="numMeasureId != null ">
+				and num_measure_id = #{numMeasureId}
+			</if>
+			<if test="numMeasureName != null and numMeasureName != ''">
+				and num_measure_name = #{numMeasureName}
+			</if>
+			<if test="weightMeasureId != null ">
+				and weight_measure_id = #{weightMeasureId}
+			</if>
+			<if test="weightMeasureName != null and weightMeasureName != ''">
+				and weight_measure_name = #{weightMeasureName}
+			</if>
+			<if test="itemTypeId != null ">
+				and item_type_id = #{itemTypeId}
+			</if>
+			<if test="itemTypeCode != null and itemTypeCode != ''">
+				and item_type_code = #{itemTypeCode}
+			</if>
+			<if test="itemTypeName != null and itemTypeName != ''">
+				and item_type_name = #{itemTypeName}
+			</if>
+			<if test="workstageId != null">
+				and workstage_id = #{workstageId}
+			</if>
+			<if test="workstageName != null and workstageName != ''">
+				and workstage_name = #{workstageName}
+			</if>
+			<if test="ifEnable != null ">
+				and if_enable = #{ifEnable}
+			</if>
+			<if test="ifSafeStock != null ">
+				and if_safe_stock = #{ifSafeStock}
+			</if>
+			<if test="minStock != null ">
+				and min_stock = #{minStock}
+			</if>
+			<if test="maxStock != null ">
+				and max_stock = #{maxStock}
+			</if>
+			<if test="remark != null and remark != ''">
+				and remark = #{remark}
+			</if>
+			<if test="version != null ">
+				and version = #{version}
+			</if>
+			<if test="isDeleted != null ">
+				and is_deleted = #{isDeleted}
+			</if>
+			<if test="attr1 != null and attr1 != ''">
+				and attr1 = #{attr1}
+			</if>
+			<if test="attr2 != null ">
+				and attr2 = #{attr2}
+			</if>
+			<if test="attr3 != null and attr3 != ''">
+				and attr3 = #{attr3}
+			</if>
+			<if test="createBy != null and createBy != ''">
+				and create_by = #{createBy}
+			</if>
+			<if test="createTime != null ">
+				and create_time = #{createTime}
+			</if>
+			<if test="updateBy != null and updateBy != ''">
+				and update_by = #{updateBy}
+			</if>
+			<if test="updateTime != null ">
+				and update_time = #{updateTime}
+			</if>
+		</where>
+	</select>
+
+	<!--新增数据-->
+	<insert id="insert" keyProperty="id" useGeneratedKeys="true">
+		insert into md_item
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="itemCode != null and itemCode != ''">item_code,</if>
+			<if test="itemName != null and itemName != ''">item_name,</if>
+			<if test="specification != null and specification != ''">specification,</if>
+			<if test="numMeasureId != null ">num_measure_id,</if>
+			<if test="numMeasureName != null and numMeasureName != ''">num_measure_name,</if>
+			<if test="weightMeasureId != null ">weight_measure_id,</if>
+			<if test="weightMeasureName != null and weightMeasureName != ''">weight_measure_name,</if>
+			<if test="itemTypeId != null ">item_type_id,</if>
+			<if test="itemTypeCode != null and itemTypeCode != ''">item_type_code,</if>
+			<if test="itemTypeName != null and itemTypeName != ''">item_type_name,</if>
+			<if test="workstageId != null">workstage_id,</if>
+			<if test="workstageName != null and workstageName != ''">workstage_name,</if>
+			<if test="ifEnable != null ">if_enable,</if>
+			<if test="ifSafeStock != null ">if_safe_stock,</if>
+			<if test="minStock != null ">min_stock,</if>
+			<if test="maxStock != null ">max_stock,</if>
+			<if test="remark != null and remark != ''">remark,</if>
+			<if test="version != null ">version,</if>
+			<if test="isDeleted != null ">is_deleted,</if>
+			<if test="attr1 != null and attr1 != ''">attr1,</if>
+			<if test="attr2 != null ">attr2,</if>
+			<if test="attr3 != null and attr3 != ''">attr3,</if>
+			<if test="createBy != null and createBy != ''">create_by,</if>
+			<if test="createTime != null ">create_time,</if>
+			<if test="updateBy != null and updateBy != ''">update_by,</if>
+			<if test="updateTime != null ">update_time,</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="itemCode != null and itemCode != ''">#{itemCode},</if>
+			<if test="itemName != null and itemName != ''">#{itemName},</if>
+			<if test="specification != null and specification != ''">#{specification},</if>
+			<if test="numMeasureId != null ">#{numMeasureId},</if>
+			<if test="numMeasureName != null and numMeasureName != ''">#{numMeasureName},</if>
+			<if test="weightMeasureId != null ">#{weightMeasureId},</if>
+			<if test="weightMeasureName != null and weightMeasureName != ''">#{weightMeasureName},</if>
+			<if test="itemTypeId != null ">#{itemTypeId},</if>
+			<if test="itemTypeCode != null and itemTypeCode != ''">#{itemTypeCode},</if>
+			<if test="itemTypeName != null and itemTypeName != ''">#{itemTypeName},</if>
+			<if test="workstageId != null">#{workstageId},</if>
+			<if test="workstageName != null and workstageName != ''">#{workstageName},</if>
+			<if test="ifEnable != null ">#{ifEnable},</if>
+			<if test="ifSafeStock != null ">#{ifSafeStock},</if>
+			<if test="minStock != null ">#{minStock},</if>
+			<if test="maxStock != null ">#{maxStock},</if>
+			<if test="remark != null and remark != ''">#{remark},</if>
+			<if test="version != null ">#{version},</if>
+			<if test="isDeleted != null ">#{isDeleted},</if>
+			<if test="attr1 != null and attr1 != ''">#{attr1},</if>
+			<if test="attr2 != null ">#{attr2},</if>
+			<if test="attr3 != null and attr3 != ''">#{attr3},</if>
+			<if test="createBy != null and createBy != ''">#{createBy},</if>
+			<if test="createTime != null ">#{createTime},</if>
+			<if test="updateBy != null and updateBy != ''">#{updateBy},</if>
+			<if test="updateTime != null ">#{updateTime},</if>
+		</trim>
+	</insert>
+
+	<!-- 批量新增数据 -->
+	<!--<insert id="insertBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into md_item
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="itemCode != null and itemCode != ''">item_code,</if>
+            <if test="itemName != null and itemName != ''">item_name,</if>
+            <if test="specification != null and specification != ''">specification,</if>
+            <if test="numMeasureId != null ">num_measure_id,</if>
+            <if test="numMeasureName != null and numMeasureName != ''">num_measure_name,</if>
+            <if test="weightMeasureId != null ">weight_measure_id,</if>
+            <if test="weightMeasureName != null and weightMeasureName != ''">weight_measure_name,</if>
+            <if test="itemTypeId != null ">item_type_id,</if>
+            <if test="itemTypeCode != null and itemTypeCode != ''">item_type_code,</if>
+            <if test="itemTypeName != null and itemTypeName != ''">item_type_name,</if>
+            <if test="ifEnable != null ">if_enable,</if>
+            <if test="ifSafeStock != null ">if_safe_stock,</if>
+            <if test="minStock != null ">min_stock,</if>
+            <if test="maxStock != null ">max_stock,</if>
+            <if test="remark != null and remark != ''">remark,</if>
+            <if test="version != null ">version,</if>
+            <if test="isDeleted != null ">is_deleted,</if>
+            <if test="attr1 != null and attr1 != ''">attr1,</if>
+            <if test="attr2 != null ">attr2,</if>
+            <if test="attr3 != null and attr3 != ''">attr3,</if>
+            <if test="createBy != null and createBy != ''">create_by,</if>
+            <if test="createTime != null ">create_time,</if>
+            <if test="updateBy != null and updateBy != ''">update_by,</if>
+            <if test="updateTime != null ">update_time,</if>
+        </trim>
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            <trim prefix="(" suffix=")" suffixOverrides=",">
+                    <if test="entity.id != null ">#{entity.id},</if>
+                    <if test="entity.itemCode != null and entity.itemCode != ''">#{entity.itemCode},</if>
+                    <if test="entity.itemName != null and entity.itemName != ''">#{entity.itemName},</if>
+                    <if test="entity.specification != null and entity.specification != ''">#{entity.specification},</if>
+                    <if test="entity.numMeasureId != null ">#{entity.numMeasureId},</if>
+                    <if test="entity.numMeasureName != null and entity.numMeasureName != ''">#{entity.numMeasureName},</if>
+                    <if test="entity.weightMeasureId != null ">#{entity.weightMeasureId},</if>
+                    <if test="entity.weightMeasureName != null and entity.weightMeasureName != ''">#{entity.weightMeasureName},</if>
+                    <if test="entity.itemTypeId != null ">#{entity.itemTypeId},</if>
+                    <if test="entity.itemTypeCode != null and entity.itemTypeCode != ''">#{entity.itemTypeCode},</if>
+                    <if test="entity.itemTypeName != null and entity.itemTypeName != ''">#{entity.itemTypeName},</if>
+                    <if test="entity.ifEnable != null ">#{entity.ifEnable},</if>
+                    <if test="entity.ifSafeStock != null ">#{entity.ifSafeStock},</if>
+                    <if test="entity.minStock != null ">#{entity.minStock},</if>
+                    <if test="entity.maxStock != null ">#{entity.maxStock},</if>
+                    <if test="entity.remark != null and entity.remark != ''">#{entity.remark},</if>
+                    <if test="entity.version != null ">#{entity.version},</if>
+                    <if test="entity.isDeleted != null ">#{entity.isDeleted},</if>
+                    <if test="entity.attr1 != null and entity.attr1 != ''">#{entity.attr1},</if>
+                    <if test="entity.attr2 != null ">#{entity.attr2},</if>
+                    <if test="entity.attr3 != null and entity.attr3 != ''">#{entity.attr3},</if>
+                    <if test="entity.createBy != null and entity.createBy != ''">#{entity.createBy},</if>
+                    <if test="entity.createTime != null ">#{entity.createTime},</if>
+                    <if test="entity.updateBy != null and entity.updateBy != ''">#{entity.updateBy},</if>
+                    <if test="entity.updateTime != null ">#{entity.updateTime},</if>
+            </trim>
+        </foreach>
+    </insert>-->
+
+	<!-- 批量新增或按主键更新数据 -->
+	<insert id="insertOrUpdateBatch" keyProperty="id" useGeneratedKeys="true">
+		insert into md_item(id,item_code,item_name,specification,num_measure_id,num_measure_name,weight_measure_id,weight_measure_name,item_type_id,item_type_code,item_type_name,workstage_id,workstage_name,if_enable,if_safe_stock,min_stock,max_stock,remark,version,is_deleted,attr1,attr2,attr3,create_by,create_time,update_by,update_time)
+		values
+		<foreach collection="entities" item="entity" separator=",">
+			(#{entity.id},#{entity.itemCode},#{entity.itemName},#{entity.specification},#{entity.numMeasureId},#{entity.numMeasureName},#{entity.weightMeasureId},#{entity.weightMeasureName},#{entity.itemTypeId},#{entity.itemTypeCode},#{entity.itemTypeName},#{entity.workstageId},#{entity.workstageName},#{entity.ifEnable},#{entity.ifSafeStock},#{entity.minStock},#{entity.maxStock},#{entity.remark},#{entity.version},#{entity.isDeleted},#{entity.attr1},#{entity.attr2},#{entity.attr3},#{entity.createBy},#{entity.createTime},#{entity.updateBy},#{entity.updateTime})
+		</foreach>
+		on duplicate key update
+		id=values(id),
+		item_code=values(item_code),
+		item_name=values(item_name),
+		specification=values(specification),
+		num_measure_id=values(num_measure_id),
+		num_measure_name=values(num_measure_name),
+		weight_measure_id=values(weight_measure_id),
+		weight_measure_name=values(weight_measure_name),
+		item_type_id=values(item_type_id),
+		item_type_code=values(item_type_code),
+		item_type_name=values(item_type_name),
+		workstage_id=values(workstage_id),
+		workstage_name=values(workstage_name),
+		if_enable=values(if_enable),
+		if_safe_stock=values(if_safe_stock),
+		min_stock=values(min_stock),
+		max_stock=values(max_stock),
+		remark=values(remark),
+		version=values(version),
+		is_deleted=values(is_deleted),
+		attr1=values(attr1),
+		attr2=values(attr2),
+		attr3=values(attr3),
+		create_by=values(create_by),
+		create_time=values(create_time),
+		update_by=values(update_by),
+		update_time=values(update_time)
+	</insert>
+
+	<!-- 更新数据 -->
+	<update id="update">
+		update md_item
+		<set>
+			<trim suffixOverrides=",">
+				<if test="itemCode != null">
+					item_code = #{itemCode},
+				</if>
+				<if test="itemName != null">
+					item_name = #{itemName},
+				</if>
+				<if test="specification != null">
+					specification = #{specification},
+				</if>
+				<if test="numMeasureId != null">
+					num_measure_id = #{numMeasureId},
+				</if>
+				<if test="numMeasureName != null">
+					num_measure_name = #{numMeasureName},
+				</if>
+				<if test="weightMeasureId != null">
+					weight_measure_id = #{weightMeasureId},
+				</if>
+				<if test="weightMeasureName != null">
+					weight_measure_name = #{weightMeasureName},
+				</if>
+				<if test="itemTypeId != null">
+					item_type_id = #{itemTypeId},
+				</if>
+				<if test="itemTypeCode != null">
+					item_type_code = #{itemTypeCode},
+				</if>
+				<if test="itemTypeName != null">
+					item_type_name = #{itemTypeName},
+				</if>
+				<if test="workstageId != null">workstage_id = #{workstageId},</if>
+				<if test="workstageName != null and workstageName != ''">workstage_name = #{workstageName},</if>
+				<if test="ifEnable != null">
+					if_enable = #{ifEnable},
+				</if>
+				<if test="ifSafeStock != null">
+					if_safe_stock = #{ifSafeStock},
+				</if>
+				<if test="minStock != null">
+					min_stock = #{minStock},
+				</if>
+				<if test="maxStock != null">
+					max_stock = #{maxStock},
+				</if>
+				<if test="remark != null">
+					remark = #{remark},
+				</if>
+				<if test="version != null">
+					version = #{version}+1,
+				</if>
+				<if test="isDeleted != null">
+					is_deleted = #{isDeleted},
+				</if>
+				<if test="attr1 != null">
+					attr1 = #{attr1},
+				</if>
+				<if test="attr2 != null">
+					attr2 = #{attr2},
+				</if>
+				<if test="attr3 != null">
+					attr3 = #{attr3},
+				</if>
+				<if test="createBy != null">
+					create_by = #{createBy},
+				</if>
+				<if test="createTime != null">
+					create_time = #{createTime},
+				</if>
+				<if test="updateBy != null">
+					update_by = #{updateBy},
+				</if>
+				<if test="updateTime != null">
+					update_time = #{updateTime},
+				</if>
+			</trim>
+		</set>
+		where id = #{id} and version = #{version}
+	</update>
+
+	<!--逻辑删除-->
+	<update id="deleteById">
+		update md_item set is_deleted = 1 where id = #{id}
+	</update>
+
+	<!--批量逻辑删除-->
+	<update id="deleteByIds">
+		update md_item set is_deleted = 1 where id in
+		<foreach collection="array" item="id" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	</update>
+
+	<!--物理删除-->
+	<delete id="removeById">
+		delete from md_item where id = #{id}
+	</delete>
+
+
+</mapper>

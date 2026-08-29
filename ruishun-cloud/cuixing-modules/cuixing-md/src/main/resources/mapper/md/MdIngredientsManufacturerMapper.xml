@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cuixing.md.mapper.MdIngredientsManufacturerMapper">
+    <resultMap type="com.cuixing.md.entity.MdIngredientsManufacturer" id="MdIngredientsManufacturerMap">
+        <result property="id" column="id" jdbcType="BIGINT"/>
+        <result property="manufacturerName" column="manufacturer_name" jdbcType="VARCHAR"/>
+        <result property="manufacturerNick" column="manufacturer_nick" jdbcType="VARCHAR"/>
+        <result property="manufacturerCode" column="manufacturer_code" jdbcType="VARCHAR"/>
+        <result property="manufacturerAddress" column="manufacturer_address" jdbcType="VARCHAR"/>
+        <result property="person" column="person" jdbcType="VARCHAR"/>
+        <result property="phone" column="phone" jdbcType="VARCHAR"/>
+        <result property="isDeleted" column="is_deleted" jdbcType="TINYINT"/>
+        <result property="version" column="version" jdbcType="INTEGER"/>
+        <result property="createBy" column="create_by" jdbcType="VARCHAR"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="updateBy" column="update_by" jdbcType="VARCHAR"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+        <result property="attr1" column="attr1" jdbcType="VARCHAR"/>
+        <result property="attr2" column="attr2" jdbcType="INTEGER"/>
+        <result property="attr3" column="attr3" jdbcType="VARCHAR"/>
+        <result property="remark" column="remark" jdbcType="VARCHAR"/>
+    </resultMap>
+    
+    <!-- 通过ID查询单条数据 -->
+    <select id="queryById" resultMap="MdIngredientsManufacturerMap">
+        select
+            id,manufacturer_name,manufacturer_nick,manufacturer_code,manufacturer_address,person,phone,is_deleted,version,create_by,create_time,update_by,update_time,attr1,attr2,attr3,remark
+        from md_ingredients_manufacturer
+        where is_deleted = 0 and  id = #{id}
+    </select>
+
+    <!-- 查询列表 -->
+    <select id="selectAll" resultMap="MdIngredientsManufacturerMap">
+        select
+            id,manufacturer_name,manufacturer_nick,manufacturer_code,manufacturer_address,person,phone,is_deleted,version,create_by,create_time,update_by,update_time,attr1,attr2,attr3,remark
+        from md_ingredients_manufacturer
+        where is_deleted = 0
+    </select>
+    
+    <!--分页查询指定行数据-->
+    <select id="selectMdIngredientsManufacturerList" resultMap="MdIngredientsManufacturerMap">
+        select
+            id,manufacturer_name,manufacturer_nick,manufacturer_code,manufacturer_address,person,phone,is_deleted,version,create_by,create_time,update_by,update_time,attr1,attr2,attr3,remark
+        from md_ingredients_manufacturer
+        <where>
+            is_deleted = 0
+            <if test="id != null and id != ''"> and id = #{id}</if>
+            <if test="manufacturerName != null and manufacturerName != ''"> and manufacturer_name like concat('%', #{manufacturerName},'%')</if>
+            <if test="manufacturerNick != null and manufacturerNick != ''"> and manufacturer_nick = #{manufacturerNick}</if>
+            <if test="manufacturerCode != null and manufacturerCode != ''">and manufacturer_code like concat('%', #{manufacturerCode},'%')</if>
+            <if test="manufacturerAddress != null and manufacturerAddress != ''"> and manufacturer_address = #{manufacturerAddress}</if>
+            <if test="person != null and person != ''">and person like concat('%', #{person},'%')</if>
+            <if test="phone != null and phone != ''"> and phone = #{phone}</if>
+            <if test="isDeleted != null and isDeleted != ''"> and is_deleted = #{isDeleted}</if>
+            <if test="version != null and version != ''"> and version = #{version}</if>
+            <if test="createBy != null and createBy != ''"> and create_by = #{createBy}</if>
+            <if test="createTime != null and createTime != ''"> and create_time = #{createTime}</if>
+            <if test="updateBy != null and updateBy != ''"> and update_by = #{updateBy}</if>
+            <if test="updateTime != null and updateTime != ''"> and update_time = #{updateTime}</if>
+            <if test="attr1 != null and attr1 != ''"> and attr1 = #{attr1}</if>
+            <if test="attr2 != null and attr2 != ''"> and attr2 = #{attr2}</if>
+            <if test="attr3 != null and attr3 != ''"> and attr3 = #{attr3}</if>
+            <if test="remark != null and remark != ''"> and remark = #{remark}</if>
+        </where>
+    </select>
+    
+    <!--新增数据-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into md_ingredients_manufacturer
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null ">id,</if>
+            <if test="manufacturerName != null and manufacturerName != ''">manufacturer_name,</if>
+            <if test="manufacturerNick != null and manufacturerNick != ''">manufacturer_nick,</if>
+            <if test="manufacturerCode != null and manufacturerCode != ''">manufacturer_code,</if>
+            <if test="manufacturerAddress != null and manufacturerAddress != ''">manufacturer_address,</if>
+            <if test="person != null and person != ''">person,</if>
+            <if test="phone != null and phone != ''">phone,</if>
+            <if test="isDeleted != null ">is_deleted,</if>
+            <if test="version != null ">version,</if>
+            <if test="createBy != null and createBy != ''">create_by,</if>
+            <if test="createTime != null ">create_time,</if>
+            <if test="updateBy != null and updateBy != ''">update_by,</if>
+            <if test="updateTime != null ">update_time,</if>
+            <if test="attr1 != null and attr1 != ''">attr1,</if>
+            <if test="attr2 != null ">attr2,</if>
+            <if test="attr3 != null and attr3 != ''">attr3,</if>
+            <if test="remark != null and remark != ''">remark,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">#{id},</if>
+            <if test="manufacturerName != null and manufacturerName != ''">#{manufacturerName},</if>
+            <if test="manufacturerNick != null and manufacturerNick != ''">#{manufacturerNick},</if>
+            <if test="manufacturerCode != null and manufacturerCode != ''">#{manufacturerCode},</if>
+            <if test="manufacturerAddress != null and manufacturerAddress != ''">#{manufacturerAddress},</if>
+            <if test="person != null and person != ''">#{person},</if>
+            <if test="phone != null and phone != ''">#{phone},</if>
+            <if test="isDeleted != null">#{isDeleted},</if>
+            <if test="version != null">#{version},</if>
+            <if test="createBy != null and createBy != ''">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null and updateBy != ''">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="attr1 != null and attr1 != ''">#{attr1},</if>
+            <if test="attr2 != null">#{attr2},</if>
+            <if test="attr3 != null and attr3 != ''">#{attr3},</if>
+            <if test="remark != null and remark != ''">#{remark},</if>
+        </trim>
+    </insert>
+    
+    <!-- 更新数据 -->
+    <update id="update">
+        update md_ingredients_manufacturer
+        <set>
+            <trim suffixOverrides=",">
+                <if test="manufacturerName != null "> manufacturer_name = #{manufacturerName}, </if>
+                <if test="manufacturerNick != null "> manufacturer_nick = #{manufacturerNick}, </if>
+                <if test="manufacturerCode != null "> manufacturer_code = #{manufacturerCode}, </if>
+                <if test="manufacturerAddress != null "> manufacturer_address = #{manufacturerAddress}, </if>
+                <if test="person != null "> person = #{person}, </if>
+                <if test="phone != null "> phone = #{phone}, </if>
+                <if test="isDeleted != null "> is_deleted = #{isDeleted}, </if>
+                <if test="version != null "> version = #{version}, </if>
+                <if test="createBy != null "> create_by = #{createBy}, </if>
+                <if test="createTime != null "> create_time = #{createTime}, </if>
+                <if test="updateBy != null "> update_by = #{updateBy}, </if>
+                <if test="updateTime != null "> update_time = #{updateTime}, </if>
+                <if test="attr1 != null "> attr1 = #{attr1}, </if>
+                <if test="attr2 != null "> attr2 = #{attr2}, </if>
+                <if test="attr3 != null "> attr3 = #{attr3}, </if>
+                <if test="remark != null "> remark = #{remark}, </if>
+            </trim>
+        </set>
+        where id = #{id} and version = #{version}
+    </update>
+    
+    <!--逻辑删除删除-->
+    <update id="deleteById">
+        update md_ingredients_manufacturer set is_deleted = 1 where id = #{id}
+    </update>
+    
+    <!--批量逻辑删除-->
+    <update id="deleteByIds">
+        update md_ingredients_manufacturer set is_deleted = 1 where id in
+        <foreach collection="array" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </update>
+</mapper>

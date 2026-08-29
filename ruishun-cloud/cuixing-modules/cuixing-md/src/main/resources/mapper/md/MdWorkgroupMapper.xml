@@ -1,0 +1,387 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cuixing.md.mapper.MdWorkgroupMapper">
+    <resultMap type="com.cuixing.md.entity.MdWorkgroup" id="MdWorkgroupMap">
+        <result property="id" column="id" jdbcType="BIGINT"/>
+        <result property="workgroupCode" column="workgroup_code" jdbcType="VARCHAR"/>
+        <result property="workgroupName" column="workgroup_name" jdbcType="VARCHAR"/>
+        <result property="workshopId" column="workshop_id" jdbcType="BIGINT"/>
+        <result property="workshopName" column="workshop_name" jdbcType="VARCHAR"/>
+        <result property="workstageId" column="workstage_id" jdbcType="BIGINT"/>
+        <result property="workstageName" column="workstage_name" jdbcType="VARCHAR"/>
+        <result property="headId" column="head_id" jdbcType="BIGINT"/>
+        <result property="headName" column="head_name" jdbcType="VARCHAR"/>
+        <result property="totalMembers" column="total_members" jdbcType="INTEGER"/>
+        <result property="ifEnable" column="if_enable" jdbcType="INTEGER"/>
+        <result property="version" column="version" jdbcType="INTEGER"/>
+        <result property="isDeleted" column="is_deleted" jdbcType="INTEGER"/>
+        <result property="createBy" column="create_by" jdbcType="VARCHAR"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="updateBy" column="update_by" jdbcType="VARCHAR"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+        <result property="attr1" column="attr1" jdbcType="VARCHAR"/>
+        <result property="attr2" column="attr2" jdbcType="INTEGER"/>
+        <result property="attr3" column="attr3" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!-- 通过ID查询单条数据 -->
+    <select id="queryById" resultMap="MdWorkgroupMap">
+        select
+        id,workgroup_code,workgroup_name,workshop_id,workshop_name,workstage_id,workstage_name,head_id,head_name,total_members,if_enable,version,is_deleted,create_by,create_time,update_by,update_time,attr1,attr2,attr3
+        from md_workgroup
+        where is_deleted = 0 and id = #{id}
+    </select>
+
+    <!--分页查询指定行数据-->
+    <select id="selectMdWorkgroupList" resultMap="MdWorkgroupMap" parameterType="MdWorkgroup">
+        select
+        d.id,d.workgroup_code,d.workgroup_name,d.workshop_id,d.workshop_name,d.workstage_id,d.workstage_name,d.head_id,d.head_name,d.total_members,d.if_enable,d.version,d.is_deleted,d.create_by,d.create_time,d.update_by,d.update_time,d.attr1,d.attr2,d.attr3
+        from md_workgroup d
+        <where>
+            is_deleted = 0
+            <if test="id != null ">
+                and id = #{id}
+            </if>
+            <if test="workgroupCode != null and workgroupCode != ''">
+                and workgroup_code = #{workgroupCode}
+            </if>
+            <if test="workgroupName != null and workgroupName != ''">
+                and workgroup_name = #{workgroupName}
+            </if>
+            <if test="workshopId != null ">
+                and workshop_id = #{workshopId}
+            </if>
+            <if test="workshopName != null and workshopName != ''">
+                and workshop_name = #{workshopName}
+            </if>
+            <if test="workstageId != null ">
+                and workstage_id = #{workstageId}
+            </if>
+            <if test="workstageName != null and workstageName != ''">
+                and workstage_name = #{workstageName}
+            </if>
+            <if test="headId != null ">
+                and head_id = #{headId}
+            </if>
+            <if test="headName != null and headName != ''">
+                and head_name = #{headName}
+            </if>
+            <if test="totalMembers != null ">
+                and total_members = #{totalMembers}
+            </if>
+            <if test="ifEnable != null ">
+                and if_enable = #{ifEnable}
+            </if>
+            <if test="version != null ">
+                and version = #{version}
+            </if>
+            <if test="isDeleted != null ">
+                and is_deleted = #{isDeleted}
+            </if>
+            <if test="createBy != null and createBy != ''">
+                and create_by = #{createBy}
+            </if>
+            <if test="createTime != null ">
+                and create_time = #{createTime}
+            </if>
+            <if test="updateBy != null and updateBy != ''">
+                and update_by = #{updateBy}
+            </if>
+            <if test="updateTime != null ">
+                and update_time = #{updateTime}
+            </if>
+            <if test="attr1 != null and attr1 != ''">
+                and attr1 = #{attr1}
+            </if>
+            <if test="attr2 != null ">
+                and attr2 = #{attr2}
+            </if>
+            <if test="attr3 != null and attr3 != ''">
+                and attr3 = #{attr3}
+            </if>
+        </where>
+        order by create_time desc
+    </select>
+
+    <!--统计总行数-->
+    <select id="count" resultType="java.lang.Long">
+        select count(1)
+        from md_workgroup
+        <where>
+            is_deleted = 0
+            <if test="id != null ">
+                and id = #{id}
+            </if>
+            <if test="workgroupCode != null and workgroupCode != ''">
+                and workgroup_code = #{workgroupCode}
+            </if>
+            <if test="workgroupName != null and workgroupName != ''">
+                and workgroup_name = #{workgroupName}
+            </if>
+            <if test="workshopId != null ">
+                and workshop_id = #{workshopId}
+            </if>
+            <if test="workshopName != null and workshopName != ''">
+                and workshop_name = #{workshopName}
+            </if>
+            <if test="workstageId != null ">
+                and workstage_id = #{workstageId}
+            </if>
+            <if test="workstageName != null and workstageName != ''">
+                and workstage_name = #{workstageName}
+            </if>
+            <if test="headId != null ">
+                and head_id = #{headId}
+            </if>
+            <if test="headName != null and headName != ''">
+                and head_name = #{headName}
+            </if>
+            <if test="totalMembers != null ">
+                and total_members = #{totalMembers}
+            </if>
+            <if test="ifEnable != null ">
+                and if_enable = #{ifEnable}
+            </if>
+            <if test="version != null ">
+                and version = #{version}
+            </if>
+            <if test="isDeleted != null ">
+                and is_deleted = #{isDeleted}
+            </if>
+            <if test="createBy != null and createBy != ''">
+                and create_by = #{createBy}
+            </if>
+            <if test="createTime != null ">
+                and create_time = #{createTime}
+            </if>
+            <if test="updateBy != null and updateBy != ''">
+                and update_by = #{updateBy}
+            </if>
+            <if test="updateTime != null ">
+                and update_time = #{updateTime}
+            </if>
+            <if test="attr1 != null and attr1 != ''">
+                and attr1 = #{attr1}
+            </if>
+            <if test="attr2 != null ">
+                and attr2 = #{attr2}
+            </if>
+            <if test="attr3 != null and attr3 != ''">
+                and attr3 = #{attr3}
+            </if>
+        </where>
+    </select>
+
+    <!--新增数据-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into md_workgroup
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="workgroupCode != null and workgroupCode != ''">workgroup_code,</if>
+            <if test="workgroupName != null and workgroupName != ''">workgroup_name,</if>
+            <if test="workshopId != null ">workshop_id,</if>
+            <if test="workshopName != null and workshopName != ''">workshop_name,</if>
+            <if test="workstageId != null ">workstage_id,</if>
+            <if test="workstageName != null and workstageName != ''">workstage_name,</if>
+            <if test="headId != null ">head_id,</if>
+            <if test="headName != null and headName != ''">head_name,</if>
+            <if test="totalMembers != null ">total_members,</if>
+            <if test="ifEnable != null ">if_enable,</if>
+            <if test="version != null ">version,</if>
+            <if test="isDeleted != null ">is_deleted,</if>
+            <if test="createBy != null and createBy != ''">create_by,</if>
+            <if test="createTime != null ">create_time,</if>
+            <if test="updateBy != null and updateBy != ''">update_by,</if>
+            <if test="updateTime != null ">update_time,</if>
+            <if test="attr1 != null and attr1 != ''">attr1,</if>
+            <if test="attr2 != null ">attr2,</if>
+            <if test="attr3 != null and attr3 != ''">attr3,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="workgroupCode != null and workgroupCode != ''">#{workgroupCode},</if>
+            <if test="workgroupName != null and workgroupName != ''">#{workgroupName},</if>
+            <if test="workshopId != null ">#{workshopId},</if>
+            <if test="workshopName != null and workshopName != ''">#{workshopName},</if>
+            <if test="workstageId != null ">#{workstageId},</if>
+            <if test="workstageName != null and workstageName != ''">#{workstageName},</if>
+            <if test="headId != null ">#{headId},</if>
+            <if test="headName != null and headName != ''">#{headName},</if>
+            <if test="totalMembers != null ">#{totalMembers},</if>
+            <if test="ifEnable != null ">#{ifEnable},</if>
+            <if test="version != null ">#{version},</if>
+            <if test="isDeleted != null ">#{isDeleted},</if>
+            <if test="createBy != null and createBy != ''">#{createBy},</if>
+            <if test="createTime != null ">#{createTime},</if>
+            <if test="updateBy != null and updateBy != ''">#{updateBy},</if>
+            <if test="updateTime != null ">#{updateTime},</if>
+            <if test="attr1 != null and attr1 != ''">#{attr1},</if>
+            <if test="attr2 != null ">#{attr2},</if>
+            <if test="attr3 != null and attr3 != ''">#{attr3},</if>
+        </trim>
+    </insert>
+
+    <!-- 批量新增数据 -->
+    <!--<insert id="insertBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into md_workgroup
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="workgroupCode != null and workgroupCode != ''">workgroup_code,</if>
+            <if test="workgroupName != null and workgroupName != ''">workgroup_name,</if>
+            <if test="workshopId != null ">workshop_id,</if>
+            <if test="workshopName != null and workshopName != ''">workshop_name,</if>
+            <if test="workstageId != null ">workstage_id,</if>
+            <if test="workstageName != null and workstageName != ''">workstage_name,</if>
+            <if test="headId != null ">head_id,</if>
+            <if test="headName != null and headName != ''">head_name,</if>
+            <if test="totalMembers != null ">total_members,</if>
+            <if test="ifEnable != null ">if_enable,</if>
+            <if test="version != null ">version,</if>
+            <if test="isDeleted != null ">is_deleted,</if>
+            <if test="createBy != null and createBy != ''">create_by,</if>
+            <if test="createTime != null ">create_time,</if>
+            <if test="updateBy != null and updateBy != ''">update_by,</if>
+            <if test="updateTime != null ">update_time,</if>
+            <if test="attr1 != null and attr1 != ''">attr1,</if>
+            <if test="attr2 != null ">attr2,</if>
+            <if test="attr3 != null and attr3 != ''">attr3,</if>
+        </trim>
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            <trim prefix="(" suffix=")" suffixOverrides=",">
+                    <if test="entity.id != null ">#{entity.id},</if>
+                    <if test="entity.workgroupCode != null and entity.workgroupCode != ''">#{entity.workgroupCode},</if>
+                    <if test="entity.workgroupName != null and entity.workgroupName != ''">#{entity.workgroupName},</if>
+                    <if test="entity.workshopId != null ">#{entity.workshopId},</if>
+                    <if test="entity.workshopName != null and entity.workshopName != ''">#{entity.workshopName},</if>
+                    <if test="entity.workstageId != null ">#{entity.workstageId},</if>
+                    <if test="entity.workstageName != null and entity.workstageName != ''">#{entity.workstageName},</if>
+                    <if test="entity.headId != null ">#{entity.headId},</if>
+                    <if test="entity.headName != null and entity.headName != ''">#{entity.headName},</if>
+                    <if test="entity.totalMembers != null ">#{entity.totalMembers},</if>
+                    <if test="entity.ifEnable != null ">#{entity.ifEnable},</if>
+                    <if test="entity.version != null ">#{entity.version},</if>
+                    <if test="entity.isDeleted != null ">#{entity.isDeleted},</if>
+                    <if test="entity.createBy != null and entity.createBy != ''">#{entity.createBy},</if>
+                    <if test="entity.createTime != null ">#{entity.createTime},</if>
+                    <if test="entity.updateBy != null and entity.updateBy != ''">#{entity.updateBy},</if>
+                    <if test="entity.updateTime != null ">#{entity.updateTime},</if>
+                    <if test="entity.attr1 != null and entity.attr1 != ''">#{entity.attr1},</if>
+                    <if test="entity.attr2 != null ">#{entity.attr2},</if>
+                    <if test="entity.attr3 != null and entity.attr3 != ''">#{entity.attr3},</if>
+            </trim>
+        </foreach>
+    </insert>-->
+
+    <!-- 批量新增或按主键更新数据 -->
+    <insert id="insertOrUpdateBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into md_workgroup(id,workgroup_code,workgroup_name,workshop_id,workshop_name,workstage_id,workstage_name,head_id,head_name,total_members,if_enable,version,is_deleted,create_by,create_time,update_by,update_time,attr1,attr2,attr3)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.id},#{entity.workgroupCode},#{entity.workgroupName},#{entity.workshopId},#{entity.workshopName},#{entity.workstageId},#{entity.workstageName},#{entity.headId},#{entity.headName},#{entity.totalMembers},#{entity.ifEnable},#{entity.version},#{entity.isDeleted},#{entity.createBy},#{entity.createTime},#{entity.updateBy},#{entity.updateTime},#{entity.attr1},#{entity.attr2},#{entity.attr3})
+        </foreach>
+        on duplicate key update
+        id=values(id),
+        workgroup_code=values(workgroup_code),
+        workgroup_name=values(workgroup_name),
+        workshop_id=values(workshop_id),
+        workshop_name=values(workshop_name),
+        workstage_id=values(workstage_id),
+        workstage_name=values(workstage_name),
+        head_id=values(head_id),
+        head_name=values(head_name),
+        total_members=values(total_members),
+        if_enable=values(if_enable),
+        version=values(version),
+        is_deleted=values(is_deleted),
+        create_by=values(create_by),
+        create_time=values(create_time),
+        update_by=values(update_by),
+        update_time=values(update_time),
+        attr1=values(attr1),
+        attr2=values(attr2),
+        attr3=values(attr3)
+    </insert>
+
+    <!-- 更新数据 -->
+    <update id="update">
+        update md_workgroup
+        <set>
+            <trim suffixOverrides=",">
+                <if test="workgroupCode != null">
+                    workgroup_code = #{workgroupCode},
+                </if>
+                <if test="workgroupName != null">
+                    workgroup_name = #{workgroupName},
+                </if>
+                <if test="workshopId != null">
+                    workshop_id = #{workshopId},
+                </if>
+                <if test="workshopName != null">
+                    workshop_name = #{workshopName},
+                </if>
+                <if test="workstageId != null">
+                    workstage_id = #{workstageId},
+                </if>
+                <if test="workstageName != null">
+                    workstage_name = #{workstageName},
+                </if>
+                <if test="headId != null">
+                    head_id = #{headId},
+                </if>
+                <if test="headName != null">
+                    head_name = #{headName},
+                </if>
+                <if test="totalMembers != null">
+                    total_members = #{totalMembers},
+                </if>
+                <if test="ifEnable != null">
+                    if_enable = #{ifEnable},
+                </if>
+                <if test="version != null">
+                    version = #{version}+1,
+                </if>
+                <if test="isDeleted != null">
+                    is_deleted = #{isDeleted},
+                </if>
+                <if test="createBy != null">
+                    create_by = #{createBy},
+                </if>
+                <if test="createTime != null">
+                    create_time = #{createTime},
+                </if>
+                <if test="updateBy != null">
+                    update_by = #{updateBy},
+                </if>
+                <if test="updateTime != null">
+                    update_time = #{updateTime},
+                </if>
+                <if test="attr1 != null">
+                    attr1 = #{attr1},
+                </if>
+                <if test="attr2 != null">
+                    attr2 = #{attr2},
+                </if>
+                <if test="attr3 != null">
+                    attr3 = #{attr3},
+                </if>
+            </trim>
+        </set>
+        where id = #{id} and version = #{version}
+    </update>
+
+    <!--逻辑删除-->
+    <update id="deleteById">
+        update md_workgroup set is_deleted = 1 where id = #{id}
+    </update>
+
+    <!--批量逻辑删除-->
+    <update id="deleteByIds">
+        update md_workgroup set is_deleted = 1 where id in
+        <foreach collection="array" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </update>
+
+    <!--物理删除-->
+    <delete id="removeById">
+        delete from md_workgroup where id = #{id}
+    </delete>
+</mapper>

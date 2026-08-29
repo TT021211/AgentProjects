@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cuixing.md.mapper.MdPrintTemplateMapper">
+
+    <resultMap type="MdPrintTemplate" id="MdPrintTemplateResult">
+        <result property="templateId"    column="template_id"    />
+        <result property="clientId"    column="client_id"    />
+        <result property="clientName"    column="client_name"    />
+        <result property="clientCode"    column="client_code"    />
+        <result property="clientNick"    column="client_nick"    />
+        <result property="templateCode"    column="template_code"    />
+        <result property="templateName"    column="template_name"    />
+        <result property="status"    column="status"    />
+        <result property="content"    column="content"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="userId"    column="user_id"    />
+        <result property="userNickName"    column="user_nick_name"    />
+    </resultMap>
+
+    <sql id="selectMdPrintTemplateVo">
+        select mpt.template_id,mpt.user_id,mpt.user_nick_name,mpt.client_id,mc.client_name,mc.client_code,mc.client_nick, mpt.template_code, mpt.template_name,mpt.status,mpt.content, mpt.create_by, mpt.create_time, mpt.update_by, mpt.update_time
+        from md_print_template mpt
+        left join md_client mc on mpt.client_id=mc.id
+    </sql>
+    <sql id="selectMdPrintTemplateVo2">
+        select mpt.template_id,mpt.user_id,mpt.user_nick_name,mpt.client_id,mc.client_name,mc.client_code, mpt.template_code, mpt.template_name,mpt.status, mpt.content, mpt.create_by, mpt.create_time, mpt.update_by, mpt.update_time
+        from md_print_template mpt
+        left join md_client mc on mpt.client_id=mc.id
+    </sql>
+
+    <select id="selectMdPrintTemplateList" parameterType="MdPrintTemplate" resultMap="MdPrintTemplateResult">
+        <include refid="selectMdPrintTemplateVo"/>
+        <where>
+            <if test="clientId != null "> and mpt.client_id = #{clientId}</if>
+            <if test="userId != null "> and mpt.user_id = #{userId}</if>
+            <if test="status != null  and status != ''"> and mpt.status = #{status}</if>
+            <if test="templateCode != null  and templateCode != ''"> and mpt.template_code = #{templateCode}</if>
+            <if test="templateName != null  and templateName != ''"> and mpt.template_name like concat('%', #{templateName}, '%')</if>
+            <if test="content != null  and content != ''"> and mpt.content = #{content}</if>
+            <if test="createBy != null  and createBy != ''"> and mpt.create_by = #{createBy}</if>
+        </where>
+        order by mpt.template_id desc
+    </select>
+
+    <select id="selectMdPrintTemplateByTemplateId" parameterType="Long" resultMap="MdPrintTemplateResult">
+        <include refid="selectMdPrintTemplateVo2"/>
+        where template_id = #{templateId}
+    </select>
+
+    <select id="selectMdPrintTemplateByTemplateCode" parameterType="MdPrintTemplate" resultMap="MdPrintTemplateResult">
+        <include refid="selectMdPrintTemplateVo2"/>
+        where status='1'
+        <if test="templateCode != null  and templateCode != ''"> and mpt.template_code = #{templateCode}</if>
+        <if test="clientId != null "> and mpt.client_id = #{clientId}</if>
+        <if test="clientId == null "> and mpt.client_id is null</if>
+    </select>
+
+    <select id="selectMdPrintTemplateByUserId" parameterType="MdPrintTemplate" resultMap="MdPrintTemplateResult">
+        <include refid="selectMdPrintTemplateVo2"/>
+        where 1=1
+        <if test="templateCode != null  and templateCode != ''"> and mpt.template_code = #{templateCode}</if>
+        <if test="userId != null  and userId != ''"> and mpt.user_id = #{userId}</if>
+         limit 1
+    </select>
+    <select id="queryByCreateBy" resultMap="MdPrintTemplateResult">
+        <include refid="selectMdPrintTemplateVo"/>
+        where createBy=#{createByNumber}
+    </select>
+
+    <insert id="insertMdPrintTemplate" parameterType="MdPrintTemplate" useGeneratedKeys="true" keyProperty="templateId">
+        insert into md_print_template
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="templateId != null">template_id,</if>
+            <if test="clientId != null">client_id,</if>
+            <if test="templateCode != null and templateCode != ''">template_code,</if>
+            <if test="templateName != null">template_name,</if>
+            <if test="status != null">status,</if>
+            <if test="content != null">content,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="userId != null">user_id,</if>
+            <if test="userNickName != null">user_nick_name,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="templateId != null">#{templateId},</if>
+            <if test="clientId != null">#{clientId},</if>
+            <if test="templateCode != null and templateCode != ''">#{templateCode},</if>
+            <if test="templateName != null">#{templateName},</if>
+            <if test="status != null">#{status},</if>
+            <if test="content != null">#{content},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="userId != null">#{userId},</if>
+            <if test="userNickName != null">#{userNickName},</if>
+         </trim>
+    </insert>
+
+    <update id="updateMdPrintTemplate" parameterType="MdPrintTemplate">
+        update md_print_template
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="clientId != null">client_id=#{clientId},</if>
+            <if test="templateCode != null and templateCode != ''">template_code = #{templateCode},</if>
+            <if test="templateName != null">template_name = #{templateName},</if>
+            <if test="status != null">status=#{status},</if>
+            <if test="content != null">content = #{content},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            user_id=#{userId},
+            user_nick_name=#{userNickName},
+        </trim>
+        where template_id = #{templateId}
+    </update>
+
+    <update id="updateStatus" parameterType="MdPrintTemplate">
+        update md_print_template
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="status != null">status=#{status},</if>
+        </trim>
+        <where>
+        	<if test="templateCode != null and templateCode!=''"> and template_code = #{templateCode}</if>
+        	<if test="clientId != null"> and client_id = #{clientId}</if>
+        	<if test="clientId == null"> and client_id is null</if>
+        </where>
+    </update>
+
+    <delete id="deleteMdPrintTemplateByTemplateId" parameterType="Long">
+        delete from md_print_template where template_id = #{templateId}
+    </delete>
+
+    <delete id="deleteMdPrintTemplateByTemplateIds" parameterType="String">
+        delete from md_print_template where template_id in
+        <foreach item="templateId" collection="array" open="(" separator="," close=")">
+            #{templateId}
+        </foreach>
+    </delete>
+</mapper>

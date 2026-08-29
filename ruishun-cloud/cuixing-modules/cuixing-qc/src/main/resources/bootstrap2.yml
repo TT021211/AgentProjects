@@ -1,0 +1,30 @@
+# Tomcat
+server:
+  port: 9999
+
+# Spring
+spring:
+  application:
+    # 应用名称
+    name: huaerda-qc
+  profiles:
+    # 环境配置
+    active: ${SPRING_PROFILES_ACTIVE}
+  cloud:
+    nacos:
+      discovery:
+        # 服务注册地址
+        server-addr: 192.168.9.237:18848
+        namespace: 59f36411-3a9b-43ee-848a-d234ce648c25
+      #        ip: ${LOCAL_IP_ADDRESS:192.168.9.237}
+      username: nacos
+      password: nacos
+      config:
+        # 配置中心地址
+        server-addr: 192.168.9.237:18848
+        namespace: 59f36411-3a9b-43ee-848a-d234ce648c25
+        # 配置文件格式
+        file-extension: yml
+        # 共享配置
+        shared-configs:
+          - application-${SPRING_PROFILES_ACTIVE}.${SPRING_CLOUD_NACOS_CONFIG_FILE_EXTENSION}

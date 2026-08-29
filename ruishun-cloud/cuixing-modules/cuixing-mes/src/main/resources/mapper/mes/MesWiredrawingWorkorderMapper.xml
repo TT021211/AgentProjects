@@ -1,0 +1,469 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cuixing.mes.mapper.MesWiredrawingWorkorderMapper">
+    <resultMap type="com.cuixing.mes.entity.MesWiredrawingWorkorder" id="MesWiredrawingWorkorderMap">
+        <result property="id" column="id" jdbcType="BIGINT"/>
+        <result property="workorderId" column="workorder_id" jdbcType="BIGINT"/>
+        <result property="orderType" column="order_type" jdbcType="CHAR"/>
+        <result property="customerName" column="customer_name" jdbcType="VARCHAR"/>
+        <result property="orderCode" column="order_code" jdbcType="VARCHAR"/>
+        <result property="workorderCode" column="workorder_code" jdbcType="VARCHAR"/>
+        <result property="equipmentId" column="equipment_id" jdbcType="VARCHAR"/>
+        <result property="equipmentCode" column="equipment_code" jdbcType="VARCHAR"/>
+        <result property="specification" column="specification" jdbcType="VARCHAR"/>
+        <result property="model" column="model" jdbcType="VARCHAR"/>
+        <result property="weight" column="weight" jdbcType="DECIMAL"/>
+        <result property="measureId" column="measure_id" jdbcType="BIGINT"/>
+        <result property="measureName" column="measure_name" jdbcType="VARCHAR"/>
+        <result property="discNumber" column="disc_number" jdbcType="INTEGER"/>
+        <result property="startTime" column="start_time" jdbcType="TIMESTAMP"/>
+        <result property="endTime" column="end_time" jdbcType="TIMESTAMP"/>
+        <result property="sort" column="sort" jdbcType="INTEGER"/>
+        <result property="remark" column="remark" jdbcType="VARCHAR"/>
+        <result property="isDeleted" column="is_deleted" jdbcType="TINYINT"/>
+        <result property="version" column="version" jdbcType="INTEGER"/>
+        <result property="createBy" column="create_by" jdbcType="VARCHAR"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="updateBy" column="update_by" jdbcType="VARCHAR"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+        <result property="status" column="status" jdbcType="CHAR"/>
+        <result property="attr1" column="attr1" jdbcType="VARCHAR"/>
+        <result property="attr2" column="attr2" jdbcType="INTEGER"/>
+        <result property="attr3" column="attr3" jdbcType="VARCHAR"/>
+        <result property="wiredrawingCode" column="wiredrawing_code" jdbcType="VARCHAR"/>
+        <result property="enamellingEquipmentId" column="enamelling_equipment_id" jdbcType="BIGINT"/>
+        <result property="productId" column="product_Id" jdbcType="BIGINT"/>
+        <result property="enamellingEquipmentCode" column="enamelling_equipment_code" jdbcType="VARCHAR"/>
+        <result property="wightCompletion" column="wight_completion" jdbcType="DECIMAL"/>
+        <result property="degreeOfCompletion" column="degree_of_completion" jdbcType="DECIMAL"/>
+        <result property="wireDiscId" column="wire_disc_id" jdbcType="BIGINT"/>
+        <result property="attr5" column="attr5" jdbcType="DECIMAL"/>
+        <result property="attr6" column="attr6" jdbcType="VARCHAR"/>
+        <result property="attr7" column="attr7" jdbcType="VARCHAR"/>
+        <result property="attr8" column="attr8" jdbcType="VARCHAR"/>
+        <result property="attr9" column="attr9" jdbcType="VARCHAR"/>
+        <result property="attr10" column="attr10" jdbcType="VARCHAR"/>
+        <result property="artt6" column="artt6" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!-- 通过ID查询单条数据 -->
+    <select id="queryById" resultMap="MesWiredrawingWorkorderMap">
+        select id,
+               workorder_id,
+               order_type,
+               customer_name,
+               order_code,
+               workorder_code,
+               equipment_id,
+               equipment_code,
+               product_id,
+               specification,
+               model,
+               weight,
+               measure_id,
+               measure_name,
+               disc_number,
+               start_time,
+               end_time,
+               sort,
+               remark,
+               is_deleted,
+               version,
+               create_by,
+               create_time,
+               update_by,
+               update_time,
+               status,
+               attr1,
+               attr2,
+               attr3,
+               wiredrawing_code,
+               enamelling_equipment_id,
+               enamelling_equipment_code,
+               wight_completion,
+               degree_of_completion,
+               wire_disc_id,
+               attr5,
+               attr6,
+               attr7,
+               attr8,
+               attr9,
+               attr10,
+               artt6
+        from mes_wiredrawing_workorder
+        where is_deleted = 0
+          and id = #{id}
+    </select>
+
+    <!-- 分页查询指定行数据 -->
+    <select id="selectMesWiredrawingWorkorderList" resultMap="MesWiredrawingWorkorderMap">
+        select
+        id, workorder_id, order_type, customer_name, order_code, workorder_code, equipment_id, equipment_code,
+        product_id, specification, model, weight, measure_id, measure_name, disc_number, start_time, end_time, sort,
+        remark, is_deleted, version, create_by, create_time, update_by, update_time, status, attr1, attr2, attr3,
+        wiredrawing_code, enamelling_equipment_id, enamelling_equipment_code, wight_completion, degree_of_completion,
+        wire_disc_id, attr5, attr6, attr7, attr8, attr9, attr10, artt6
+        from mes_wiredrawing_workorder
+        <where>
+            is_deleted = 0
+            <if test="id != null and id != ''">and id = #{id}</if>
+            <if test="workorderId != null">and workorder_id = #{workorderId}</if>
+            <if test="orderType != null and orderType != ''">and order_type = #{orderType}</if>
+            <if test="customerName != null and customerName != ''">and customer_name = #{customerName}</if>
+            <if test="orderCode != null and orderCode != ''">and order_code = #{orderCode}</if>
+            <if test="workorderCode != null and workorderCode != ''">and workorder_code = #{workorderCode}</if>
+            <if test="equipmentId != null and equipmentId != ''">and equipment_id = #{equipmentId}</if>
+            <if test="equipmentCode != null and equipmentCode != ''">and equipment_code like concat('%',
+                #{equipmentCode},'%')
+            </if>
+            <if test="specification != null and specification != ''">and specification = #{specification}</if>
+            <if test="model != null and model != ''">and model = #{model}</if>
+            <if test="weight != null and weight != ''">and weight = #{weight}</if>
+            <if test="measureId != null and measureId != ''">and measure_id = #{measureId}</if>
+            <if test="measureName != null and measureName != ''">and measure_name = #{measureName}</if>
+            <if test="discNumber != null and discNumber != ''">and disc_number = #{discNumber}</if>
+            <if test="startTime != null and startTime != ''">and start_time = #{startTime}</if>
+            <if test="endTime != null and endTime != ''">and end_time = #{endTime}</if>
+            <if test="sort != null and sort != ''">and sort = #{sort}</if>
+            <if test="remark != null and remark != ''">and remark = #{remark}</if>
+            <if test="isDeleted != null and isDeleted != ''">and is_deleted = #{isDeleted}</if>
+            <if test="version != null and version != ''">and version = #{version}</if>
+            <if test="createBy != null and createBy != ''">and create_by = #{createBy}</if>
+            <if test="createTime != null and createTime != ''">and create_time = #{createTime}</if>
+            <if test="updateBy != null and updateBy != ''">and update_by = #{updateBy}</if>
+            <if test="updateTime != null and updateTime != ''">and update_time = #{updateTime}</if>
+            <if test="status != null and status != ''">and status = #{status}</if>
+            <if test="attr1 != null and attr1 != ''">and attr1 = #{attr1}</if>
+            <if test="attr2 != null and attr2 != ''">and attr2 = #{attr2}</if>
+            <if test="attr3 != null and attr3 != ''">and attr3 = #{attr3}</if>
+            <if test="wiredrawingCode != null and wiredrawingCode != ''">and wiredrawing_code = #{wiredrawingCode}</if>
+            <if test="productId != null and productId != ''">and product_id = #{productId}</if>
+            <if test="enamellingEquipmentId != null and enamellingEquipmentId != ''">and enamelling_equipment_id =
+                #{enamellingEquipmentId}
+            </if>
+            <if test="wightCompletion != null and wightCompletion != ''">and wight_completion = #{wightCompletion}</if>
+            <if test="degreeOfCompletion != null and degreeOfCompletion != ''">and degree_of_completion =
+                #{degreeOfCompletion}
+            </if>
+            <if test="wireDiscId != null and wireDiscId != ''">and wire_disc_id = #{wireDiscId}</if>
+            <if test="attr5 != null and attr5 != ''">and attr5 = #{attr5}</if>
+            <if test="attr6 != null and attr6 != ''">and attr6 = #{attr6}</if>
+            <if test="attr7 != null and attr7 != ''">and attr7 = #{attr7}</if>
+            <if test="attr8 != null and attr8 != ''">and attr8 = #{attr8}</if>
+            <if test="attr9 != null and attr9 != ''">and attr9 = #{attr9}</if>
+            <if test="attr10 != null and attr10 != ''">and attr10 = #{attr10}</if>
+            <if test="artt6 != null and artt6 != ''">and artt6 = #{artt6}</if>
+        </where>
+        order by create_time desc
+    </select>
+    <select id="getInfoByWiredrawingCode" resultMap="MesWiredrawingWorkorderMap">
+        select id,
+               workorder_id,
+               order_type,
+               customer_name,
+               order_code,
+               workorder_code,
+               equipment_id,
+               equipment_code,
+               product_id,
+               specification,
+               model,
+               weight,
+               measure_id,
+               measure_name,
+               disc_number,
+               start_time,
+               end_time,
+               sort,
+               remark,
+               is_deleted,
+               version,
+               create_by,
+               create_time,
+               update_by,
+               update_time,
+               status,
+               attr1,
+               attr2,
+               attr3,
+               wiredrawing_code,
+               enamelling_equipment_id,
+               enamelling_equipment_code,
+               wight_completion,
+               degree_of_completion,
+               wire_disc_id,
+               attr5,
+               attr6,
+               attr7,
+               attr8,
+               attr9,
+               attr10,
+               artt6
+        from mes_wiredrawing_workorder
+        where is_deleted = 0
+          and wiredrawing_code = #{wiredrawingCode}
+    </select>
+    <select id="countByStatus" resultType="java.lang.Integer">
+        select count(1)
+        from mes_wiredrawing_workorder
+        where is_deleted = 0
+          and status = #{status}
+    </select>
+    <select id="getTodaySchedulingNum" resultType="java.lang.Integer">
+        select count(1)
+        from mes_wiredrawing_workorder
+        where is_deleted = 0
+          and status = 1
+          and DATE_FORMAT(create_time, '%Y-%m-%d') = DATE_FORMAT(now(), '%Y-%m-%d')
+    </select>
+    <select id="getMesWiredrawingWorkorderList" resultMap="MesWiredrawingWorkorderMap">
+        select
+            id, workorder_id, order_type, customer_name, order_code, workorder_code, equipment_id, equipment_code,
+            product_id, specification, model, weight, measure_id, measure_name, disc_number, start_time, end_time, sort,
+            remark, is_deleted, version, create_by, create_time, update_by, update_time, status, attr1, attr2, attr3,
+            wiredrawing_code, enamelling_equipment_id, enamelling_equipment_code, wight_completion, degree_of_completion,
+            wire_disc_id, attr5, attr6, attr7, attr8, attr9, attr10, artt6
+        from mes_wiredrawing_workorder
+        where is_deleted = 0 and status in (0,1) order by status;
+    </select>
+
+    <!-- 新增数据 -->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into mes_wiredrawing_workorder
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="workorderId != null">workorder_id,</if>
+            <if test="orderType != null and orderType != ''">order_type,</if>
+            <if test="customerName != null and customerName != ''">customer_name,</if>
+            <if test="orderCode != null and orderCode != ''">order_code,</if>
+            <if test="workorderCode != null and workorderCode != ''">workorder_code,</if>
+            <if test="equipmentId != null and equipmentId != ''">equipment_id,</if>
+            <if test="equipmentCode != null and equipmentCode != ''">equipment_code,</if>
+            <if test="specification != null and specification != ''">specification,</if>
+            <if test="model != null and model != ''">model,</if>
+            <if test="weight != null">weight,</if>
+            <if test="measureId != null">measure_id,</if>
+            <if test="measureName != null and measureName != ''">measure_name,</if>
+            <if test="discNumber != null">disc_number,</if>
+            <if test="startTime != null">start_time,</if>
+            <if test="endTime != null">end_time,</if>
+            <if test="sort != null">sort,</if>
+            <if test="remark != null and remark != ''">remark,</if>
+            <if test="isDeleted != null">is_deleted,</if>
+            <if test="version != null">version,</if>
+            <if test="createBy != null and createBy != ''">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null and updateBy != ''">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="status != null and status != ''">status,</if>
+            <if test="attr1 != null and attr1 != ''">attr1,</if>
+            <if test="attr2 != null">attr2,</if>
+            <if test="attr3 != null and attr3 != ''">attr3,</if>
+            <if test="wiredrawingCode != null and wiredrawingCode != ''">wiredrawing_code,</if>
+            <if test="productId != null and productId != ''">product_id,</if>
+            <if test="enamellingEquipmentId != null and enamellingEquipmentId != ''">enamelling_equipment_id,</if>
+            <if test="enamellingEquipmentCode != null and enamellingEquipmentCode != ''">enamelling_equipment_code,</if>
+            <if test="wightCompletion != null">wight_completion,</if>
+            <if test="degreeOfCompletion != null">degree_of_completion,</if>
+            <if test="wireDiscId != null">wire_disc_id,</if>
+            <if test="attr5 != null and attr5 != ''">attr5,</if>
+            <if test="attr6 != null and attr6 != ''">attr6,</if>
+            <if test="attr7 != null and attr7 != ''">attr7,</if>
+            <if test="attr8 != null and attr8 != ''">attr8,</if>
+            <if test="attr9 != null and attr9 != ''">attr9,</if>
+            <if test="attr10 != null and attr10 != ''">attr10,</if>
+            <if test="artt6 != null and artt6 != ''">artt6,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="workorderId != null">#{workorderId},</if>
+            <if test="orderType != null and orderType != ''">#{orderType},</if>
+            <if test="customerName != null and customerName != ''">#{customerName},</if>
+            <if test="orderCode != null and orderCode != ''">#{orderCode},</if>
+            <if test="workorderCode != null and workorderCode != ''">#{workorderCode},</if>
+            <if test="equipmentId != null and equipmentId != ''">#{equipmentId},</if>
+            <if test="equipmentCode != null and equipmentCode != ''">#{equipmentCode},</if>
+            <if test="specification != null and specification != ''">#{specification},</if>
+            <if test="model != null and model != ''">#{model},</if>
+            <if test="weight != null">#{weight},</if>
+            <if test="measureId != null">#{measureId},</if>
+            <if test="measureName != null and measureName != ''">#{measureName},</if>
+            <if test="discNumber != null">#{discNumber},</if>
+            <if test="startTime != null">#{startTime},</if>
+            <if test="endTime != null">#{endTime},</if>
+            <if test="sort != null">#{sort},</if>
+            <if test="remark != null and remark != ''">#{remark},</if>
+            <if test="isDeleted != null">#{isDeleted},</if>
+            <if test="version != null">#{version},</if>
+            <if test="createBy != null and createBy != ''">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null and updateBy != ''">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="status != null and status != ''">#{status},</if>
+            <if test="attr1 != null and attr1 != ''">#{attr1},</if>
+            <if test="attr2 != null">#{attr2},</if>
+            <if test="attr3 != null and attr3 != ''">#{attr3},</if>
+            <if test="wiredrawingCode != null and wiredrawingCode != ''">#{wiredrawingCode},</if>
+            <if test="productId != null and productId != ''">#{productId},</if>
+            <if test="enamellingEquipmentId != null and enamellingEquipmentId != ''">#{enamellingEquipmentId},</if>
+            <if test="enamellingEquipmentCode != null and enamellingEquipmentCode != ''">#{enamellingEquipmentCode},
+            </if>
+            <if test="wightCompletion != null">#{wightCompletion},</if>
+            <if test="degreeOfCompletion != null">#{degreeOfCompletion},</if>
+            <if test="wireDiscId != null">#{wireDiscId},</if>
+            <if test="attr5 != null and attr5 != ''">#{attr5},</if>
+            <if test="attr6 != null and attr6 != ''">#{attr6},</if>
+            <if test="attr7 != null and attr7 != ''">#{attr7},</if>
+            <if test="attr8 != null and attr8 != ''">#{attr8},</if>
+            <if test="attr9 != null and attr9 != ''">#{attr9},</if>
+            <if test="attr10 != null and attr10 != ''">#{attr10},</if>
+            <if test="artt6 != null and artt6 != ''">#{artt6},</if>
+        </trim>
+    </insert>
+
+
+    <!-- 更新数据 -->
+    <update id="update">
+        update mes_wiredrawing_workorder
+        <set>
+            <trim suffixOverrides=",">
+                <if test="workorderId != null">workorder_id = #{workorderId},</if>
+                <if test="orderType != null">order_type = #{orderType},</if>
+                <if test="customerName != null">customer_name = #{customerName},</if>
+                <if test="orderCode != null">order_code = #{orderCode},</if>
+                <if test="workorderCode != null">workorder_code = #{workorderCode},</if>
+                <if test="equipmentId != null">equipment_id = #{equipmentId},</if>
+                <if test="equipmentCode != null">equipment_code = #{equipmentCode},</if>
+                <if test="specification != null">specification = #{specification},</if>
+                <if test="model != null">model = #{model},</if>
+                <if test="weight != null">weight = #{weight},</if>
+                <if test="measureId != null">measure_id = #{measureId},</if>
+                <if test="measureName != null">measure_name = #{measureName},</if>
+                <if test="discNumber != null">disc_number = #{discNumber},</if>
+                <if test="startTime != null">start_time = #{startTime},</if>
+                <if test="endTime != null">end_time = #{endTime},</if>
+                <if test="sort != null">sort = #{sort},</if>
+                <if test="remark != null">remark = #{remark},</if>
+                <if test="isDeleted != null">is_deleted = #{isDeleted},</if>
+                <if test="version != null">version = #{version},</if>
+                <if test="createBy != null">create_by = #{createBy},</if>
+                <if test="createTime != null">create_time = #{createTime},</if>
+                <if test="updateBy != null">update_by = #{updateBy},</if>
+                <if test="updateTime != null">update_time = #{updateTime},</if>
+                <if test="status != null">status = #{status},</if>
+                <if test="attr1 != null">attr1 = #{attr1},</if>
+                <if test="attr2 != null">attr2 = #{attr2},</if>
+                <if test="attr3 != null">attr3 = #{attr3},</if>
+                <if test="wiredrawingCode != null">wiredrawing_code = #{wiredrawingCode},</if>
+                <if test="productId != null">product_id = #{productId},</if>
+                <if test="enamellingEquipmentId != null">enamelling_equipment_id = #{enamellingEquipmentId},</if>
+                <if test="enamellingEquipmentCode != null">enamelling_equipment_code = #{enamellingEquipmentCode},</if>
+                <if test="wightCompletion != null">wight_completion = #{wightCompletion},</if>
+                <if test="degreeOfCompletion != null">degree_of_completion = #{degreeOfCompletion},</if>
+                <if test="wireDiscId != null">wire_disc_id = #{wireDiscId},</if>
+                <if test="attr5 != null">attr5 = #{attr5},</if>
+                <if test="attr6 != null">attr6 = #{attr6},</if>
+                <if test="attr7 != null">attr7 = #{attr7},</if>
+                <if test="attr8 != null">attr8 = #{attr8},</if>
+                <if test="attr9 != null">attr9 = #{attr9},</if>
+                <if test="attr10 != null">attr10 = #{attr10},</if>
+                <if test="artt6 != null">artt6 = #{artt6},</if>
+            </trim>
+        </set>
+        where id = #{id} and version = #{version}
+    </update>
+
+
+    <!--逻辑删除删除-->
+    <update id="deleteById">
+        update mes_wiredrawing_workorder
+        set is_deleted = 1
+        where id = #{id}
+    </update>
+
+    <!--批量逻辑删除-->
+    <update id="deleteByIds">
+        update mes_wiredrawing_workorder set is_deleted = 1 where id in
+        <foreach collection="array" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </update>
+
+
+    <!--排序-优先-->
+    <update id="updateSortById">
+        update mes_wiredrawing_workorder
+        set sort = sort + 1
+        where id = #{id}
+    </update>
+
+    <!--拉丝工单作废-->
+    <update id="cancelById">
+        update mes_wiredrawing_workorder
+        set status = 3
+        where id = #{id}
+    </update>
+
+    <!--通过id修改工单状态-->
+    <update id="updateStatusById">
+        update mes_wiredrawing_workorder
+        set status = #{status}
+        where id = #{id}
+    </update>
+
+    <!--通过id修改工单状态-->
+    <update id="sendChangeSpecification">
+        update mes_wiredrawing_workorder
+        set attr2 = 1
+        where id = #{id}
+    </update>
+    <update id="batchUpdate" parameterType="java.util.List">
+        <foreach collection="mesWiredrawingWorkorders" item="workorder" separator=";">
+            UPDATE mes_wiredrawing_workorder
+            <set>
+                <trim suffixOverrides=",">
+                    <if test="workorder.workorderId != null">workorder_id = #{workorder.workorderId},</if>
+                    <if test="workorder.orderType != null">order_type = #{workorder.orderType},</if>
+                    <if test="workorder.customerName != null">customer_name = #{workorder.customerName},</if>
+                    <if test="workorder.orderCode != null">order_code = #{workorder.orderCode},</if>
+                    <if test="workorder.workorderCode != null">workorder_code = #{workorder.workorderCode},</if>
+                    <if test="workorder.equipmentId != null">equipment_id = #{workorder.equipmentId},</if>
+                    <if test="workorder.equipmentCode != null">equipment_code = #{workorder.equipmentCode},</if>
+                    <if test="workorder.specification != null">specification = #{workorder.specification},</if>
+                    <if test="workorder.model != null">model = #{workorder.model},</if>
+                    <if test="workorder.weight != null">weight = #{workorder.weight},</if>
+                    <if test="workorder.measureId != null">measure_id = #{workorder.measureId},</if>
+                    <if test="workorder.measureName != null">measure_name = #{workorder.measureName},</if>
+                    <if test="workorder.discNumber != null">disc_number = #{workorder.discNumber},</if>
+                    <if test="workorder.startTime != null">start_time = #{workorder.startTime},</if>
+                    <if test="workorder.endTime != null">end_time = #{workorder.endTime},</if>
+                    <if test="workorder.sort != null">sort = #{workorder.sort},</if>
+                    <if test="workorder.remark != null">remark = #{workorder.remark},</if>
+                    <if test="workorder.isDeleted != null">is_deleted = #{workorder.isDeleted},</if>
+                    <if test="workorder.version != null">version = #{workorder.version},</if>
+                    <if test="workorder.createBy != null">create_by = #{workorder.createBy},</if>
+                    <if test="workorder.createTime != null">create_time = #{workorder.createTime},</if>
+                    <if test="workorder.updateBy != null">update_by = #{workorder.updateBy},</if>
+                    <if test="workorder.updateTime != null">update_time = #{workorder.updateTime},</if>
+                    <if test="workorder.status != null">status = #{workorder.status},</if>
+                    <if test="workorder.attr1 != null">attr1 = #{workorder.attr1},</if>
+                    <if test="workorder.attr2 != null">attr2 = #{workorder.attr2},</if>
+                    <if test="workorder.attr3 != null">attr3 = #{workorder.attr3},</if>
+                    <if test="workorder.wiredrawingCode != null">wiredrawing_code = #{workorder.wiredrawingCode},</if>
+                    <if test="workorder.productId != null">product_id = #{workorder.productId},</if>
+                    <if test="workorder.enamellingEquipmentId != null">enamelling_equipment_id = #{workorder.enamellingEquipmentId},</if>
+                    <if test="workorder.enamellingEquipmentCode != null">enamelling_equipment_code = #{workorder.enamellingEquipmentCode},</if>
+                    <if test="workorder.wightCompletion != null">wight_completion = #{workorder.wightCompletion},</if>
+                    <if test="workorder.degreeOfCompletion != null">degree_of_completion = #{workorder.degreeOfCompletion},</if>
+                    <if test="workorder.wireDiscId != null">wire_disc_id = #{workorder.wireDiscId},</if>
+                    <if test="workorder.attr5 != null">attr5 = #{workorder.attr5},</if>
+                    <if test="workorder.attr6 != null">attr6 = #{workorder.attr6},</if>
+                    <if test="workorder.attr7 != null">attr7 = #{workorder.attr7},</if>
+                    <if test="workorder.attr8 != null">attr8 = #{workorder.attr8},</if>
+                    <if test="workorder.attr9 != null">attr9 = #{workorder.attr9},</if>
+                    <if test="workorder.attr10 != null">attr10 = #{workorder.attr10},</if>
+                    <if test="workorder.artt6 != null">artt6 = #{workorder.artt6},</if>
+                </trim>
+            </set>
+            WHERE id = #{workorder.id}
+        </foreach>
+    </update>
+</mapper>

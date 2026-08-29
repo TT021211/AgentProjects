@@ -1,0 +1,504 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cuixing.purchase.mapper.ProcureOrderMapper">
+
+    <resultMap type="com.cuixing.purchase.entity.ProcureOrder" id="ProcureOrderMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="procureCode" column="procure_code" jdbcType="VARCHAR"/>
+        <result property="productNameId" column="product_name_id" jdbcType="INTEGER"/>
+        <result property="productName" column="product_name" jdbcType="VARCHAR"/>
+        <result property="productSpec" column="product_spec" jdbcType="VARCHAR"/>
+        <result property="procureWeight" column="procure_weight" jdbcType="NUMERIC"/>
+        <result property="procureNumber" column="procure_number" jdbcType="INTEGER"/>
+        <result property="procurePurpose" column="procure_purpose" jdbcType="VARCHAR"/>
+        <result property="procureRequire" column="procure_require" jdbcType="VARCHAR"/>
+        <result property="measureId" column="measure_id" jdbcType="INTEGER"/>
+        <result property="measureName" column="measure_name" jdbcType="VARCHAR"/>
+        <result property="manufacturerId" column="manufacturer_id" jdbcType="INTEGER"/>
+        <result property="manufacturer" column="manufacturer" jdbcType="VARCHAR"/>
+        <result property="procurePerson" column="procure_person" jdbcType="VARCHAR"/>
+        <result property="procureTime" column="procure_time" jdbcType="TIMESTAMP"/>
+        <result property="arriveTime" column="arrive_time" jdbcType="TIMESTAMP"/>
+        <result property="isDeleted" column="is_deleted" jdbcType="INTEGER"/>
+        <result property="version" column="version" jdbcType="INTEGER"/>
+        <result property="createBy" column="create_by" jdbcType="VARCHAR"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="updateBy" column="update_by" jdbcType="VARCHAR"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+        <result property="attr1" column="attr1" jdbcType="VARCHAR"/>
+        <result property="attr2" column="attr2" jdbcType="INTEGER"/>
+        <result property="attr3" column="attr3" jdbcType="VARCHAR"/>
+        <result property="attr4" column="attr4" jdbcType="NUMERIC"/>
+        <result property="attr5" column="attr5" jdbcType="VARCHAR"/>
+        <result property="attr6" column="attr6" jdbcType="VARCHAR"/>
+        <result property="attr7" column="attr7" jdbcType="VARCHAR"/>
+        <result property="attr8" column="attr8" jdbcType="VARCHAR"/>
+        <result property="attr9" column="attr9" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="selectProcureOrderVo">
+        SELECT id,
+               procure_code,
+               product_name_id,
+               product_name,
+               product_spec,
+               procure_weight,
+               procure_number,
+               procure_purpose,
+               procure_require,
+               measure_id,
+               measure_name,
+               manufacturer_id,
+               manufacturer,
+               procure_person,
+               procure_time,
+               arrive_time,
+               is_deleted,
+               version,
+               create_by,
+               create_time,
+               update_by,
+               update_time,
+               attr1,
+               attr2,
+               attr3,
+               attr4,
+               attr5,
+               attr6,
+               attr7,
+               attr8,
+               attr9
+        FROM procure_order
+    </sql>
+
+    <select id="selectProcureOrderList" parameterType="ProcureOrder" resultMap="ProcureOrderMap">
+        <include refid="selectProcureOrderVo"/>
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="procureCode != null and procureCode != ''">
+                and procure_code = #{procureCode}
+            </if>
+            <if test="productNameId != null">
+                and product_name_id = #{productNameId}
+            </if>
+            <if test="productName != null and productName != ''">
+                and product_name = #{productName}
+            </if>
+            <if test="productSpec != null and productSpec != ''">
+                and product_spec = #{productSpec}
+            </if>
+            <if test="procureWeight != null">
+                and procure_weight = #{procureWeight}
+            </if>
+            <if test="procureNumber != null">
+                and procure_number = #{procureNumber}
+            </if>
+            <if test="procurePurpose != null and procurePurpose != ''">
+                and procure_purpose = #{procurePurpose}
+            </if>
+            <if test="procureRequire != null and procureRequire != ''">
+                and procure_require = #{procureRequire}
+            </if>
+            <if test="measureId != null">
+                and measure_id = #{measureId}
+            </if>
+            <if test="measureName != null and measureName != ''">
+                and measure_name = #{measureName}
+            </if>
+            <if test="manufacturerId != null">
+                and manufacturer_id = #{manufacturerId}
+            </if>
+            <if test="manufacturer != null and manufacturer != ''">
+                and manufacturer = #{manufacturer}
+            </if>
+            <if test="procurePerson != null and procurePerson != ''">
+                and procure_person = #{procurePerson}
+            </if>
+            <if test="procureTime != null">
+                and procure_time = #{procureTime}
+            </if>
+            <if test="arriveTime != null">
+                and arrive_time = #{arriveTime}
+            </if>
+            <if test="isDeleted != null">
+                and is_deleted = #{isDeleted}
+            </if>
+            <if test="version != null">
+                and version = #{version}
+            </if>
+            <if test="createBy != null and createBy != ''">
+                and create_by = #{createBy}
+            </if>
+            <if test="createTime != null">
+                and create_time = #{createTime}
+            </if>
+            <if test="updateBy != null and updateBy != ''">
+                and update_by = #{updateBy}
+            </if>
+            <if test="updateTime != null">
+                and update_time = #{updateTime}
+            </if>
+            <if test="attr1 != null and attr1 != ''">
+                and attr1 = #{attr1}
+            </if>
+            <if test="attr2 != null">
+                and attr2 = #{attr2}
+            </if>
+            <if test="attr3 != null">
+                and attr3 = #{attr3}
+            </if>
+            <if test="attr4 != null">
+                and attr4 = #{attr4}
+            </if>
+            <if test="attr5 != null and attr5 != ''">
+                and attr5 = #{attr5}
+            </if>
+            <if test="attr6 != null and attr6 != ''">
+                and attr6 = #{attr6}
+            </if>
+            <if test="attr7 != null and attr7 != ''">
+                and attr7 = #{attr7}
+            </if>
+            <if test="attr8 != null and attr8 != ''">
+                and attr8 = #{attr8}
+            </if>
+            <if test="attr9 != null and attr9 != ''">
+                and attr9 = #{attr9}
+            </if>
+        </where>
+        ORDER BY
+        create_time DESC
+    </select>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="ProcureOrderMap">
+        select id,
+               procure_code,
+               product_name_id,
+               product_name,
+               product_spec,
+               procure_weight,
+               procure_number,
+               procure_purpose,
+               procure_require,
+               measure_id,
+               measure_name,
+               manufacturer_id,
+               manufacturer,
+               procure_person,
+               procure_time,
+               arrive_time,
+               is_deleted,
+               version,
+               create_by,
+               create_time,
+               update_by,
+               update_time,
+               attr1,
+               attr2,
+               attr3,
+               attr4,
+               attr5,
+               attr6,
+               attr7,
+               attr8,
+               attr9
+
+        from procure_order
+        where id = #{id}
+    </select>
+
+    <!--统计总行数-->
+    <select id="count" resultType="java.lang.Long">
+        select count(1)
+        from procure_order
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="procureCode != null and procureCode != ''">
+                and procure_code = #{procureCode}
+            </if>
+            <if test="productNameId != null">
+                and product_name_id = #{productNameId}
+            </if>
+            <if test="productName != null and productName != ''">
+                and product_name = #{productName}
+            </if>
+            <if test="productSpec != null and productSpec != ''">
+                and product_spec = #{productSpec}
+            </if>
+            <if test="procureWeight != null">
+                and procure_weight = #{procureWeight}
+            </if>
+            <if test="procureNumber != null">
+                and procure_number = #{procureNumber}
+            </if>
+            <if test="procurePurpose != null and procurePurpose != ''">
+                and procure_purpose = #{procurePurpose}
+            </if>
+            <if test="procureRequire != null and procureRequire != ''">
+                and procure_require = #{procureRequire}
+            </if>
+            <if test="measureId != null">
+                and measure_id = #{measureId}
+            </if>
+            <if test="measureName != null and measureName != ''">
+                and measure_name = #{measureName}
+            </if>
+            <if test="manufacturerId != null">
+                and manufacturer_id = #{manufacturerId}
+            </if>
+            <if test="manufacturer != null and manufacturer != ''">
+                and manufacturer = #{manufacturer}
+            </if>
+            <if test="procurePerson != null and procurePerson != ''">
+                and procure_person = #{procurePerson}
+            </if>
+            <if test="procureTime != null">
+                and procure_time = #{procureTime}
+            </if>
+            <if test="arriveTime != null">
+                and arrive_time = #{arriveTime}
+            </if>
+            <if test="isDeleted != null">
+                and is_deleted = #{isDeleted}
+            </if>
+            <if test="version != null">
+                and version = #{version}
+            </if>
+            <if test="createBy != null and createBy != ''">
+                and create_by = #{createBy}
+            </if>
+            <if test="createTime != null">
+                and create_time = #{createTime}
+            </if>
+            <if test="updateBy != null and updateBy != ''">
+                and update_by = #{updateBy}
+            </if>
+            <if test="updateTime != null">
+                and update_time = #{updateTime}
+            </if>
+            <if test="attr1 != null and attr1 != ''">
+                and attr1 = #{attr1}
+            </if>
+            <if test="attr2 != null">
+                and attr2 = #{attr2}
+            </if>
+            <if test="attr3 != null">
+                and attr3 = #{attr3}
+            </if>
+            <if test="attr4 != null">
+                and attr4 = #{attr4}
+            </if>
+            <if test="attr5 != null and attr5 != ''">
+                and attr5 = #{attr5}
+            </if>
+            <if test="attr6 != null and attr6 != ''">
+                and attr6 = #{attr6}
+            </if>
+            <if test="attr7 != null and attr7 != ''">
+                and attr7 = #{attr7}
+            </if>
+            <if test="attr8 != null and attr8 != ''">
+                and attr8 = #{attr8}
+            </if>
+            <if test="attr9 != null and attr9 != ''">
+                and attr9 = #{attr9}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into procure_order(procure_code, product_name_id, product_name, product_spec, procure_weight,
+                                  procure_number, procure_purpose, procure_require, measure_id, measure_name,
+                                  manufacturer_id, manufacturer, procure_person, procure_time, arrive_time, is_deleted,
+                                  version, create_by, create_time, update_by, update_time, attr1, attr2, attr3, attr4,
+                                  attr5, attr6, attr7, attr8, attr9)
+        values (#{procureCode}, #{productNameId}, #{productName}, #{productSpec}, #{procureWeight}, #{procureNumber},
+                #{procurePurpose}, #{procureRequire}, #{measureId}, #{measureName}, #{manufacturerId}, #{manufacturer},
+                #{procurePerson}, #{procureTime}, #{arriveTime}, #{isDeleted}, #{version}, #{createBy}, #{createTime},
+                #{updateBy}, #{updateTime}, #{attr1}, #{attr2}, #{attr3}, #{attr4}, #{attr5}, #{attr6}, #{attr7},
+                #{attr8}, #{attr9})
+    </insert>
+
+    <insert id="insertBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into procure_order(procure_code, product_name_id, product_name, product_spec, procure_weight,
+        procure_number, procure_purpose, procure_require, measure_id, measure_name, manufacturer_id, manufacturer,
+        procure_person, procure_time, arrive_time, is_deleted, version, create_by, create_time, update_by, update_time,
+        attr1, attr2, attr3, attr4, attr5, attr6, attr7, attr8, attr9)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.procureCode}, #{entity.productNameId}, #{entity.productName}, #{entity.productSpec},
+            #{entity.procureWeight}, #{entity.procureNumber}, #{entity.procurePurpose}, #{entity.procureRequire},
+            #{entity.measureId}, #{entity.measureName}, #{entity.manufacturerId}, #{entity.manufacturer},
+            #{entity.procurePerson}, #{entity.procureTime}, #{entity.arriveTime}, #{entity.isDeleted},
+            #{entity.version}, #{entity.createBy}, #{entity.createTime}, #{entity.updateBy}, #{entity.updateTime},
+            #{entity.attr1}, #{entity.attr2}, #{entity.attr3}, #{entity.attr4}, #{entity.attr5}, #{entity.attr6},
+            #{entity.attr7}, #{entity.attr8}, #{entity.attr9})
+        </foreach>
+    </insert>
+
+    <insert id="insertOrUpdateBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into procure_order(procure_code, product_name_id, product_name, product_spec, procure_weight,
+        procure_number, procure_purpose, procure_require, measure_id, measure_name, manufacturer_id, manufacturer,
+        procure_person, procure_time, arrive_time, is_deleted, version, create_by, create_time, update_by, update_time,
+        attr1, attr2, attr3, attr4, attr5, attr6, attr7, attr8, attr9)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.procureCode}, #{entity.productNameId}, #{entity.productName}, #{entity.productSpec},
+            #{entity.procureWeight}, #{entity.procureNumber}, #{entity.procurePurpose}, #{entity.procureRequire},
+            #{entity.measureId}, #{entity.measureName}, #{entity.manufacturerId}, #{entity.manufacturer},
+            #{entity.procurePerson}, #{entity.procureTime}, #{entity.arriveTime}, #{entity.isDeleted},
+            #{entity.version}, #{entity.createBy}, #{entity.createTime}, #{entity.updateBy}, #{entity.updateTime},
+            #{entity.attr1}, #{entity.attr2}, #{entity.attr3}, #{entity.attr4}, #{entity.attr5}, #{entity.attr6},
+            #{entity.attr7}, #{entity.attr8}, #{entity.attr9})
+        </foreach>
+        on duplicate key update
+        procure_code = values(procure_code),
+        product_name_id = values(product_name_id),
+        product_name = values(product_name),
+        product_spec = values(product_spec),
+        procure_weight = values(procure_weight),
+        procure_number = values(procure_number),
+        procure_purpose = values(procure_purpose),
+        procure_require = values(procure_require),
+        measure_id = values(measure_id),
+        measure_name = values(measure_name),
+        manufacturer_id = values(manufacturer_id),
+        manufacturer = values(manufacturer),
+        procure_person = values(procure_person),
+        procure_time = values(procure_time),
+        arrive_time = values(arrive_time),
+        is_deleted = values(is_deleted),
+        version = values(version),
+        create_by = values(create_by),
+        create_time = values(create_time),
+        update_by = values(update_by),
+        update_time = values(update_time),
+        attr1 = values(attr1),
+        attr2 = values(attr2),
+        attr3 = values(attr3),
+        attr4 = values(attr4),
+        attr5 = values(attr5),
+        attr6 = values(attr6),
+        attr7 = values(attr7),
+        attr8 = values(attr8),
+        attr9 = values(attr9)
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update procure_order
+        <set>
+            <if test="procureCode != null and procureCode != ''">
+                procure_code = #{procureCode},
+            </if>
+            <if test="productNameId != null">
+                product_name_id = #{productNameId},
+            </if>
+            <if test="productName != null and productName != ''">
+                product_name = #{productName},
+            </if>
+            <if test="productSpec != null and productSpec != ''">
+                product_spec = #{productSpec},
+            </if>
+            <if test="procureWeight != null">
+                procure_weight = #{procureWeight},
+            </if>
+            <if test="procureNumber != null">
+                procure_number = #{procureNumber},
+            </if>
+            <if test="procurePurpose != null and procurePurpose != ''">
+                procure_purpose = #{procurePurpose},
+            </if>
+            <if test="procureRequire != null and procureRequire != ''">
+                procure_require = #{procureRequire},
+            </if>
+            <if test="measureId != null">
+                measure_id = #{measureId},
+            </if>
+            <if test="measureName != null and measureName != ''">
+                measure_name = #{measureName},
+            </if>
+            <if test="manufacturerId != null">
+                manufacturer_id = #{manufacturerId},
+            </if>
+            <if test="manufacturer != null and manufacturer != ''">
+                manufacturer = #{manufacturer},
+            </if>
+            <if test="procurePerson != null and procurePerson != ''">
+                procure_person = #{procurePerson},
+            </if>
+            <if test="procureTime != null">
+                procure_time = #{procureTime},
+            </if>
+            <if test="arriveTime != null">
+                arrive_time = #{arriveTime},
+            </if>
+            <if test="isDeleted != null">
+                is_deleted = #{isDeleted},
+            </if>
+            <if test="version != null">
+                version = #{version},
+            </if>
+            <if test="createBy != null and createBy != ''">
+                create_by = #{createBy},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime},
+            </if>
+            <if test="updateBy != null and updateBy != ''">
+                update_by = #{updateBy},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime},
+            </if>
+            <if test="attr1 != null and attr1 != ''">
+                attr1 = #{attr1},
+            </if>
+            <if test="attr2 != null">
+                attr2 = #{attr2},
+            </if>
+            <if test="attr3 != null">
+                attr3 = #{attr3},
+            </if>
+            <if test="attr4 != null">
+                attr4 = #{attr4},
+            </if>
+            <if test="attr5 != null and attr5 != ''">
+                attr5 = #{attr5},
+            </if>
+            <if test="attr6 != null and attr6 != ''">
+                attr6 = #{attr6},
+            </if>
+            <if test="attr7 != null and attr7 != ''">
+                attr7 = #{attr7},
+            </if>
+            <if test="attr8 != null and attr8 != ''">
+                attr8 = #{attr8},
+            </if>
+            <if test="attr9 != null and attr9 != ''">
+                attr9 = #{attr9},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+    <update id="approval">
+        update procure_order
+        set attr2 = #{attr2}, attr1=#{attr1}
+        where id = #{id}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete
+        from procure_order
+        where id = #{id}
+    </delete>
+
+</mapper>
+

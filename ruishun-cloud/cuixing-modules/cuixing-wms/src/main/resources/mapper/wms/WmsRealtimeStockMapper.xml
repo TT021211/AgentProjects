@@ -1,0 +1,460 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cuixing.wms.mapper.WmsRealtimeStockMapper">
+
+    <resultMap type="com.cuixing.system.api.domain.wms.WmsRealtimeStock" id="WmsRealtimeStockResult">
+        <result property="materialStockId" column="material_stock_id"/>
+        <result property="itemTypeId" column="item_type_id"/>
+        <result property="itemTypeName" column="item_type_name"/>
+        <result property="itemId" column="item_id"/>
+        <result property="itemCode" column="item_code"/>
+        <result property="itemName" column="item_name"/>
+        <result property="itemIdentifier" column="item_identifier"/>
+        <result property="specification" column="specification"/>
+        <result property="unitOfMeasure" column="unit_of_measure"/>
+        <result property="batchCode" column="batch_code"/>
+        <result property="containerCode" column="container_code"/>
+        <result property="warehouseId" column="warehouse_id"/>
+        <result property="warehouseCode" column="warehouse_code"/>
+        <result property="warehouseName" column="warehouse_name"/>
+        <result property="locationId" column="location_id"/>
+        <result property="locationCode" column="location_code"/>
+        <result property="locationName" column="location_name"/>
+        <result property="areaId" column="area_id"/>
+        <result property="areaCode" column="area_code"/>
+        <result property="areaName" column="area_name"/>
+        <result property="vendorId" column="vendor_id"/>
+        <result property="vendorCode" column="vendor_code"/>
+        <result property="vendorName" column="vendor_name"/>
+        <result property="vendorNick" column="vendor_nick"/>
+        <result property="quantityOnhand" column="quantity_onhand"/>
+        <result property="workorderId" column="workorder_id"/>
+        <result property="workorderCode" column="workorder_code"/>
+        <result property="recptDate" column="recpt_date"/>
+        <result property="expireDate" column="expire_date"/>
+        <result property="attr1" column="attr1"/>
+        <result property="attr2" column="attr2"/>
+        <result property="attr3" column="attr3"/>
+        <result property="attr4" column="attr4"/>
+        <result property="productTypeName" column="product_type_name"/>
+        <result property="productInoutStatus" column="product_inout_status"/>
+        <result property="artt4" column="artt4"/>
+        <result property="artt5" column="artt5"/>
+        <result property="artt6" column="artt6"/>
+        <result property="artt7" column="artt7"/>
+        <result property="artt8" column="artt8"/>
+        <result property="artt9" column="artt9"/>
+        <result property="artt10" column="artt10"/>
+        <result property="version" column="version"/>
+        <result property="createBy" column="create_by"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateBy" column="update_by"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="stockCode" column="stock_code"/>
+        <result property="weight" column="weight"/>
+        <result property="totalWeight" column="total_weight"/>
+        <result property="weightUnit" column="weight_unit"/>
+        <result property="waringValue" column="waring_value"/>
+        <result property="partNumber" column="part_number"/>
+        <result property="scanCount" column="scan_count"/>
+        <result property="tareWeight" column="tare_weight"/>
+        <result property="ingredientsName" column="ingredients_name"/>
+        <result property="manufacturerName" column="manufacturer_name"/>
+        <result property="materialCode" column="material_code"/>
+        <result property="productBatchCode" column="product_batch_code"/>
+    </resultMap>
+
+    <sql id="selectWmsRealtimeStockVo">
+        select material_stock_id,
+               item_type_id,
+               CASE item_type_id
+                   WHEN 0 THEN '物料'
+                   WHEN 1 THEN '产品'
+                   ELSE '其他'
+                   END AS item_type_name,
+               waring_value,
+               item_id,
+               item_code,
+               item_name,
+               item_identifier,
+               specification,
+               unit_of_measure,
+               batch_code,
+               container_code,
+               warehouse_id,
+               warehouse_code,
+               warehouse_name,
+               location_id,
+               location_code,
+               location_name,
+               area_id,
+               area_code,
+               area_name,
+               vendor_id,
+               vendor_code,
+               vendor_name,
+               vendor_nick,
+               quantity_onhand,
+               workorder_id,
+               workorder_code,
+               recpt_date,
+               expire_date,
+               attr1,
+               attr2,
+               attr3,
+               attr4,
+               version,
+               create_by,
+               create_time,
+               update_by,
+               update_time,
+               stock_code,
+               weight,
+               total_weight,
+               weight_unit,
+               part_number,
+               scan_count,
+               tare_weight,
+               ingredients_name,
+               manufacturer_name,
+               material_code,
+               product_batch_code,
+               product_type_name,
+               product_inout_status,
+               artt4,
+               artt5,
+               artt6,
+               artt7,
+               artt8,
+               artt9,
+               artt10
+        from wms_realtime_stock
+    </sql>
+
+    <select id="selectWmsRealtimeStockList" parameterType="com.cuixing.system.api.domain.wms.WmsRealtimeStock"
+            resultMap="WmsRealtimeStockResult">
+        <include refid="selectWmsRealtimeStockVo"/>
+        <where>
+            <if test="itemTypeId != null ">and item_type_id = #{itemTypeId}</if>
+            <if test="itemId != null ">and item_id = #{itemId}</if>
+            <if test="itemCode != null  and itemCode != ''">and item_code = #{itemCode}</if>
+            <if test="itemName != null  and itemName != ''">and item_name like concat('%', #{itemName}, '%')</if>
+            <if test="itemIdentifier != null  and itemIdentifier != ''">and item_identifier = #{itemIdentifier}</if>
+            <if test="specification != null  and specification != ''">and specification = #{specification}</if>
+            <if test="unitOfMeasure != null  and unitOfMeasure != ''">and unit_of_measure = #{unitOfMeasure}</if>
+            <if test="batchCode != null  and batchCode != ''">and batch_code = #{batchCode}</if>
+            <if test="containerCode != null  and containerCode != ''">and container_code = #{containerCode}</if>
+            <if test="warehouseId != null ">and warehouse_id = #{warehouseId}</if>
+            <if test="warehouseCode != null  and warehouseCode != ''">and warehouse_code = #{warehouseCode}</if>
+            <if test="warehouseName != null  and warehouseName != ''">and warehouse_name like concat('%',
+                #{warehouseName}, '%')
+            </if>
+            <if test="locationId != null ">and location_id = #{locationId}</if>
+            <if test="locationCode != null  and locationCode != ''">and location_code = #{locationCode}</if>
+            <if test="locationName != null  and locationName != ''">and location_name like concat('%', #{locationName},
+                '%')
+            </if>
+            <if test="areaId != null ">and area_id = #{areaId}</if>
+            <if test="areaCode != null  and areaCode != ''">and area_code = #{areaCode}</if>
+            <if test="areaName != null  and areaName != ''">and area_name like concat('%', #{areaName}, '%')</if>
+            <if test="vendorId != null ">and vendor_id = #{vendorId}</if>
+            <if test="vendorCode != null  and vendorCode != ''">and vendor_code = #{vendorCode}</if>
+            <if test="vendorName != null  and vendorName != ''">and vendor_name like concat('%', #{vendorName}, '%')
+            </if>
+            <if test="vendorNick != null  and vendorNick != ''">and vendor_nick = #{vendorNick}</if>
+            <if test="quantityOnhand != null ">and quantity_onhand = #{quantityOnhand}</if>
+            <if test="workorderId != null ">and workorder_id = #{workorderId}</if>
+            <if test="workorderCode != null  and workorderCode != ''">and workorder_code = #{workorderCode}</if>
+            <if test="recptDate != null ">and recpt_date = #{recptDate}</if>
+            <if test="expireDate != null ">and expire_date = #{expireDate}</if>
+            <if test="attr1 != null  and attr1 != ''">and attr1 = #{attr1}</if>
+            <if test="attr2 != null  and attr2 != ''">and attr2 = #{attr2}</if>
+            <if test="attr3 != null ">and attr3 = #{attr3}</if>
+            <if test="attr4 != null ">and attr4 = #{attr4}</if>
+            <if test="productTypeName != null ">and product_type_name = #{productTypeName}</if>
+            <if test="productInoutStatus != null ">and product_inout_status = #{productInoutStatus}</if>
+            <if test="artt4 != null ">and artt4 = #{artt4}</if>
+            <if test="artt5 != null ">and artt5 = #{artt5}</if>
+            <if test="artt6 != null ">and artt6 = #{artt6}</if>
+            <if test="artt7 != null ">and artt7 = #{artt7}</if>
+            <if test="artt8 != null ">and artt8 = #{artt8}</if>
+            <if test="artt9 != null ">and artt9 = #{artt9}</if>
+            <if test="artt10 != null ">and artt10 = #{artt10}</if>
+            <if test="version != null ">and version = #{version}</if>
+            <if test="stockCode != null  and stockCode != ''">and stock_code = #{stockCode}</if>
+            <if test="weight != null ">and weight = #{weight}</if>
+            <if test="totalWeight != null ">and total_weight = #{totalWeight}</if>
+            <if test="weightUnit != null  and weightUnit != ''">and weight_unit = #{weightUnit}</if>
+            <if test="enableFlag != null  and enableFlag != ''">and enable_flag = #{enableFlag}</if>
+            <if test="partNumber != null  and partNumber != ''">and part_number = #{partNumber}</if>
+            <if test="scanCount != null ">and scan_count = #{scanCount}</if>
+            <if test="tareWeight != null ">and tare_weight = #{tareWeight}</if>
+            <if test="ingredientsName != null  and ingredientsName != ''">and ingredients_name = #{ingredientsName}</if>
+            <if test="manufacturerName != null  and manufacturerName != ''">and manufacturer_name =
+                #{manufacturerName}
+            </if>
+            <if test="materialCode != null  and materialCode != ''">and material_code = #{materialCode}</if>
+            <if test="productBatchCode != null  and productBatchCode != ''">and product_batch_code =
+                #{productBatchCode}
+            </if>
+        </where>
+        order by create_time desc
+    </select>
+
+    <select id="selectWmsRealtimeStockByMaterialStockId" parameterType="Long" resultMap="WmsRealtimeStockResult">
+        <include refid="selectWmsRealtimeStockVo"/>
+        where material_stock_id = #{materialStockId}
+    </select>
+
+    <select id="selectWmsRealtimeStockByItemIdentifier" resultMap="WmsRealtimeStockResult">
+        <include refid="selectWmsRealtimeStockVo"/>
+        where item_identifier = #{itemIdentifier} and warehouse_id = #{warehouseId} limit 1
+    </select>
+
+    <select id="selectByItemIdentifier" resultMap="WmsRealtimeStockResult">
+        <include refid="selectWmsRealtimeStockVo"/>
+        where item_identifier = #{itemIdentifier} limit 1
+    </select>
+
+    <insert id="insertWmsRealtimeStock" parameterType="com.cuixing.system.api.domain.wms.WmsRealtimeStock"
+            useGeneratedKeys="true" keyProperty="materialStockId">
+        insert into wms_realtime_stock
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="itemTypeId != null">item_type_id,</if>
+            <if test="itemId != null">item_id,</if>
+            <if test="itemCode != null">item_code,</if>
+            <if test="itemName != null">item_name,</if>
+            <if test="itemIdentifier != null">item_identifier,</if>
+            <if test="specification != null">specification,</if>
+            <if test="unitOfMeasure != null">unit_of_measure,</if>
+            <if test="batchCode != null">batch_code,</if>
+            <if test="containerCode != null">container_code,</if>
+            <if test="warehouseId != null">warehouse_id,</if>
+            <if test="warehouseCode != null">warehouse_code,</if>
+            <if test="warehouseName != null">warehouse_name,</if>
+            <if test="locationId != null">location_id,</if>
+            <if test="locationCode != null">location_code,</if>
+            <if test="locationName != null">location_name,</if>
+            <if test="areaId != null">area_id,</if>
+            <if test="areaCode != null">area_code,</if>
+            <if test="areaName != null">area_name,</if>
+            <if test="vendorId != null">vendor_id,</if>
+            <if test="vendorCode != null">vendor_code,</if>
+            <if test="vendorName != null">vendor_name,</if>
+            <if test="vendorNick != null">vendor_nick,</if>
+            <if test="quantityOnhand != null">quantity_onhand,</if>
+            <if test="workorderId != null">workorder_id,</if>
+            <if test="workorderCode != null">workorder_code,</if>
+            <if test="recptDate != null">recpt_date,</if>
+            <if test="expireDate != null">expire_date,</if>
+            <if test="attr1 != null">attr1,</if>
+            <if test="attr2 != null">attr2,</if>
+            <if test="attr3 != null">attr3,</if>
+            <if test="attr4 != null">attr4,</if>
+            <if test="productTypeName != null">product_type_name,</if>
+            <if test="productInoutStatus != null">product_inout_status,</if>
+            <if test="artt4 != null">artt4,</if>
+            <if test="artt5 != null">artt5,</if>
+            <if test="artt6 != null">artt6,</if>
+            <if test="artt7 != null">artt7,</if>
+            <if test="artt8 != null">artt8,</if>
+            <if test="artt9 != null">artt9,</if>
+            <if test="artt10 != null">artt10,</if>
+            <if test="version != null">version,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="stockCode != null">stock_code,</if>
+            <if test="weight != null">weight,</if>
+            <if test="totalWeight != null">total_weight,</if>
+            <if test="weightUnit != null">weight_unit,</if>
+            <if test="partNumber != null">part_number,</if>
+            <if test="scanCount != null">scan_count,</if>
+            <if test="tareWeight != null">tare_weight,</if>
+            <if test="ingredientsName != null">ingredients_name,</if>
+            <if test="manufacturerName != null">manufacturer_name,</if>
+            <if test="materialCode != null">material_code,</if>
+            <if test="productBatchCode != null">product_batch_code,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="itemTypeId != null">#{itemTypeId},</if>
+            <if test="itemId != null">#{itemId},</if>
+            <if test="itemCode != null">#{itemCode},</if>
+            <if test="itemName != null">#{itemName},</if>
+            <if test="itemIdentifier != null">#{itemIdentifier},</if>
+            <if test="specification != null">#{specification},</if>
+            <if test="unitOfMeasure != null">#{unitOfMeasure},</if>
+            <if test="batchCode != null">#{batchCode},</if>
+            <if test="containerCode != null">#{containerCode},</if>
+            <if test="warehouseId != null">#{warehouseId},</if>
+            <if test="warehouseCode != null">#{warehouseCode},</if>
+            <if test="warehouseName != null">#{warehouseName},</if>
+            <if test="locationId != null">#{locationId},</if>
+            <if test="locationCode != null">#{locationCode},</if>
+            <if test="locationName != null">#{locationName},</if>
+            <if test="areaId != null">#{areaId},</if>
+            <if test="areaCode != null">#{areaCode},</if>
+            <if test="areaName != null">#{areaName},</if>
+            <if test="vendorId != null">#{vendorId},</if>
+            <if test="vendorCode != null">#{vendorCode},</if>
+            <if test="vendorName != null">#{vendorName},</if>
+            <if test="vendorNick != null">#{vendorNick},</if>
+            <if test="quantityOnhand != null">#{quantityOnhand},</if>
+            <if test="workorderId != null">#{workorderId},</if>
+            <if test="workorderCode != null">#{workorderCode},</if>
+            <if test="recptDate != null">#{recptDate},</if>
+            <if test="expireDate != null">#{expireDate},</if>
+            <if test="attr1 != null">#{attr1},</if>
+            <if test="attr2 != null">#{attr2},</if>
+            <if test="attr3 != null">#{attr3},</if>
+            <if test="attr4 != null">#{attr4},</if>
+            <if test="productTypeName != null">#{productTypeName},</if>
+            <if test="productInoutStatus != null">#{productInoutStatus},</if>
+            <if test="artt4 != null">#{artt4},</if>
+            <if test="artt5 != null">#{artt5},</if>
+            <if test="artt6 != null">#{artt6},</if>
+            <if test="artt7 != null">#{artt7},</if>
+            <if test="artt8 != null">#{artt8},</if>
+            <if test="artt9 != null">#{artt9},</if>
+            <if test="artt10 != null">#{artt10},</if>
+            <if test="version != null">#{version},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="stockCode != null">#{stockCode},</if>
+            <if test="weight != null">#{weight},</if>
+            <if test="totalWeight != null">#{totalWeight},</if>
+            <if test="weightUnit != null">#{weightUnit},</if>
+            <if test="partNumber != null">#{partNumber},</if>
+            <if test="scanCount != null">#{scanCount},</if>
+            <if test="tareWeight != null">#{tareWeight},</if>
+            <if test="ingredientsName != null">#{ingredientsName},</if>
+            <if test="manufacturerName != null">#{manufacturerName},</if>
+            <if test="materialCode != null">#{materialCode},</if>
+            <if test="productBatchCode != null">#{productBatchCode},</if>
+        </trim>
+    </insert>
+
+    <update id="updateWmsRealtimeStock">
+        update wms_realtime_stock
+        <set>
+            <trim suffixOverrides=",">
+                <if test="itemTypeId != null">item_type_id = #{itemTypeId},</if>
+                <if test="itemId != null">item_id = #{itemId},</if>
+                <if test="itemCode != null">item_code = #{itemCode},</if>
+                <if test="itemName != null">item_name = #{itemName},</if>
+                <if test="itemIdentifier != null">item_identifier = #{itemIdentifier},</if>
+                <if test="specification != null">specification = #{specification},</if>
+                <if test="unitOfMeasure != null">unit_of_measure = #{unitOfMeasure},</if>
+                <if test="batchCode != null">batch_code = #{batchCode},</if>
+                <if test="containerCode != null">container_code = #{containerCode},</if>
+                <if test="warehouseId != null">warehouse_id = #{warehouseId},</if>
+                <if test="warehouseCode != null">warehouse_code = #{warehouseCode},</if>
+                <if test="warehouseName != null">warehouse_name = #{warehouseName},</if>
+                <if test="locationId != null">location_id = #{locationId},</if>
+                <if test="locationCode != null">location_code = #{locationCode},</if>
+                <if test="locationName != null">location_name = #{locationName},</if>
+                <if test="areaId != null">area_id = #{areaId},</if>
+                <if test="areaCode != null">area_code = #{areaCode},</if>
+                <if test="areaName != null">area_name = #{areaName},</if>
+                <if test="vendorId != null">vendor_id = #{vendorId},</if>
+                <if test="vendorCode != null">vendor_code = #{vendorCode},</if>
+                <if test="vendorName != null">vendor_name = #{vendorName},</if>
+                <if test="vendorNick != null">vendor_nick = #{vendorNick},</if>
+                <if test="quantityOnhand != null">quantity_onhand = #{quantityOnhand},</if>
+                <if test="workorderId != null">workorder_id = #{workorderId},</if>
+                <if test="workorderCode != null">workorder_code = #{workorderCode},</if>
+                <if test="recptDate != null">recpt_date = #{recptDate},</if>
+                <if test="expireDate != null">expire_date = #{expireDate},</if>
+                <if test="attr1 != null">attr1 = #{attr1},</if>
+                <if test="attr2 != null">attr2 = #{attr2},</if>
+                <if test="attr3 != null">attr3 = #{attr3},</if>
+                <if test="attr4 != null">attr4 = #{attr4},</if>
+                <if test="productTypeName != null">product_type_name = #{productTypeName},</if>
+                <if test="productInoutStatus != null">product_inout_status = #{productInoutStatus},</if>
+                <if test="artt4 != null">artt4 = #{artt4},</if>
+                <if test="artt5 != null">artt5 = #{artt5},</if>
+                <if test="artt6 != null">artt6 = #{artt6},</if>
+                <if test="artt7 != null">artt7 = #{artt7},</if>
+                <if test="artt8 != null">artt8 = #{artt8},</if>
+                <if test="artt9 != null">artt9 = #{artt9},</if>
+                <if test="artt10 != null">artt10 = #{artt10},</if>
+                <if test="version != null">version = #{version} + 1,</if>
+                <if test="createBy != null">create_by = #{createBy},</if>
+                <if test="createTime != null">create_time = #{createTime},</if>
+                <if test="updateBy != null">update_by = #{updateBy},</if>
+                <if test="updateTime != null">update_time = #{updateTime},</if>
+                <if test="stockCode != null">stock_code = #{stockCode},</if>
+                <if test="weight != null">weight = #{weight},</if>
+                <if test="totalWeight != null">total_weight = #{totalWeight},</if>
+                <if test="weightUnit != null">weight_unit = #{weightUnit},</if>
+                <if test="waringValue != null and waringValue != ''">waring_value = #{waringValue},</if>
+                <if test="partNumber != null and partNumber != ''">part_number = #{partNumber},</if>
+                <if test="scanCount != null">scan_count = #{scanCount},</if>
+                <if test="tareWeight != null">tare_weight = #{tareWeight},</if>
+                <if test="ingredientsName != null">ingredients_name = #{ingredientsName},</if>
+                <if test="manufacturerName != null">manufacturer_name = #{manufacturerName},</if>
+                <if test="materialCode != null">material_code = #{materialCode},</if>
+                <if test="productBatchCode != null">product_batch_code = #{productBatchCode},</if>
+            </trim>
+        </set>
+        where material_stock_id = #{materialStockId}
+    </update>
+    <update id="updateProductStatus">
+        update wms_realtime_stock
+        set product_inout_status = #{i}
+        where item_identifier = #{itemIdentifier}
+    </update>
+
+    <delete id="deleteWmsRealtimeStockByMaterialStockId" parameterType="Long">
+        delete
+        from wms_realtime_stock
+        where material_stock_id = #{materialStockId}
+    </delete>
+
+    <delete id="deleteWmsRealtimeStockByItemIdentifier" parameterType="String">
+        delete
+        from wms_realtime_stock
+        where item_identifier = #{itemIdentifier}
+    </delete>
+
+    <delete id="deleteWmsRealtimeStockByMaterialStockIds" parameterType="String">
+        delete from wms_realtime_stock where material_stock_id in
+        <foreach item="materialStockId" collection="array" open="(" separator="," close=")">
+            #{materialStockId}
+        </foreach>
+    </delete>
+
+    <select id="selectWmMaterialStockByMaterialStockId"
+            resultType="com.cuixing.system.api.domain.wms.WmsRealtimeStock">
+        <include refid="selectWmsRealtimeStockVo"/>
+        where material_stock_id = #{materialStockId}
+    </select>
+
+    <select id="loadMaterialStock" parameterType="com.cuixing.system.api.domain.wms.WmsRealtimeStock"
+            resultMap="WmsRealtimeStockResult">
+        <include refid="selectWmsRealtimeStockVo"/>
+        <where>
+            <if test="itemId != null ">and item_id = #{itemId}</if>
+            <if test="batchCode != null  and batchCode != ''">and batch_code = #{batchCode}</if>
+            <if test="containerCode != null  and containerCode != ''">and container_code = #{containerCode}</if>
+            <if test="warehouseId != null ">and warehouse_id = #{warehouseId}</if>
+            <if test="locationId != null ">and location_id = #{locationId}</if>
+            <if test="areaId != null ">and area_id = #{areaId}</if>
+        </where>
+        and 1=1 limit 1
+    </select>
+
+    <select id="getInfoByItemIdentifier2" resultMap="WmsRealtimeStockResult">
+        <include refid="selectWmsRealtimeStockVo"/>
+        where item_identifier in
+        <foreach item="itemIdentifier" collection="itemIdentifiers" open="(" separator="," close=")">
+            #{itemIdentifier}
+        </foreach>
+    </select>
+
+</mapper>

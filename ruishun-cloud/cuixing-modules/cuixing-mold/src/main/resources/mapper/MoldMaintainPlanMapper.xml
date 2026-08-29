@@ -1,0 +1,315 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cuixing.mold.mapper.MoldMaintainPlanMapper">
+
+    <resultMap type="com.cuixing.mold.entity.MoldMaintainPlan" id="MoldMaintainPlanMap">
+        <result property="maintainPlanId" column="maintain_plan_id" jdbcType="INTEGER"/>
+        <result property="maintainPlanCode" column="maintain_plan_code" jdbcType="VARCHAR"/>
+        <result property="maintainPlanName" column="maintain_plan_name" jdbcType="VARCHAR"/>
+        <result property="maintainPlanType" column="maintain_plan_type" jdbcType="VARCHAR"/>
+        <result property="maintainPlanStarttime" column="maintain_plan_startTime" jdbcType="TIMESTAMP"/>
+        <result property="maintainPlanEndtime" column="maintain_plan_endTime" jdbcType="TIMESTAMP"/>
+        <result property="maintainPlanFrequency" column="maintain_plan_frequency" jdbcType="VARCHAR"/>
+        <result property="triggerName" column="trigger_name" jdbcType="VARCHAR"/>
+        <result property="jobName" column="job_name" jdbcType="VARCHAR"/>
+        <result property="maintainPlanStatus" column="maintain_plan_status" jdbcType="VARCHAR"/>
+        <result property="attr1" column="attr1" jdbcType="VARCHAR"/>
+        <result property="attr2" column="attr2" jdbcType="VARCHAR"/>
+        <result property="attr3" column="attr3" jdbcType="INTEGER"/>
+        <result property="attr4" column="attr4" jdbcType="INTEGER"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="createBy" column="create_by" jdbcType="VARCHAR"/>
+        <result property="updateBy" column="update_by" jdbcType="VARCHAR"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <sql id="selectMoldMaintainPlanVo">
+        SELECT maintain_plan_id,
+               maintain_plan_code,
+               maintain_plan_name,
+               maintain_plan_type,
+               maintain_plan_startTime,
+               maintain_plan_endTime,
+               maintain_plan_frequency,
+               trigger_name,
+               job_name,
+               maintain_plan_status,
+               attr1,
+               attr2,
+               attr3,
+               attr4,
+               create_time,
+               create_by,
+               update_by,
+               update_time
+        FROM mold_maintain_plan
+    </sql>
+
+    <select id="selectMoldMaintainPlanList" parameterType="MoldMaintainPlan" resultMap="MoldMaintainPlanMap">
+        <include refid="selectMoldMaintainPlanVo"/>
+        <where>
+            <if test="maintainPlanId != null">
+                and maintain_plan_id = #{maintainPlanId}
+            </if>
+            <if test="maintainPlanCode != null and maintainPlanCode != ''">
+                and maintain_plan_code = #{maintainPlanCode}
+            </if>
+            <if test="maintainPlanName != null and maintainPlanName != ''">
+                and maintain_plan_name = #{maintainPlanName}
+            </if>
+            <if test="maintainPlanType != null and maintainPlanType != ''">
+                and maintain_plan_type = #{maintainPlanType}
+            </if>
+            <if test="maintainPlanStarttime != null">
+                and maintain_plan_startTime = #{maintainPlanStarttime}
+            </if>
+            <if test="maintainPlanEndtime != null">
+                and maintain_plan_endTime = #{maintainPlanEndtime}
+            </if>
+            <if test="maintainPlanFrequency != null and maintainPlanFrequency != ''">
+                and maintain_plan_frequency = #{maintainPlanFrequency}
+            </if>
+            <if test="triggerName != null and triggerName != ''">
+                and trigger_name = #{triggerName}
+            </if>
+            <if test="jobName != null and jobName != ''">
+                and job_name = #{jobName}
+            </if>
+            <if test="maintainPlanStatus != null and maintainPlanStatus != ''">
+                and maintain_plan_status = #{maintainPlanStatus}
+            </if>
+            <if test="attr1 != null and attr1 != ''">
+                and attr1 = #{attr1}
+            </if>
+            <if test="attr2 != null and attr2 != ''">
+                and attr2 = #{attr2}
+            </if>
+            <if test="attr3 != null">
+                and attr3 = #{attr3}
+            </if>
+            <if test="attr4 != null">
+                and attr4 = #{attr4}
+            </if>
+            <if test="createTime != null">
+                and create_time = #{createTime}
+            </if>
+            <if test="createBy != null and createBy != ''">
+                and create_by = #{createBy}
+            </if>
+            <if test="updateBy != null and updateBy != ''">
+                and update_by = #{updateBy}
+            </if>
+            <if test="updateTime != null">
+                and update_time = #{updateTime}
+            </if>
+        </where>
+    </select>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="MoldMaintainPlanMap">
+        <include refid="selectMoldMaintainPlanVo"/>
+        where maintain_plan_id = #{maintainPlanId}
+    </select>
+
+    <!--统计总行数-->
+    <select id="count" resultType="java.lang.Long">
+        select count(1)
+        from mold_maintain_plan
+        <where>
+            <if test="maintainPlanId != null">
+                and maintain_plan_id = #{maintainPlanId}
+            </if>
+            <if test="maintainPlanCode != null and maintainPlanCode != ''">
+                and maintain_plan_code = #{maintainPlanCode}
+            </if>
+            <if test="maintainPlanName != null and maintainPlanName != ''">
+                and maintain_plan_name = #{maintainPlanName}
+            </if>
+            <if test="maintainPlanType != null and maintainPlanType != ''">
+                and maintain_plan_type = #{maintainPlanType}
+            </if>
+            <if test="maintainPlanStarttime != null">
+                and maintain_plan_startTime = #{maintainPlanStarttime}
+            </if>
+            <if test="maintainPlanEndtime != null">
+                and maintain_plan_endTime = #{maintainPlanEndtime}
+            </if>
+            <if test="maintainPlanFrequency != null and maintainPlanFrequency != ''">
+                and maintain_plan_frequency = #{maintainPlanFrequency}
+            </if>
+            <if test="triggerName != null and triggerName != ''">
+                and trigger_name = #{triggerName}
+            </if>
+            <if test="jobName != null and jobName != ''">
+                and job_name = #{jobName}
+            </if>
+            <if test="maintainPlanStatus != null and maintainPlanStatus != ''">
+                and maintain_plan_status = #{maintainPlanStatus}
+            </if>
+            <if test="attr1 != null and attr1 != ''">
+                and attr1 = #{attr1}
+            </if>
+            <if test="attr2 != null and attr2 != ''">
+                and attr2 = #{attr2}
+            </if>
+            <if test="attr3 != null">
+                and attr3 = #{attr3}
+            </if>
+            <if test="attr4 != null">
+                and attr4 = #{attr4}
+            </if>
+            <if test="createTime != null">
+                and create_time = #{createTime}
+            </if>
+            <if test="createBy != null and createBy != ''">
+                and create_by = #{createBy}
+            </if>
+            <if test="updateBy != null and updateBy != ''">
+                and update_by = #{updateBy}
+            </if>
+            <if test="updateTime != null">
+                and update_time = #{updateTime}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="maintainPlanId" useGeneratedKeys="true">
+        insert into mold_maintain_plan(maintain_plan_code, maintain_plan_name, maintain_plan_type,
+                                       maintain_plan_startTime, maintain_plan_endTime, maintain_plan_frequency,
+                                       trigger_name, job_name, maintain_plan_status, attr1, attr2, attr3, attr4,
+                                       create_time, create_by, update_by, update_time)
+        values (#{maintainPlanCode}, #{maintainPlanName}, #{maintainPlanType}, #{maintainPlanStarttime},
+                #{maintainPlanEndtime}, #{maintainPlanFrequency}, #{triggerName}, #{jobName}, #{maintainPlanStatus},
+                #{attr1}, #{attr2}, #{attr3}, #{attr4}, #{createTime}, #{createBy}, #{updateBy}, #{updateTime})
+    </insert>
+
+    <insert id="insertBatch" keyProperty="maintainPlanId" useGeneratedKeys="true">
+        insert into mold_maintain_plan(maintain_plan_code, maintain_plan_name, maintain_plan_type,
+        maintain_plan_startTime, maintain_plan_endTime, maintain_plan_frequency, trigger_name, job_name,
+        maintain_plan_status, attr1, attr2, attr3, attr4, create_time, create_by, update_by, update_time)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.maintainPlanCode}, #{entity.maintainPlanName}, #{entity.maintainPlanType},
+            #{entity.maintainPlanStarttime}, #{entity.maintainPlanEndtime}, #{entity.maintainPlanFrequency},
+            #{entity.triggerName}, #{entity.jobName}, #{entity.maintainPlanStatus}, #{entity.attr1}, #{entity.attr2},
+            #{entity.attr3}, #{entity.attr4}, #{entity.createTime}, #{entity.createBy}, #{entity.updateBy},
+            #{entity.updateTime})
+        </foreach>
+    </insert>
+
+    <insert id="insertOrUpdateBatch" keyProperty="maintainPlanId" useGeneratedKeys="true">
+        insert into mold_maintain_plan(maintain_plan_code, maintain_plan_name, maintain_plan_type,
+        maintain_plan_startTime, maintain_plan_endTime, maintain_plan_frequency, trigger_name, job_name,
+        maintain_plan_status, attr1, attr2, attr3, attr4, create_time, create_by, update_by, update_time)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.maintainPlanCode}, #{entity.maintainPlanName}, #{entity.maintainPlanType},
+            #{entity.maintainPlanStarttime}, #{entity.maintainPlanEndtime}, #{entity.maintainPlanFrequency},
+            #{entity.triggerName}, #{entity.jobName}, #{entity.maintainPlanStatus}, #{entity.attr1}, #{entity.attr2},
+            #{entity.attr3}, #{entity.attr4}, #{entity.createTime}, #{entity.createBy}, #{entity.updateBy},
+            #{entity.updateTime})
+        </foreach>
+        on duplicate key update
+        maintain_plan_code = values(maintain_plan_code),
+        maintain_plan_name = values(maintain_plan_name),
+        maintain_plan_type = values(maintain_plan_type),
+        maintain_plan_startTime = values(maintain_plan_startTime),
+        maintain_plan_endTime = values(maintain_plan_endTime),
+        maintain_plan_frequency = values(maintain_plan_frequency),
+        trigger_name = values(trigger_name),
+        job_name = values(job_name),
+        maintain_plan_status = values(maintain_plan_status),
+        attr1 = values(attr1),
+        attr2 = values(attr2),
+        attr3 = values(attr3),
+        attr4 = values(attr4),
+        create_time = values(create_time),
+        create_by = values(create_by),
+        update_by = values(update_by),
+        update_time = values(update_time)
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update mold_maintain_plan
+        <set>
+            <if test="maintainPlanCode != null and maintainPlanCode != ''">
+                maintain_plan_code = #{maintainPlanCode},
+            </if>
+            <if test="maintainPlanName != null and maintainPlanName != ''">
+                maintain_plan_name = #{maintainPlanName},
+            </if>
+            <if test="maintainPlanType != null and maintainPlanType != ''">
+                maintain_plan_type = #{maintainPlanType},
+            </if>
+            <if test="maintainPlanStarttime != null">
+                maintain_plan_startTime = #{maintainPlanStarttime},
+            </if>
+            <if test="maintainPlanEndtime != null">
+                maintain_plan_endTime = #{maintainPlanEndtime},
+            </if>
+            <if test="maintainPlanFrequency != null and maintainPlanFrequency != ''">
+                maintain_plan_frequency = #{maintainPlanFrequency},
+            </if>
+            <if test="triggerName != null and triggerName != ''">
+                trigger_name = #{triggerName},
+            </if>
+            <if test="jobName != null and jobName != ''">
+                job_name = #{jobName},
+            </if>
+            <if test="maintainPlanStatus != null and maintainPlanStatus != ''">
+                maintain_plan_status = #{maintainPlanStatus},
+            </if>
+            <if test="attr1 != null and attr1 != ''">
+                attr1 = #{attr1},
+            </if>
+            <if test="attr2 != null and attr2 != ''">
+                attr2 = #{attr2},
+            </if>
+            <if test="attr3 != null">
+                attr3 = #{attr3},
+            </if>
+            <if test="attr4 != null">
+                attr4 = #{attr4},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime},
+            </if>
+            <if test="createBy != null and createBy != ''">
+                create_by = #{createBy},
+            </if>
+            <if test="updateBy != null and updateBy != ''">
+                update_by = #{updateBy},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime},
+            </if>
+        </set>
+        where maintain_plan_id = #{maintainPlanId}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete
+        from mold_maintain_plan
+        where maintain_plan_id = #{maintainPlanId}
+    </delete>
+
+    <update id="updateJob">
+        update mold_maintain_plan
+        <if test="triggerName != null and triggerName != ''">
+            trigger_name = #{triggerName},
+        </if>
+        <if test="jobName != null and jobName != ''">
+            job_name = #{jobName},
+        </if>
+        where maintain_plan_id = #{maintainPlanId}
+    </update>
+
+    <select id="checkUniquePlanCode" parameterType="MoldMaintainPlan" resultMap="MoldMaintainPlanMap">
+        <include refid="selectMoldMaintainPlanVo"/>
+        WHERE  maintain_plan_code = #{maintainPlanCode}
+    </select>
+</mapper>
+

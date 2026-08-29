@@ -1,0 +1,9 @@
+server:
+  port: 8888
+
+spring:
+  servlet:
+    websocket:
+      max-text-message-buffer-size: 1024000  # 1MB
+      max-binary-message-buffer-size: 1024000  # 1MB
+      text-buffer-size: 1024000

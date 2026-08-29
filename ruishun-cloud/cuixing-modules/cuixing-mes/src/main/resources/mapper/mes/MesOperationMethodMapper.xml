@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cuixing.mes.mapper.MesOperationMethodMapper">
+    <resultMap type="com.cuixing.mes.entity.MesOperationMethod" id="MesOperationMethodMap">
+        <result property="id" column="id" jdbcType="BIGINT"/>
+        <result property="operationType" column="operation_type" jdbcType="CHAR"/>
+        <result property="operationName" column="operation_name" jdbcType="VARCHAR"/>
+        <result property="operationCode" column="operation_code" jdbcType="VARCHAR"/>
+        <result property="enanellingWorkbenchId" column="enanelling_workbench_id" jdbcType="BIGINT"/>
+        <result property="enanellingWorkbenchName" column="enanelling_workbench_name" jdbcType="VARCHAR"/>
+        <result property="ableTime" column="able_time" jdbcType="TIMESTAMP"/>
+        <result property="image" column="image" jdbcType="VARCHAR"/>
+        <result property="filePath" column="file_path" jdbcType="LONGVARCHAR"/>
+        <result property="isDeleted" column="is_deleted" jdbcType="TINYINT"/>
+        <result property="version" column="version" jdbcType="INTEGER"/>
+        <result property="createBy" column="create_by" jdbcType="VARCHAR"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="updateBy" column="update_by" jdbcType="VARCHAR"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+        <result property="attr1" column="attr1" jdbcType="VARCHAR"/>
+        <result property="attr2" column="attr2" jdbcType="INTEGER"/>
+        <result property="attr3" column="attr3" jdbcType="VARCHAR"/>
+    </resultMap>
+    
+    <!-- 通过ID查询单条数据 -->
+    <select id="queryById" resultMap="MesOperationMethodMap">
+        select
+            id,operation_type,operation_name,operation_code,enanelling_workbench_id,enanelling_workbench_name,able_time,image,file_path,is_deleted,version,create_by,create_time,update_by,update_time,attr1,attr2,attr3
+        from mes_operation_method
+        where is_deleted = 0 and  id = #{id}
+    </select>
+
+    <!-- 通过机台ID查询列表 -->
+    <select id="getByEnanellingWorkbenchId" resultMap="MesOperationMethodMap">
+        select
+            id,operation_type,operation_name,operation_code,enanelling_workbench_id,enanelling_workbench_name,able_time,image,file_path,is_deleted,version,create_by,create_time,update_by,update_time,attr1,attr2,attr3
+        from mes_operation_method
+        where is_deleted = 0 and  enanelling_workbench_id = #{enanellingWorkbenchId} and operation_type = #{operationType}
+    </select>
+    
+    <!--分页查询指定行数据-->
+    <select id="selectMesOperationMethodList" resultMap="MesOperationMethodMap">
+        select
+            id,operation_type,operation_name,operation_code,enanelling_workbench_id,enanelling_workbench_name,able_time,image,file_path,is_deleted,version,create_by,create_time,update_by,update_time,attr1,attr2,attr3
+        from mes_operation_method
+        <where>
+            is_deleted = 0
+            <if test="id != null and id != ''"> and id = #{id}</if>
+            <if test="operationType != null and operationType != ''"> and operation_type = #{operationType}</if>
+            <if test="operationName != null and operationName != ''"> and operation_name = #{operationName}</if>
+            <if test="operationCode != null and operationCode != ''"> and operation_code = #{operationCode}</if>
+            <if test="enanellingWorkbenchId != null and enanellingWorkbenchId != ''"> and enanelling_workbench_id = #{enanellingWorkbenchId}</if>
+            <if test="enanellingWorkbenchName != null and enanellingWorkbenchName != ''"> and enanelling_workbench_name = #{enanellingWorkbenchName}</if>
+            <if test="ableTime != null and ableTime != ''"> and able_time = #{ableTime}</if>
+            <if test="image != null and image != ''"> and image = #{image}</if>
+            <if test="filePath != null and filePath != ''"> and file_path = #{filePath}</if>
+            <if test="isDeleted != null and isDeleted != ''"> and is_deleted = #{isDeleted}</if>
+            <if test="version != null and version != ''"> and version = #{version}</if>
+            <if test="createBy != null and createBy != ''"> and create_by = #{createBy}</if>
+            <if test="createTime != null and createTime != ''"> and create_time = #{createTime}</if>
+            <if test="updateBy != null and updateBy != ''"> and update_by = #{updateBy}</if>
+            <if test="updateTime != null and updateTime != ''"> and update_time = #{updateTime}</if>
+            <if test="attr1 != null and attr1 != ''"> and attr1 = #{attr1}</if>
+            <if test="attr2 != null and attr2 != ''"> and attr2 = #{attr2}</if>
+            <if test="attr3 != null and attr3 != ''"> and attr3 = #{attr3}</if>
+        </where>
+        order by enanelling_workbench_name asc
+    </select>
+    
+    <!--新增数据-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into mes_operation_method
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null ">id,</if>
+            <if test="operationType != null and operationType != ''">operation_type,</if>
+            <if test="operationName != null and operationName != ''">operation_name,</if>
+            <if test="operationCode != null and operationCode != ''">operation_code,</if>
+            <if test="enanellingWorkbenchId != null ">enanelling_workbench_id,</if>
+            <if test="enanellingWorkbenchName != null and enanellingWorkbenchName != ''">enanelling_workbench_name,</if>
+            <if test="ableTime != null ">able_time,</if>
+            <if test="image != null and image != ''">image,</if>
+            <if test="filePath != null and filePath != ''">file_path,</if>
+            <if test="isDeleted != null ">is_deleted,</if>
+            <if test="version != null ">version,</if>
+            <if test="createBy != null and createBy != ''">create_by,</if>
+            <if test="createTime != null ">create_time,</if>
+            <if test="updateBy != null and updateBy != ''">update_by,</if>
+            <if test="updateTime != null ">update_time,</if>
+            <if test="attr1 != null and attr1 != ''">attr1,</if>
+            <if test="attr2 != null ">attr2,</if>
+            <if test="attr3 != null and attr3 != ''">attr3,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">#{id},</if>
+            <if test="operationType != null and operationType != ''">#{operationType},</if>
+            <if test="operationName != null and operationName != ''">#{operationName},</if>
+            <if test="operationCode != null and operationCode != ''">#{operationCode},</if>
+            <if test="enanellingWorkbenchId != null">#{enanellingWorkbenchId},</if>
+            <if test="enanellingWorkbenchName != null and enanellingWorkbenchName != ''">#{enanellingWorkbenchName},</if>
+            <if test="ableTime != null">#{ableTime},</if>
+            <if test="image != null and image != ''">#{image},</if>
+            <if test="filePath != null and filePath != ''">#{filePath},</if>
+            <if test="isDeleted != null">#{isDeleted},</if>
+            <if test="version != null">#{version},</if>
+            <if test="createBy != null and createBy != ''">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null and updateBy != ''">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="attr1 != null and attr1 != ''">#{attr1},</if>
+            <if test="attr2 != null">#{attr2},</if>
+            <if test="attr3 != null and attr3 != ''">#{attr3},</if>
+        </trim>
+    </insert>
+    
+    <!-- 更新数据 -->
+    <update id="update">
+        update mes_operation_method
+        <set>
+            <trim suffixOverrides=",">
+                <if test="operationType != null "> operation_type = #{operationType}, </if>
+                <if test="operationName != null "> operation_name = #{operationName}, </if>
+                <if test="operationCode != null "> operation_code = #{operationCode}, </if>
+                <if test="enanellingWorkbenchId != null "> enanelling_workbench_id = #{enanellingWorkbenchId}, </if>
+                <if test="enanellingWorkbenchName != null "> enanelling_workbench_name = #{enanellingWorkbenchName}, </if>
+                <if test="ableTime != null "> able_time = #{ableTime}, </if>
+                <if test="image != null "> image = #{image}, </if>
+                <if test="filePath != null "> file_path = #{filePath}, </if>
+                <if test="isDeleted != null "> is_deleted = #{isDeleted}, </if>
+                <if test="version != null "> version = #{version}, </if>
+                <if test="createBy != null "> create_by = #{createBy}, </if>
+                <if test="createTime != null "> create_time = #{createTime}, </if>
+                <if test="updateBy != null "> update_by = #{updateBy}, </if>
+                <if test="updateTime != null "> update_time = #{updateTime}, </if>
+                <if test="attr1 != null "> attr1 = #{attr1}, </if>
+                <if test="attr2 != null "> attr2 = #{attr2}, </if>
+                <if test="attr3 != null "> attr3 = #{attr3}, </if>
+            </trim>
+        </set>
+        where id = #{id}
+    </update>
+    
+    <!--逻辑删除删除-->
+    <update id="deleteById">
+        update mes_operation_method set is_deleted = 1 where id = #{id}
+    </update>
+    
+    <!--批量逻辑删除-->
+    <update id="deleteByIds">
+        update mes_operation_method set is_deleted = 1 where id in
+        <foreach collection="array" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </update>
+</mapper>

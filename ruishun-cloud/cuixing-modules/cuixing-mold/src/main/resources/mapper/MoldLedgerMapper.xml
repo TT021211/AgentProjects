@@ -1,0 +1,622 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cuixing.mold.mapper.MoldLedgerMapper">
+    <resultMap type="com.cuixing.mold.entity.MoldLedger" id="MoldLedgerMap">
+        <result property="moldId" column="mold_id" jdbcType="INTEGER"/>
+        <result property="moldCode" column="mold_code" jdbcType="VARCHAR"/>
+        <result property="moldType" column="mold_type" jdbcType="VARCHAR"/>
+        <result property="moldSpec" column="mold_spec" jdbcType="VARCHAR"/>
+        <result property="moldMaterial" column="mold_material" jdbcType="VARCHAR"/>
+        <result property="moldAperture" column="mold_aperture" jdbcType="VARCHAR"/>
+        <result property="moldNum" column="mold_num" jdbcType="INTEGER"/>
+        <result property="moldArea" column="mold_area" jdbcType="VARCHAR"/>
+        <result property="moldName" column="mold_name" jdbcType="VARCHAR"/>
+        <result property="maintenanceStatus" column="maintenance_status" jdbcType="VARCHAR"/>
+        <result property="nestingMoldId" column="nesting_mold_id" jdbcType="INTEGER"/>
+        <result property="classificationId" column="classification_id" jdbcType="INTEGER"/>
+        <result property="moldSupplierId" column="mold_supplier_id" jdbcType="INTEGER"/>
+        <result property="moldSupplierName" column="mold_supplier_name" jdbcType="VARCHAR"/>
+        <result property="status" column="status" jdbcType="VARCHAR"/>
+        <result property="attr1" column="attr1" jdbcType="VARCHAR"/>
+        <result property="attr2" column="attr2" jdbcType="VARCHAR"/>
+        <result property="attr3" column="attr3" jdbcType="INTEGER"/>
+        <result property="attr4" column="attr4" jdbcType="INTEGER"/>
+        <result property="inOutStatus" column="in_out_status" jdbcType="VARCHAR"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="createBy" column="create_by" jdbcType="VARCHAR"/>
+        <result property="updateBy" column="update_by" jdbcType="VARCHAR"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+        <result property="restructutingStatus" column="restructuting_status" jdbcType="VARCHAR"/>
+        <result property="engineeringTolerance" column="engineering_tolerance" jdbcType="DECIMAL"/>
+        <result property="isDelete" column="is_delete" jdbcType="VARCHAR"/>
+        <result property="buyTime" column="buy_time" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <sql id="selectMoldLedgerVo">
+        SELECT mold_id,
+        mold_code,
+        mold_type,
+        mold_spec,
+        mold_material,
+        mold_aperture,
+        mold_num,
+        mold_area,
+        mold_name,
+        maintenance_status,
+        nesting_mold_id,
+        classification_id,
+        mold_supplier_id,
+        mold_supplier_name,
+        status,
+        attr1,
+        attr2,
+        attr3,
+        attr4,
+        in_out_status,
+        create_time,
+        create_by,
+        update_by,
+        update_time,
+        restructuting_status,
+        is_delete,
+        engineering_tolerance,
+        buy_time       <!-- 添加此行 -->
+        FROM mold_ledger
+    </sql>
+
+
+    <select id="selectMoldLedgerList" parameterType="com.cuixing.mold.entity.MoldLedger" resultMap="MoldLedgerMap">
+        <include refid="selectMoldLedgerVo"/>
+        <where>
+            <if test="moldId != null">
+                and mold_id = #{moldId}
+            </if>
+            <if test="moldCode != null and moldCode != ''">
+                and mold_code = #{moldCode}
+            </if>
+            <if test="moldType != null and moldType != ''">
+                and mold_type = #{moldType}
+            </if>
+            <if test="moldSpec != null and moldSpec != ''">
+                and mold_spec = #{moldSpec}
+            </if>
+            <if test="moldMaterial != null and moldMaterial != ''">
+                and mold_material = #{moldMaterial}
+            </if>
+            <if test="moldAperture != null and moldAperture != ''">
+                and mold_aperture = #{moldAperture}
+            </if>
+            <if test="moldNum != null">
+                and mold_num = #{moldNum}
+            </if>
+            <if test="moldArea != null and moldArea != ''">
+                and mold_area = #{moldArea}
+            </if>
+            <if test="moldName != null and moldName != ''">
+                and mold_name = #{moldName}
+            </if>
+            <if test="maintenanceStatus != null and maintenanceStatus != ''">
+                and maintenance_status = #{maintenanceStatus}
+            </if>
+            <if test="nestingMoldId != null">
+                and nesting_mold_id = #{nestingMoldId}
+            </if>
+            <if test="classificationId != null">
+                and classification_id = #{classificationId}
+            </if>
+            <if test="moldSupplierId != null">
+                and mold_supplier_id = #{moldSupplierId}
+            </if>
+            <if test="status != null and status != ''">
+                <if test="status == 'OPERATIONAL'">
+                    AND (status LIKE 'OPERATIONAL%' OR status = 'CHECKED_IN')
+                </if>
+                <if test="status != 'OPERATIONAL'">
+                    AND status = #{status}
+                </if>
+            </if>
+            <if test="attr1 != null and attr1 != ''">
+                and attr1 = #{attr1}
+            </if>
+            <if test="attr2 != null and attr2 != ''">
+                and attr2 = #{attr2}
+            </if>
+            <if test="attr3 != null">
+                and attr3 = #{attr3}
+            </if>
+            <if test="attr4 != null">
+                and attr4 = #{attr4}
+            </if>
+            <if test="inOutStatus != null and inOutStatus != ''">
+                and in_out_status = #{inOutStatus}
+            </if>
+            <if test="createTime != null">
+                and create_time = #{createTime}
+            </if>
+            <if test="createBy != null and createBy != ''">
+                and create_by = #{createBy}
+            </if>
+            <if test="updateBy != null and updateBy != ''">
+                and update_by = #{updateBy}
+            </if>
+            <if test="updateTime != null">
+                and update_time = #{updateTime}
+            </if>
+            <if test="restructutingStatus != null and restructutingStatus != ''">
+                and restructuting_status = #{restructutingStatus}
+            </if>
+            <if test="isDelete != null and isDelete != ''">
+                and is_delete = #{isDelete}
+            </if>
+            <if test="engineeringTolerance != null">
+                engineering_tolerance = #{engineeringTolerance},
+            </if>
+            <if test="buyTime != null">
+                and buy_time = #{buyTime}
+            </if>
+        </where>
+        ORDER BY create_time desc, mold_aperture,mold_id asc
+    </select>
+
+
+    <select id="selectMoldLedgerListNew2" parameterType="com.cuixing.mold.entity.MoldLedger" resultMap="MoldLedgerMap">
+        <include refid="selectMoldLedgerVo"/>
+        <where>
+            nesting_mold_id is null and mold_spec != '出口模'
+            <if test="status != null and status != ''">
+                <if test="status == 'OPERATIONAL'">
+                    AND (status LIKE 'OPERATIONAL%' OR status = 'CHECKED_IN')
+                </if>
+                <if test="status != 'OPERATIONAL'">
+                    AND status = #{status}
+                </if>
+            </if>
+            <if test="classificationId != null">
+                and classification_id = #{classificationId}
+            </if>
+        </where>
+        ORDER BY mold_aperture asc
+    </select>
+
+    <select id="selectMoldLedgerListNew1" parameterType="com.cuixing.mold.entity.MoldLedger" resultMap="MoldLedgerMap">
+        <include refid="selectMoldLedgerVo"/>
+        <where>
+            nesting_mold_id is null
+            <if test="status != null and status != ''">
+                <if test="status == 'OPERATIONAL'">
+                    AND (status LIKE 'OPERATIONAL%' OR status = 'CHECKED_IN')
+                </if>
+                <if test="status != 'OPERATIONAL'">
+                    AND status = #{status}
+                </if>
+            </if>
+            <if test="classificationId != null">
+                and classification_id = #{classificationId}
+            </if>
+        </where>
+        ORDER BY mold_code asc
+    </select>
+
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="MoldLedgerMap">
+        <include refid="selectMoldLedgerVo"/>
+        where mold_id = #{moldId}
+    </select>
+
+    <!--统计总行数-->
+    <select id="count" resultType="java.lang.Long">
+        select count(1)
+        from mold_ledger
+        <where>
+            <if test="moldId != null">
+                and mold_id = #{moldId}
+            </if>
+            <if test="moldCode != null and moldCode != ''">
+                and mold_code = #{moldCode}
+            </if>
+            <if test="moldType != null and moldType != ''">
+                and mold_type = #{moldType}
+            </if>
+            <if test="moldSpec != null and moldSpec != ''">
+                and mold_spec = #{moldSpec}
+            </if>
+            <if test="moldMaterial != null and moldMaterial != ''">
+                and mold_material = #{moldMaterial}
+            </if>
+            <if test="moldAperture != null and moldAperture != ''">
+                and mold_aperture = #{moldAperture}
+            </if>
+            <if test="moldNum != null">
+                and mold_num = #{moldNum}
+            </if>
+            <if test="moldArea != null and moldArea != ''">
+                and mold_area = #{moldArea}
+            </if>
+            <if test="moldName != null and moldName != ''">
+                and mold_name = #{moldName}
+            </if>
+            <if test="maintenanceStatus != null and maintenanceStatus != ''">
+                and maintenance_status = #{maintenanceStatus}
+            </if>
+            <if test="nestingMoldId != null">
+                and nesting_mold_id = #{nestingMoldId}
+            </if>
+            <if test="classificationId != null">
+                and classification_id = #{classificationId}
+            </if>
+            <if test="moldSupplierId != null">
+                and mold_supplier_id = #{moldSupplierId}
+            </if>
+            <if test="status != null and status != ''">
+                and status = #{status}
+            </if>
+            <if test="attr1 != null and attr1 != ''">
+                and attr1 = #{attr1}
+            </if>
+            <if test="attr2 != null and attr2 != ''">
+                and attr2 = #{attr2}
+            </if>
+            <if test="attr3 != null">
+                and attr3 = #{attr3}
+            </if>
+            <if test="attr4 != null">
+                and attr4 = #{attr4}
+            </if>
+            <if test="inOutStatus != null and inOutStatus != ''">
+                and in_out_status = #{inOutStatus}
+            </if>
+            <if test="createTime != null">
+                and create_time = #{createTime}
+            </if>
+            <if test="createBy != null and createBy != ''">
+                and create_by = #{createBy}
+            </if>
+            <if test="updateBy != null and updateBy != ''">
+                and update_by = #{updateBy}
+            </if>
+            <if test="updateTime != null">
+                and update_time = #{updateTime}
+            </if>
+            <if test="restructutingStatus != null and restructutingStatus != ''">
+                and restructuting_status = #{restructutingStatus}
+            </if>
+            <if test="isDelete != null and isDelete != ''">
+                and is_delete = #{isDelete}
+            </if>
+            <if test="buyTime != null">
+                buy_time = #{buyTime},
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="moldId" useGeneratedKeys="true">
+        insert into mold_ledger(mold_code, mold_type, mold_spec, mold_material, mold_aperture,
+        mold_num, mold_area, mold_name, maintenance_status, nesting_mold_id,
+        classification_id, mold_supplier_id, mold_supplier_name, status, attr1, attr2, attr3, attr4,
+        in_out_status, create_time, create_by, update_by, update_time,
+        restructuting_status, is_delete, engineering_tolerance,buy_time)  <!-- 添加此行 -->
+        values (#{moldCode}, #{moldType}, #{moldSpec}, #{moldMaterial}, #{moldAperture},
+        #{moldNum}, #{moldArea}, #{moldName}, #{maintenanceStatus}, #{nestingMoldId},
+        #{classificationId}, #{moldSupplierId}, #{moldSupplierName}, #{status}, #{attr1}, #{attr2}, #{attr3}, #{attr4},
+        #{inOutStatus}, #{createTime}, #{createBy}, #{updateBy}, #{updateTime},
+        #{restructutingStatus}, #{isDelete}, #{engineeringTolerance},#{buyTime})  <!-- 添加此行 -->
+    </insert>
+
+
+    <insert id="insertBatch" keyProperty="moldId" useGeneratedKeys="true">
+        insert into mold_ledger(mold_code, mold_type, mold_spec, mold_material, mold_aperture,
+        mold_num, mold_area, mold_name, maintenance_status, nesting_mold_id,
+        classification_id, mold_supplier_id, mold_supplier_name, status, attr1, attr2, attr3, attr4,
+        in_out_status, create_time, create_by, update_by, update_time,
+        restructuting_status, is_delete, engineering_tolerance, buy_time)  <!-- 添加此行 -->
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (
+            #{entity.moldCode}, #{entity.moldType}, #{entity.moldSpec}, #{entity.moldMaterial}, #{entity.moldAperture},
+            #{entity.moldNum}, #{entity.moldArea}, #{entity.moldName}, #{entity.maintenanceStatus},
+            #{entity.nestingMoldId},
+            #{entity.classificationId}, #{entity.moldSupplierId}, #{entity.moldSupplierName}, #{entity.status},
+            #{entity.attr1}, #{entity.attr2}, #{entity.attr3}, #{entity.attr4},
+            #{entity.inOutStatus}, #{entity.createTime}, #{entity.createBy}, #{entity.updateBy}, #{entity.updateTime},
+            #{entity.restructutingStatus}, #{entity.isDelete}, #{entity.engineeringTolerance}, #{entity.buyTime}  <!-- 添加此行 -->
+            )
+        </foreach>
+    </insert>
+
+
+    <insert id="insertOrUpdateBatch" keyProperty="moldId" useGeneratedKeys="true">
+        INSERT INTO mold_ledger(
+        mold_code, mold_type, mold_spec, mold_material, mold_aperture,
+        mold_num, mold_area, mold_name, maintenance_status, nesting_mold_id,
+        classification_id, mold_supplier_id, mold_supplier_name, status, attr1, attr2, attr3, attr4,
+        in_out_status, create_time, create_by, update_by, update_time,
+        restructuting_status, is_delete, engineering_tolerance ,buy_time)  <!-- 添加此行 -->
+        VALUES
+        <foreach collection="entities" item="entity" separator=",">
+            (
+            #{entity.moldCode}, #{entity.moldType}, #{entity.moldSpec}, #{entity.moldMaterial}, #{entity.moldAperture},
+            #{entity.moldNum}, #{entity.moldArea}, #{entity.moldName}, #{entity.maintenanceStatus},
+            #{entity.nestingMoldId},
+            #{entity.classificationId}, #{entity.moldSupplierId}, #{entity.moldSupplierName}, #{entity.status},
+            #{entity.attr1}, #{entity.attr2}, #{entity.attr3}, #{entity.attr4},
+            #{entity.inOutStatus}, #{entity.createTime}, #{entity.createBy}, #{entity.updateBy}, #{entity.updateTime},
+            #{entity.restructutingStatus}, #{entity.isDelete}, #{entity.engineeringTolerance}, #{entity.buyTime}  <!-- 添加此行 -->
+            )
+        </foreach>
+        ON DUPLICATE KEY UPDATE
+        mold_code = VALUES(mold_code),
+        mold_type = VALUES(mold_type),
+        mold_spec = VALUES(mold_spec),
+        mold_material = VALUES(mold_material),
+        mold_aperture = VALUES(mold_aperture),
+        mold_num = VALUES(mold_num),
+        mold_area = VALUES(mold_area),
+        mold_name = VALUES(mold_name),
+        maintenance_status = VALUES(maintenance_status),
+        nesting_mold_id = VALUES(nesting_mold_id),
+        classification_id = VALUES(classification_id),
+        mold_supplier_id = VALUES(mold_supplier_id),
+        mold_supplier_name = VALUES(mold_supplier_name),
+        status = VALUES(status),
+        attr1 = VALUES(attr1),
+        attr2 = VALUES(attr2),
+        attr3 = VALUES(attr3),
+        attr4 = VALUES(attr4),
+        in_out_status = VALUES(in_out_status),
+        create_time = VALUES(create_time),
+        create_by = VALUES(create_by),
+        update_by = VALUES(update_by),
+        update_time = VALUES(update_time),
+        restructuting_status = VALUES(restructuting_status),
+        is_delete = VALUES(is_delete),
+        engineering_tolerance = VALUES(engineering_tolerance)
+        buy_time = VALUES(buy_time)<!-- 添加此行 -->
+    </insert>
+
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update mold_ledger
+        <set>
+            <if test="moldCode != null and moldCode != ''">
+                mold_code = #{moldCode},
+            </if>
+            <if test="moldType != null and moldType != ''">
+                mold_type = #{moldType},
+            </if>
+            <if test="moldSpec != null and moldSpec != ''">
+                mold_spec = #{moldSpec},
+            </if>
+            <if test="moldMaterial != null and moldMaterial != ''">
+                mold_material = #{moldMaterial},
+            </if>
+            <if test="moldAperture != null and moldAperture != ''">
+                mold_aperture = #{moldAperture},
+            </if>
+            <if test="moldNum != null">
+                mold_num = #{moldNum},
+            </if>
+            <if test="moldArea != null and moldArea != ''">
+                mold_area = #{moldArea},
+            </if>
+            <if test="moldName != null and moldName != ''">
+                mold_name = #{moldName},
+            </if>
+            <if test="maintenanceStatus != null and maintenanceStatus != ''">
+                maintenance_status = #{maintenanceStatus},
+            </if>
+            <if test="nestingMoldId != null">
+                nesting_mold_id = #{nestingMoldId},
+            </if>
+            <if test="classificationId != null">
+                classification_id = #{classificationId},
+            </if>
+            <if test="moldSupplierId != null">
+                mold_supplier_id = #{moldSupplierId},
+            </if>
+            <if test="moldSupplierName != null">
+                mold_supplier_name = #{moldSupplierName},
+            </if>
+            <if test="status != null and status != ''">
+                status = #{status},
+            </if>
+            <if test="attr1 != null and attr1 != ''">
+                attr1 = #{attr1},
+            </if>
+            <if test="attr2 != null and attr2 != ''">
+                attr2 = #{attr2},
+            </if>
+            <if test="attr3 != null">
+                attr3 = #{attr3},
+            </if>
+            <if test="attr4 != null">
+                attr4 = #{attr4},
+            </if>
+            <if test="inOutStatus != null and inOutStatus != ''">
+                in_out_status = #{inOutStatus},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime},
+            </if>
+            <if test="createBy != null">
+                create_by = #{createBy},
+            </if>
+            <if test="updateBy != null">
+                update_by = #{updateBy},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime},
+            </if>
+            <if test="restructutingStatus != null">
+                restructuting_status = #{restructutingStatus},
+            </if>
+            <if test="isDelete != null">
+                is_delete = #{isDelete},
+            </if>
+            <if test="engineeringTolerance != null">
+                engineering_tolerance = #{engineeringTolerance},
+            </if>
+            <if test="buyTime != null">
+                buy_time = #{buyTime}
+            </if>
+        </set>
+        where mold_id = #{moldId}
+    </update>
+
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete
+        from mold_ledger
+        where mold_id = #{moldId}
+    </delete>
+
+    <!--批量逻辑删除-->
+    <delete id="deleteByIds">
+        delete from mold_ledger  where mold_id in
+        <foreach collection="array" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+    <update id="updateStatus">
+        update mold_ledger
+        <set>
+            <if test="inOutStatus != null and inOutStatus != ''">
+                in_out_status = #{inOutStatus},
+            </if>
+            <if test="status != null and status != ''">
+                status = #{status},
+            </if>
+        </set>
+        where mold_id = #{moldId}
+    </update>
+    <update id="updateStatusAndNum">
+        update mold_ledger
+        <set>
+            <if test="inOutStatus != null and inOutStatus != ''">
+                in_out_status = #{inOutStatus},
+            </if>
+            <if test="moldNum != null">
+                mold_num = #{moldNum},
+            </if>
+            <if test="status != null and status != ''">
+                status = #{status},
+            </if>
+        </set>
+        where mold_id = #{moldId}
+    </update>
+    <update id="updateNestingIdNull">
+        UPDATE mold_ledger
+        SET nesting_mold_id = NULL
+        WHERE mold_id = #{moldId}
+    </update>
+    <select id="queryByNestingMoldId" resultMap="MoldLedgerMap">
+        <include refid="selectMoldLedgerVo"/>
+        where nesting_mold_id = #{nestingMoldId}
+    </select>
+    <select id="queryByClassificationId" resultType="com.cuixing.mold.entity.MoldLedger">
+        <include refid="selectMoldLedgerVo"/>
+        where classification_id = #{classificationId}
+    </select>
+    <select id="selectMoldLedgerTypeList" parameterType="com.cuixing.mold.entity.MoldLedger" resultMap="MoldLedgerMap">
+        SELECT l1.*
+        FROM mold_ledger l1
+        JOIN mold_classification cc ON cc.classification_id = l1.classification_id
+        <where>
+            cc.classification_type = #{moldSpec}
+            <if test="moldId != null">
+                and mold_id = #{moldId}
+            </if>
+            <if test="moldCode != null and moldCode != ''">
+                and mold_code = #{moldCode}
+            </if>
+            <if test="moldType != null and moldType != ''">
+                and mold_type = #{moldType}
+            </if>
+            <if test="moldSpec != null and moldSpec != ''">
+                and mold_spec = #{moldSpec}
+            </if>
+            <if test="moldMaterial != null and moldMaterial != ''">
+                and mold_material = #{moldMaterial}
+            </if>
+            <if test="moldAperture != null and moldAperture != ''">
+                and mold_aperture = #{moldAperture}
+            </if>
+            <if test="moldNum != null">
+                and mold_num = #{moldNum}
+            </if>
+            <if test="moldArea != null and moldArea != ''">
+                and mold_area = #{moldArea}
+            </if>
+            <if test="moldName != null and moldName != ''">
+                and mold_name = #{moldName}
+            </if>
+            <if test="maintenanceStatus != null and maintenanceStatus != ''">
+                and maintenance_status = #{maintenanceStatus}
+            </if>
+            <if test="nestingMoldId != null">
+                and nesting_mold_id = #{nestingMoldId}
+            </if>
+            <if test="classificationId != null">
+                and classification_id = #{classificationId}
+            </if>
+            <if test="moldSupplierId != null">
+                and mold_supplier_id = #{moldSupplierId}
+            </if>
+            <if test="status != null and status != ''">
+                <if test="status == 'OPERATIONAL'">
+                    AND (status LIKE 'OPERATIONAL%' OR status = 'CHECKED_IN')
+                </if>
+            </if>
+            <if test="attr1 != null and attr1 != ''">
+                and attr1 = #{attr1}
+            </if>
+            <if test="attr2 != null and attr2 != ''">
+                and attr2 = #{attr2}
+            </if>
+            <if test="attr3 != null">
+                and attr3 = #{attr3}
+            </if>
+            <if test="attr4 != null">
+                and attr4 = #{attr4}
+            </if>
+            <if test="inOutStatus != null and inOutStatus != ''">
+                and in_out_status = #{inOutStatus}
+            </if>
+            <if test="createTime != null">
+                and create_time = #{createTime}
+            </if>
+            <if test="createBy != null and createBy != ''">
+                and create_by = #{createBy}
+            </if>
+            <if test="updateBy != null and updateBy != ''">
+                and update_by = #{updateBy}
+            </if>
+            <if test="updateTime != null">
+                and update_time = #{updateTime}
+            </if>
+            <if test="restructutingStatus != null and restructutingStatus != ''">
+                and restructuting_status = #{restructutingStatus}
+            </if>
+            <if test="isDelete != null and isDelete != ''">
+                and is_delete = #{isDelete}
+            </if>
+            <if test="engineeringTolerance != null">
+                engineering_tolerance = #{engineeringTolerance},
+            </if>
+            <if test="buyTime != null">
+                and buy_time = #{buyTime}
+            </if>
+        </where>
+    </select>
+
+    <select id="checkUniqueMoldLedgerCode" parameterType="com.cuixing.mold.entity.MoldLedger" resultMap="MoldLedgerMap">
+        <include refid="selectMoldLedgerVo"/>
+        WHERE mold_code = #{moldCode}
+    </select>
+
+</mapper>
+

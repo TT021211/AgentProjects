@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cuixing.md.mapper.MdWorkbenchWiredrawingMapper">
+    <resultMap type="com.cuixing.md.entity.MdWorkbenchWiredrawing" id="MdWorkbenchWiredrawingMap">
+        <result property="id" column="id" jdbcType="BIGINT"/>
+        <result property="workbenchTypeId" column="workbench_type_id" jdbcType="BIGINT"/>
+        <result property="workbenchType" column="workbench_type" jdbcType="VARCHAR"/>
+        <result property="equipmentCode" column="equipment_code" jdbcType="VARCHAR"/>
+        <result property="equipmentName" column="equipment_name" jdbcType="VARCHAR"/>
+        <result property="productionUpperLimit" column="production_upper_limit" jdbcType="DECIMAL"/>
+        <result property="productionLowerLimit" column="production_lower_limit" jdbcType="DECIMAL"/>
+        <result property="processId" column="process_id" jdbcType="BIGINT"/>
+        <result property="process" column="process" jdbcType="VARCHAR"/>
+        <result property="isDeleted" column="is_deleted" jdbcType="TINYINT"/>
+        <result property="version" column="version" jdbcType="INTEGER"/>
+        <result property="createBy" column="create_by" jdbcType="VARCHAR"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="updateBy" column="update_by" jdbcType="VARCHAR"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+        <result property="attr1" column="attr1" jdbcType="VARCHAR"/>
+        <result property="attr2" column="attr2" jdbcType="INTEGER"/>
+        <result property="attr3" column="attr3" jdbcType="VARCHAR"/>
+        <result property="remark" column="remark" jdbcType="VARCHAR"/>
+        <result property="equipmentId" column="equipment_id" jdbcType="BIGINT"/>
+        <result property="isEnable" column="is_enable" jdbcType="INTEGER"/>
+        <result property="modelId" column="model_id" jdbcType="BIGINT"/>
+        <result property="modelName" column="model_name" jdbcType="VARCHAR"/>
+    </resultMap>
+    
+    <!-- 通过ID查询单条数据 -->
+    <select id="queryById" resultMap="MdWorkbenchWiredrawingMap">
+        select
+            id,workbench_type_id,workbench_type,equipment_code,equipment_name,production_upper_limit,production_lower_limit,process_id,process,is_deleted,version,create_by,create_time,update_by,update_time,attr1,attr2,attr3,remark,equipment_id,is_enable,model_id,model_name
+        from md_workbench_wiredrawing
+        where is_deleted = 0 and  id = #{id}
+    </select>
+    
+    <!--分页查询指定行数据-->
+    <select id="selectMdWorkbenchWiredrawingList" resultMap="MdWorkbenchWiredrawingMap">
+        select
+            id,workbench_type_id,workbench_type,equipment_code,equipment_name,production_upper_limit,production_lower_limit,process_id,process,is_deleted,version,create_by,create_time,update_by,update_time,attr1,attr2,attr3,remark,equipment_id,is_enable,model_id,model_name
+        from md_workbench_wiredrawing
+        <where>
+            is_deleted = 0
+            <if test="id != null and id != ''"> and id = #{id}</if>
+            <if test="workbenchTypeId != null and workbenchTypeId != ''"> and workbench_type_id = #{workbenchTypeId}</if>
+            <if test="workbenchType != null and workbenchType != ''"> and workbench_type = #{workbenchType}</if>
+            <if test="equipmentCode != null and equipmentCode != ''"> and equipment_code = #{equipmentCode}</if>
+            <if test="equipmentName != null and equipmentName != ''"> and equipment_name = #{equipmentName}</if>
+            <if test="productionUpperLimit != null and productionUpperLimit != ''"> and production_upper_limit = #{productionUpperLimit}</if>
+            <if test="productionLowerLimit != null and productionLowerLimit != ''"> and production_lower_limit = #{productionLowerLimit}</if>
+            <if test="processId != null and processId != ''"> and process_id = #{processId}</if>
+            <if test="process != null and process != ''"> and process = #{process}</if>
+            <if test="isDeleted != null and isDeleted != ''"> and is_deleted = #{isDeleted}</if>
+            <if test="version != null and version != ''"> and version = #{version}</if>
+            <if test="createBy != null and createBy != ''"> and create_by = #{createBy}</if>
+            <if test="createTime != null and createTime != ''"> and create_time = #{createTime}</if>
+            <if test="updateBy != null and updateBy != ''"> and update_by = #{updateBy}</if>
+            <if test="updateTime != null and updateTime != ''"> and update_time = #{updateTime}</if>
+            <if test="attr1 != null and attr1 != ''"> and attr1 = #{attr1}</if>
+            <if test="attr2 != null and attr2 != ''"> and attr2 = #{attr2}</if>
+            <if test="attr3 != null and attr3 != ''"> and attr3 = #{attr3}</if>
+            <if test="remark != null and remark != ''"> and remark = #{remark}</if>
+            <if test="equipmentId != null and equipmentId != ''"> and equipment_id = #{equipmentId}</if>
+            <if test="isEnable != null and isEnable != ''"> and is_enable = #{isEnable}</if>
+            <if test="modelId != null and modelId != ''"> and model_id = #{modelId}</if>
+            <if test="modelName != null and modelName != ''"> and model_name = #{modelName}</if>
+            <if test="params.specificationRange != null and params.specificationRange != ''">
+                AND #{params.specificationRange} BETWEEN production_lower_limit AND production_upper_limit
+            </if>
+        </where>
+        order by equipment_code asc
+    </select>
+    
+    <!--新增数据-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into md_workbench_wiredrawing
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null ">id,</if>
+            <if test="workbenchTypeId != null ">workbench_type_id,</if>
+            <if test="workbenchType != null and workbenchType != ''">workbench_type,</if>
+            <if test="equipmentCode != null and equipmentCode != ''">equipment_code,</if>
+            <if test="equipmentName != null and equipmentName != ''">equipment_name,</if>
+            <if test="productionUpperLimit != null ">production_upper_limit,</if>
+            <if test="productionLowerLimit != null ">production_lower_limit,</if>
+            <if test="processId != null ">process_id,</if>
+            <if test="process != null and process != ''">process,</if>
+            <if test="isDeleted != null ">is_deleted,</if>
+            <if test="version != null ">version,</if>
+            <if test="createBy != null and createBy != ''">create_by,</if>
+            <if test="createTime != null ">create_time,</if>
+            <if test="updateBy != null and updateBy != ''">update_by,</if>
+            <if test="updateTime != null ">update_time,</if>
+            <if test="attr1 != null and attr1 != ''">attr1,</if>
+            <if test="attr2 != null ">attr2,</if>
+            <if test="attr3 != null and attr3 != ''">attr3,</if>
+            <if test="remark != null and remark != ''">remark,</if>
+            <if test="equipmentId != null">equipment_id,</if>
+            <if test="isEnable != null and isEnable != ''">is_enable,</if>
+            <if test="modelId != null">model_id,</if>
+            <if test="modelName != null and modelName != ''">model_name,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">#{id},</if>
+            <if test="workbenchTypeId != null">#{workbenchTypeId},</if>
+            <if test="workbenchType != null and workbenchType != ''">#{workbenchType},</if>
+            <if test="equipmentCode != null and equipmentCode != ''">#{equipmentCode},</if>
+            <if test="equipmentName != null and equipmentName != ''">#{equipmentName},</if>
+            <if test="productionUpperLimit != null">#{productionUpperLimit},</if>
+            <if test="productionLowerLimit != null">#{productionLowerLimit},</if>
+            <if test="processId != null">#{processId},</if>
+            <if test="process != null and process != ''">#{process},</if>
+            <if test="isDeleted != null">#{isDeleted},</if>
+            <if test="version != null">#{version},</if>
+            <if test="createBy != null and createBy != ''">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null and updateBy != ''">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="attr1 != null and attr1 != ''">#{attr1},</if>
+            <if test="attr2 != null">#{attr2},</if>
+            <if test="attr3 != null and attr3 != ''">#{attr3},</if>
+            <if test="remark != null and remark != ''">#{remark},</if>
+            <if test="equipmentId != null">#{equipmentId},</if>
+            <if test="isEnable != null and isEnable != ''">#{isEnable},</if>
+            <if test="modelId != null">#{modelId},</if>
+            <if test="modelName != null and modelName != ''">#{modelName},</if>
+        </trim>
+    </insert>
+    
+    <!-- 更新数据 -->
+    <update id="update">
+        update md_workbench_wiredrawing
+        <set>
+            <trim suffixOverrides=",">
+                <if test="workbenchTypeId != null "> workbench_type_id = #{workbenchTypeId}, </if>
+                <if test="workbenchType != null "> workbench_type = #{workbenchType}, </if>
+                <if test="equipmentCode != null "> equipment_code = #{equipmentCode}, </if>
+                <if test="equipmentName != null "> equipment_name = #{equipmentName}, </if>
+                <if test="productionUpperLimit != null "> production_upper_limit = #{productionUpperLimit}, </if>
+                <if test="productionLowerLimit != null "> production_lower_limit = #{productionLowerLimit}, </if>
+                <if test="processId != null "> process_id = #{processId}, </if>
+                <if test="process != null "> process = #{process}, </if>
+                <if test="isDeleted != null "> is_deleted = #{isDeleted}, </if>
+                <if test="version != null "> version = #{version}, </if>
+                <if test="createBy != null "> create_by = #{createBy}, </if>
+                <if test="createTime != null "> create_time = #{createTime}, </if>
+                <if test="updateBy != null "> update_by = #{updateBy}, </if>
+                <if test="updateTime != null "> update_time = #{updateTime}, </if>
+                <if test="attr1 != null "> attr1 = #{attr1}, </if>
+                <if test="attr2 != null "> attr2 = #{attr2}, </if>
+                <if test="attr3 != null "> attr3 = #{attr3}, </if>
+                <if test="remark != null "> remark = #{remark}, </if>
+                <if test="equipmentId != null"> equipment_id = #{equipmentId},</if>
+                <if test="isEnable != null"> is_enable = #{isEnable},</if>
+                <if test="modelId != null"> model_id = #{modelId},</if>
+                <if test="modelName != null"> model_name = #{modelName},</if>
+            </trim>
+        </set>
+        where id = #{id} and version = #{version}
+    </update>
+    
+    <!--逻辑删除删除-->
+    <update id="deleteById">
+        update md_workbench_wiredrawing set is_deleted = 1 where id = #{id}
+    </update>
+    
+    <!--批量逻辑删除-->
+    <update id="deleteByIds">
+        update md_workbench_wiredrawing set is_deleted = 1 where id in
+        <foreach collection="array" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </update>
+</mapper>

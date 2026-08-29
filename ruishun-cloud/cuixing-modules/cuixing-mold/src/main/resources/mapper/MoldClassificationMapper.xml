@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cuixing.mold.mapper.MoldClassificationMapper">
+
+    <resultMap type="com.cuixing.mold.entity.MoldClassification" id="MoldClassificationMap">
+        <result property="classificationId" column="classification_id" jdbcType="INTEGER"/>
+        <result property="classificationCode" column="classification_code" jdbcType="VARCHAR"/>
+        <result property="classificationName" column="classification_name" jdbcType="VARCHAR"/>
+        <result property="enable" column="enable" jdbcType="VARCHAR"/>
+        <result property="attr1" column="attr1" jdbcType="VARCHAR"/>
+        <result property="attr2" column="attr2" jdbcType="VARCHAR"/>
+        <result property="attr3" column="attr3" jdbcType="INTEGER"/>
+        <result property="attr4" column="attr4" jdbcType="INTEGER"/>
+        <result property="classificationType" column="classification_type" jdbcType="VARCHAR"/>
+        <result property="date" column="date" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <sql id="selectMoldClassificationVo">
+        SELECT classification_id,
+               classification_code,
+               classification_name,
+               enable,
+               attr1,
+               attr2,
+               attr3,
+               attr4,
+               classification_type, date
+        FROM mold_classification
+    </sql>
+
+    <select id="selectMoldClassificationList" parameterType="MoldClassification" resultMap="MoldClassificationMap">
+        <include refid="selectMoldClassificationVo"/>
+        <where>
+            <if test="classificationId != null">
+                and classification_id = #{classificationId}
+            </if>
+            <if test="classificationCode != null and classificationCode != ''">
+                and classification_code = #{classificationCode}
+            </if>
+            <if test="classificationName != null and classificationName != ''">
+                and classification_name = #{classificationName}
+            </if>
+            <if test="enable != null and enable != ''">
+                and enable = #{enable}
+            </if>
+            <if test="attr1 != null and attr1 != ''">
+                and attr1 = #{attr1}
+            </if>
+            <if test="attr2 != null and attr2 != ''">
+                and attr2 = #{attr2}
+            </if>
+            <if test="attr3 != null">
+                and attr3 = #{attr3}
+            </if>
+            <if test="attr4 != null">
+                and attr4 = #{attr4}
+            </if>
+            <if test="classificationType != null and classificationType != ''">
+                and classification_type = #{classificationType}
+            </if>
+            <if test="date != null and date != ''">
+                and date LIKE CONCAT('%', #{date}, '%')
+            </if>
+        </where>
+        ORDER BY date DESC
+    </select>
+
+
+    <!-- 查询单个 -->
+    <select id="queryById" resultMap="MoldClassificationMap">
+        SELECT classification_id, classification_code, classification_name, enable, attr1, attr2, attr3, attr4, classification_type, date
+        FROM mold_classification
+        WHERE classification_id = #{classificationId}
+    </select>
+
+    <!-- 新增所有列 -->
+    <insert id="insert" keyProperty="classificationId" useGeneratedKeys="true">
+        INSERT INTO mold_classification (
+            classification_code, classification_name, enable, attr1, attr2, attr3, attr4, classification_type, date
+        )
+        VALUES (
+                   #{classificationCode}, #{classificationName}, #{enable}, #{attr1}, #{attr2}, #{attr3}, #{attr4}, #{classificationType}, #{date}
+               )
+    </insert>
+
+    <!-- 批量插入 -->
+    <insert id="insertBatch" keyProperty="classificationId" useGeneratedKeys="true">
+        INSERT INTO mold_classification (
+        classification_code, classification_name, enable, attr1, attr2, attr3, attr4, classification_type, date
+        )
+        VALUES
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.classificationCode}, #{entity.classificationName}, #{entity.enable}, #{entity.attr1}, #{entity.attr2}, #{entity.attr3}, #{entity.attr4}, #{entity.classificationType}, #{entity.date})
+        </foreach>
+    </insert>
+
+    <!-- 插入或更新批处理 -->
+    <insert id="insertOrUpdateBatch" keyProperty="classificationId" useGeneratedKeys="true">
+        INSERT INTO mold_classification (
+        classification_code, classification_name, enable, attr1, attr2, attr3, attr4, classification_type, date
+        )
+        VALUES
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.classificationCode}, #{entity.classificationName}, #{entity.enable}, #{entity.attr1}, #{entity.attr2}, #{entity.attr3}, #{entity.attr4}, #{entity.classificationType}, #{entity.date})
+        </foreach>
+        ON DUPLICATE KEY UPDATE
+        classification_code = VALUES(classification_code),
+        classification_name = VALUES(classification_name),
+        enable = VALUES(enable),
+        attr1 = VALUES(attr1),
+        attr2 = VALUES(attr2),
+        attr3 = VALUES(attr3),
+        attr4 = VALUES(attr4),
+        classification_type = VALUES(classification_type),
+        date = VALUES(date)
+    </insert>
+
+    <!--统计总行数-->
+    <select id="count" resultType="java.lang.Long">
+        select count(1)
+        from mold_classification
+        <where>
+            <if test="classificationId != null">
+                and classification_id = #{classificationId}
+            </if>
+            <if test="classificationCode != null and classificationCode != ''">
+                and classification_code = #{classificationCode}
+            </if>
+            <if test="classificationName != null and classificationName != ''">
+                and classification_name = #{classificationName}
+            </if>
+            <if test="enable != null and enable != ''">
+                and enable = #{enable}
+            </if>
+            <if test="attr1 != null and attr1 != ''">
+                and attr1 = #{attr1}
+            </if>
+            <if test="attr2 != null and attr2 != ''">
+                and attr2 = #{attr2}
+            </if>
+            <if test="attr3 != null">
+                and attr3 = #{attr3}
+            </if>
+            <if test="attr4 != null">
+                and attr4 = #{attr4}
+            </if>
+            <if test="classificationType != null and classificationType != ''">
+                and classification_type = #{classificationType}
+            </if>
+            <if test="date != null">
+                and date = #{date}
+            </if>
+        </where>
+    </select>
+    <select id="selectMoldClassificationList2" parameterType="MoldClassification" resultMap="MoldClassificationMap">
+        <include refid="selectMoldClassificationVo"/>
+        <where>
+            <if test="classificationId != null">
+                and classification_id = #{classificationId}
+            </if>
+            <if test="classificationCode != null and classificationCode != ''">
+                and classification_code = #{classificationCode}
+            </if>
+            <if test="classificationName != null and classificationName != ''">
+                and classification_name = #{classificationName}
+            </if>
+                and enable = 'Y'
+            <if test="attr1 != null and attr1 != ''">
+                and attr1 = #{attr1}
+            </if>
+            <if test="attr2 != null and attr2 != ''">
+                and attr2 = #{attr2}
+            </if>
+            <if test="attr3 != null">
+                and attr3 = #{attr3}
+            </if>
+            <if test="attr4 != null">
+                and attr4 = #{attr4}
+            </if>
+            <if test="classificationType != null and classificationType != ''">
+                and classification_type = #{classificationType}
+            </if>
+            <if test="date != null and date != ''">
+                and date LIKE CONCAT('%', #{date}, '%')
+            </if>
+        </where>
+        ORDER BY date DESC
+    </select>
+
+    <select id="queryclassificationType" resultMap="MoldClassificationMap">
+        SELECT classification_id, classification_code, classification_name, enable, attr1, attr2, attr3, attr4, classification_type, date
+        FROM mold_classification
+        WHERE classification_type = #{classificationType} and classification_name = #{classificationName}
+    </select>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update mold_classification
+        <set>
+            <if test="classificationCode != null and classificationCode != ''">
+                classification_code = #{classificationCode},
+            </if>
+            <if test="classificationName != null and classificationName != ''">
+                classification_name = #{classificationName},
+            </if>
+            <if test="enable != null and enable != ''">
+                enable = #{enable},
+            </if>
+            <if test="attr1 != null and attr1 != ''">
+                attr1 = #{attr1},
+            </if>
+            <if test="attr2 != null and attr2 != ''">
+                attr2 = #{attr2},
+            </if>
+            <if test="attr3 != null">
+                attr3 = #{attr3},
+            </if>
+            <if test="attr4 != null">
+                attr4 = #{attr4},
+            </if>
+            <if test="classificationType != null and classificationType != ''">
+                classification_type = #{classificationType},
+            </if>
+            <if test="date != null">
+                date = #{date},
+            </if>
+        </set>
+        where classification_id = #{classificationId}
+    </update>
+
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete
+        from mold_classification
+        where classification_id = #{classificationId}
+    </delete>
+
+</mapper>
+

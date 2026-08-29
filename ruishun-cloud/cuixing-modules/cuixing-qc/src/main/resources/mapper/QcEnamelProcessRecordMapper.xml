@@ -1,0 +1,366 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cuixing.qc.mapper.QcEnamelProcessRecordMapper">
+
+    <resultMap type="com.cuixing.qc.entity.QcEnamelProcessRecord" id="QcEnamelProcessRecordMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="workOrdeType" column="work_orde_type" jdbcType="VARCHAR"/>
+        <result property="deviceName" column="device_name" jdbcType="VARCHAR"/>
+        <result property="axisNumber" column="axis_number" jdbcType="VARCHAR"/>
+        <result property="orderType" column="order_type" jdbcType="VARCHAR"/>
+        <result property="orderNumber" column="order_number" jdbcType="VARCHAR"/>
+        <result property="clientName" column="client_name" jdbcType="VARCHAR"/>
+        <result property="generateWorkOrderNumber" column="generate_work_order_number" jdbcType="VARCHAR"/>
+        <result property="productModel" column="product_model" jdbcType="VARCHAR"/>
+        <result property="productSpecifications" column="product_specifications" jdbcType="VARCHAR"/>
+        <result property="partNumber" column="part_number" jdbcType="INTEGER"/>
+        <result property="batchNumber" column="batch_number" jdbcType="INTEGER"/>
+        <result property="qualityInspector" column="quality_inspector" jdbcType="VARCHAR"/>
+        <result property="date" column="date" jdbcType="TIMESTAMP"/>
+        <result property="defectId" column="defect_id" jdbcType="VARCHAR"/>
+        <result property="attr1" column="attr1" jdbcType="VARCHAR"/>
+        <result property="attr2" column="attr2" jdbcType="VARCHAR"/>
+        <result property="attr3" column="attr3" jdbcType="INTEGER"/>
+        <result property="attr4" column="attr4" jdbcType="INTEGER"/>
+        <result property="createBy" column="create_by" jdbcType="VARCHAR"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="updateBy" column="update_by" jdbcType="VARCHAR"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <sql id="selectQcEnamelProcessRecordVo">
+        SELECT id,
+               work_orde_type,
+               device_name,
+               axis_number,
+               order_type,
+               order_number,
+               client_name,
+               generate_work_order_number,
+               product_model,
+               product_specifications,
+               part_number,
+               batch_number,
+               quality_inspector, date, defect_id, attr1, attr2, attr3, attr4, create_by, create_time, update_by, update_time
+        FROM qc_enamel_process_record
+    </sql>
+
+    <select id="selectQcEnamelProcessRecordList" parameterType="QcEnamelProcessRecord"
+            resultMap="QcEnamelProcessRecordMap">
+        <include refid="selectQcEnamelProcessRecordVo"/>
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="workOrdeType != null and workOrdeType != ''">
+                and work_orde_type = #{workOrdeType}
+            </if>
+            <if test="deviceName != null and deviceName != ''">
+                and device_name = #{deviceName}
+            </if>
+            <if test="axisNumber != null and axisNumber != ''">
+                and axis_number = #{axisNumber}
+            </if>
+            <if test="orderType != null and orderType != ''">
+                and order_type = #{orderType}
+            </if>
+            <if test="orderNumber != null and orderNumber != ''">
+                and order_number = #{orderNumber}
+            </if>
+            <if test="clientName != null and clientName != ''">
+                and client_name = #{clientName}
+            </if>
+            <if test="generateWorkOrderNumber != null and generateWorkOrderNumber != ''">
+                and generate_work_order_number = #{generateWorkOrderNumber}
+            </if>
+            <if test="productModel != null and productModel != ''">
+                and product_model = #{productModel}
+            </if>
+            <if test="productSpecifications != null and productSpecifications != ''">
+                and product_specifications = #{productSpecifications}
+            </if>
+            <if test="partNumber != null">
+                and part_number = #{partNumber}
+            </if>
+            <if test="batchNumber != null">
+                and batch_number = #{batchNumber}
+            </if>
+            <if test="qualityInspector != null and qualityInspector != ''">
+                and quality_inspector = #{qualityInspector}
+            </if>
+            <if test="date != null">
+                and date = #{date}
+            </if>
+            <if test="defectId != null and defectId != ''">
+                and defect_id = #{defectId}
+            </if>
+            <if test="attr1 != null and attr1 != ''">
+                and attr1 = #{attr1}
+            </if>
+            <if test="attr2 != null and attr2 != ''">
+                and attr2 = #{attr2}
+            </if>
+            <if test="attr3 != null">
+                and attr3 = #{attr3}
+            </if>
+            <if test="attr4 != null">
+                and attr4 = #{attr4}
+            </if>
+            <if test="createBy != null and createBy != ''">
+                and create_by = #{createBy}
+            </if>
+            <if test="createTime != null">
+                and create_time = #{createTime}
+            </if>
+            <if test="updateBy != null and updateBy != ''">
+                and update_by = #{updateBy}
+            </if>
+            <if test="updateTime != null">
+                and update_time = #{updateTime}
+            </if>
+        </where>
+    </select>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="QcEnamelProcessRecordMap">
+        select id,
+               work_orde_type,
+               device_name,
+               axis_number,
+               order_type,
+               order_number,
+               client_name,
+               generate_work_order_number,
+               product_model,
+               product_specifications,
+               part_number,
+               batch_number,
+               quality_inspector, date, defect_id, attr1, attr2, attr3, attr4, create_by, create_time, update_by, update_time
+        from qc_enamel_process_record
+        where id = #{id}
+    </select>
+
+    <!--统计总行数-->
+    <select id="count" resultType="java.lang.Long">
+        select count(1)
+        from qc_enamel_process_record
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="workOrdeType != null and workOrdeType != ''">
+                and work_orde_type = #{workOrdeType}
+            </if>
+            <if test="deviceName != null and deviceName != ''">
+                and device_name = #{deviceName}
+            </if>
+            <if test="axisNumber != null and axisNumber != ''">
+                and axis_number = #{axisNumber}
+            </if>
+            <if test="orderType != null and orderType != ''">
+                and order_type = #{orderType}
+            </if>
+            <if test="orderNumber != null and orderNumber != ''">
+                and order_number = #{orderNumber}
+            </if>
+            <if test="clientName != null and clientName != ''">
+                and client_name = #{clientName}
+            </if>
+            <if test="generateWorkOrderNumber != null and generateWorkOrderNumber != ''">
+                and generate_work_order_number = #{generateWorkOrderNumber}
+            </if>
+            <if test="productModel != null and productModel != ''">
+                and product_model = #{productModel}
+            </if>
+            <if test="productSpecifications != null and productSpecifications != ''">
+                and product_specifications = #{productSpecifications}
+            </if>
+            <if test="partNumber != null">
+                and part_number = #{partNumber}
+            </if>
+            <if test="batchNumber != null">
+                and batch_number = #{batchNumber}
+            </if>
+            <if test="qualityInspector != null and qualityInspector != ''">
+                and quality_inspector = #{qualityInspector}
+            </if>
+            <if test="date != null">
+                and date = #{date}
+            </if>
+            <if test="defectId != null and defectId != ''">
+                and defect_id = #{defectId}
+            </if>
+            <if test="attr1 != null and attr1 != ''">
+                and attr1 = #{attr1}
+            </if>
+            <if test="attr2 != null and attr2 != ''">
+                and attr2 = #{attr2}
+            </if>
+            <if test="attr3 != null">
+                and attr3 = #{attr3}
+            </if>
+            <if test="attr4 != null">
+                and attr4 = #{attr4}
+            </if>
+            <if test="createBy != null and createBy != ''">
+                and create_by = #{createBy}
+            </if>
+            <if test="createTime != null">
+                and create_time = #{createTime}
+            </if>
+            <if test="updateBy != null and updateBy != ''">
+                and update_by = #{updateBy}
+            </if>
+            <if test="updateTime != null">
+                and update_time = #{updateTime}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into qc_enamel_process_record(work_orde_type, device_name, axis_number, order_type, order_number,
+                                             client_name, generate_work_order_number, product_model,
+                                             product_specifications, part_number, batch_number, quality_inspector, date,
+                                             defect_id, attr1, attr2, attr3, attr4, create_by, create_time, update_by,
+                                             update_time)
+        values (#{workOrdeType}, #{deviceName}, #{axisNumber}, #{orderType}, #{orderNumber}, #{clientName},
+                #{generateWorkOrderNumber}, #{productModel}, #{productSpecifications}, #{partNumber}, #{batchNumber},
+                #{qualityInspector}, #{date}, #{defectId}, #{attr1}, #{attr2}, #{attr3}, #{attr4}, #{createBy},
+                #{createTime}, #{updateBy}, #{updateTime})
+    </insert>
+
+    <insert id="insertBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into qc_enamel_process_record(work_orde_type, device_name, axis_number, order_type, order_number,
+        client_name, generate_work_order_number, product_model, product_specifications, part_number, batch_number,
+        quality_inspector, date, defect_id, attr1, attr2, attr3, attr4, create_by, create_time, update_by, update_time)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.workOrdeType}, #{entity.deviceName}, #{entity.axisNumber}, #{entity.orderType},
+            #{entity.orderNumber}, #{entity.clientName}, #{entity.generateWorkOrderNumber}, #{entity.productModel},
+            #{entity.productSpecifications}, #{entity.partNumber}, #{entity.batchNumber}, #{entity.qualityInspector},
+            #{entity.date}, #{entity.defectId}, #{entity.attr1}, #{entity.attr2}, #{entity.attr3}, #{entity.attr4},
+            #{entity.createBy}, #{entity.createTime}, #{entity.updateBy}, #{entity.updateTime})
+        </foreach>
+    </insert>
+
+    <insert id="insertOrUpdateBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into qc_enamel_process_record(work_orde_type, device_name, axis_number, order_type, order_number,
+        client_name, generate_work_order_number, product_model, product_specifications, part_number, batch_number,
+        quality_inspector, date, defect_id, attr1, attr2, attr3, attr4, create_by, create_time, update_by, update_time)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.workOrdeType}, #{entity.deviceName}, #{entity.axisNumber}, #{entity.orderType},
+            #{entity.orderNumber}, #{entity.clientName}, #{entity.generateWorkOrderNumber}, #{entity.productModel},
+            #{entity.productSpecifications}, #{entity.partNumber}, #{entity.batchNumber}, #{entity.qualityInspector},
+            #{entity.date}, #{entity.defectId}, #{entity.attr1}, #{entity.attr2}, #{entity.attr3}, #{entity.attr4},
+            #{entity.createBy}, #{entity.createTime}, #{entity.updateBy}, #{entity.updateTime})
+        </foreach>
+        on duplicate key update
+        work_orde_type = values(work_orde_type),
+        device_name = values(device_name),
+        axis_number = values(axis_number),
+        order_type = values(order_type),
+        order_number = values(order_number),
+        client_name = values(client_name),
+        generate_work_order_number = values(generate_work_order_number),
+        product_model = values(product_model),
+        product_specifications = values(product_specifications),
+        part_number = values(part_number),
+        batch_number = values(batch_number),
+        quality_inspector = values(quality_inspector),
+        date = values(date),
+        defect_id = values(defect_id),
+        attr1 = values(attr1),
+        attr2 = values(attr2),
+        attr3 = values(attr3),
+        attr4 = values(attr4),
+        create_by = values(create_by),
+        create_time = values(create_time),
+        update_by = values(update_by),
+        update_time = values(update_time)
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update qc_enamel_process_record
+        <set>
+            <if test="workOrdeType != null and workOrdeType != ''">
+                work_orde_type = #{workOrdeType},
+            </if>
+            <if test="deviceName != null and deviceName != ''">
+                device_name = #{deviceName},
+            </if>
+            <if test="axisNumber != null and axisNumber != ''">
+                axis_number = #{axisNumber},
+            </if>
+            <if test="orderType != null and orderType != ''">
+                order_type = #{orderType},
+            </if>
+            <if test="orderNumber != null and orderNumber != ''">
+                order_number = #{orderNumber},
+            </if>
+            <if test="clientName != null and clientName != ''">
+                client_name = #{clientName},
+            </if>
+            <if test="generateWorkOrderNumber != null and generateWorkOrderNumber != ''">
+                generate_work_order_number = #{generateWorkOrderNumber},
+            </if>
+            <if test="productModel != null and productModel != ''">
+                product_model = #{productModel},
+            </if>
+            <if test="productSpecifications != null and productSpecifications != ''">
+                product_specifications = #{productSpecifications},
+            </if>
+            <if test="partNumber != null">
+                part_number = #{partNumber},
+            </if>
+            <if test="batchNumber != null">
+                batch_number = #{batchNumber},
+            </if>
+            <if test="qualityInspector != null and qualityInspector != ''">
+                quality_inspector = #{qualityInspector},
+            </if>
+            <if test="date != null">
+                date = #{date},
+            </if>
+            <if test="defectId != null and defectId != ''">
+                defect_id = #{defectId},
+            </if>
+            <if test="attr1 != null and attr1 != ''">
+                attr1 = #{attr1},
+            </if>
+            <if test="attr2 != null and attr2 != ''">
+                attr2 = #{attr2},
+            </if>
+            <if test="attr3 != null">
+                attr3 = #{attr3},
+            </if>
+            <if test="attr4 != null">
+                attr4 = #{attr4},
+            </if>
+            <if test="createBy != null and createBy != ''">
+                create_by = #{createBy},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime},
+            </if>
+            <if test="updateBy != null and updateBy != ''">
+                update_by = #{updateBy},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete
+        from qc_enamel_process_record
+        where id = #{id}
+    </delete>
+
+</mapper>
+

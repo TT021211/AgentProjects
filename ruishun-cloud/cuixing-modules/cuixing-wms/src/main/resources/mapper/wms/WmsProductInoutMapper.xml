@@ -1,0 +1,622 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cuixing.wms.mapper.WmsProductInoutMapper">
+
+    <resultMap type="com.cuixing.wms.entity.WmsProductInout" id="WmsProductInoutMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="productCode" column="product_code" jdbcType="VARCHAR"/>
+        <result property="productName" column="product_name" jdbcType="VARCHAR"/>
+        <result property="productSpec" column="product_spec" jdbcType="VARCHAR"/>
+        <result property="productUnit" column="product_unit" jdbcType="VARCHAR"/>
+        <result property="documentNumber" column="document_number" jdbcType="VARCHAR"/>
+        <result property="productBatchNumber" column="product_batch_number" jdbcType="VARCHAR"/>
+        <result property="materialBatchNumber" column="material_batch_number" jdbcType="VARCHAR"/>
+        <result property="boxCode" column="box_code" jdbcType="VARCHAR"/>
+        <result property="warehouseName" column="warehouse_name" jdbcType="VARCHAR"/>
+        <result property="status" column="status" jdbcType="VARCHAR"/>
+        <result property="productNumber" column="product_number" jdbcType="INTEGER"/>
+        <result property="netWeight" column="net_weight" jdbcType="DOUBLE"/>
+        <result property="grossWeight" column="gross_weight" jdbcType="DOUBLE"/>
+        <result property="weighTime" column="weigh_time" jdbcType="TIMESTAMP"/>
+        <result property="createBy" column="create_by" jdbcType="VARCHAR"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="updateBy" column="update_by" jdbcType="VARCHAR"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+        <result property="artt1" column="artt1" jdbcType="VARCHAR"/>
+        <result property="artt2" column="artt2" jdbcType="VARCHAR"/>
+        <result property="artt3" column="artt3" jdbcType="INTEGER"/>
+        <result property="artt4" column="artt4" jdbcType="INTEGER"/>
+        <result property="artt5" column="artt5" jdbcType="VARCHAR"/>
+        <result property="artt6" column="artt6" jdbcType="VARCHAR"/>
+        <result property="artt7" column="artt7" jdbcType="VARCHAR"/>
+        <result property="artt8" column="artt8" jdbcType="VARCHAR"/>
+        <result property="artt9" column="artt9" jdbcType="VARCHAR"/>
+        <result property="artt10" column="artt10" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="selectWmsProductInoutVo">
+        SELECT id,
+               product_code,
+               product_name,
+               product_spec,
+               product_unit,
+               document_number,
+               product_batch_number,
+               material_batch_number,
+               box_code,
+               warehouse_name,
+               status,
+               product_number,
+               net_weight,
+               gross_weight,
+               weigh_time,
+               create_by,
+               create_time,
+               update_by,
+               update_time,
+               artt1,
+               artt2,
+               artt3,
+               artt4,
+               artt5,
+               artt6,
+               artt7,
+               artt8,
+               artt9,
+               artt10
+        FROM wms_product_inout
+    </sql>
+
+    <select id="selectWmsProductInoutList" parameterType="WmsProductInout" resultMap="WmsProductInoutMap">
+        <include refid="selectWmsProductInoutVo"/>
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="productCode != null and productCode != ''">
+                and product_code = #{productCode}
+            </if>
+            <if test="productName != null and productName != ''">
+                and product_name = #{productName}
+            </if>
+            <if test="productSpec != null and productSpec != ''">
+                and product_spec = REPLACE(#{productSpec}, ' ', '')
+            </if>
+            <if test="productUnit != null and productUnit != ''">
+                and product_unit = #{productUnit}
+            </if>
+            <if test="documentNumber != null and documentNumber != ''">
+                and document_number = #{documentNumber}
+            </if>
+            <if test="productBatchNumber != null and productBatchNumber != ''">
+                and product_batch_number = REPLACE(#{productBatchNumber}, ' ', '')
+            </if>
+            <if test="materialBatchNumber != null and materialBatchNumber != ''">
+                and material_batch_number = #{materialBatchNumber}
+            </if>
+            <if test="boxCode != null and boxCode != ''">
+                and box_code = REPLACE(#{boxCode}, ' ', '')
+            </if>
+            <if test="warehouseName != null and warehouseName != ''">
+                and warehouse_name = #{warehouseName}
+            </if>
+            <if test="status != null and status != ''">
+                and status = #{status}
+            </if>
+            <if test="productNumber != null">
+                and product_number = #{productNumber}
+            </if>
+            <if test="netWeight != null">
+                and net_weight = #{netWeight}
+            </if>
+            <if test="grossWeight != null">
+                and gross_weight = #{grossWeight}
+            </if>
+            <if test="weighTime != null">
+                and weigh_time = #{weighTime}
+            </if>
+            <if test="createBy != null and createBy != ''">
+                and create_by = #{createBy}
+            </if>
+            <if test="createTime != null">
+                and create_time = #{createTime}
+            </if>
+            <if test="startTime != null and endTime != null">
+                AND create_time BETWEEN #{startTime} AND #{endTime}
+            </if>
+            <if test="updateBy != null and updateBy != ''">
+                and update_by = #{updateBy}
+            </if>
+            <if test="updateTime != null">
+                and update_time = #{updateTime}
+            </if>
+            <if test="artt1 != null and artt1 != ''">
+                and artt1 = #{artt1}
+            </if>
+            <if test="artt2 != null and artt2 != ''">
+                and artt2 = #{artt2}
+            </if>
+            <if test="artt3 != null">
+                and artt3 = #{artt3}
+            </if>
+            <if test="artt4 != null">
+                and artt4 = #{artt4}
+            </if>
+            <if test="artt5 != null and artt5 != ''">
+                and artt5 = #{artt5}
+            </if>
+            <if test="artt6 != null and artt6 != ''">
+                and artt6 = #{artt6}
+            </if>
+            <if test="artt7 != null and artt7 != ''">
+                and artt7 = #{artt7}
+            </if>
+            <if test="artt8 != null and artt8 != ''">
+                and artt8 = #{artt8}
+            </if>
+            <if test="artt9 != null and artt9 != ''">
+                and artt9 = #{artt9}
+            </if>
+            <if test="artt10 != null and artt10 != ''">
+                and artt10 = #{artt10}
+            </if>
+        </where>
+        ORDER BY
+        CASE
+        WHEN update_time IS NOT NULL THEN update_time
+        ELSE create_time
+        END DESC,
+        id ASC
+    </select>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="WmsProductInoutMap">
+        select id,
+               product_code,
+               product_name,
+               product_spec,
+               product_unit,
+               document_number,
+               product_batch_number,
+               material_batch_number,
+               box_code,
+               warehouse_name,
+               status,
+               product_number,
+               net_weight,
+               gross_weight,
+               weigh_time,
+               create_by,
+               create_time,
+               update_by,
+               update_time,
+               artt1,
+               artt2,
+               artt3,
+               artt4,
+               artt5,
+               artt6,
+               artt7,
+               artt8,
+               artt9,
+               artt10
+
+        from wms_product_inout
+        where id = #{id}
+    </select>
+
+    <!--统计总行数-->
+    <select id="count" resultType="java.lang.Long">
+        select count(1)
+        from wms_product_inout
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="productCode != null and productCode != ''">
+                and product_code = #{productCode}
+            </if>
+            <if test="productName != null and productName != ''">
+                and product_name = #{productName}
+            </if>
+            <if test="productSpec != null and productSpec != ''">
+                and product_spec = #{productSpec}
+            </if>
+            <if test="productUnit != null and productUnit != ''">
+                and product_unit = #{productUnit}
+            </if>
+            <if test="documentNumber != null and documentNumber != ''">
+                and document_number = #{documentNumber}
+            </if>
+            <if test="productBatchNumber != null and productBatchNumber != ''">
+                and product_batch_number = #{productBatchNumber}
+            </if>
+            <if test="materialBatchNumber != null and materialBatchNumber != ''">
+                and material_batch_number = #{materialBatchNumber}
+            </if>
+            <if test="boxCode != null and boxCode != ''">
+                and box_code = #{boxCode}
+            </if>
+            <if test="warehouseName != null and warehouseName != ''">
+                and warehouse_name = #{warehouseName}
+            </if>
+            <if test="status != null and status != ''">
+                and status = #{status}
+            </if>
+            <if test="productNumber != null">
+                and product_number = #{productNumber}
+            </if>
+            <if test="netWeight != null">
+                and net_weight = #{netWeight}
+            </if>
+            <if test="grossWeight != null">
+                and gross_weight = #{grossWeight}
+            </if>
+            <if test="weighTime != null">
+                and weigh_time = #{weighTime}
+            </if>
+            <if test="createBy != null and createBy != ''">
+                and create_by = #{createBy}
+            </if>
+            <if test="createTime != null">
+                and create_time = #{createTime}
+            </if>
+            <if test="updateBy != null and updateBy != ''">
+                and update_by = #{updateBy}
+            </if>
+            <if test="updateTime != null">
+                and update_time = #{updateTime}
+            </if>
+            <if test="artt1 != null and artt1 != ''">
+                and artt1 = #{artt1}
+            </if>
+            <if test="artt2 != null and artt2 != ''">
+                and artt2 = #{artt2}
+            </if>
+            <if test="artt3 != null">
+                and artt3 = #{artt3}
+            </if>
+            <if test="artt4 != null">
+                and artt4 = #{artt4}
+            </if>
+            <if test="artt5 != null and artt5 != ''">
+                and artt5 = #{artt5}
+            </if>
+            <if test="artt6 != null and artt6 != ''">
+                and artt6 = #{artt6}
+            </if>
+            <if test="artt7 != null and artt7 != ''">
+                and artt7 = #{artt7}
+            </if>
+            <if test="artt8 != null and artt8 != ''">
+                and artt8 = #{artt8}
+            </if>
+            <if test="artt9 != null and artt9 != ''">
+                and artt9 = #{artt9}
+            </if>
+            <if test="artt10 != null and artt10 != ''">
+                and artt10 = #{artt10}
+            </if>
+        </where>
+    </select>
+    <select id="selectMaxValues" resultMap="WmsProductInoutMap">
+        <include refid="selectWmsProductInoutVo"/>
+        WHERE
+            product_code = #{productCode}
+          AND product_name = #{productName}
+          AND product_batch_number = #{batchNumber}
+          AND product_spec = #{specification}
+          AND status = 'IN'
+        ORDER BY CAST(artt10 AS DECIMAL) DESC
+        LIMIT 1;
+    </select>
+    <select id="selectCountWmsProductInoutList" resultMap="WmsProductInoutMap">
+        SELECT
+            product_code,
+            product_name,
+            product_spec,
+            SUM(CASE
+                    WHEN status = 'IN' THEN product_number
+                    ELSE -product_number
+                END) AS product_number,
+            SUM(CASE
+                    WHEN status = 'IN' THEN gross_weight
+                    ELSE -gross_weight
+                END) AS gross_weight
+        FROM
+            wms_product_inout
+        <where>
+            <if test="productName != null and productName != ''">
+                and product_name = #{productName}
+            </if>
+        </where>
+        GROUP BY
+            product_code,
+            product_name,
+            product_spec
+    </select>
+    <select id="selectToBoxCodes" resultMap="WmsProductInoutMap">
+        <include refid="selectWmsProductInoutVo"/>
+        where box_code in
+        <foreach item="boxCode" collection="boxCodes" open="(" separator="," close=")">
+            #{boxCode}
+        </foreach>
+        and artt1 = #{documentNumber}
+    </select>
+    <select id="selectToBoxCodesAndStatus" resultMap="WmsProductInoutMap">
+        <include refid="selectWmsProductInoutVo"/>
+        where status='OUT' and box_code in
+        <foreach item="boxCode" collection="boxCodes" open="(" separator="," close=")">
+        #{boxCode}
+        </foreach>
+        and document_number = #{outboundCode}
+    </select>
+    <select id="selectMinValues" resultMap="WmsProductInoutMap">
+        <include refid="selectWmsProductInoutVo"/>
+        WHERE
+        product_code = #{productCode}
+        AND product_name = #{productName}
+        AND product_batch_number = #{batchNumber}
+        AND product_spec = #{specification}
+        AND status = 'OUT'
+        ORDER BY CAST(artt10 AS DECIMAL) ASC
+        LIMIT 1;
+    </select>
+    <select id="selectToBoxCode" resultMap="WmsProductInoutMap">
+        <include refid="selectWmsProductInoutVo"/>
+        where box_code =#{boxCode}
+    </select>
+    <!-- 查询被删除的最后一条记录 -->
+    <select id="findRecordsByBoxCode" resultMap="WmsProductInoutMap">
+        SELECT *
+        FROM wms_product_inout
+        WHERE box_code = #{boxCode}
+          AND product_name = #{productName}
+          AND product_spec = #{productSpec}
+          AND product_batch_number = #{productBatchNumber}
+          AND product_code = #{productCode}
+        ORDER BY id ASC
+    </select>
+
+    <!-- 删除指定箱编号的记录 -->
+    <delete id="deleteRecordsByBoxCode">
+        DELETE FROM wms_product_inout
+        WHERE box_code = #{boxCode}
+          AND product_name = #{productName}
+          AND product_spec = #{productSpec}
+          AND product_batch_number = #{productBatchNumber}
+          AND product_code = #{productCode}
+    </delete>
+
+    <!-- 查询需要更新的记录 -->
+    <select id="findRecordsAfter" resultMap="WmsProductInoutMap">
+        SELECT *
+        FROM wms_product_inout
+        WHERE id > #{lastDeletedId}
+          AND product_name = #{productName}
+          AND product_spec = #{productSpec}
+          AND product_batch_number = #{productBatchNumber}
+          AND product_code = #{productCode}
+        ORDER BY id
+    </select>
+    <select id="findRecordsBefore" resultMap="WmsProductInoutMap">
+        SELECT *
+        FROM wms_product_inout
+        WHERE id  &lt; #{id}
+        AND product_name = #{productName}
+        AND product_spec = #{productSpec}
+        AND product_batch_number = #{productBatchNumber}
+        AND product_code = #{productCode}
+        ORDER BY id DESC
+        LIMIT 2
+    </select>
+    <select id="queryByBoxCode" resultMap="WmsProductInoutMap">
+        SELECT * FROM wms_product_inout WHERE box_code = #{boxCode}
+    </select>
+
+    <!-- 批量更新记录 -->
+    <update id="batchUpdateRecords">
+            UPDATE wms_product_inout
+            <set>
+                <foreach collection="records" item="record" separator=",">
+                    <if test="record.id != null">
+                        artt7 = CASE WHEN id = #{record.id} THEN #{record.artt7} ELSE artt7 END,
+                        artt8 = CASE WHEN id = #{record.id} THEN #{record.artt8} ELSE artt8 END,
+                        artt9 = CASE WHEN id = #{record.id} THEN #{record.artt9} ELSE artt9 END,
+                        artt10 = CASE WHEN id = #{record.id} THEN #{record.artt10} ELSE artt10 END
+                    </if>
+                </foreach>
+            </set>
+    </update>
+
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into wms_product_inout(product_code, product_name, product_spec, product_unit, document_number,
+                                      product_batch_number, material_batch_number, box_code, warehouse_name, status,
+                                      product_number, net_weight, gross_weight, weigh_time, create_by, create_time,
+                                      update_by, update_time, artt1, artt2, artt3, artt4, artt5, artt6, artt7, artt8,
+                                      artt9, artt10)
+        values (#{productCode}, #{productName}, #{productSpec}, #{productUnit}, #{documentNumber},
+                #{productBatchNumber}, #{materialBatchNumber}, #{boxCode}, #{warehouseName}, #{status},
+                #{productNumber}, #{netWeight}, #{grossWeight}, #{weighTime}, #{createBy}, #{createTime}, #{updateBy},
+                #{updateTime}, #{artt1}, #{artt2}, #{artt3}, #{artt4}, #{artt5}, #{artt6}, #{artt7}, #{artt8}, #{artt9},
+                #{artt10})
+    </insert>
+
+    <insert id="insertBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into wms_product_inout(product_code, product_name, product_spec, product_unit, document_number,
+        product_batch_number, material_batch_number, box_code, warehouse_name, status, product_number, net_weight,
+        gross_weight, weigh_time, create_by, create_time, update_by, update_time, artt1, artt2, artt3, artt4, artt5,
+        artt6, artt7, artt8, artt9, artt10)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.productCode}, #{entity.productName}, #{entity.productSpec}, #{entity.productUnit},
+            #{entity.documentNumber}, #{entity.productBatchNumber}, #{entity.materialBatchNumber}, #{entity.boxCode},
+            #{entity.warehouseName}, #{entity.status}, #{entity.productNumber}, #{entity.netWeight},
+            #{entity.grossWeight}, #{entity.weighTime}, #{entity.createBy}, #{entity.createTime}, #{entity.updateBy},
+            #{entity.updateTime}, #{entity.artt1}, #{entity.artt2}, #{entity.artt3}, #{entity.artt4}, #{entity.artt5},
+            #{entity.artt6}, #{entity.artt7}, #{entity.artt8}, #{entity.artt9}, #{entity.artt10})
+        </foreach>
+    </insert>
+
+    <insert id="insertOrUpdateBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into wms_product_inout(product_code, product_name, product_spec, product_unit, document_number,
+        product_batch_number, material_batch_number, box_code, warehouse_name, status, product_number, net_weight,
+        gross_weight, weigh_time, create_by, create_time, update_by, update_time, artt1, artt2, artt3, artt4, artt5,
+        artt6, artt7, artt8, artt9, artt10)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.productCode}, #{entity.productName}, #{entity.productSpec}, #{entity.productUnit},
+            #{entity.documentNumber}, #{entity.productBatchNumber}, #{entity.materialBatchNumber}, #{entity.boxCode},
+            #{entity.warehouseName}, #{entity.status}, #{entity.productNumber}, #{entity.netWeight},
+            #{entity.grossWeight}, #{entity.weighTime}, #{entity.createBy}, #{entity.createTime}, #{entity.updateBy},
+            #{entity.updateTime}, #{entity.artt1}, #{entity.artt2}, #{entity.artt3}, #{entity.artt4}, #{entity.artt5},
+            #{entity.artt6}, #{entity.artt7}, #{entity.artt8}, #{entity.artt9}, #{entity.artt10})
+        </foreach>
+        on duplicate key update
+        product_code = values(product_code),
+        product_name = values(product_name),
+        product_spec = values(product_spec),
+        product_unit = values(product_unit),
+        document_number = values(document_number),
+        product_batch_number = values(product_batch_number),
+        material_batch_number = values(material_batch_number),
+        box_code = values(box_code),
+        warehouse_name = values(warehouse_name),
+        status = values(status),
+        product_number = values(product_number),
+        net_weight = values(net_weight),
+        gross_weight = values(gross_weight),
+        weigh_time = values(weigh_time),
+        create_by = values(create_by),
+        create_time = values(create_time),
+        update_by = values(update_by),
+        update_time = values(update_time),
+        artt1 = values(artt1),
+        artt2 = values(artt2),
+        artt3 = values(artt3),
+        artt4 = values(artt4),
+        artt5 = values(artt5),
+        artt6 = values(artt6),
+        artt7 = values(artt7),
+        artt8 = values(artt8),
+        artt9 = values(artt9),
+        artt10 = values(artt10)
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update wms_product_inout
+        <set>
+            <if test="productCode != null and productCode != ''">
+                product_code = #{productCode},
+            </if>
+            <if test="productName != null and productName != ''">
+                product_name = #{productName},
+            </if>
+            <if test="productSpec != null and productSpec != ''">
+                product_spec = #{productSpec},
+            </if>
+            <if test="productUnit != null and productUnit != ''">
+                product_unit = #{productUnit},
+            </if>
+            <if test="documentNumber != null and documentNumber != ''">
+                document_number = #{documentNumber},
+            </if>
+            <if test="productBatchNumber != null and productBatchNumber != ''">
+                product_batch_number = #{productBatchNumber},
+            </if>
+            <if test="materialBatchNumber != null and materialBatchNumber != ''">
+                material_batch_number = #{materialBatchNumber},
+            </if>
+            <if test="boxCode != null and boxCode != ''">
+                box_code = #{boxCode},
+            </if>
+            <if test="warehouseName != null and warehouseName != ''">
+                warehouse_name = #{warehouseName},
+            </if>
+            <if test="status != null and status != ''">
+                status = #{status},
+            </if>
+            <if test="productNumber != null">
+                product_number = #{productNumber},
+            </if>
+            <if test="netWeight != null">
+                net_weight = #{netWeight},
+            </if>
+            <if test="grossWeight != null">
+                gross_weight = #{grossWeight},
+            </if>
+            <if test="weighTime != null">
+                weigh_time = #{weighTime},
+            </if>
+            <if test="createBy != null and createBy != ''">
+                create_by = #{createBy},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime},
+            </if>
+            <if test="updateBy != null and updateBy != ''">
+                update_by = #{updateBy},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime},
+            </if>
+            <if test="artt1 != null and artt1 != ''">
+                artt1 = #{artt1},
+            </if>
+            <if test="artt2 != null and artt2 != ''">
+                artt2 = #{artt2},
+            </if>
+            <if test="artt3 != null">
+                artt3 = #{artt3},
+            </if>
+            <if test="artt4 != null">
+                artt4 = #{artt4},
+            </if>
+            <if test="artt5 != null and artt5 != ''">
+                artt5 = #{artt5},
+            </if>
+            <if test="artt6 != null and artt6 != ''">
+                artt6 = #{artt6},
+            </if>
+            <if test="artt7 != null and artt7 != ''">
+                artt7 = #{artt7},
+            </if>
+            <if test="artt8 != null and artt8 != ''">
+                artt8 = #{artt8},
+            </if>
+            <if test="artt9 != null and artt9 != ''">
+                artt9 = #{artt9},
+            </if>
+            <if test="artt10 != null and artt10 != ''">
+                artt10 = #{artt10},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+    <update id="updateToNull">
+        update wms_product_inout set artt1=null,document_number=null where id=#{id}
+    </update>
+    <update id="updateToDocumentNumber">
+        update wms_product_inout set document_number=#{outboundCode} where id=#{id}
+    </update>
+    <update id="updateWeight">
+        update wms_product_inout set net_weight=#{countNetWeight},gross_weight=#{countGrossWeight},product_number=#{countProductNumber} where id=#{id}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete
+        from wms_product_inout
+        where id = #{id}
+    </delete>
+    <delete id="deleteByBoxCode">
+        delete
+        from wms_product_inout
+        where box_code = #{boxCode}
+    </delete>
+
+</mapper>
+

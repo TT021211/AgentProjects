@@ -1,0 +1,718 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cuixing.sale.mapper.SaleContractManageMapper">
+    <resultMap type="com.cuixing.sale.entity.SaleContractManage" id="SaleContractManageMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="isDeleted" column="is_deleted" jdbcType="INTEGER"/>
+        <result property="version" column="version" jdbcType="VARCHAR"/>
+        <result property="createBy" column="create_by" jdbcType="VARCHAR"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="updateBy" column="update_by" jdbcType="VARCHAR"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+        <result property="status" column="status" jdbcType="VARCHAR"/>
+        <result property="attr1" column="attr1" jdbcType="VARCHAR"/>
+        <result property="attr2" column="attr2" jdbcType="INTEGER"/>
+        <result property="attr3" column="attr3" jdbcType="VARCHAR"/>
+        <result property="attr4" column="attr4" jdbcType="DECIMAL"/>
+        <result property="attr5" column="attr5" jdbcType="VARCHAR"/>
+        <result property="attr6" column="attr6" jdbcType="VARCHAR"/>
+        <result property="attr7" column="attr7" jdbcType="VARCHAR"/>
+        <result property="attr8" column="attr8" jdbcType="VARCHAR"/>
+        <result property="attr9" column="attr9" jdbcType="VARCHAR"/>
+        <result property="contractNumber" column="contract_number" jdbcType="VARCHAR"/>
+        <result property="productName" column="product_name" jdbcType="VARCHAR"/>
+        <result property="specificationModel" column="specification_model" jdbcType="VARCHAR"/>
+        <result property="weight" column="weight" jdbcType="DECIMAL"/>
+        <result property="unit" column="unit" jdbcType="VARCHAR"/>
+        <result property="copperPrice" column="copper_price" jdbcType="DECIMAL"/>
+        <result property="processingFee" column="processing_fee" jdbcType="DECIMAL"/>
+        <result property="price" column="price" jdbcType="DECIMAL"/>
+        <result property="totalPrice" column="total_price" jdbcType="DECIMAL"/>
+        <result property="totalPriceUpper" column="total_price_upper" jdbcType="VARCHAR"/>
+        <result property="dateOfSigning" column="date_of_signing" jdbcType="TIMESTAMP"/>
+        <result property="signedAt" column="signed_at" jdbcType="VARCHAR"/>
+        <result property="contractNote" column="contract_note" jdbcType="VARCHAR"/>
+        <result property="demandName" column="demand_name" jdbcType="VARCHAR"/>
+        <result property="demandAddress" column="demand_address" jdbcType="VARCHAR"/>
+        <result property="demandLegal" column="demand_legal" jdbcType="VARCHAR"/>
+        <result property="demandPhone" column="demand_phone" jdbcType="VARCHAR"/>
+        <result property="demandFax" column="demand_fax" jdbcType="VARCHAR"/>
+        <result property="demandBank" column="demand_bank" jdbcType="VARCHAR"/>
+        <result property="demandAccount" column="demand_account" jdbcType="VARCHAR"/>
+        <result property="demandTax" column="demand_tax" jdbcType="VARCHAR"/>
+        <result property="userName" column="user_name" jdbcType="VARCHAR"/>
+        <result property="userAddress" column="user_address" jdbcType="VARCHAR"/>
+        <result property="userLegal" column="user_legal" jdbcType="VARCHAR"/>
+        <result property="userPhone" column="user_phone" jdbcType="VARCHAR"/>
+        <result property="userFax" column="user_fax" jdbcType="VARCHAR"/>
+        <result property="userBank" column="user_bank" jdbcType="VARCHAR"/>
+        <result property="userAccount" column="user_account" jdbcType="VARCHAR"/>
+        <result property="userTax" column="user_tax" jdbcType="VARCHAR"/>
+        <result property="userId" column="user_id" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <sql id="selectSaleContractManageVo">
+        SELECT id,
+               is_deleted,
+               version,
+               create_by,
+               create_time,
+               update_by,
+               update_time,
+               status,
+               attr1,
+               attr2,
+               attr3,
+               attr4,
+               attr5,
+               attr6,
+               attr7,
+               attr8,
+               attr9,
+               contract_number,
+               product_name,
+               specification_model,
+               weight,
+               unit,
+               copper_price,
+               processing_fee,
+               price,
+               total_price,
+               total_price_upper,
+               date_of_signing,
+               signed_at,
+               contract_note,
+               demand_name,
+               demand_address,
+               demand_legal,
+               demand_phone,
+               demand_fax,
+               demand_bank,
+               demand_account,
+               demand_tax,
+               user_name,
+               user_address,
+               user_legal,
+               user_phone,
+               user_fax,
+               user_bank,
+               user_account,
+               user_tax,
+               user_id
+        FROM sale_contract_manage
+    </sql>
+
+    <select id="selectSaleContractManageList" parameterType="SaleContractManage" resultMap="SaleContractManageMap">
+        <include refid="selectSaleContractManageVo"/>
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="isDeleted != null">
+                and is_deleted = #{isDeleted}
+            </if>
+            <if test="version != null">
+                and version = #{version}
+            </if>
+            <if test="createBy != null and createBy != ''">
+                and create_by = #{createBy}
+            </if>
+            <if test="createTime != null">
+                and create_time = #{createTime}
+            </if>
+            <if test="updateBy != null and updateBy != ''">
+                and update_by = #{updateBy}
+            </if>
+            <if test="updateTime != null">
+                and update_time = #{updateTime}
+            </if>
+            <if test="status != null and status != ''">
+                and status = #{status}
+            </if>
+            <if test="attr1 != null and attr1 != ''">
+                and attr1 = #{attr1}
+            </if>
+            <if test="attr2 != null">
+                and attr2 = #{attr2}
+            </if>
+            <if test="attr3 != null">
+                and attr3 = #{attr3}
+            </if>
+            <if test="attr4 != null">
+                and attr4 = #{attr4}
+            </if>
+            <if test="attr5 != null and attr5 != ''">
+                and attr5 = #{attr5}
+            </if>
+            <if test="attr6 != null and attr6 != ''">
+                and attr6 = #{attr6}
+            </if>
+            <if test="attr7 != null and attr7 != ''">
+                and attr7 = #{attr7}
+            </if>
+            <if test="attr8 != null and attr8 != ''">
+                and attr8 = #{attr8}
+            </if>
+            <if test="attr9 != null and attr9 != ''">
+                and attr9 = #{attr9}
+            </if>
+            <if test="contractNumber != null and contractNumber != ''">
+                and contract_number = #{contractNumber}
+            </if>
+            <if test="productName != null and productName != ''">
+                and product_name = #{productName}
+            </if>
+            <if test="specificationModel != null and specificationModel != ''">
+                and specification_model = #{specificationModel}
+            </if>
+            <if test="weight != null">
+                and weight = #{weight}
+            </if>
+            <if test="unit != null and unit != ''">
+                and unit = #{unit}
+            </if>
+            <if test="copperPrice != null">
+                and copper_price = #{copperPrice}
+            </if>
+            <if test="processingFee != null">
+                and processing_fee = #{processingFee}
+            </if>
+            <if test="price != null">
+                and price = #{price}
+            </if>
+            <if test="totalPrice != null">
+                and total_price = #{totalPrice}
+            </if>
+            <if test="totalPriceUpper != null and totalPriceUpper != ''">
+                and total_price_upper = #{totalPriceUpper}
+            </if>
+            <if test="dateOfSigning != null">
+                and date_of_signing = #{dateOfSigning}
+            </if>
+            <if test="signedAt != null and signedAt != ''">
+                and signed_at = #{signedAt}
+            </if>
+            <if test="contractNote != null and contractNote != ''">
+                and contract_note = #{contractNote}
+            </if>
+            <if test="demandName != null and demandName != ''">
+                and demand_name = #{demandName}
+            </if>
+            <if test="demandAddress != null and demandAddress != ''">
+                and demand_address = #{demandAddress}
+            </if>
+            <if test="demandLegal != null and demandLegal != ''">
+                and demand_legal = #{demandLegal}
+            </if>
+            <if test="demandPhone != null and demandPhone != ''">
+                and demand_phone = #{demandPhone}
+            </if>
+            <if test="demandFax != null and demandFax != ''">
+                and demand_fax = #{demandFax}
+            </if>
+            <if test="demandBank != null and demandBank != ''">
+                and demand_bank = #{demandBank}
+            </if>
+            <if test="demandAccount != null and demandAccount != ''">
+                and demand_account = #{demandAccount}
+            </if>
+            <if test="demandTax != null and demandTax != ''">
+                and demand_tax = #{demandTax}
+            </if>
+            <if test="userName != null and userName != ''">
+                and user_name = #{userName}
+            </if>
+            <if test="userAddress != null and userAddress != ''">
+                and user_address = #{userAddress}
+            </if>
+            <if test="userLegal != null and userLegal != ''">
+                and user_legal = #{userLegal}
+            </if>
+            <if test="userPhone != null and userPhone != ''">
+                and user_phone = #{userPhone}
+            </if>
+            <if test="userFax != null and userFax != ''">
+                and user_fax = #{userFax}
+            </if>
+            <if test="userBank != null and userBank != ''">
+                and user_bank = #{userBank}
+            </if>
+            <if test="userAccount != null and userAccount != ''">
+                and user_account = #{userAccount}
+            </if>
+            <if test="userTax != null and userTax != ''">
+                and user_tax = #{userTax}
+            </if>
+            <if test="userId != null">
+                and user_id = #{userId}
+            </if>
+        </where>
+    </select>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="SaleContractManageMap">
+        select id,
+               is_deleted,
+               version,
+               create_by,
+               create_time,
+               update_by,
+               update_time,
+               status,
+               attr1,
+               attr2,
+               attr3,
+               attr4,
+               attr5,
+               attr6,
+               attr7,
+               attr8,
+               attr9,
+               contract_number,
+               product_name,
+               specification_model,
+               weight,
+               unit,
+               copper_price,
+               processing_fee,
+               price,
+               total_price,
+               total_price_upper,
+               date_of_signing,
+               signed_at,
+               contract_note,
+               demand_name,
+               demand_address,
+               demand_legal,
+               demand_phone,
+               demand_fax,
+               demand_bank,
+               demand_account,
+               demand_tax,
+               user_name,
+               user_address,
+               user_legal,
+               user_phone,
+               user_fax,
+               user_bank,
+               user_account,
+               user_tax,
+               user_id
+
+        from sale_contract_manage
+        where id = #{id}
+    </select>
+
+    <!--统计总行数-->
+    <select id="count" resultType="java.lang.Long">
+        select count(1)
+        from sale_contract_manage
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="isDeleted != null">
+                and is_deleted = #{isDeleted}
+            </if>
+            <if test="version != null">
+                and version = #{version}
+            </if>
+            <if test="createBy != null and createBy != ''">
+                and create_by = #{createBy}
+            </if>
+            <if test="createTime != null">
+                and create_time = #{createTime}
+            </if>
+            <if test="updateBy != null and updateBy != ''">
+                and update_by = #{updateBy}
+            </if>
+            <if test="updateTime != null">
+                and update_time = #{updateTime}
+            </if>
+            <if test="status != null and status != ''">
+                and status = #{status}
+            </if>
+            <if test="attr1 != null and attr1 != ''">
+                and attr1 = #{attr1}
+            </if>
+            <if test="attr2 != null">
+                and attr2 = #{attr2}
+            </if>
+            <if test="attr3 != null">
+                and attr3 = #{attr3}
+            </if>
+            <if test="attr4 != null">
+                and attr4 = #{attr4}
+            </if>
+            <if test="attr5 != null and attr5 != ''">
+                and attr5 = #{attr5}
+            </if>
+            <if test="attr6 != null and attr6 != ''">
+                and attr6 = #{attr6}
+            </if>
+            <if test="attr7 != null and attr7 != ''">
+                and attr7 = #{attr7}
+            </if>
+            <if test="attr8 != null and attr8 != ''">
+                and attr8 = #{attr8}
+            </if>
+            <if test="attr9 != null and attr9 != ''">
+                and attr9 = #{attr9}
+            </if>
+            <if test="contractNumber != null and contractNumber != ''">
+                and contract_number = #{contractNumber}
+            </if>
+            <if test="productName != null and productName != ''">
+                and product_name = #{productName}
+            </if>
+            <if test="specificationModel != null and specificationModel != ''">
+                and specification_model = #{specificationModel}
+            </if>
+            <if test="weight != null">
+                and weight = #{weight}
+            </if>
+            <if test="unit != null and unit != ''">
+                and unit = #{unit}
+            </if>
+            <if test="copperPrice != null">
+                and copper_price = #{copperPrice}
+            </if>
+            <if test="processingFee != null">
+                and processing_fee = #{processingFee}
+            </if>
+            <if test="price != null">
+                and price = #{price}
+            </if>
+            <if test="totalPrice != null">
+                and total_price = #{totalPrice}
+            </if>
+            <if test="totalPriceUpper != null and totalPriceUpper != ''">
+                and total_price_upper = #{totalPriceUpper}
+            </if>
+            <if test="dateOfSigning != null">
+                and date_of_signing = #{dateOfSigning}
+            </if>
+            <if test="signedAt != null and signedAt != ''">
+                and signed_at = #{signedAt}
+            </if>
+            <if test="contractNote != null and contractNote != ''">
+                and contract_note = #{contractNote}
+            </if>
+            <if test="demandName != null and demandName != ''">
+                and demand_name = #{demandName}
+            </if>
+            <if test="demandAddress != null and demandAddress != ''">
+                and demand_address = #{demandAddress}
+            </if>
+            <if test="demandLegal != null and demandLegal != ''">
+                and demand_legal = #{demandLegal}
+            </if>
+            <if test="demandPhone != null and demandPhone != ''">
+                and demand_phone = #{demandPhone}
+            </if>
+            <if test="demandFax != null and demandFax != ''">
+                and demand_fax = #{demandFax}
+            </if>
+            <if test="demandBank != null and demandBank != ''">
+                and demand_bank = #{demandBank}
+            </if>
+            <if test="demandAccount != null and demandAccount != ''">
+                and demand_account = #{demandAccount}
+            </if>
+            <if test="demandTax != null and demandTax != ''">
+                and demand_tax = #{demandTax}
+            </if>
+            <if test="userName != null and userName != ''">
+                and user_name = #{userName}
+            </if>
+            <if test="userAddress != null and userAddress != ''">
+                and user_address = #{userAddress}
+            </if>
+            <if test="userLegal != null and userLegal != ''">
+                and user_legal = #{userLegal}
+            </if>
+            <if test="userPhone != null and userPhone != ''">
+                and user_phone = #{userPhone}
+            </if>
+            <if test="userFax != null and userFax != ''">
+                and user_fax = #{userFax}
+            </if>
+            <if test="userBank != null and userBank != ''">
+                and user_bank = #{userBank}
+            </if>
+            <if test="userAccount != null and userAccount != ''">
+                and user_account = #{userAccount}
+            </if>
+            <if test="userTax != null and userTax != ''">
+                and user_tax = #{userTax}
+            </if>
+            <if test="userId != null">
+                and user_id = #{userId}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into sale_contract_manage(is_deleted, version, create_by, create_time, update_by, update_time, status,
+                                         attr1, attr2, attr3, attr4, attr5, attr6, attr7, attr8, attr9, contract_number,
+                                         product_name, specification_model, weight, unit, copper_price, processing_fee,
+                                         price, total_price, total_price_upper, date_of_signing, signed_at,
+                                         contract_note, demand_name, demand_address, demand_legal, demand_phone,
+                                         demand_fax, demand_bank, demand_account, demand_tax, user_name, user_address,
+                                         user_legal, user_phone, user_fax, user_bank, user_account, user_tax, user_id)
+        values (#{isDeleted}, #{version}, #{createBy}, #{createTime}, #{updateBy}, #{updateTime}, #{status}, #{attr1},
+                #{attr2}, #{attr3}, #{attr4}, #{attr5}, #{attr6}, #{attr7}, #{attr8}, #{attr9}, #{contractNumber},
+                #{productName}, #{specificationModel}, #{weight}, #{unit}, #{copperPrice}, #{processingFee}, #{price},
+                #{totalPrice}, #{totalPriceUpper}, #{dateOfSigning}, #{signedAt}, #{contractNote}, #{demandName},
+                #{demandAddress}, #{demandLegal}, #{demandPhone}, #{demandFax}, #{demandBank}, #{demandAccount},
+                #{demandTax}, #{userName}, #{userAddress}, #{userLegal}, #{userPhone}, #{userFax}, #{userBank},
+                #{userAccount}, #{userTax}, #{userId})
+    </insert>
+
+    <insert id="insertBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into sale_contract_manage(is_deleted, version, create_by, create_time, update_by, update_time, status,
+        attr1, attr2, attr3, attr4, attr5, attr6, attr7, attr8, attr9, contract_number, product_name,
+        specification_model, weight, unit, copper_price, processing_fee, price, total_price, total_price_upper,
+        date_of_signing, signed_at, contract_note, demand_name, demand_address, demand_legal, demand_phone, demand_fax,
+        demand_bank, demand_account, demand_tax, user_name, user_address, user_legal, user_phone, user_fax, user_bank,
+        user_account, user_tax, user_id)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.isDeleted}, #{entity.version}, #{entity.createBy}, #{entity.createTime}, #{entity.updateBy},
+            #{entity.updateTime}, #{entity.status}, #{entity.attr1}, #{entity.attr2}, #{entity.attr3}, #{entity.attr4},
+            #{entity.attr5}, #{entity.attr6}, #{entity.attr7}, #{entity.attr8}, #{entity.attr9},
+            #{entity.contractNumber}, #{entity.productName}, #{entity.specificationModel}, #{entity.weight},
+            #{entity.unit}, #{entity.copperPrice}, #{entity.processingFee}, #{entity.price}, #{entity.totalPrice},
+            #{entity.totalPriceUpper}, #{entity.dateOfSigning}, #{entity.signedAt}, #{entity.contractNote},
+            #{entity.demandName}, #{entity.demandAddress}, #{entity.demandLegal}, #{entity.demandPhone},
+            #{entity.demandFax}, #{entity.demandBank}, #{entity.demandAccount}, #{entity.demandTax}, #{entity.userName},
+            #{entity.userAddress}, #{entity.userLegal}, #{entity.userPhone}, #{entity.userFax}, #{entity.userBank},
+            #{entity.userAccount}, #{entity.userTax}, #{entity.userId})
+        </foreach>
+    </insert>
+
+    <insert id="insertOrUpdateBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into sale_contract_manage(is_deleted, version, create_by, create_time, update_by, update_time, status,
+        attr1, attr2, attr3, attr4, attr5, attr6, attr7, attr8, attr9, contract_number, product_name,
+        specification_model, weight, unit, copper_price, processing_fee, price, total_price, total_price_upper,
+        date_of_signing, signed_at, contract_note, demand_name, demand_address, demand_legal, demand_phone, demand_fax,
+        demand_bank, demand_account, demand_tax, user_name, user_address, user_legal, user_phone, user_fax, user_bank,
+        user_account, user_tax, user_id)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.isDeleted}, #{entity.version}, #{entity.createBy}, #{entity.createTime}, #{entity.updateBy},
+            #{entity.updateTime}, #{entity.status}, #{entity.attr1}, #{entity.attr2}, #{entity.attr3}, #{entity.attr4},
+            #{entity.attr5}, #{entity.attr6}, #{entity.attr7}, #{entity.attr8}, #{entity.attr9},
+            #{entity.contractNumber}, #{entity.productName}, #{entity.specificationModel}, #{entity.weight},
+            #{entity.unit}, #{entity.copperPrice}, #{entity.processingFee}, #{entity.price}, #{entity.totalPrice},
+            #{entity.totalPriceUpper}, #{entity.dateOfSigning}, #{entity.signedAt}, #{entity.contractNote},
+            #{entity.demandName}, #{entity.demandAddress}, #{entity.demandLegal}, #{entity.demandPhone},
+            #{entity.demandFax}, #{entity.demandBank}, #{entity.demandAccount}, #{entity.demandTax}, #{entity.userName},
+            #{entity.userAddress}, #{entity.userLegal}, #{entity.userPhone}, #{entity.userFax}, #{entity.userBank},
+            #{entity.userAccount}, #{entity.userTax}, #{entity.userId})
+        </foreach>
+        on duplicate key update
+        is_deleted = values(is_deleted),
+        version = values(version),
+        create_by = values(create_by),
+        create_time = values(create_time),
+        update_by = values(update_by),
+        update_time = values(update_time),
+        status = values(status),
+        attr1 = values(attr1),
+        attr2 = values(attr2),
+        attr3 = values(attr3),
+        attr4 = values(attr4),
+        attr5 = values(attr5),
+        attr6 = values(attr6),
+        attr7 = values(attr7),
+        attr8 = values(attr8),
+        attr9 = values(attr9),
+        contract_number = values(contract_number),
+        product_name = values(product_name),
+        specification_model = values(specification_model),
+        weight = values(weight),
+        unit = values(unit),
+        copper_price = values(copper_price),
+        processing_fee = values(processing_fee),
+        price = values(price),
+        total_price = values(total_price),
+        total_price_upper = values(total_price_upper),
+        date_of_signing = values(date_of_signing),
+        signed_at = values(signed_at),
+        contract_note = values(contract_note),
+        demand_name = values(demand_name),
+        demand_address = values(demand_address),
+        demand_legal = values(demand_legal),
+        demand_phone = values(demand_phone),
+        demand_fax = values(demand_fax),
+        demand_bank = values(demand_bank),
+        demand_account = values(demand_account),
+        demand_tax = values(demand_tax),
+        user_name = values(user_name),
+        user_address = values(user_address),
+        user_legal = values(user_legal),
+        user_phone = values(user_phone),
+        user_fax = values(user_fax),
+        user_bank = values(user_bank),
+        user_account = values(user_account),
+        user_tax = values(user_tax),
+        user_id = values(user_id)
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update sale_contract_manage
+        <set>
+            <if test="isDeleted != null">
+                is_deleted = #{isDeleted},
+            </if>
+            <if test="version != null">
+                version = #{version},
+            </if>
+            <if test="createBy != null and createBy != ''">
+                create_by = #{createBy},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime},
+            </if>
+            <if test="updateBy != null and updateBy != ''">
+                update_by = #{updateBy},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime},
+            </if>
+            <if test="status != null and status != ''">
+                status = #{status},
+            </if>
+            <if test="attr1 != null and attr1 != ''">
+                attr1 = #{attr1},
+            </if>
+            <if test="attr2 != null">
+                attr2 = #{attr2},
+            </if>
+            <if test="attr3 != null">
+                attr3 = #{attr3},
+            </if>
+            <if test="attr4 != null">
+                attr4 = #{attr4},
+            </if>
+            <if test="attr5 != null and attr5 != ''">
+                attr5 = #{attr5},
+            </if>
+            <if test="attr6 != null and attr6 != ''">
+                attr6 = #{attr6},
+            </if>
+            <if test="attr7 != null and attr7 != ''">
+                attr7 = #{attr7},
+            </if>
+            <if test="attr8 != null and attr8 != ''">
+                attr8 = #{attr8},
+            </if>
+            <if test="attr9 != null and attr9 != ''">
+                attr9 = #{attr9},
+            </if>
+            <if test="contractNumber != null and contractNumber != ''">
+                contract_number = #{contractNumber},
+            </if>
+            <if test="productName != null and productName != ''">
+                product_name = #{productName},
+            </if>
+            <if test="specificationModel != null and specificationModel != ''">
+                specification_model = #{specificationModel},
+            </if>
+            <if test="weight != null">
+                weight = #{weight},
+            </if>
+            <if test="unit != null and unit != ''">
+                unit = #{unit},
+            </if>
+            <if test="copperPrice != null">
+                copper_price = #{copperPrice},
+            </if>
+            <if test="processingFee != null">
+                processing_fee = #{processingFee},
+            </if>
+            <if test="price != null">
+                price = #{price},
+            </if>
+            <if test="totalPrice != null">
+                total_price = #{totalPrice},
+            </if>
+            <if test="totalPriceUpper != null and totalPriceUpper != ''">
+                total_price_upper = #{totalPriceUpper},
+            </if>
+            <if test="dateOfSigning != null">
+                date_of_signing = #{dateOfSigning},
+            </if>
+            <if test="signedAt != null and signedAt != ''">
+                signed_at = #{signedAt},
+            </if>
+            <if test="contractNote != null and contractNote != ''">
+                contract_note = #{contractNote},
+            </if>
+            <if test="demandName != null and demandName != ''">
+                demand_name = #{demandName},
+            </if>
+            <if test="demandAddress != null and demandAddress != ''">
+                demand_address = #{demandAddress},
+            </if>
+            <if test="demandLegal != null and demandLegal != ''">
+                demand_legal = #{demandLegal},
+            </if>
+            <if test="demandPhone != null and demandPhone != ''">
+                demand_phone = #{demandPhone},
+            </if>
+            <if test="demandFax != null and demandFax != ''">
+                demand_fax = #{demandFax},
+            </if>
+            <if test="demandBank != null and demandBank != ''">
+                demand_bank = #{demandBank},
+            </if>
+            <if test="demandAccount != null and demandAccount != ''">
+                demand_account = #{demandAccount},
+            </if>
+            <if test="demandTax != null and demandTax != ''">
+                demand_tax = #{demandTax},
+            </if>
+            <if test="userName != null and userName != ''">
+                user_name = #{userName},
+            </if>
+            <if test="userAddress != null and userAddress != ''">
+                user_address = #{userAddress},
+            </if>
+            <if test="userLegal != null and userLegal != ''">
+                user_legal = #{userLegal},
+            </if>
+            <if test="userPhone != null and userPhone != ''">
+                user_phone = #{userPhone},
+            </if>
+            <if test="userFax != null and userFax != ''">
+                user_fax = #{userFax},
+            </if>
+            <if test="userBank != null and userBank != ''">
+                user_bank = #{userBank},
+            </if>
+            <if test="userAccount != null and userAccount != ''">
+                user_account = #{userAccount},
+            </if>
+            <if test="userTax != null and userTax != ''">
+                user_tax = #{userTax},
+            </if>
+            <if test="userId != null">
+                user_id = #{userId},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete
+        from sale_contract_manage
+        where id = #{id}
+    </delete>
+
+</mapper>
+

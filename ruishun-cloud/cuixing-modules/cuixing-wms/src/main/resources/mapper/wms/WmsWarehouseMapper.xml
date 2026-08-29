@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cuixing.wms.mapper.WmsWarehouseMapper">
+    
+    <resultMap type="com.cuixing.system.api.domain.wms.WmsWarehouse" id="WmWarehouseResult">
+        <id property="warehouseId"    column="warehouse_id"    />
+        <result property="warehouseCode"    column="warehouse_code"    />
+        <result property="warehouseName"    column="warehouse_name"    />
+        <result property="location"    column="location"    />
+        <result property="area"    column="area"    />
+        <result property="charge"    column="charge"    />
+        <result property="remark"    column="remark"    />
+        <result property="attr1"    column="attr1"    />
+        <result property="attr2"    column="attr2"    />
+        <result property="attr3"    column="attr3"    />
+        <result property="attr4"    column="attr4"    />
+        <result property="workstageId"    column="workstage_id"    />
+        <result property="workstageName"    column="workstage_name"    />
+        <result property="workstageCode"    column="workstage_code"    />
+        <result property="type"    column="type"    />
+        <result property="typeName"    column="type_name"    />
+        <result property="status"    column="status"    />
+        <result property="enableFlag"    column="enable_flag"    />
+        <result property="version"    column="version"    />
+        <result property="workstationName"    column="workstation_name"    />
+        <result property="workstationCode"    column="workstation_code"    />
+        <result property="workstationId"    column="workstation_id"    />
+
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+
+    </resultMap>
+
+    <resultMap type="com.cuixing.wms.entity.WmsStorageLocation" id="WmStorageLocationResult">
+        <id property="locationId"    column="location_id"    />
+        <result property="locationCode"    column="location_code"    />
+        <result property="locationName"    column="location_name"    />
+        <result property="warehouseId"    column="warehouse_id"    />
+        <result property="area"    column="area"    />
+        <result property="areaFlag"    column="area_flag"    />
+        <collection  property="children"   javaType="java.util.List"  resultMap="WmStorageAreaResult" />
+    </resultMap>
+
+    <resultMap type="com.cuixing.wms.entity.WmsStorageArea" id="WmStorageAreaResult">
+        <id property="areaId"    column="area_id"    />
+        <result property="areaCode"    column="area_code"    />
+        <result property="areaName"    column="area_name"    />
+        <result property="locationId"    column="location_id"    />
+        <result property="area"    column="area"    />
+        <result property="maxLoa"    column="max_loa"    />
+        <result property="positionX"    column="position_x"    />
+        <result property="positionY"    column="position_y"    />
+        <result property="positionZ"    column="position_z"    />
+    </resultMap>
+
+
+    <sql id="selectWmWarehouseVo">
+        select warehouse_id, warehouse_code, warehouse_name,d.dict_label type_name,
+               type, a.status,a.enable_flag,version,workstation_name,workstation_code,workstation_id,
+               workstage_id,workstage_name,workstage_code,
+               location, area, charge, a.remark, attr1, attr2, attr3, attr4, a.create_by, a.create_time, a.update_by, a.update_time
+        from wms_warehouse a
+        left join sys_dict_data d on d.dict_value = type and d.dict_type = 'wms_wmwarehouse_type'
+    </sql>
+
+    <select id="selectWmWarehouseList" parameterType="com.cuixing.system.api.domain.wms.WmsWarehouse" resultMap="WmWarehouseResult">
+        <include refid="selectWmWarehouseVo"/>
+        <where>  
+            <if test="workstationId != null  and workstationId != ''"> and workstation_id = #{workstationId}</if>
+            <if test="warehouseCode != null  and warehouseCode != ''"> and warehouse_code = #{warehouseCode}</if>
+            <if test="warehouseName != null  and warehouseName != ''"> and warehouse_name like concat('%', #{warehouseName}, '%')</if>
+            <if test="location != null  and location != ''"> and location = #{location}</if>
+            <if test="area != null "> and area = #{area}</if>
+            <if test="charge != null  and charge != ''"> and charge = #{charge}</if>
+            <if test="enableFlag != null  and enableFlag != ''"> and enable_flag = #{enableFlag}</if>
+        </where>
+    </select>
+
+    
+    <select id="selectWmWarehouseByWarehouseId" parameterType="Long" resultMap="WmWarehouseResult">
+        <include refid="selectWmWarehouseVo"/>
+        where warehouse_id = #{warehouseId}
+    </select>
+
+    <select id="getinfoByWorkstageId" parameterType="BigInteger" resultMap="WmWarehouseResult">
+        <include refid="selectWmWarehouseVo"/>
+        where workstage_id = #{workstageId}
+    </select>
+
+    <select id="getinfoBytype" parameterType="String" resultMap="WmWarehouseResult">
+        <include refid="selectWmWarehouseVo"/>
+        where type = #{type} limit 1
+    </select>
+
+    <select id="selectWmWarehouseByWarehouseCode" parameterType="String" resultMap="WmWarehouseResult">
+        <include refid="selectWmWarehouseVo"/>
+        where warehouse_code = #{warehouseCode} limit 1
+    </select>
+
+    <select id="checkWarehouseCodeUnique" parameterType="com.cuixing.system.api.domain.wms.WmsWarehouse" resultMap="WmWarehouseResult">
+        <include refid="selectWmWarehouseVo"/>
+        where warehouse_code = #{warehouseCode} limit 1
+    </select>
+
+    <select id="checkWarehouseNameUnique" parameterType="com.cuixing.system.api.domain.wms.WmsWarehouse" resultMap="WmWarehouseResult">
+        <include refid="selectWmWarehouseVo"/>
+        where warehouse_name = #{warehouseName} limit 1
+    </select>
+
+    <insert id="insertWmWarehouse" parameterType="com.cuixing.system.api.domain.wms.WmsWarehouse" useGeneratedKeys="true" keyProperty="warehouseId">
+        insert into wms_warehouse
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="warehouseCode != null and warehouseCode != ''">warehouse_code,</if>
+            <if test="warehouseName != null and warehouseName != ''">warehouse_name,</if>
+            <if test="location != null">location,</if>
+            <if test="area != null">area,</if>
+            <if test="charge != null">charge,</if>
+            <if test="remark != null">remark,</if>
+            <if test="attr1 != null">attr1,</if>
+            <if test="attr2 != null">attr2,</if>
+            <if test="attr3 != null">attr3,</if>
+            <if test="attr4 != null">attr4,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="type != null">type,</if>
+            <if test="status != null">status,</if>
+            <if test="version != null">version,</if>
+            <if test="workstageId != null">workstage_id,</if>
+            <if test="workstageName != null">workstage_name,</if>
+            <if test="workstageCode != null">workstage_code,</if>
+            <if test="workstationName != null">workstation_name,</if>
+            <if test="workstationId != null">workstation_id,</if>
+            <if test="workstationCode != null">workstation_code,</if>
+            <if test="enableFlag != null">enable_flag,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="warehouseCode != null and warehouseCode != ''">#{warehouseCode},</if>
+            <if test="warehouseName != null and warehouseName != ''">#{warehouseName},</if>
+            <if test="location != null">#{location},</if>
+            <if test="area != null">#{area},</if>
+            <if test="charge != null">#{charge},</if>
+            <if test="remark != null">#{remark},</if>
+            <if test="attr1 != null">#{attr1},</if>
+            <if test="attr2 != null">#{attr2},</if>
+            <if test="attr3 != null">#{attr3},</if>
+            <if test="attr4 != null">#{attr4},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="type != null">#{type},</if>
+            <if test="status != null">#{status},</if>
+            <if test="version != null">#{version},</if>
+            <if test="workstageId != null">#{workstageId},</if>
+            <if test="workstageName != null">#{workstageName},</if>
+            <if test="workstageCode != null">#{workstageCode},</if>
+            <if test="workstationName != null">#{workstationName},</if>
+            <if test="workstationId != null">#{workstationId},</if>
+            <if test="workstationCode != null">#{workstationCode},</if>
+            <if test="enableFlag != null">#{enableFlag},</if>
+         </trim>
+    </insert>
+
+    <update id="updateWmWarehouse" parameterType="com.cuixing.system.api.domain.wms.WmsWarehouse">
+        update wms_warehouse
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="warehouseCode != null and warehouseCode != ''">warehouse_code = #{warehouseCode},</if>
+            <if test="warehouseName != null and warehouseName != ''">warehouse_name = #{warehouseName},</if>
+            <if test="location != null">location = #{location},</if>
+            <if test="area != null">area = #{area},</if>
+            <if test="charge != null">charge = #{charge},</if>
+            <if test="remark != null">remark = #{remark},</if>
+            <if test="attr1 != null">attr1 = #{attr1},</if>
+            <if test="attr2 != null">attr2 = #{attr2},</if>
+            <if test="attr3 != null">attr3 = #{attr3},</if>
+            <if test="attr4 != null">attr4 = #{attr4},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="type != null">type = #{type},</if>
+            <if test="status != null">status = #{status},</if>
+            <if test="version != null">version = #{version},</if>
+            <if test="workstageId != null">workstage_id = #{workstageId},</if>
+            <if test="workstageName != null">workstage_name = #{workstageName},</if>
+            <if test="workstageCode != null">workstage_code = #{workstageCode},</if>
+            <if test="workstationName != null">workstation_name = #{workstationName},</if>
+            <if test="workstationId != null">workstation_id = #{workstationId},</if>
+            <if test="workstationCode != null">workstation_code = #{workstationCode},</if>
+            <if test="enableFlag != null">enable_flag = #{enableFlag},</if>
+        </trim>
+        where warehouse_id = #{warehouseId}
+    </update>
+
+    <delete id="deleteWmWarehouseByWarehouseId" parameterType="Long">
+        delete from wms_warehouse where warehouse_id = #{warehouseId}
+    </delete>
+
+    <delete id="deleteWmWarehouseByWarehouseIds" parameterType="String">
+        delete from wms_warehouse where warehouse_id in 
+        <foreach item="warehouseId" collection="array" open="(" separator="," close=")">
+            #{warehouseId}
+        </foreach>
+    </delete>
+</mapper>

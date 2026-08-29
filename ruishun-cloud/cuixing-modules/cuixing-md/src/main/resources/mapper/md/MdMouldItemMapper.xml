@@ -1,0 +1,325 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cuixing.md.mapper.MdMouldItemMapper">
+    <resultMap type="com.cuixing.system.api.domain.md.MdMouldItem" id="MdMouldItemMap">
+        <result property="id" column="id" jdbcType="BIGINT"/>
+        <result property="mouldId" column="mould_id" jdbcType="BIGINT"/>
+        <result property="itemId" column="item_id" jdbcType="BIGINT"/>
+        <result property="itemName" column="item_name" jdbcType="VARCHAR"/>
+        <result property="itemCode" column="item_code" jdbcType="VARCHAR"/>
+        <result property="itemSpecification" column="item_specification" jdbcType="VARCHAR"/>
+        <result property="version" column="version" jdbcType="INTEGER"/>
+        <result property="isDeleted" column="is_deleted" jdbcType="INTEGER"/>
+        <result property="createBy" column="create_by" jdbcType="VARCHAR"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="updateBy" column="update_by" jdbcType="VARCHAR"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+        <result property="attr1" column="attr1" jdbcType="VARCHAR"/>
+        <result property="attr2" column="attr2" jdbcType="INTEGER"/>
+        <result property="attr3" column="attr3" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!-- 通过ID查询单条数据 -->
+    <select id="queryById" resultMap="MdMouldItemMap">
+        select
+        id,mould_id,item_id,item_name,item_code,item_specification,version,is_deleted,create_by,create_time,update_by,update_time,attr1,attr2,attr3
+        from md_mould_item
+        where is_deleted = 0 and id = #{id}
+    </select>
+
+    <!-- 根据模具id查物料列表 -->
+    <select id="selectItemListByMouldId" resultMap="com.cuixing.md.mapper.MdItemMapper.MdItemMap" parameterType="Integer">
+        select
+        i.id,i.item_code,i.item_name,i.specification,i.num_measure_id,i.num_measure_name,i.weight_measure_id,i.weight_measure_name,i.item_type_id,i.item_type_code,i.item_type_name,i.if_enable,i.if_safe_stock,i.min_stock,i.max_stock,i.remark
+        from md_mould_item d left join md_item i on d.item_id = i.id
+        <where>
+            d.is_deleted = 0 and i.is_deleted = 0
+            <if test="mouldId != null ">
+                and d.mould_id = #{mouldId}
+            </if>
+        </where>
+    </select>
+
+    <!--分页查询指定行数据-->
+    <select id="selectMdMouldItemList" resultMap="MdMouldItemMap" parameterType="com.cuixing.system.api.domain.md.MdMouldItem">
+        select
+        d.id,d.mould_id,d.item_id,d.item_name,d.item_code,d.item_specification,d.version,d.is_deleted,d.create_by,d.create_time,d.update_by,d.update_time,d.attr1,d.attr2,d.attr3
+        from md_mould_item d
+        <where>
+            is_deleted = 0
+            <if test="id != null ">
+                and id = #{id}
+            </if>
+            <if test="mouldId != null ">
+                and mould_id = #{mouldId}
+            </if>
+            <if test="itemId != null ">
+                and item_id = #{itemId}
+            </if>
+            <if test="itemName != null and itemName != ''">
+                and item_name = #{itemName}
+            </if>
+            <if test="itemCode != null and itemCode != ''">
+                and item_code = #{itemCode}
+            </if>
+            <if test="itemSpecification != null and itemSpecification != ''">
+                and item_specification = #{itemSpecification}
+            </if>
+            <if test="version != null ">
+                and version = #{version}
+            </if>
+            <if test="isDeleted != null ">
+                and is_deleted = #{isDeleted}
+            </if>
+            <if test="createBy != null and createBy != ''">
+                and create_by = #{createBy}
+            </if>
+            <if test="createTime != null ">
+                and create_time = #{createTime}
+            </if>
+            <if test="updateBy != null and updateBy != ''">
+                and update_by = #{updateBy}
+            </if>
+            <if test="updateTime != null ">
+                and update_time = #{updateTime}
+            </if>
+            <if test="attr1 != null and attr1 != ''">
+                and attr1 = #{attr1}
+            </if>
+            <if test="attr2 != null ">
+                and attr2 = #{attr2}
+            </if>
+            <if test="attr3 != null and attr3 != ''">
+                and attr3 = #{attr3}
+            </if>
+        </where>
+        order by create_time desc
+    </select>
+
+    <!--统计总行数-->
+    <select id="count" resultType="java.lang.Long">
+        select count(1)
+        from md_mould_item
+        <where>
+            is_deleted = 0
+            <if test="id != null ">
+                and id = #{id}
+            </if>
+            <if test="mouldId != null ">
+                and mould_id = #{mouldId}
+            </if>
+            <if test="itemId != null ">
+                and item_id = #{itemId}
+            </if>
+            <if test="itemName != null and itemName != ''">
+                and item_name = #{itemName}
+            </if>
+            <if test="itemCode != null and itemCode != ''">
+                and item_code = #{itemCode}
+            </if>
+            <if test="itemSpecification != null and itemSpecification != ''">
+                and item_specification = #{itemSpecification}
+            </if>
+            <if test="version != null ">
+                and version = #{version}
+            </if>
+            <if test="isDeleted != null ">
+                and is_deleted = #{isDeleted}
+            </if>
+            <if test="createBy != null and createBy != ''">
+                and create_by = #{createBy}
+            </if>
+            <if test="createTime != null ">
+                and create_time = #{createTime}
+            </if>
+            <if test="updateBy != null and updateBy != ''">
+                and update_by = #{updateBy}
+            </if>
+            <if test="updateTime != null ">
+                and update_time = #{updateTime}
+            </if>
+            <if test="attr1 != null and attr1 != ''">
+                and attr1 = #{attr1}
+            </if>
+            <if test="attr2 != null ">
+                and attr2 = #{attr2}
+            </if>
+            <if test="attr3 != null and attr3 != ''">
+                and attr3 = #{attr3}
+            </if>
+        </where>
+    </select>
+
+    <!--新增数据-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into md_mould_item
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="mouldId != null ">mould_id,</if>
+            <if test="itemId != null ">item_id,</if>
+            <if test="itemName != null and itemName != ''">item_name,</if>
+            <if test="itemCode != null and itemCode != ''">item_code,</if>
+            <if test="itemSpecification != null and itemSpecification != ''">item_specification,</if>
+            <if test="version != null ">version,</if>
+            <if test="isDeleted != null ">is_deleted,</if>
+            <if test="createBy != null and createBy != ''">create_by,</if>
+            <if test="createTime != null ">create_time,</if>
+            <if test="updateBy != null and updateBy != ''">update_by,</if>
+            <if test="updateTime != null ">update_time,</if>
+            <if test="attr1 != null and attr1 != ''">attr1,</if>
+            <if test="attr2 != null ">attr2,</if>
+            <if test="attr3 != null and attr3 != ''">attr3,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="mouldId != null ">#{mouldId},</if>
+            <if test="itemId != null ">#{itemId},</if>
+            <if test="itemName != null and itemName != ''">#{itemName},</if>
+            <if test="itemCode != null and itemCode != ''">#{itemCode},</if>
+            <if test="itemSpecification != null and itemSpecification != ''">#{itemSpecification},</if>
+            <if test="version != null ">#{version},</if>
+            <if test="isDeleted != null ">#{isDeleted},</if>
+            <if test="createBy != null and createBy != ''">#{createBy},</if>
+            <if test="createTime != null ">#{createTime},</if>
+            <if test="updateBy != null and updateBy != ''">#{updateBy},</if>
+            <if test="updateTime != null ">#{updateTime},</if>
+            <if test="attr1 != null and attr1 != ''">#{attr1},</if>
+            <if test="attr2 != null ">#{attr2},</if>
+            <if test="attr3 != null and attr3 != ''">#{attr3},</if>
+        </trim>
+    </insert>
+
+    <!-- 批量新增数据 -->
+    <!--<insert id="insertBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into md_mould_item
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="mouldId != null ">mould_id,</if>
+            <if test="itemId != null ">item_id,</if>
+            <if test="itemName != null and itemName != ''">item_name,</if>
+            <if test="itemCode != null and itemCode != ''">item_code,</if>
+            <if test="itemSpecification != null and itemSpecification != ''">item_specification,</if>
+            <if test="version != null ">version,</if>
+            <if test="isDeleted != null ">is_deleted,</if>
+            <if test="createBy != null and createBy != ''">create_by,</if>
+            <if test="createTime != null ">create_time,</if>
+            <if test="updateBy != null and updateBy != ''">update_by,</if>
+            <if test="updateTime != null ">update_time,</if>
+            <if test="attr1 != null and attr1 != ''">attr1,</if>
+            <if test="attr2 != null ">attr2,</if>
+            <if test="attr3 != null and attr3 != ''">attr3,</if>
+        </trim>
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            <trim prefix="(" suffix=")" suffixOverrides=",">
+                    <if test="entity.id != null ">#{entity.id},</if>
+                    <if test="entity.mouldId != null ">#{entity.mouldId},</if>
+                    <if test="entity.itemId != null ">#{entity.itemId},</if>
+                    <if test="entity.itemName != null and entity.itemName != ''">#{entity.itemName},</if>
+                    <if test="entity.itemCode != null and entity.itemCode != ''">#{entity.itemCode},</if>
+                    <if test="entity.itemSpecification != null and entity.itemSpecification != ''">#{entity.itemSpecification},</if>
+                    <if test="entity.version != null ">#{entity.version},</if>
+                    <if test="entity.isDeleted != null ">#{entity.isDeleted},</if>
+                    <if test="entity.createBy != null and entity.createBy != ''">#{entity.createBy},</if>
+                    <if test="entity.createTime != null ">#{entity.createTime},</if>
+                    <if test="entity.updateBy != null and entity.updateBy != ''">#{entity.updateBy},</if>
+                    <if test="entity.updateTime != null ">#{entity.updateTime},</if>
+                    <if test="entity.attr1 != null and entity.attr1 != ''">#{entity.attr1},</if>
+                    <if test="entity.attr2 != null ">#{entity.attr2},</if>
+                    <if test="entity.attr3 != null and entity.attr3 != ''">#{entity.attr3},</if>
+            </trim>
+        </foreach>
+    </insert>-->
+
+    <!-- 批量新增或按主键更新数据 -->
+    <insert id="insertOrUpdateBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into md_mould_item(id,mould_id,item_id,item_name,item_code,item_specification,version,is_deleted,create_by,create_time,update_by,update_time,attr1,attr2,attr3)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.id},#{entity.mouldId},#{entity.itemId},#{entity.itemName},#{entity.itemCode},#{entity.itemSpecification},#{entity.version},#{entity.isDeleted},#{entity.createBy},#{entity.createTime},#{entity.updateBy},#{entity.updateTime},#{entity.attr1},#{entity.attr2},#{entity.attr3})
+        </foreach>
+        on duplicate key update
+        id=values(id),
+        mould_id=values(mould_id),
+        item_id=values(item_id),
+        item_name=values(item_name),
+        item_code=values(item_code),
+        item_specification=values(item_specification),
+        version=values(version),
+        is_deleted=values(is_deleted),
+        create_by=values(create_by),
+        create_time=values(create_time),
+        update_by=values(update_by),
+        update_time=values(update_time),
+        attr1=values(attr1),
+        attr2=values(attr2),
+        attr3=values(attr3)
+    </insert>
+
+    <!-- 更新数据 -->
+    <update id="update">
+        update md_mould_item
+        <set>
+            <trim suffixOverrides=",">
+                <if test="mouldId != null">
+                    mould_id = #{mouldId},
+                </if>
+                <if test="itemId != null">
+                    item_id = #{itemId},
+                </if>
+                <if test="itemName != null">
+                    item_name = #{itemName},
+                </if>
+                <if test="itemCode != null">
+                    item_code = #{itemCode},
+                </if>
+                <if test="itemSpecification != null">
+                    item_specification = #{itemSpecification},
+                </if>
+                <if test="version != null">
+                    version = #{version}+1,
+                </if>
+                <if test="isDeleted != null">
+                    is_deleted = #{isDeleted},
+                </if>
+                <if test="createBy != null">
+                    create_by = #{createBy},
+                </if>
+                <if test="createTime != null">
+                    create_time = #{createTime},
+                </if>
+                <if test="updateBy != null">
+                    update_by = #{updateBy},
+                </if>
+                <if test="updateTime != null">
+                    update_time = #{updateTime},
+                </if>
+                <if test="attr1 != null">
+                    attr1 = #{attr1},
+                </if>
+                <if test="attr2 != null">
+                    attr2 = #{attr2},
+                </if>
+                <if test="attr3 != null">
+                    attr3 = #{attr3},
+                </if>
+            </trim>
+        </set>
+        where id = #{id} and version = #{version}
+    </update>
+
+    <!--逻辑删除-->
+    <update id="deleteById">
+        update md_mould_item set is_deleted = 1 where id = #{id}
+    </update>
+
+    <!--批量逻辑删除-->
+    <update id="deleteByIds">
+        update md_mould_item set is_deleted = 1 where id in
+        <foreach collection="array" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </update>
+
+    <!--物理删除-->
+    <delete id="removeById">
+        delete from md_mould_item where id = #{id}
+    </delete>
+</mapper>

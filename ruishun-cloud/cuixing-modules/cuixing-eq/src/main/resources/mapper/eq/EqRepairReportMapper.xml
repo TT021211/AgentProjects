@@ -1,0 +1,277 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cuixing.eq.mapper.EqRepairReportMapper">
+    <resultMap type="com.cuixing.eq.entity.EqRepairReport" id="EqRepairReportMap">
+        <result property="id" column="id" jdbcType="BIGINT"/>
+        <result property="equipmentId" column="equipment_id" jdbcType="BIGINT"/>
+        <result property="equipmentName" column="equipment_name" jdbcType="VARCHAR"/>
+        <result property="equipmentCode" column="equipment_code" jdbcType="VARCHAR"/>
+        <result property="breakdownId" column="breakdown_id" jdbcType="BIGINT"/>
+        <result property="breakdownName" column="breakdown_name" jdbcType="VARCHAR"/>
+        <result property="breakdownDescription" column="breakdown_description" jdbcType="LONGNVARCHAR"/>
+        <result property="breakdownImage" column="breakdown_image" jdbcType="VARCHAR"/>
+        <result property="applyTime" column="apply_time" jdbcType="TIMESTAMP"/>
+        <result property="applyBy" column="apply_by" jdbcType="VARCHAR"/>
+        <result property="repairTime" column="repair_time" jdbcType="TIMESTAMP"/>
+        <result property="repairBy" column="repair_by" jdbcType="VARCHAR"/>
+        <result property="repairMethod" column="repair_method" jdbcType="LONGNVARCHAR"/>
+        <result property="approveBy" column="approve_by" jdbcType="VARCHAR"/>
+        <result property="status" column="status" jdbcType="CHAR"/>
+        <result property="isKnowledge" column="is_knowledge" jdbcType="TINYINT"/>
+        <result property="review" column="review" jdbcType="LONGNVARCHAR"/>
+        <result property="isDeleted" column="is_deleted" jdbcType="TINYINT"/>
+        <result property="version" column="version" jdbcType="INTEGER"/>
+        <result property="createBy" column="create_by" jdbcType="VARCHAR"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="updateBy" column="update_by" jdbcType="VARCHAR"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+        <result property="attr1" column="attr1" jdbcType="VARCHAR"/>
+        <result property="attr2" column="attr2" jdbcType="INTEGER"/>
+        <result property="attr3" column="attr3" jdbcType="VARCHAR"/>
+        <result property="approveTime" column="approve_time" jdbcType="TIMESTAMP"/>
+    </resultMap>
+    
+    <!-- 通过ID查询单条数据 -->
+    <select id="queryById" resultMap="EqRepairReportMap">
+        select
+            id,equipment_id,equipment_name,equipment_code,breakdown_id,breakdown_name,breakdown_description,breakdown_image,apply_time,apply_by,repair_time,repair_by,repair_method,approve_by,status,is_knowledge,review,is_deleted,version,create_by,create_time,update_by,update_time,attr1,attr2,attr3,approve_time
+        from eq_repair_report
+        where is_deleted = 0 and  id = #{id}
+    </select>
+
+    <!-- 通过ID查询单条数据 -->
+    <select id="getByEquipmentId" resultMap="EqRepairReportMap">
+        select
+            id,equipment_id,equipment_name,equipment_code,breakdown_id,breakdown_name,breakdown_description,breakdown_image,apply_time,apply_by,repair_time,repair_by,repair_method,approve_by,status,is_knowledge,review,is_deleted,version,create_by,create_time,update_by,update_time,attr1,attr2,attr3,approve_time
+        from eq_repair_report
+        where is_deleted = 0 and  equipment_id = #{equipmentId}
+    </select>
+
+    <select id="getStatusNotCompleteList" resultMap="EqRepairReportMap">
+        select
+            id,equipment_id,equipment_name,equipment_code,breakdown_id,breakdown_name,breakdown_description,breakdown_image,apply_time,apply_by,repair_time,repair_by,repair_method,approve_by,status,is_knowledge,review,is_deleted,version,create_by,create_time,update_by,update_time,attr1,attr2,attr3,approve_time
+        from eq_repair_report
+        where status = 0 order by apply_time;
+    </select>
+
+    <select id="getListTowDay" resultMap="EqRepairReportMap">
+        select
+            id,equipment_id,equipment_name,equipment_code,breakdown_id,breakdown_name,breakdown_description,breakdown_image,apply_time,apply_by,repair_time,repair_by,repair_method,approve_by,status,is_knowledge,review,is_deleted,version,create_by,create_time,update_by,update_time,attr1,attr2,attr3,approve_time
+        from eq_repair_report
+        WHERE status in (1,2) and apply_time >= CURRENT_DATE - INTERVAL 2 DAY order by apply_time;
+    </select>
+
+    <select id="getRepairReportKanban" resultType="com.cuixing.eq.entity.vo.EqKanban">
+        select
+            COUNT(CASE WHEN status = '0' THEN 1 END) AS awaitRepairCount,
+            COUNT(CASE WHEN status = '0' AND DATE(apply_time) = CURDATE() THEN 1 END) AS todayApplyRepairCount,
+            COUNT(CASE WHEN status in (1,2) AND DATE(apply_time) = CURDATE() THEN 1 END) AS todayRepairCount
+        from eq_repair_report
+    </select>
+    
+    <!--分页查询指定行数据-->
+    <select id="selectEqRepairReportList" resultMap="EqRepairReportMap">
+        select
+            id,equipment_id,equipment_name,equipment_code,breakdown_id,breakdown_name,breakdown_description,breakdown_image,apply_time,apply_by,repair_time,repair_by,repair_method,approve_by,status,is_knowledge,review,is_deleted,version,create_by,create_time,update_by,update_time,attr1,attr2,attr3,approve_time
+        from eq_repair_report
+        <where>
+            is_deleted = 0
+            <if test="id != null and id != ''"> and id = #{id}</if>
+            <if test="equipmentId != null and equipmentId != ''"> and equipment_id = #{equipmentId}</if>
+            <if test="equipmentName != null and equipmentName != ''"> and equipment_name = #{equipmentName}</if>
+            <if test="equipmentCode != null and equipmentCode != ''"> and equipment_code = #{equipmentCode}</if>
+            <if test="breakdownId != null and breakdownId != ''"> and breakdown_id = #{breakdownId}</if>
+            <if test="breakdownName != null and breakdownName != ''"> and breakdown_name = #{breakdownName}</if>
+            <if test="breakdownDescription != null and breakdownDescription != ''"> and breakdown_description like concat('%', #{breakdownDescription},'%')</if>
+            <if test="breakdownImage != null and breakdownImage != ''"> and breakdown_image = #{breakdownImage}</if>
+            <if test="applyTime != null and applyTime != ''"> and apply_time = #{applyTime}</if>
+            <if test="applyBy != null and applyBy != ''"> and apply_by = #{applyBy}</if>
+            <if test="repairTime != null and repairTime != ''"> and repair_time = #{repairTime}</if>
+            <if test="repairBy != null and repairBy != ''"> and repair_by = #{repairBy}</if>
+            <if test="repairMethod != null and repairMethod != ''"> and repair_method like concat('%', #{repairMethod},'%')</if>
+            <if test="approveBy != null and approveBy != ''"> and approve_by = #{approveBy}</if>
+            <if test="status != null and status != ''"> and status = #{status}</if>
+            <if test="isKnowledge != null and isKnowledge != ''"> and is_knowledge = #{isKnowledge}</if>
+            <if test="review != null and review != ''"> and review = #{review}</if>
+            <if test="isDeleted != null and isDeleted != ''"> and is_deleted = #{isDeleted}</if>
+            <if test="version != null and version != ''"> and version = #{version}</if>
+            <if test="createBy != null and createBy != ''"> and create_by = #{createBy}</if>
+            <if test="createTime != null and createTime != ''"> and create_time = #{createTime}</if>
+            <if test="updateBy != null and updateBy != ''"> and update_by = #{updateBy}</if>
+            <if test="updateTime != null and updateTime != ''"> and update_time = #{updateTime}</if>
+            <if test="attr1 != null and attr1 != ''"> and attr1 = #{attr1}</if>
+            <if test="attr2 != null and attr2 != ''"> and attr2 = #{attr2}</if>
+            <if test="attr3 != null and attr3 != ''"> and attr3 = #{attr3}</if>
+            <if test="approveTime != null and approveTime != ''"> and approve_time = #{approveTime}</if>
+            <if test="params.beginTime != null and params.beginTime != ''"><!-- 开始时间检索 -->
+                AND date_format(apply_time,'%y%m%d') &gt;= date_format(#{params.beginTime},'%y%m%d')
+            </if>
+            <if test="params.endTime != null and params.endTime != ''"><!-- 结束时间检索 -->
+                AND date_format(apply_time,'%y%m%d') &lt;= date_format(#{params.endTime},'%y%m%d')
+            </if>
+            <!-- 数据范围过滤 -->
+            ${params.dataScope}
+        </where>
+        order by status asc, apply_time desc
+    </select>
+    
+    <!--新增数据-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into eq_repair_report
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null ">id,</if>
+            <if test="equipmentId != null ">equipment_id,</if>
+            <if test="equipmentName != null and equipmentName != ''">equipment_name,</if>
+            <if test="equipmentCode != null and equipmentCode != ''">equipment_code,</if>
+            <if test="breakdownId != null ">breakdown_id,</if>
+            <if test="breakdownName != null and breakdownName != ''">breakdown_name,</if>
+            <if test="breakdownDescription != null and breakdownDescription != ''">breakdown_description,</if>
+            <if test="breakdownImage != null and breakdownImage != ''">breakdown_image,</if>
+            <if test="applyTime != null ">apply_time,</if>
+            <if test="applyBy != null and applyBy != ''">apply_by,</if>
+            <if test="repairTime != null ">repair_time,</if>
+            <if test="repairBy != null and repairBy != ''">repair_by,</if>
+            <if test="repairMethod != null and repairMethod != ''">repair_method,</if>
+            <if test="approveBy != null and approveBy != ''">approve_by,</if>
+            <if test="status != null and status != ''">status,</if>
+            <if test="isKnowledge != null ">is_knowledge,</if>
+            <if test="review != null and review != ''">review,</if>
+            <if test="isDeleted != null ">is_deleted,</if>
+            <if test="version != null ">version,</if>
+            <if test="createBy != null and createBy != ''">create_by,</if>
+            <if test="createTime != null ">create_time,</if>
+            <if test="updateBy != null and updateBy != ''">update_by,</if>
+            <if test="updateTime != null ">update_time,</if>
+            <if test="attr1 != null and attr1 != ''">attr1,</if>
+            <if test="attr2 != null ">attr2,</if>
+            <if test="attr3 != null and attr3 != ''">attr3,</if>
+            <if test="approveTime != null ">approve_time,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">#{id},</if>
+            <if test="equipmentId != null">#{equipmentId},</if>
+            <if test="equipmentName != null and equipmentName != ''">#{equipmentName},</if>
+            <if test="equipmentCode != null and equipmentCode != ''">#{equipmentCode},</if>
+            <if test="breakdownId != null">#{breakdownId},</if>
+            <if test="breakdownName != null and breakdownName != ''">#{breakdownName},</if>
+            <if test="breakdownDescription != null and breakdownDescription != ''">#{breakdownDescription},</if>
+            <if test="breakdownImage != null and breakdownImage != ''">#{breakdownImage},</if>
+            <if test="applyTime != null">#{applyTime},</if>
+            <if test="applyBy != null and applyBy != ''">#{applyBy},</if>
+            <if test="repairTime != null">#{repairTime},</if>
+            <if test="repairBy != null and repairBy != ''">#{repairBy},</if>
+            <if test="repairMethod != null and repairMethod != ''">#{repairMethod},</if>
+            <if test="approveBy != null and approveBy != ''">#{approveBy},</if>
+            <if test="status != null and status != ''">#{status},</if>
+            <if test="isKnowledge != null">#{isKnowledge},</if>
+            <if test="review != null and review != ''">#{review},</if>
+            <if test="isDeleted != null">#{isDeleted},</if>
+            <if test="version != null">#{version},</if>
+            <if test="createBy != null and createBy != ''">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null and updateBy != ''">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="attr1 != null and attr1 != ''">#{attr1},</if>
+            <if test="attr2 != null">#{attr2},</if>
+            <if test="attr3 != null and attr3 != ''">#{attr3},</if>
+            <if test="approveTime != null">#{approveTime},</if>
+        </trim>
+    </insert>
+    
+    <!-- 更新数据 -->
+    <update id="update">
+        update eq_repair_report
+        <set>
+            <trim suffixOverrides=",">
+                <if test="equipmentId != null "> equipment_id = #{equipmentId}, </if>
+                <if test="equipmentName != null "> equipment_name = #{equipmentName}, </if>
+                <if test="equipmentCode != null "> equipment_code = #{equipmentCode}, </if>
+                <if test="breakdownId != null "> breakdown_id = #{breakdownId}, </if>
+                <if test="breakdownName != null "> breakdown_name = #{breakdownName}, </if>
+                <if test="breakdownDescription != null "> breakdown_description = #{breakdownDescription}, </if>
+                <if test="breakdownImage != null "> breakdown_image = #{breakdownImage}, </if>
+                <if test="applyTime != null "> apply_time = #{applyTime}, </if>
+                <if test="applyBy != null "> apply_by = #{applyBy}, </if>
+                <if test="repairTime != null "> repair_time = #{repairTime}, </if>
+                <if test="repairBy != null "> repair_by = #{repairBy}, </if>
+                <if test="repairMethod != null "> repair_method = #{repairMethod}, </if>
+                <if test="approveBy != null "> approve_by = #{approveBy}, </if>
+                <if test="status != null "> status = #{status}, </if>
+                <if test="isKnowledge != null "> is_knowledge = #{isKnowledge}, </if>
+                <if test="review != null "> review = #{review}, </if>
+                <if test="isDeleted != null "> is_deleted = #{isDeleted}, </if>
+                <if test="version != null "> version = #{version}, </if>
+                <if test="createBy != null "> create_by = #{createBy}, </if>
+                <if test="createTime != null "> create_time = #{createTime}, </if>
+                <if test="updateBy != null "> update_by = #{updateBy}, </if>
+                <if test="updateTime != null "> update_time = #{updateTime}, </if>
+                <if test="attr1 != null "> attr1 = #{attr1}, </if>
+                <if test="attr2 != null "> attr2 = #{attr2}, </if>
+                <if test="attr3 != null "> attr3 = #{attr3}, </if>
+                <if test="approveTime != null "> approve_time = #{approveTime}, </if>
+            </trim>
+        </set>
+        where id = #{id} and version = #{version}
+    </update>
+    
+    <!--逻辑删除删除-->
+    <update id="deleteById">
+        update eq_repair_report set is_deleted = 1 where id = #{id}
+    </update>
+    
+    <!--批量逻辑删除-->
+    <update id="deleteByIds">
+        update eq_repair_report set is_deleted = 1 where id in
+        <foreach collection="array" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </update>
+    <!--写入设备知识库-->
+    <update id="addKnowledge">
+        update eq_repair_report set is_knowledge = 1 where id = #{id}
+    </update>
+    <!--批量逻辑删除-->
+    <update id="deleteKnowledgeByIds">
+        update eq_repair_report set is_knowledge = 0 where id in
+        <foreach collection="array" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </update>
+    <!--分页查询设备知识库-->
+    <select id="knowledgeList" resultMap="EqRepairReportMap">
+        select
+        id,equipment_id,equipment_name,equipment_code,breakdown_id,breakdown_name,breakdown_description,breakdown_image,apply_time,apply_by,repair_time,repair_by,repair_method,approve_by,status,is_knowledge,review,is_deleted,version,create_by,create_time,update_by,update_time,attr1,attr2,attr3,approve_time
+        from eq_repair_report
+        <where>
+            is_deleted = 0 and is_knowledge = 1
+            <if test="id != null and id != ''"> and id = #{id}</if>
+            <if test="equipmentId != null and equipmentId != ''"> and equipment_id = #{equipmentId}</if>
+            <if test="equipmentName != null and equipmentName != ''"> and equipment_name = #{equipmentName}</if>
+            <if test="equipmentCode != null and equipmentCode != ''"> and equipment_code = #{equipmentCode}</if>
+            <if test="breakdownId != null and breakdownId != ''"> and breakdown_id = #{breakdownId}</if>
+            <if test="breakdownName != null and breakdownName != ''"> and breakdown_name = #{breakdownName}</if>
+            <if test="breakdownDescription != null and breakdownDescription != ''"> and breakdown_description = #{breakdownDescription}</if>
+            <if test="breakdownImage != null and breakdownImage != ''"> and breakdown_image = #{breakdownImage}</if>
+            <if test="applyTime != null and applyTime != ''"> and apply_time = #{applyTime}</if>
+            <if test="applyBy != null and applyBy != ''"> and apply_by = #{applyBy}</if>
+            <if test="repairTime != null and repairTime != ''"> and repair_time = #{repairTime}</if>
+            <if test="repairBy != null and repairBy != ''"> and repair_by = #{repairBy}</if>
+            <if test="repairMethod != null and repairMethod != ''"> and repair_method = #{repairMethod}</if>
+            <if test="approveBy != null and approveBy != ''"> and approve_by = #{approveBy}</if>
+            <if test="status != null and status != ''"> and status = #{status}</if>
+            <if test="isKnowledge != null and isKnowledge != ''"> and is_knowledge = #{isKnowledge}</if>
+            <if test="review != null and review != ''"> and review = #{review}</if>
+            <if test="isDeleted != null and isDeleted != ''"> and is_deleted = #{isDeleted}</if>
+            <if test="version != null and version != ''"> and version = #{version}</if>
+            <if test="createBy != null and createBy != ''"> and create_by = #{createBy}</if>
+            <if test="createTime != null and createTime != ''"> and create_time = #{createTime}</if>
+            <if test="updateBy != null and updateBy != ''"> and update_by = #{updateBy}</if>
+            <if test="updateTime != null and updateTime != ''"> and update_time = #{updateTime}</if>
+            <if test="attr1 != null and attr1 != ''"> and attr1 = #{attr1}</if>
+            <if test="attr2 != null and attr2 != ''"> and attr2 = #{attr2}</if>
+            <if test="attr3 != null and attr3 != ''"> and attr3 = #{attr3}</if>
+            <if test="approveTime != null and approveTime != ''"> and approve_time = #{approveTime}</if>
+        </where>
+        order by create_time desc
+    </select>
+</mapper>

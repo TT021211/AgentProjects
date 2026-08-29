@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cuixing.eq.mapper.EqAttachmentMapper">
+    <resultMap type="com.cuixing.eq.entity.EqAttachment" id="EqAttachmentMap">
+        <result property="id" column="id" jdbcType="BIGINT"/>
+        <result property="attachmentName" column="attachment_name" jdbcType="VARCHAR"/>
+        <result property="attachmentCode" column="attachment_code" jdbcType="VARCHAR"/>
+        <result property="equipmentId" column="equipment_id" jdbcType="BIGINT"/>
+        <result property="equipmentCode" column="equipment_code" jdbcType="VARCHAR"/>
+        <result property="equipmentName" column="equipment_name" jdbcType="VARCHAR"/>
+        <result property="distributionPath" column="distribution_path" jdbcType="VARCHAR"/>
+        <result property="usedTime" column="used_time" jdbcType="TINYINT"/>
+        <result property="producedWeight" column="produced_weight" jdbcType="DECIMAL"/>
+        <result property="maxServiceTime" column="max_service_time" jdbcType="TINYINT"/>
+        <result property="maxServiceWeight" column="max_service_weight" jdbcType="DECIMAL"/>
+        <result property="supplier" column="supplier" jdbcType="VARCHAR"/>
+        <result property="drawing" column="drawing" jdbcType="VARCHAR"/>
+        <result property="status" column="status" jdbcType="VARCHAR"/>
+        <result property="replaceTime" column="replace_time" jdbcType="TIMESTAMP"/>
+        <result property="isDeleted" column="is_deleted" jdbcType="TINYINT"/>
+        <result property="version" column="version" jdbcType="INTEGER"/>
+        <result property="createBy" column="create_by" jdbcType="VARCHAR"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="updateBy" column="update_by" jdbcType="VARCHAR"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+        <result property="attr1" column="attr1" jdbcType="VARCHAR"/>
+        <result property="attr2" column="attr2" jdbcType="INTEGER"/>
+        <result property="attr3" column="attr3" jdbcType="VARCHAR"/>
+        <result property="model" column="model" jdbcType="VARCHAR"/>
+        <result property="dimension" column="dimension" jdbcType="VARCHAR"/>
+        <result property="specification" column="specification" jdbcType="VARCHAR"/>
+        <result property="power" column="power" jdbcType="DECIMAL"/>
+    </resultMap>
+    
+    <!-- 通过ID查询单条数据 -->
+    <select id="queryById" resultMap="EqAttachmentMap">
+        select
+            id,attachment_name,attachment_code,equipment_id,equipment_code,equipment_name,distribution_path,used_time,produced_weight,max_service_time,max_service_weight,supplier,drawing,status,replace_time,is_deleted,version,create_by,create_time,update_by,update_time,attr1,attr2,attr3,model,dimension,specification,power
+        from eq_attachment
+        where is_deleted = 0 and  id = #{id}
+    </select>
+
+    <!-- 通过设备id获取配件列表 -->
+    <select id="selectListByEquipmentId" resultMap="EqAttachmentMap">
+        select
+            id,attachment_name,attachment_code,equipment_id,equipment_code,equipment_name,distribution_path,used_time,produced_weight,max_service_time,max_service_weight,supplier,drawing,status,replace_time,is_deleted,version,create_by,create_time,update_by,update_time,attr1,attr2,attr3,model,dimension,specification,power
+        from eq_attachment
+        where is_deleted = 0 and  equipment_id = #{equipmentId}
+    </select>
+    
+    <!--分页查询指定行数据-->
+    <select id="selectEmsAttachmentList" resultMap="EqAttachmentMap">
+        select
+            id,attachment_name,attachment_code,equipment_id,equipment_code,equipment_name,distribution_path,used_time,produced_weight,max_service_time,max_service_weight,supplier,drawing,status,replace_time,is_deleted,version,create_by,create_time,update_by,update_time,attr1,attr2,attr3,supplier,drawing,is_deleted,version,create_by,create_time,update_by,update_time,attr1,attr2,attr3,model,dimension,specification,power
+        from eq_attachment
+        <where>
+            is_deleted = 0
+            <if test="id != null and id != ''"> and id = #{id}</if>
+            <if test="attachmentName != null and attachmentName != ''"> and attachment_name = #{attachmentName}</if>
+            <if test="attachmentCode != null and attachmentCode != ''"> and attachment_code = #{attachmentCode}</if>
+            <if test="equipmentId != null and equipmentId != ''"> and equipment_id = #{equipmentId}</if>
+            <if test="equipmentCode != null and equipmentCode != ''"> and equipment_code = #{equipmentCode}</if>
+            <if test="equipmentName != null and equipmentName != ''"> and equipment_name = #{equipmentName}</if>
+            <if test="distributionPath != null and distributionPath != ''"> and distribution_path = #{distributionPath}</if>
+            <if test="usedTime != null and usedTime != 0"> and used_time = #{usedTime}</if>
+            <if test="producedWeight != null and producedWeight != ''"> and produced_weight = #{producedWeight}</if>
+            <if test="maxServiceTime != null and maxServiceTime != 0"> and max_service_time = #{maxServiceTime}</if>
+            <if test="maxServiceWeight != null and maxServiceWeight != ''"> and max_service_weight = #{maxServiceWeight}</if>
+            <if test="supplier != null and supplier != ''"> and supplier = #{supplier}</if>
+            <if test="drawing != null and drawing != ''"> and drawing = #{drawing}</if>
+            <if test="status != null and status != ''"> and status = #{status}</if>
+            <if test="replaceTime != null"> and replace_time = #{replaceTime}</if>
+            <if test="isDeleted != null and isDeleted != ''"> and is_deleted = #{isDeleted}</if>
+            <if test="version != null and version != ''"> and version = #{version}</if>
+            <if test="createBy != null and createBy != ''"> and create_by = #{createBy}</if>
+            <if test="createTime != null"> and create_time = #{createTime}</if>
+            <if test="updateBy != null and updateBy != ''"> and update_by = #{updateBy}</if>
+            <if test="updateTime != null"> and update_time = #{updateTime}</if>
+            <if test="attr1 != null and attr1 != ''"> and attr1 = #{attr1}</if>
+            <if test="attr2 != null and attr2 != ''"> and attr2 = #{attr2}</if>
+            <if test="attr3 != null and attr3 != ''"> and attr3 = #{attr3}</if>
+            <if test="model != null and model != ''"> and model = #{model}</if>
+            <if test="dimension != null and dimension != ''"> and dimension = #{dimension}</if>
+            <if test="specification != null and specification != ''"> and specification = #{specification}</if>
+            <if test="power != null and power != ''"> and power = #{power}</if>
+        </where>
+        order by create_time desc
+    </select>
+    
+    <!--新增数据-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into eq_attachment
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null ">id,</if>
+            <if test="attachmentName != null and attachmentName != ''">attachment_name,</if>
+            <if test="attachmentCode != null and attachmentCode != ''">attachment_code,</if>
+            <if test="equipmentId != null ">equipment_id,</if>
+            <if test="equipmentCode != null and equipmentCode != ''">equipment_code,</if>
+            <if test="equipmentName != null and equipmentName != ''">equipment_name,</if>
+            <if test="distributionPath != null and distributionPath != ''">distribution_path,</if>
+            <if test="usedTime != null and usedTime != 0">used_time,</if>
+            <if test="producedWeight != null and producedWeight != ''">produced_weight,</if>
+            <if test="maxServiceTime != null and maxServiceTime != 0">max_service_time,</if>
+            <if test="maxServiceWeight != null and maxServiceWeight != ''">max_service_weight,</if>
+            <if test="supplier != null and supplier != ''">supplier,</if>
+            <if test="drawing != null and drawing != ''">drawing,</if>
+            <if test="status != null and status != ''">status,</if>
+            <if test="replaceTime != null ">replace_time,</if>
+            <if test="isDeleted != null ">is_deleted,</if>
+            <if test="version != null ">version,</if>
+            <if test="createBy != null and createBy != ''">create_by,</if>
+            <if test="createTime != null ">create_time,</if>
+            <if test="updateBy != null and updateBy != ''">update_by,</if>
+            <if test="updateTime != null ">update_time,</if>
+            <if test="attr1 != null and attr1 != ''">attr1,</if>
+            <if test="attr2 != null ">attr2,</if>
+            <if test="attr3 != null and attr3 != ''">attr3,</if>
+            <if test="model != null and model != ''">model,</if>
+            <if test="dimension != null and dimension != ''">dimension,</if>
+            <if test="specification != null and specification != ''">specification,</if>
+            <if test="power != null and power != ''">power,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">#{id},</if>
+            <if test="attachmentName != null and attachmentName != ''">#{attachmentName},</if>
+            <if test="attachmentCode != null and attachmentCode != ''">#{attachmentCode},</if>
+            <if test="equipmentId != null">#{equipmentId},</if>
+            <if test="equipmentCode != null and equipmentCode != ''">#{equipmentCode},</if>
+            <if test="equipmentName != null and equipmentName != ''">#{equipmentName},</if>
+            <if test="distributionPath != null and distributionPath != ''">#{distributionPath},</if>
+            <if test="usedTime != null and usedTime != 0">#{usedTime},</if>
+            <if test="producedWeight != null and producedWeight != ''">#{producedWeight},</if>
+            <if test="maxServiceTime != null and maxServiceTime != 0">#{maxServiceTime},</if>
+            <if test="maxServiceWeight != null and maxServiceWeight != ''">#{maxServiceWeight},</if>
+            <if test="supplier != null and supplier != ''">#{supplier},</if>
+            <if test="drawing != null and drawing != ''">#{drawing},</if>
+            <if test="status != null and status != ''">#{status},</if>
+            <if test="replaceTime != null">#{replaceTime},</if>
+            <if test="isDeleted != null">#{isDeleted},</if>
+            <if test="version != null">#{version},</if>
+            <if test="createBy != null and createBy != ''">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null and updateBy != ''">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="attr1 != null and attr1 != ''">#{attr1},</if>
+            <if test="attr2 != null">#{attr2},</if>
+            <if test="attr3 != null and attr3 != ''">#{attr3},</if>
+            <if test="model != null and model != ''">#{model},</if>
+            <if test="dimension != null and dimension != ''">#{dimension},</if>
+            <if test="specification != null and specification != ''">#{specification},</if>
+            <if test="power != null and power != ''">#{power},</if>
+        </trim>
+    </insert>
+    
+    <!-- 更新数据 -->
+    <update id="update">
+        update eq_attachment
+        <set>
+            <trim suffixOverrides=",">
+                <if test="attachmentName != null "> attachment_name = #{attachmentName}, </if>
+                <if test="attachmentCode != null "> attachment_code = #{attachmentCode}, </if>
+                <if test="equipmentId != null "> equipment_id = #{equipmentId}, </if>
+                <if test="equipmentCode != null "> equipment_code = #{equipmentCode}, </if>
+                <if test="equipmentName != null "> equipment_name = #{equipmentName}, </if>
+                <if test="distributionPath != null "> distribution_path = #{distributionPath}, </if>
+                <if test="usedTime != null "> used_time = #{usedTime}, </if>
+                <if test="producedWeight != null "> produced_weight = #{producedWeight}, </if>
+                <if test="maxServiceTime != null "> max_service_time = #{maxServiceTime}, </if>
+                <if test="maxServiceWeight != null "> max_service_weight = #{maxServiceWeight}, </if>
+                <if test="supplier != null "> supplier = #{supplier}, </if>
+                <if test="drawing != null "> drawing = #{drawing}, </if>
+                <if test="status != null "> status = #{status}, </if>
+                <if test="replaceTime != null "> replace_time = #{replaceTime}, </if>
+                <if test="isDeleted != null "> is_deleted = #{isDeleted}, </if>
+                <if test="version != null "> version = #{version}, </if>
+                <if test="createBy != null "> create_by = #{createBy}, </if>
+                <if test="createTime != null "> create_time = #{createTime}, </if>
+                <if test="updateBy != null "> update_by = #{updateBy}, </if>
+                <if test="updateTime != null "> update_time = #{updateTime}, </if>
+                <if test="attr1 != null "> attr1 = #{attr1}, </if>
+                <if test="attr2 != null "> attr2 = #{attr2}, </if>
+                <if test="attr3 != null "> attr3 = #{attr3}, </if>
+                <if test="model != null "> model = #{model}, </if>
+                <if test="dimension != null "> dimension = #{dimension}, </if>
+                <if test="specification != null "> specification = #{specification}, </if>
+                <if test="power != null "> power = #{power}, </if>
+            </trim>
+        </set>
+        where id = #{id}
+    </update>
+<!--    -->
+<!--    &lt;!&ndash;逻辑删除删除&ndash;&gt;-->
+<!--    <update id="deleteById">-->
+<!--        update ems_attachment set is_deleted = 1 where id = #{id}-->
+<!--    </update>-->
+    
+    <!--批量逻辑删除-->
+    <update id="deleteByIds">
+        update eq_attachment set is_deleted = 1 where id in
+        <foreach collection="array" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </update>
+</mapper>

@@ -1,0 +1,324 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cuixing.qc.mapper.QcPaintRecordMapper">
+
+    <resultMap type="com.cuixing.qc.entity.QcPaintRecord" id="QcPaintRecordMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="inspectionId" column="inspection_id" jdbcType="INTEGER"/>
+        <result property="paintSpec" column="paint_spec" jdbcType="VARCHAR"/>
+        <result property="purchaseOrder" column="purchase_order" jdbcType="VARCHAR"/>
+        <result property="supplier" column="supplier" jdbcType="VARCHAR"/>
+        <result property="batchNumber" column="batch_number" jdbcType="INTEGER"/>
+        <result property="weight" column="weight" jdbcType="VARCHAR"/>
+        <result property="measure" column="measure" jdbcType="VARCHAR"/>
+        <result property="qualityInspector" column="quality_inspector" jdbcType="VARCHAR"/>
+        <result property="detectionResult" column="detection_result" jdbcType="VARCHAR"/>
+        <result property="defectId" column="defect_id" jdbcType="VARCHAR"/>
+        <result property="attr1" column="attr1" jdbcType="VARCHAR"/>
+        <result property="attr2" column="attr2" jdbcType="VARCHAR"/>
+        <result property="attr3" column="attr3" jdbcType="INTEGER"/>
+        <result property="attr4" column="attr4" jdbcType="INTEGER"/>
+        <result property="createBy" column="create_by" jdbcType="VARCHAR"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="updateBy" column="update_by" jdbcType="VARCHAR"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <sql id="selectQcPaintRecordVo">
+        SELECT id,
+               inspection_id,
+               paint_spec,
+               purchase_order,
+               supplier,
+               batch_number,
+               weight,
+               measure,
+               quality_inspector,
+               detection_result,
+               defect_id,
+               attr1,
+               attr2,
+               attr3,
+               attr4,
+               create_by,
+               create_time,
+               update_by,
+               update_time
+        FROM qc_paint_record
+    </sql>
+
+    <select id="selectQcPaintRecordList" parameterType="QcPaintRecord" resultMap="QcPaintRecordMap">
+        <include refid="selectQcPaintRecordVo"/>
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="inspectionId != null">
+                and inspection_id = #{inspectionId}
+            </if>
+            <if test="paintSpec != null and paintSpec != ''">
+                and paint_spec = #{paintSpec}
+            </if>
+            <if test="purchaseOrder != null and purchaseOrder != ''">
+                and purchase_order = #{purchaseOrder}
+            </if>
+            <if test="supplier != null and supplier != ''">
+                and supplier = #{supplier}
+            </if>
+            <if test="batchNumber != null">
+                and batch_number = #{batchNumber}
+            </if>
+            <if test="weight != null">
+                and weight = #{weight}
+            </if>
+            <if test="measure != null and measure != ''">
+                and measure = #{measure}
+            </if>
+            <if test="qualityInspector != null and qualityInspector != ''">
+                and quality_inspector = #{qualityInspector}
+            </if>
+            <if test="detectionResult != null and detectionResult != ''">
+                and detection_result = #{detectionResult}
+            </if>
+            <if test="defectId != null and defectId != ''">
+                and defect_id = #{defectId}
+            </if>
+            <if test="attr1 != null and attr1 != ''">
+                and attr1 = #{attr1}
+            </if>
+            <if test="attr2 != null and attr2 != ''">
+                and attr2 = #{attr2}
+            </if>
+            <if test="attr3 != null">
+                and attr3 = #{attr3}
+            </if>
+            <if test="attr4 != null">
+                and attr4 = #{attr4}
+            </if>
+            <if test="createBy != null and createBy != ''">
+                and create_by = #{createBy}
+            </if>
+            <if test="createTime != null">
+                and create_time = #{createTime}
+            </if>
+            <if test="updateBy != null and updateBy != ''">
+                and update_by = #{updateBy}
+            </if>
+            <if test="updateTime != null">
+                and update_time = #{updateTime}
+            </if>
+        </where>
+    </select>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="QcPaintRecordMap">
+        select id,
+               inspection_id,
+               paint_spec,
+               purchase_order,
+               supplier,
+               batch_number,
+               weight,
+               measure,
+               quality_inspector,
+               detection_result,
+               defect_id,
+               attr1,
+               attr2,
+               attr3,
+               attr4,
+               create_by,
+               create_time,
+               update_by,
+               update_time
+        from qc_paint_record
+        where id = #{id}
+    </select>
+
+    <!--统计总行数-->
+    <select id="count" resultType="java.lang.Long">
+        select count(1)
+        from qc_paint_record
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="inspectionId != null">
+                and inspection_id = #{inspectionId}
+            </if>
+            <if test="paintSpec != null and paintSpec != ''">
+                and paint_spec = #{paintSpec}
+            </if>
+            <if test="purchaseOrder != null and purchaseOrder != ''">
+                and purchase_order = #{purchaseOrder}
+            </if>
+            <if test="supplier != null and supplier != ''">
+                and supplier = #{supplier}
+            </if>
+            <if test="batchNumber != null">
+                and batch_number = #{batchNumber}
+            </if>
+            <if test="weight != null">
+                and weight = #{weight}
+            </if>
+            <if test="measure != null and measure != ''">
+                and measure = #{measure}
+            </if>
+            <if test="qualityInspector != null and qualityInspector != ''">
+                and quality_inspector = #{qualityInspector}
+            </if>
+            <if test="detectionResult != null and detectionResult != ''">
+                and detection_result = #{detectionResult}
+            </if>
+            <if test="defectId != null and defectId != ''">
+                and defect_id = #{defectId}
+            </if>
+            <if test="attr1 != null and attr1 != ''">
+                and attr1 = #{attr1}
+            </if>
+            <if test="attr2 != null and attr2 != ''">
+                and attr2 = #{attr2}
+            </if>
+            <if test="attr3 != null">
+                and attr3 = #{attr3}
+            </if>
+            <if test="attr4 != null">
+                and attr4 = #{attr4}
+            </if>
+            <if test="createBy != null and createBy != ''">
+                and create_by = #{createBy}
+            </if>
+            <if test="createTime != null">
+                and create_time = #{createTime}
+            </if>
+            <if test="updateBy != null and updateBy != ''">
+                and update_by = #{updateBy}
+            </if>
+            <if test="updateTime != null">
+                and update_time = #{updateTime}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into qc_paint_record(inspection_id, paint_spec, purchase_order, supplier, batch_number, weight, measure, quality_inspector, detection_result, defect_id, attr1, attr2, attr3, attr4, create_by, create_time, update_by, update_time)
+        values (#{inspectionId}, #{paintSpec}, #{purchaseOrder}, #{supplier}, #{batchNumber}, #{weight}, #{measure}, #{qualityInspector}, #{detectionResult}, #{defectId}, #{attr1}, #{attr2}, #{attr3}, #{attr4}, #{createBy}, #{createTime}, #{updateBy}, #{updateTime})
+    </insert>
+
+    <insert id="insertBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into qc_paint_record(inspection_id, paint_spec, purchase_order, supplier, batch_number, weight, measure,
+        quality_inspector, detection_result, defect_id, attr1, attr2, attr3, attr4, create_by, create_time, update_by,
+        update_time)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.inspectionId}, #{entity.paintSpec}, #{entity.purchaseOrder}, #{entity.supplier},
+            #{entity.batchNumber}, #{entity.weight}, #{entity.measure}, #{entity.qualityInspector},
+            #{entity.detectionResult}, #{entity.defectId}, #{entity.attr1}, #{entity.attr2}, #{entity.attr3},
+            #{entity.attr4}, #{entity.createBy}, #{entity.createTime}, #{entity.updateBy}, #{entity.updateTime})
+        </foreach>
+    </insert>
+
+    <insert id="insertOrUpdateBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into qc_paint_record(inspection_id, paint_spec, purchase_order, supplier, batch_number, weight, measure,
+        quality_inspector, detection_result, defect_id, attr1, attr2, attr3, attr4, create_by, create_time, update_by,
+        update_time)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.inspectionId}, #{entity.paintSpec}, #{entity.purchaseOrder}, #{entity.supplier},
+            #{entity.batchNumber}, #{entity.weight}, #{entity.measure}, #{entity.qualityInspector},
+            #{entity.detectionResult}, #{entity.defectId}, #{entity.attr1}, #{entity.attr2}, #{entity.attr3},
+            #{entity.attr4}, #{entity.createBy}, #{entity.createTime}, #{entity.updateBy}, #{entity.updateTime})
+        </foreach>
+        on duplicate key update
+        inspection_id = values(inspection_id),
+        paint_spec = values(paint_spec),
+        purchase_order = values(purchase_order),
+        supplier = values(supplier),
+        batch_number = values(batch_number),
+        weight = values(weight),
+        measure = values(measure),
+        quality_inspector = values(quality_inspector),
+        detection_result = values(detection_result),
+        defect_id = values(defect_id),
+        attr1 = values(attr1),
+        attr2 = values(attr2),
+        attr3 = values(attr3),
+        attr4 = values(attr4),
+        create_by = values(create_by),
+        create_time = values(create_time),
+        update_by = values(update_by),
+        update_time = values(update_time)
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update qc_paint_record
+        <set>
+            <if test="inspectionId != null">
+                inspection_id = #{inspectionId},
+            </if>
+            <if test="paintSpec != null and paintSpec != ''">
+                paint_spec = #{paintSpec},
+            </if>
+            <if test="purchaseOrder != null and purchaseOrder != ''">
+                purchase_order = #{purchaseOrder},
+            </if>
+            <if test="supplier != null and supplier != ''">
+                supplier = #{supplier},
+            </if>
+            <if test="batchNumber != null">
+                batch_number = #{batchNumber},
+            </if>
+            <if test="weight != null">
+                weight = #{weight},
+            </if>
+            <if test="measure != null and measure != ''">
+                measure = #{measure},
+            </if>
+            <if test="qualityInspector != null and qualityInspector != ''">
+                quality_inspector = #{qualityInspector},
+            </if>
+            <if test="detectionResult != null and detectionResult != ''">
+                detection_result = #{detectionResult},
+            </if>
+            <if test="defectId != null and defectId != ''">
+                defect_id = #{defectId},
+            </if>
+            <if test="attr1 != null and attr1 != ''">
+                attr1 = #{attr1},
+            </if>
+            <if test="attr2 != null and attr2 != ''">
+                attr2 = #{attr2},
+            </if>
+            <if test="attr3 != null">
+                attr3 = #{attr3},
+            </if>
+            <if test="attr4 != null">
+                attr4 = #{attr4},
+            </if>
+            <if test="createBy != null and createBy != ''">
+                create_by = #{createBy},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime},
+            </if>
+            <if test="updateBy != null and updateBy != ''">
+                update_by = #{updateBy},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete
+        from qc_paint_record
+        where id = #{id}
+    </delete>
+
+</mapper>
+

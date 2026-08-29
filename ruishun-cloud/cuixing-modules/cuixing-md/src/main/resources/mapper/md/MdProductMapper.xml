@@ -1,0 +1,557 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cuixing.md.mapper.MdProductMapper">
+    <resultMap type="com.cuixing.md.entity.MdProduct" id="MdProductMap">
+        <result property="id" column="id" jdbcType="BIGINT"/>
+        <result property="productCode" column="product_code" jdbcType="VARCHAR"/>
+        <result property="productName" column="product_name" jdbcType="VARCHAR"/>
+        <result property="productSize" column="product_size" jdbcType="VARCHAR"/>
+        <result property="specification" column="specification" jdbcType="VARCHAR"/>
+        <result property="numMeasureId" column="num_measure_id" jdbcType="BIGINT"/>
+        <result property="numMeasureName" column="num_measure_name" jdbcType="VARCHAR"/>
+        <result property="weightMeasureId" column="weight_measure_id" jdbcType="BIGINT"/>
+        <result property="weightMeasureName" column="weight_measure_name" jdbcType="VARCHAR"/>
+        <result property="processRouteId" column="process_route_id" jdbcType="BIGINT"/>
+        <result property="processRouteName" column="process_route_name" jdbcType="VARCHAR"/>
+        <result property="productTypeId" column="product_type_id" jdbcType="BIGINT"/>
+        <result property="productTypeCode" column="product_type_code" jdbcType="VARCHAR"/>
+        <result property="productTypeName" column="product_type_name" jdbcType="VARCHAR"/>
+        <result property="version" column="version" jdbcType="INTEGER"/>
+        <result property="isDeleted" column="is_deleted" jdbcType="INTEGER"/>
+        <result property="createBy" column="create_by" jdbcType="VARCHAR"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="updateBy" column="update_by" jdbcType="VARCHAR"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+        <result property="attr1" column="attr1" jdbcType="VARCHAR"/>
+        <result property="attr2" column="attr2" jdbcType="INTEGER"/>
+        <result property="attr3" column="attr3" jdbcType="VARCHAR"/>
+        <result property="productSizeInternational" column="product_size_international" jdbcType="VARCHAR"/>
+        <result property="batchNumber" column="batch_number" jdbcType="VARCHAR"/>
+        <result property="axialType" column="axial_type" jdbcType="VARCHAR"/>
+        <result property="coefficient" column="coefficient" jdbcType="VARCHAR"/>
+        <result property="materialCode" column="material_code" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="MdProductVo">
+        select
+            id,product_code,product_name,product_size,specification,num_measure_id,num_measure_name,
+            weight_measure_id,weight_measure_name,process_route_id,process_route_name,product_type_id,
+            product_type_code,product_type_name,version,is_deleted,create_by,create_time,update_by,update_time,
+            attr1,attr2,attr3,product_size_international,batch_number,axial_type,coefficient,material_code
+        from md_product
+
+    </sql>
+    <!-- 通过ID查询单条数据 -->
+    <select id="queryById" resultMap="MdProductMap">
+        <include refid="MdProductVo"/>
+        where is_deleted = 0 and id = #{id}
+    </select>
+
+    <!--分页查询指定行数据-->
+    <select id="selectMdProductList" resultMap="MdProductMap" parameterType="MdProduct">
+        select
+        d.id,d.product_code,d.product_name,d.product_size,d.specification,d.num_measure_id,d.num_measure_name,d.weight_measure_id,d.weight_measure_name,d.process_route_id,d.process_route_name,d.product_type_id,d.product_type_code,d.product_type_name,d.version,d.is_deleted,d.create_by,d.create_time,d.update_by,d.update_time,d.attr1,d.attr2,d.attr3,d.product_size_international,d.batch_number,d.axial_type,d.coefficient,d.material_code
+        from md_product d
+        <where>
+            is_deleted = 0
+            <if test="id != null ">
+                and id = #{id}
+            </if>
+            <if test="productCode != null and productCode != ''">
+                and product_code = #{productCode}
+            </if>
+            <if test="productName != null and productName != ''">
+                and product_name = #{productName}
+            </if>
+            <if test="productSize != null and productSize != ''">
+                and product_size = #{productSize}
+            </if>
+            <if test="specification != null and specification != ''">
+                and specification = #{specification}
+            </if>
+            <if test="numMeasureId != null ">
+                and num_measure_id = #{numMeasureId}
+            </if>
+            <if test="numMeasureName != null and numMeasureName != ''">
+                and num_measure_name = #{numMeasureName}
+            </if>
+            <if test="weightMeasureId != null ">
+                and weight_measure_id = #{weightMeasureId}
+            </if>
+            <if test="weightMeasureName != null and weightMeasureName != ''">
+                and weight_measure_name = #{weightMeasureName}
+            </if>
+            <if test="processRouteId != null ">
+                and process_route_id = #{processRouteId}
+            </if>
+            <if test="processRouteName != null and processRouteName != ''">
+                and process_route_name = #{processRouteName}
+            </if>
+            <if test="productTypeId != null ">
+                and product_type_id = #{productTypeId}
+            </if>
+            <if test="productTypeCode != null and productTypeCode != ''">
+                and product_type_code = #{productTypeCode}
+            </if>
+            <if test="productTypeName != null and productTypeName != ''">
+                and product_type_name = #{productTypeName}
+            </if>
+            <if test="version != null ">
+                and version = #{version}
+            </if>
+            <if test="isDeleted != null ">
+                and is_deleted = #{isDeleted}
+            </if>
+            <if test="createBy != null and createBy != ''">
+                and create_by = #{createBy}
+            </if>
+            <if test="createTime != null ">
+                and create_time = #{createTime}
+            </if>
+            <if test="updateBy != null and updateBy != ''">
+                and update_by = #{updateBy}
+            </if>
+            <if test="updateTime != null ">
+                and update_time = #{updateTime}
+            </if>
+            <if test="attr1 != null and attr1 != ''">
+                and attr1 = #{attr1}
+            </if>
+            <if test="attr2 != null ">
+                and attr2 = #{attr2}
+            </if>
+            <if test="attr3 != null and attr3 != ''">
+                and attr3 = #{attr3}
+            </if>
+            <if test="productSizeInternational != null and productSizeInternational != ''">
+                and product_size_international = #{productSizeInternational}
+            </if>
+            <if test=" batchNumber != null and batchNumber != ''">
+                and batch_number = #{batchNumber}
+            </if>
+            <if test="axialType != null and axialType != ''">
+                and axial_type = #{axialType}
+            </if>
+            <if test="coefficient != null and coefficient != ''">
+                and coefficient = #{coefficient}
+            </if>
+            <if test="materialCode != null and materialCode != ''">
+                and material_code = #{materialCode}
+            </if>
+        </where>
+    </select>
+
+    <!--统计总行数-->
+    <select id="count" resultType="java.lang.Long">
+        select count(1)
+        from md_product
+        <where>
+            is_deleted = 0
+            <if test="id != null ">
+                and id = #{id}
+            </if>
+            <if test="productCode != null and productCode != ''">
+                and product_code = #{productCode}
+            </if>
+            <if test="productName != null and productName != ''">
+                and product_name = #{productName}
+            </if>
+            <if test="productSize != null and productSize != ''">
+                and product_size = #{productSize}
+            </if>
+            <if test="specification != null and specification != ''">
+                and specification = #{specification}
+            </if>
+            <if test="numMeasureId != null ">
+                and num_measure_id = #{numMeasureId}
+            </if>
+            <if test="numMeasureName != null and numMeasureName != ''">
+                and num_measure_name = #{numMeasureName}
+            </if>
+            <if test="weightMeasureId != null ">
+                and weight_measure_id = #{weightMeasureId}
+            </if>
+            <if test="weightMeasureName != null and weightMeasureName != ''">
+                and weight_measure_name = #{weightMeasureName}
+            </if>
+            <if test="processRouteId != null ">
+                and process_route_id = #{processRouteId}
+            </if>
+            <if test="processRouteName != null and processRouteName != ''">
+                and process_route_name = #{processRouteName}
+            </if>
+            <if test="productTypeId != null ">
+                and product_type_id = #{productTypeId}
+            </if>
+            <if test="productTypeCode != null and productTypeCode != ''">
+                and product_type_code = #{productTypeCode}
+            </if>
+            <if test="productTypeName != null and productTypeName != ''">
+                and product_type_name = #{productTypeName}
+            </if>
+            <if test="version != null ">
+                and version = #{version}
+            </if>
+            <if test="isDeleted != null ">
+                and is_deleted = #{isDeleted}
+            </if>
+            <if test="createBy != null and createBy != ''">
+                and create_by = #{createBy}
+            </if>
+            <if test="createTime != null ">
+                and create_time = #{createTime}
+            </if>
+            <if test="updateBy != null and updateBy != ''">
+                and update_by = #{updateBy}
+            </if>
+            <if test="updateTime != null ">
+                and update_time = #{updateTime}
+            </if>
+            <if test="attr1 != null and attr1 != ''">
+                and attr1 = #{attr1}
+            </if>
+            <if test="attr2 != null ">
+                and attr2 = #{attr2}
+            </if>
+            <if test="attr3 != null and attr3 != ''">
+                and attr3 = #{attr3}
+            </if>
+            <if test="productSizeInternational != null and productSizeInternational != ''">
+                and product_size_international = #{productSizeInternational}
+            </if>
+            <if test=" batchNumber != null and batchNumber != ''">
+                and batch_number = #{batchNumber}
+            </if>
+            <if test="axialType != null and axialType != ''">
+                and axial_type = #{axialType}
+            </if>
+            <if test="coefficient != null and coefficient != ''">
+                and coefficient = #{coefficient}
+            </if>
+            <if test="materialCode != null and materialCode != ''">
+                and material_code = #{materialCode}
+            </if>
+        </where>
+    </select>
+
+    <!--新增数据-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into md_product
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="productCode != null and productCode != ''">product_code,</if>
+            <if test="productName != null and productName != ''">product_name,</if>
+            <if test="productSize != null and productSize != ''">product_size,</if>
+            <if test="specification != null and specification != ''">specification,</if>
+            <if test="numMeasureId != null ">num_measure_id,</if>
+            <if test="numMeasureName != null and numMeasureName != ''">num_measure_name,</if>
+            <if test="weightMeasureId != null ">weight_measure_id,</if>
+            <if test="weightMeasureName != null and weightMeasureName != ''">weight_measure_name,</if>
+            <if test="processRouteId != null ">process_route_id,</if>
+            <if test="processRouteName != null and processRouteName != ''">process_route_name,</if>
+            <if test="productTypeId != null ">product_type_id,</if>
+            <if test="productTypeCode != null and productTypeCode != ''">product_type_code,</if>
+            <if test="productTypeName != null and productTypeName != ''">product_type_name,</if>
+            <if test="version != null ">version,</if>
+            <if test="isDeleted != null ">is_deleted,</if>
+            <if test="createBy != null and createBy != ''">create_by,</if>
+            <if test="createTime != null ">create_time,</if>
+            <if test="updateBy != null and updateBy != ''">update_by,</if>
+            <if test="updateTime != null ">update_time,</if>
+            <if test="attr1 != null and attr1 != ''">attr1,</if>
+            <if test="attr2 != null ">attr2,</if>
+            <if test="attr3 != null and attr3 != ''">attr3,</if>
+            <if test="productSizeInternational != null and productSizeInternational != ''">product_size_international,</if>
+            <if test=" batchNumber != null and batchNumber != ''">
+                 batch_number,
+            </if>
+            <if test="axialType != null and axialType != ''">
+                 axial_type,
+            </if>
+            <if test="coefficient != null and coefficient != ''">
+                coefficient,
+            </if>
+            <if test="materialCode != null and materialCode != ''">
+                material_code
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="productCode != null and productCode != ''">#{productCode},</if>
+            <if test="productName != null and productName != ''">#{productName},</if>
+            <if test="productSize != null and productSize != ''">#{productSize},</if>
+            <if test="specification != null and specification != ''">#{specification},</if>
+            <if test="numMeasureId != null ">#{numMeasureId},</if>
+            <if test="numMeasureName != null and numMeasureName != ''">#{numMeasureName},</if>
+            <if test="weightMeasureId != null ">#{weightMeasureId},</if>
+            <if test="weightMeasureName != null and weightMeasureName != ''">#{weightMeasureName},</if>
+            <if test="processRouteId != null ">#{processRouteId},</if>
+            <if test="processRouteName != null and processRouteName != ''">#{processRouteName},</if>
+            <if test="productTypeId != null ">#{productTypeId},</if>
+            <if test="productTypeCode != null and productTypeCode != ''">#{productTypeCode},</if>
+            <if test="productTypeName != null and productTypeName != ''">#{productTypeName},</if>
+            <if test="version != null ">#{version},</if>
+            <if test="isDeleted != null ">#{isDeleted},</if>
+            <if test="createBy != null and createBy != ''">#{createBy},</if>
+            <if test="createTime != null ">#{createTime},</if>
+            <if test="updateBy != null and updateBy != ''">#{updateBy},</if>
+            <if test="updateTime != null ">#{updateTime},</if>
+            <if test="attr1 != null and attr1 != ''">#{attr1},</if>
+            <if test="attr2 != null ">#{attr2},</if>
+            <if test="attr3 != null and attr3 != ''">#{attr3},</if>
+            <if test="productSizeInternational != null and productSizeInternational != ''">#{productSizeInternational},</if>
+            <if test=" batchNumber != null and batchNumber != ''">
+                #{batchNumber},
+            </if>
+            <if test="axialType != null and axialType != ''">
+                #{axialType},
+            </if>
+            <if test="coefficient != null and coefficient != ''">
+                #{coefficient},
+            </if>
+            <if test="materialCode != null and materialCode != ''">
+                #{materialCode}
+            </if>
+        </trim>
+    </insert>
+
+    <!-- 批量新增数据 -->
+    <!--<insert id="insertBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into md_product
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="productCode != null and productCode != ''">product_code,</if>
+            <if test="productName != null and productName != ''">product_name,</if>
+            <if test="productSize != null and productSize != ''">product_size,</if>
+            <if test="specification != null and specification != ''">specification,</if>
+            <if test="numMeasureId != null ">num_measure_id,</if>
+            <if test="numMeasureName != null and numMeasureName != ''">num_measure_name,</if>
+            <if test="weightMeasureId != null ">weight_measure_id,</if>
+            <if test="weightMeasureName != null and weightMeasureName != ''">weight_measure_name,</if>
+            <if test="processRouteId != null ">process_route_id,</if>
+            <if test="processRouteName != null and processRouteName != ''">process_route_name,</if>
+            <if test="productTypeId != null ">product_type_id,</if>
+            <if test="productTypeCode != null and productTypeCode != ''">product_type_code,</if>
+            <if test="productTypeName != null and productTypeName != ''">product_type_name,</if>
+            <if test="version != null ">version,</if>
+            <if test="isDeleted != null ">is_deleted,</if>
+            <if test="createBy != null and createBy != ''">create_by,</if>
+            <if test="createTime != null ">create_time,</if>
+            <if test="updateBy != null and updateBy != ''">update_by,</if>
+            <if test="updateTime != null ">update_time,</if>
+            <if test="attr1 != null and attr1 != ''">attr1,</if>
+            <if test="attr2 != null ">attr2,</if>
+            <if test="attr3 != null and attr3 != ''">attr3,</if>
+        </trim>
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            <trim prefix="(" suffix=")" suffixOverrides=",">
+                    <if test="entity.id != null ">#{entity.id},</if>
+                    <if test="entity.productCode != null and entity.productCode != ''">#{entity.productCode},</if>
+                    <if test="entity.productName != null and entity.productName != ''">#{entity.productName},</if>
+                    <if test="entity.productSize != null and entity.productSize != ''">#{entity.productSize},</if>
+                    <if test="entity.specification != null and entity.specification != ''">#{entity.specification},</if>
+                    <if test="entity.numMeasureId != null ">#{entity.numMeasureId},</if>
+                    <if test="entity.numMeasureName != null and entity.numMeasureName != ''">#{entity.numMeasureName},</if>
+                    <if test="entity.weightMeasureId != null ">#{entity.weightMeasureId},</if>
+                    <if test="entity.weightMeasureName != null and entity.weightMeasureName != ''">#{entity.weightMeasureName},</if>
+                    <if test="entity.processRouteId != null ">#{entity.processRouteId},</if>
+                    <if test="entity.processRouteName != null and entity.processRouteName != ''">#{entity.processRouteName},</if>
+                    <if test="entity.productTypeId != null ">#{entity.productTypeId},</if>
+                    <if test="entity.productTypeCode != null and entity.productTypeCode != ''">#{entity.productTypeCode},</if>
+                    <if test="entity.productTypeName != null and entity.productTypeName != ''">#{entity.productTypeName},</if>
+                    <if test="entity.version != null ">#{entity.version},</if>
+                    <if test="entity.isDeleted != null ">#{entity.isDeleted},</if>
+                    <if test="entity.createBy != null and entity.createBy != ''">#{entity.createBy},</if>
+                    <if test="entity.createTime != null ">#{entity.createTime},</if>
+                    <if test="entity.updateBy != null and entity.updateBy != ''">#{entity.updateBy},</if>
+                    <if test="entity.updateTime != null ">#{entity.updateTime},</if>
+                    <if test="entity.attr1 != null and entity.attr1 != ''">#{entity.attr1},</if>
+                    <if test="entity.attr2 != null ">#{entity.attr2},</if>
+                    <if test="entity.attr3 != null and entity.attr3 != ''">#{entity.attr3},</if>
+            </trim>
+        </foreach>
+    </insert>-->
+
+    <!-- 批量新增或按主键更新数据 -->
+    <insert id="insertOrUpdateBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into md_product(id,product_code,product_name,product_size,specification,num_measure_id,num_measure_name,weight_measure_id,weight_measure_name,process_route_id,process_route_name,product_type_id,product_type_code,product_type_name,version,is_deleted,create_by,create_time,update_by,update_time,attr1,attr2,attr3,product_size_international,batch_number,axial_type,coefficient,material_code)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.id},#{entity.productCode},#{entity.productName},#{entity.productSize},#{entity.specification},#{entity.numMeasureId},#{entity.numMeasureName},#{entity.weightMeasureId},#{entity.weightMeasureName},#{entity.processRouteId},#{entity.processRouteName},#{entity.productTypeId},#{entity.productTypeCode},#{entity.productTypeName},#{entity.version},#{entity.isDeleted},#{entity.createBy},#{entity.createTime},#{entity.updateBy},#{entity.updateTime},#{entity.attr1},#{entity.attr2},#{entity.attr3},#{entity.productSizeInternational},#{entity.batchNumber},#{entity.axialType},#{entity.coefficient},#{entity.materialCode})
+        </foreach>
+        on duplicate key update
+        id=values(id),
+        product_code=values(product_code),
+        product_name=values(product_name),
+        product_size=values(product_size),
+        specification=values(specification),
+        num_measure_id=values(num_measure_id),
+        num_measure_name=values(num_measure_name),
+        weight_measure_id=values(weight_measure_id),
+        weight_measure_name=values(weight_measure_name),
+        process_route_id=values(process_route_id),
+        process_route_name=values(process_route_name),
+        product_type_id=values(product_type_id),
+        product_type_code=values(product_type_code),
+        product_type_name=values(product_type_name),
+        version=values(version),
+        is_deleted=values(is_deleted),
+        create_by=values(create_by),
+        create_time=values(create_time),
+        update_by=values(update_by),
+        update_time=values(update_time),
+        attr1=values(attr1),
+        attr2=values(attr2),
+        attr3=values(attr3),
+        product_size_international=values(product_size_international),
+        batch_number=values(batch_number),
+        axial_type=values(axial_type),
+        coefficient=values(coefficient),
+        material_code=values(material_code)
+    </insert>
+
+    <!-- 更新数据 -->
+    <update id="update">
+        update md_product
+        <set>
+            <trim suffixOverrides=",">
+                <if test="productCode != null">
+                    product_code = #{productCode},
+                </if>
+                <if test="productName != null">
+                    product_name = #{productName},
+                </if>
+                <if test="productSize != null">
+                    product_size = #{productSize},
+                </if>
+                <if test="specification != null">
+                    specification = #{specification},
+                </if>
+                <if test="numMeasureId != null">
+                    num_measure_id = #{numMeasureId},
+                </if>
+                <if test="numMeasureName != null">
+                    num_measure_name = #{numMeasureName},
+                </if>
+                <if test="weightMeasureId != null">
+                    weight_measure_id = #{weightMeasureId},
+                </if>
+                <if test="weightMeasureName != null">
+                    weight_measure_name = #{weightMeasureName},
+                </if>
+                <if test="processRouteId != null">
+                    process_route_id = #{processRouteId},
+                </if>
+                <if test="processRouteName != null">
+                    process_route_name = #{processRouteName},
+                </if>
+                <if test="productTypeId != null">
+                    product_type_id = #{productTypeId},
+                </if>
+                <if test="productTypeCode != null">
+                    product_type_code = #{productTypeCode},
+                </if>
+                <if test="productTypeName != null">
+                    product_type_name = #{productTypeName},
+                </if>
+                <if test="version != null">
+                    version = #{version}+1,
+                </if>
+                <if test="isDeleted != null">
+                    is_deleted = #{isDeleted},
+                </if>
+                <if test="createBy != null">
+                    create_by = #{createBy},
+                </if>
+                <if test="createTime != null">
+                    create_time = #{createTime},
+                </if>
+                <if test="updateBy != null">
+                    update_by = #{updateBy},
+                </if>
+                <if test="updateTime != null">
+                    update_time = #{updateTime},
+                </if>
+                <if test="attr1 != null">
+                    attr1 = #{attr1},
+                </if>
+                <if test="attr2 != null">
+                    attr2 = #{attr2},
+                </if>
+                <if test="attr3 != null">
+                    attr3 = #{attr3},
+                </if>
+                <if test="productSizeInternational != null">
+                    product_size_international = #{productSizeInternational},
+                </if>
+                <if test=" batchNumber != null and batchNumber != ''">
+                     batch_number = #{batchNumber},
+                </if>
+                <if test="axialType != null and axialType != ''">
+                     axial_type = #{axialType},
+                </if>
+                <if test="coefficient != null and coefficient != ''">
+                     coefficient = #{coefficient},
+                </if>
+                <if test="materialCode != null and materialCode != ''">
+                     material_code = #{materialCode}
+                </if>
+            </trim>
+        </set>
+        where id = #{id} and version = #{version}
+    </update>
+
+    <!--逻辑删除-->
+    <update id="deleteById">
+        update md_product set is_deleted = 1 where id = #{id}
+    </update>
+
+    <!--批量逻辑删除-->
+    <update id="deleteByIds">
+        update md_product set is_deleted = 1 where id in
+        <foreach collection="array" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </update>
+
+    <!--物理删除-->
+    <delete id="removeById">
+        delete from md_product where id = #{id}
+    </delete>
+
+    <!-- 获取产品列表，按型号分类 -->
+    <select id="getProductList" resultMap="MdProductMap">
+        <include refid="MdProductVo"/>
+        where is_deleted = 0
+        GROUP BY product_size
+    </select>
+    <select id="queryBypTypeId" resultMap="MdProductMap">
+        <include refid="MdProductVo"/>
+        where is_deleted = 0 and product_type_id=#{productTypeId}
+    </select>
+    <select id="selectByParam" resultMap="MdProductMap">
+        <include refid="MdProductVo"/>
+        where is_deleted = 0
+        <if test="productTypeName != null">
+            and product_type_name = #{productTypeName}
+        </if>
+        <if test=" batchNumber != null and batchNumber != ''">
+            and batch_number = #{batchNumber}
+        </if>
+        <if test="specification != null">
+            and specification = #{specification}
+        </if>
+    </select>
+    <select id="getProductListBySpec" resultMap="MdProductMap">
+        <include refid="MdProductVo"/>
+        where is_deleted = 0 and product_size in
+        <foreach collection="productSize" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+    <select id="queryByproductCode" resultMap="MdProductMap">
+        <include refid="MdProductVo"/>
+        where product_code in
+        <foreach collection="productCode" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+</mapper>

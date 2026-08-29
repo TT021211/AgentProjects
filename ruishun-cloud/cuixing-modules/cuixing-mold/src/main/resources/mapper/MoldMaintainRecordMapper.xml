@@ -1,0 +1,338 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cuixing.mold.mapper.MoldMaintainRecordMapper">
+
+    <resultMap type="com.cuixing.mold.entity.MoldMaintainRecord" id="MoldMaintainRecordMap">
+        <result property="maintainRecordId" column="maintain_record_id" jdbcType="INTEGER"/>
+        <result property="maintainRecordType" column="maintain_record_type" jdbcType="VARCHAR"/>
+        <result property="nestingMoldId" column="nesting_mold_id" jdbcType="INTEGER"/>
+        <result property="maintainPlanId" column="maintain_plan_id" jdbcType="INTEGER"/>
+        <result property="maintainItemId" column="maintain_item_id" jdbcType="VARCHAR"/>
+        <result property="status" column="status" jdbcType="VARCHAR"/>
+        <result property="attr1" column="attr1" jdbcType="VARCHAR"/>
+        <result property="attr2" column="attr2" jdbcType="VARCHAR"/>
+        <result property="attr3" column="attr3" jdbcType="INTEGER"/>
+        <result property="attr4" column="attr4" jdbcType="INTEGER"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="createBy" column="create_by" jdbcType="VARCHAR"/>
+        <result property="updateBy" column="update_by" jdbcType="VARCHAR"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+        <result property="maintainPlanName" column="plan_name" jdbcType="VARCHAR"/>
+        <result property="maintainPlanType" column="plan_type" jdbcType="VARCHAR"/>
+        <result property="nestingName" column="nesting_name" jdbcType="VARCHAR"/>
+        <result property="nestingScope" column="nesting_scope" jdbcType="VARCHAR"/>
+        <result property="nestingArea" column="nesting_area" jdbcType="VARCHAR"/>
+        <result property="clientId" column="client_id" jdbcType="INTEGER"/>
+        <result property="clientName" column="client_name" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="selectMoldMaintainRecordVo">
+        SELECT maintain_record_id,
+               maintain_record_type,
+               nesting_mold_id,
+               maintain_plan_id,
+               maintain_item_id,
+               status,
+               attr1,
+               attr2,
+               attr3,
+               attr4,
+               create_time,
+               create_by,
+               update_by,
+               update_time,
+               plan_name,
+               plan_type,
+               nesting_name,
+               nesting_scope,
+               nesting_area,
+               client_id,
+               client_name
+        FROM mold_maintain_record
+    </sql>
+
+    <select id="selectMoldMaintainRecordList" parameterType="MoldMaintainRecord" resultMap="MoldMaintainRecordMap">
+        <include refid="selectMoldMaintainRecordVo"/>
+        <where>
+            <if test="maintainRecordId != null">
+                and maintain_record_id = #{maintainRecordId}
+            </if>
+            <if test="maintainRecordType != null and maintainRecordType != ''">
+                and maintain_record_type = #{maintainRecordType}
+            </if>
+            <if test="nestingMoldId != null">
+                and nesting_mold_id = #{nestingMoldId}
+            </if>
+            <if test="maintainPlanId != null">
+                and maintain_plan_id = #{maintainPlanId}
+            </if>
+            <if test="maintainItemId != null and maintainItemId != ''">
+                and maintain_item_id = #{maintainItemId}
+            </if>
+            <if test="status != null and status != ''">
+                and status = #{status}
+            </if>
+            <if test="attr1 != null and attr1 != ''">
+                and attr1 = #{attr1}
+            </if>
+            <if test="attr2 != null and attr2 != ''">
+                and attr2 = #{attr2}
+            </if>
+            <if test="attr3 != null">
+                and attr3 = #{attr3}
+            </if>
+            <if test="attr4 != null">
+                and attr4 = #{attr4}
+            </if>
+            <if test="startDate != null and endDate != null">
+                and create_time BETWEEN #{startDate} AND #{endDate}
+            </if>
+            <if test="createBy != null and createBy != ''">
+                and create_by = #{createBy}
+            </if>
+            <if test="updateBy != null and updateBy != ''">
+                and update_by = #{updateBy}
+            </if>
+            <if test="updateTime != null">
+                and update_time = #{updateTime}
+            </if>
+            <if test="maintainPlanName != null and maintainPlanName != ''">
+                and plan_name = #{maintainPlanName}
+            </if>
+            <if test="maintainPlanType != null and maintainPlanType != ''">
+                and plan_type = #{maintainPlanType}
+            </if>
+            <if test="nestingName != null and nestingName != ''">
+                and nesting_name = #{nestingName}
+            </if>
+            <if test="nestingScope != null and nestingScope != ''">
+                and nesting_scope = #{nestingScope}
+            </if>
+            <if test="nestingArea != null and nestingArea != ''">
+                and nesting_area = #{nestingArea}
+            </if>
+            <if test="clientId != null">
+                and client_id = #{clientId}
+            </if>
+            <if test="clientName != null and clientName != ''">
+                and client_name = #{clientName}
+            </if>
+        </where>
+        ORDER BY
+        CASE
+        WHEN update_time IS NOT NULL THEN update_time
+        ELSE create_time
+        END DESC
+    </select>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="MoldMaintainRecordMap">
+        <include refid="selectMoldMaintainRecordVo"/>
+        where maintain_record_id = #{maintainRecordId}
+    </select>
+
+    <!--统计总行数-->
+    <select id="count" resultType="java.lang.Long">
+        select count(1)
+        from mold_maintain_record
+        <where>
+            <if test="maintainRecordId != null">
+                and maintain_record_id = #{maintainRecordId}
+            </if>
+            <if test="maintainRecordType != null and maintainRecordType != ''">
+                and maintain_record_type = #{maintainRecordType}
+            </if>
+            <if test="nestingMoldId != null">
+                and nesting_mold_id = #{nestingMoldId}
+            </if>
+            <if test="maintainPlanId != null">
+                and maintain_plan_id = #{maintainPlanId}
+            </if>
+            <if test="maintainItemId != null and maintainItemId != ''">
+                and maintain_item_id = #{maintainItemId}
+            </if>
+            <if test="status != null and status != ''">
+                and status = #{status}
+            </if>
+            <if test="attr1 != null and attr1 != ''">
+                and attr1 = #{attr1}
+            </if>
+            <if test="attr2 != null and attr2 != ''">
+                and attr2 = #{attr2}
+            </if>
+            <if test="attr3 != null">
+                and attr3 = #{attr3}
+            </if>
+            <if test="attr4 != null">
+                and attr4 = #{attr4}
+            </if>
+            <if test="createTime != null">
+                and create_time = #{createTime}
+            </if>
+            <if test="createBy != null and createBy != ''">
+                and create_by = #{createBy}
+            </if>
+            <if test="updateBy != null and updateBy != ''">
+                and update_by = #{updateBy}
+            </if>
+            <if test="updateTime != null">
+                and update_time = #{updateTime}
+            </if>
+            <if test="maintainPlanName != null and maintainPlanName != ''">
+                and plan_name = #{maintainPlanName}
+            </if>
+            <if test="maintainPlanType != null and maintainPlanType != ''">
+                and plan_type = #{maintainPlanType}
+            </if>
+            <if test="nestingName != null and nestingName != ''">
+                and nesting_name = #{nestingName}
+            </if>
+            <if test="nestingScope != null and nestingScope != ''">
+                and nesting_scope = #{nestingScope}
+            </if>
+            <if test="nestingArea != null and nestingArea != ''">
+                and nesting_area = #{nestingArea}
+            </if>
+            <if test="clientId != null">
+                and client_id = #{clientId}
+            </if>
+            <if test="clientName != null and clientName != ''">
+                and client_name = #{clientName}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="maintainRecordId" useGeneratedKeys="true">
+        insert into mold_maintain_record(maintain_record_type, nesting_mold_id, maintain_plan_id, maintain_item_id,
+                                         status, attr1, attr2, attr3, attr4, create_time, create_by, update_by,
+                                         update_time, plan_name, plan_type, nesting_name, nesting_scope, nesting_area,
+                                         client_id, client_name)
+        values (#{maintainRecordType}, #{nestingMoldId}, #{maintainPlanId}, #{maintainItemId}, #{status}, #{attr1},
+                #{attr2}, #{attr3}, #{attr4}, #{createTime}, #{createBy}, #{updateBy}, #{updateTime}, #{maintainPlanName},
+                #{maintainPlanType}, #{nestingName}, #{nestingScope}, #{nestingArea}, #{clientId}, #{clientName})
+    </insert>
+
+    <insert id="insertBatch" keyProperty="maintainRecordId" useGeneratedKeys="true">
+        insert into mold_maintain_record(maintain_record_type, nesting_mold_id, maintain_plan_id, maintain_item_id,
+        status, attr1, attr2, attr3, attr4, create_time, create_by, update_by, update_time, plan_name, plan_type, nesting_name, nesting_scope, nesting_area, client_id, client_name)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.maintainRecordType}, #{entity.nestingMoldId}, #{entity.maintainPlanId}, #{entity.maintainItemId},
+            #{entity.status}, #{entity.attr1}, #{entity.attr2}, #{entity.attr3}, #{entity.attr4}, #{entity.createTime},
+            #{entity.createBy}, #{entity.updateBy}, #{entity.updateTime}, #{entity.maintainPlanName}, #{entity.maintainPlanType},
+            #{entity.nestingName}, #{entity.nestingScope}, #{entity.nestingArea}, #{entity.clientId}, #{entity.clientName})
+        </foreach>
+    </insert>
+
+    <insert id="insertOrUpdateBatch" keyProperty="maintainRecordId" useGeneratedKeys="true">
+        insert into mold_maintain_record(maintain_record_type, nesting_mold_id, maintain_plan_id, maintain_item_id,
+        status, attr1, attr2, attr3, attr4, create_time, create_by, update_by, update_time, plan_name, plan_type, nesting_name, nesting_scope, nesting_area, client_id, client_name)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.maintainRecordType}, #{entity.nestingMoldId}, #{entity.maintainPlanId}, #{entity.maintainItemId},
+            #{entity.status}, #{entity.attr1}, #{entity.attr2}, #{entity.attr3}, #{entity.attr4}, #{entity.createTime},
+            #{entity.createBy}, #{entity.updateBy}, #{entity.updateTime}, #{entity.maintainPlanName}, #{entity.maintainPlanType},
+            #{entity.nestingName}, #{entity.nestingScope}, #{entity.nestingArea}, #{entity.clientId}, #{entity.clientName})
+        </foreach>
+        on duplicate key update
+        maintain_record_type = values(maintain_record_type),
+        nesting_mold_id = values(nesting_mold_id),
+        maintain_plan_id = values(maintain_plan_id),
+        maintain_item_id = values(maintain_item_id),
+        status = values(status),
+        attr1 = values(attr1),
+        attr2 = values(attr2),
+        attr3 = values(attr3),
+        attr4 = values(attr4),
+        create_time = values(create_time),
+        create_by = values(create_by),
+        update_by = values(update_by),
+        update_time = values(update_time),
+        plan_name = values(plan_name),
+        plan_type = values(plan_type),
+        nesting_name = values(nesting_name),
+        nesting_scope = values(nesting_scope),
+        nesting_area = values(nesting_area),
+        client_id = values(client_id),
+        client_name = values(client_name)
+    </insert>
+
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update mold_maintain_record
+        <set>
+            <if test="maintainRecordType != null and maintainRecordType != ''">
+                maintain_record_type = #{maintainRecordType},
+            </if>
+            <if test="nestingMoldId != null">
+                nesting_mold_id = #{nestingMoldId},
+            </if>
+            <if test="maintainPlanId != null">
+                maintain_plan_id = #{maintainPlanId},
+            </if>
+            <if test="maintainItemId != null and maintainItemId != ''">
+                maintain_item_id = #{maintainItemId},
+            </if>
+            <if test="status != null and status != ''">
+                status = #{status},
+            </if>
+            <if test="attr1 != null and attr1 != ''">
+                attr1 = #{attr1},
+            </if>
+            <if test="attr2 != null and attr2 != ''">
+                attr2 = #{attr2},
+            </if>
+            <if test="attr3 != null">
+                attr3 = #{attr3},
+            </if>
+            <if test="attr4 != null">
+                attr4 = #{attr4},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime},
+            </if>
+            <if test="createBy != null and createBy != ''">
+                create_by = #{createBy},
+            </if>
+            <if test="updateBy != null and updateBy != ''">
+                update_by = #{updateBy},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime},
+            </if>
+            <if test="maintainPlanName != null and maintainPlanName != ''">
+                plan_name = #{maintainPlanName},
+            </if>
+            <if test="maintainPlanType != null and maintainPlanType != ''">
+                plan_type = #{maintainPlanType},
+            </if>
+            <if test="nestingName != null and nestingName != ''">
+                nesting_name = #{nestingName},
+            </if>
+            <if test="nestingScope != null and nestingScope != ''">
+                nesting_scope = #{nestingScope},
+            </if>
+            <if test="nestingArea != null and nestingArea != ''">
+                nesting_area = #{nestingArea},
+            </if>
+            <if test="clientId != null">
+                client_id = #{clientId},
+            </if>
+            <if test="clientName != null and clientName != ''">
+                client_name = #{clientName},
+            </if>
+        </set>
+        where maintain_record_id = #{maintainRecordId}
+    </update>
+
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete
+        from mold_maintain_record
+        where maintain_record_id = #{maintainRecordId}
+    </delete>
+
+</mapper>

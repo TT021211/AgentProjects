@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="cx-common-core" />
+        <module name="cuixing-modules-mold" />
+        <module name="cuixing-modules-eq" />
+        <module name="cuixing-modules-gen" />
+        <module name="cuixing-modules-ecm" />
+        <module name="cx-common-seata" />
+        <module name="enterprise-agent-platform" />
+        <module name="cuixing-api-system" />
+        <module name="cuixing-visual-monitor" />
+        <module name="cuixing-modules-job" />
+        <module name="cuixing-modules-md" />
+        <module name="cx-common-swagger" />
+        <module name="cx-common-log" />
+        <module name="cuixing-ws" />
+        <module name="cx-common-redis" />
+        <module name="cuixing-modules-qc" />
+        <module name="cx-common-datasource" />
+        <module name="cx-common-datascope" />
+        <module name="cuixing-modules-report" />
+        <module name="cuixing-modules-file" />
+        <module name="cuixing-modules-purchase" />
+        <module name="cuixing-modules-wms" />
+        <module name="cuixing-modules-mes" />
+        <module name="cuixing-modules-system" />
+        <module name="cuixing-auth" />
+        <module name="cuixing-gateway" />
+        <module name="cuixing-modules-sale" />
+        <module name="cuixing-modules-crm" />
+        <module name="cx-common-security" />
+        <module name="cx-common-rabbitmq" />
+      </profile>
+    </annotationProcessing>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="enterprise-agent-platform" options="-parameters" />
+    </option>
+  </component>
+</project>

@@ -1,0 +1,996 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cuixing.md.mapper.MdClientMapper">
+    <resultMap type="com.cuixing.system.api.domain.md.MdClient" id="MdClientMap">
+        <result property="id" column="id" jdbcType="BIGINT"/>
+        <result property="clientCode" column="client_code" jdbcType="VARCHAR"/>
+        <result property="clientName" column="client_name" jdbcType="VARCHAR"/>
+        <result property="clientNick" column="client_nick" jdbcType="VARCHAR"/>
+        <result property="clientEn" column="client_en" jdbcType="VARCHAR"/>
+        <result property="clientDes" column="client_des" jdbcType="VARCHAR"/>
+        <result property="clientLogo" column="client_logo" jdbcType="VARCHAR"/>
+        <result property="clientType" column="client_type" jdbcType="VARCHAR"/>
+        <result property="address" column="address" jdbcType="VARCHAR"/>
+        <result property="website" column="website" jdbcType="VARCHAR"/>
+        <result property="email" column="email" jdbcType="VARCHAR"/>
+        <result property="tel" column="tel" jdbcType="VARCHAR"/>
+        <result property="bankName" column="bank_name" jdbcType="VARCHAR"/>
+        <result property="bankAccount" column="bank_account" jdbcType="VARCHAR"/>
+        <result property="legalPersonName" column="legal_person_name" jdbcType="VARCHAR"/>
+        <result property="legalPersonIdcard" column="legal_person_idcard" jdbcType="VARCHAR"/>
+        <result property="legalPersonPhone" column="legal_person_phone" jdbcType="VARCHAR"/>
+        <result property="contact1" column="contact1" jdbcType="VARCHAR"/>
+        <result property="contact1Tel" column="contact1_tel" jdbcType="VARCHAR"/>
+        <result property="contact1Email" column="contact1_email" jdbcType="VARCHAR"/>
+        <result property="contact1Title" column="contact1_title" jdbcType="VARCHAR"/>
+        <result property="contact1Phone" column="contact1_phone" jdbcType="VARCHAR"/>
+        <result property="contact1Fax" column="contact1_fax" jdbcType="VARCHAR"/>
+        <result property="contact2" column="contact2" jdbcType="VARCHAR"/>
+        <result property="contact2Tel" column="contact2_tel" jdbcType="VARCHAR"/>
+        <result property="contact2Email" column="contact2_email" jdbcType="VARCHAR"/>
+        <result property="contact2Title" column="contact2_title" jdbcType="VARCHAR"/>
+        <result property="contact2Phone" column="contact2_phone" jdbcType="VARCHAR"/>
+        <result property="contact2Fax" column="contact2_fax" jdbcType="VARCHAR"/>
+        <result property="foundingTime" column="founding_time" jdbcType="VARCHAR"/>
+        <result property="registeredCapital" column="registered_capital" jdbcType="VARCHAR"/>
+        <result property="taxpayerType" column="taxpayer_type" jdbcType="INTEGER"/>
+        <result property="creditCode" column="credit_code" jdbcType="VARCHAR"/>
+        <result property="businessScope" column="business_scope" jdbcType="VARCHAR"/>
+        <result property="ifDistributor" column="if_distributor" jdbcType="INTEGER"/>
+        <result property="leadSource" column="lead_source" jdbcType="INTEGER"/>
+        <result property="leadSourceId" column="lead_source_id" jdbcType="BIGINT"/>
+        <result property="leadSourceName" column="lead_source_name" jdbcType="VARCHAR"/>
+        <result property="pricingModel" column="pricing_model" jdbcType="VARCHAR"/>
+        <result property="products" column="products" jdbcType="VARCHAR"/>
+        <result property="productsNum" column="products_num" jdbcType="VARCHAR"/>
+        <result property="paymentMethod" column="payment_method" jdbcType="INTEGER"/>
+        <result property="requirement" column="requirement" jdbcType="VARCHAR"/>
+        <result property="reviewer1" column="reviewer1" jdbcType="VARCHAR"/>
+        <result property="reviewer2" column="reviewer2" jdbcType="VARCHAR"/>
+        <result property="salesmanId" column="salesman_id" jdbcType="BIGINT"/>
+        <result property="salesmanName" column="salesman_name" jdbcType="VARCHAR"/>
+        <result property="salesmanPhone" column="salesman_phone" jdbcType="VARCHAR"/>
+        <result property="isEnabled" column="is_enabled" jdbcType="INTEGER"/>
+        <result property="attr1" column="attr1" jdbcType="VARCHAR"/>
+        <result property="attr2" column="attr2" jdbcType="INTEGER"/>
+        <result property="attr3" column="attr3" jdbcType="VARCHAR"/>
+        <result property="createBy" column="create_by" jdbcType="VARCHAR"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="updateBy" column="update_by" jdbcType="VARCHAR"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+        <result property="remark" column="remark" jdbcType="VARCHAR"/>
+        <result property="version" column="version" jdbcType="INTEGER"/>
+        <result property="isDeleted" column="is_deleted" jdbcType="INTEGER"/>
+        <result property="erpJson" column="erp_json" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!-- 通过ID查询单条数据 -->
+    <select id="queryById" resultMap="MdClientMap">
+        select
+        id,client_code,client_name,client_nick,client_en,client_des,client_logo,client_type,address,website,email,tel,bank_name,bank_account,legal_person_name,legal_person_idcard,legal_person_phone,contact1,contact1_tel,contact1_email,contact1_title,contact1_phone,contact1_fax,contact2,contact2_tel,contact2_email,contact2_title,contact2_phone,contact2_fax,founding_time,registered_capital,taxpayer_type,credit_code,business_scope,if_distributor,lead_source,lead_source_id,lead_source_name,pricing_model,products,products_num,payment_method,requirement,reviewer1,reviewer2,salesman_id,salesman_name,salesman_phone,is_enabled,attr1,attr2,attr3,create_by,create_time,update_by,update_time,remark,version,is_deleted,erp_json
+        from md_client
+        where is_deleted = 0 and id = #{id}
+    </select>
+
+    <!--分页查询指定行数据-->
+    <select id="selectMdClientList" resultMap="MdClientMap" parameterType="MdClient">
+        select
+        d.id,d.client_code,d.client_name,d.client_nick,d.client_en,d.client_des,d.client_logo,d.client_type,d.address,d.website,d.email,d.tel,d.bank_name,d.bank_account,d.legal_person_name,d.legal_person_idcard,d.legal_person_phone,d.contact1,d.contact1_tel,d.contact1_email,d.contact1_title,d.contact1_phone,d.contact1_fax,d.contact2,d.contact2_tel,d.contact2_email,d.contact2_title,d.contact2_phone,d.contact2_fax,d.founding_time,d.registered_capital,d.taxpayer_type,d.credit_code,d.business_scope,d.if_distributor,d.lead_source,d.lead_source_id,d.lead_source_name,d.pricing_model,d.products,d.products_num,d.payment_method,d.requirement,d.reviewer1,d.reviewer2,d.salesman_id,d.salesman_name,d.salesman_phone,d.is_enabled,d.attr1,d.attr2,d.attr3,d.create_by,d.create_time,d.update_by,d.update_time,d.remark,d.version,d.is_deleted,d.erp_json
+        from md_client d
+        <where>
+            is_deleted = 0
+            <if test="id != null ">
+                and id = #{id}
+            </if>
+            <if test="clientCode != null and clientCode != ''">
+                and client_code = #{clientCode}
+            </if>
+            <if test="clientName != null and clientName != ''">
+                and client_name = #{clientName}
+            </if>
+            <if test="clientNick != null and clientNick != ''">
+                and client_nick = #{clientNick}
+            </if>
+            <if test="clientEn != null and clientEn != ''">
+                and client_en = #{clientEn}
+            </if>
+            <if test="clientDes != null and clientDes != ''">
+                and client_des = #{clientDes}
+            </if>
+            <if test="clientLogo != null and clientLogo != ''">
+                and client_logo = #{clientLogo}
+            </if>
+            <if test="clientType != null and clientType != ''">
+                and client_type = #{clientType}
+            </if>
+            <if test="address != null and address != ''">
+                and address = #{address}
+            </if>
+            <if test="website != null and website != ''">
+                and website = #{website}
+            </if>
+            <if test="email != null and email != ''">
+                and email = #{email}
+            </if>
+            <if test="tel != null and tel != ''">
+                and tel = #{tel}
+            </if>
+            <if test="bankName != null and bankName != ''">
+                and bank_name = #{bankName}
+            </if>
+            <if test="bankAccount != null and bankAccount != ''">
+                and bank_account = #{bankAccount}
+            </if>
+            <if test="legalPersonName != null and legalPersonName != ''">
+                and legal_person_name = #{legalPersonName}
+            </if>
+            <if test="legalPersonIdcard != null and legalPersonIdcard != ''">
+                and legal_person_idcard = #{legalPersonIdcard}
+            </if>
+            <if test="legalPersonPhone != null and legalPersonPhone != ''">
+                and legal_person_phone = #{legalPersonPhone}
+            </if>
+            <if test="contact1 != null and contact1 != ''">
+                and contact1 = #{contact1}
+            </if>
+            <if test="contact1Tel != null and contact1Tel != ''">
+                and contact1_tel = #{contact1Tel}
+            </if>
+            <if test="contact1Email != null and contact1Email != ''">
+                and contact1_email = #{contact1Email}
+            </if>
+            <if test="contact1Title != null and contact1Title != ''">
+                and contact1_title = #{contact1Title}
+            </if>
+            <if test="contact1Phone != null and contact1Phone != ''">
+                and contact1_phone = #{contact1Phone}
+            </if>
+            <if test="contact1Fax != null and contact1Fax != ''">
+                and contact1_fax = #{contact1Fax}
+            </if>
+            <if test="contact2 != null and contact2 != ''">
+                and contact2 = #{contact2}
+            </if>
+            <if test="contact2Tel != null and contact2Tel != ''">
+                and contact2_tel = #{contact2Tel}
+            </if>
+            <if test="contact2Email != null and contact2Email != ''">
+                and contact2_email = #{contact2Email}
+            </if>
+            <if test="contact2Title != null and contact2Title != ''">
+                and contact2_title = #{contact2Title}
+            </if>
+            <if test="contact2Phone != null and contact2Phone != ''">
+                and contact2_phone = #{contact2Phone}
+            </if>
+            <if test="contact2Fax != null and contact2Fax != ''">
+                and contact2_fax = #{contact2Fax}
+            </if>
+            <if test="foundingTime != null and foundingTime != ''">
+                and founding_time = #{foundingTime}
+            </if>
+            <if test="registeredCapital != null and registeredCapital != ''">
+                and registered_capital = #{registeredCapital}
+            </if>
+            <if test="taxpayerType != null ">
+                and taxpayer_type = #{taxpayerType}
+            </if>
+            <if test="creditCode != null and creditCode != ''">
+                and credit_code = #{creditCode}
+            </if>
+            <if test="businessScope != null and businessScope != ''">
+                and business_scope = #{businessScope}
+            </if>
+            <if test="ifDistributor != null ">
+                and if_distributor = #{ifDistributor}
+            </if>
+            <if test="leadSource != null ">
+                and lead_source = #{leadSource}
+            </if>
+            <if test="leadSourceId != null ">
+                and lead_source_id = #{leadSourceId}
+            </if>
+            <if test="leadSourceName != null and leadSourceName != ''">
+                and lead_source_name = #{leadSourceName}
+            </if>
+            <if test="pricingModel != null and pricingModel != ''">
+                and pricing_model = #{pricingModel}
+            </if>
+            <if test="products != null and products != ''">
+                and products = #{products}
+            </if>
+            <if test="productsNum != null and productsNum != ''">
+                and products_num = #{productsNum}
+            </if>
+            <if test="paymentMethod != null ">
+                and payment_method = #{paymentMethod}
+            </if>
+            <if test="requirement != null and requirement != ''">
+                and requirement = #{requirement}
+            </if>
+            <if test="reviewer1 != null and reviewer1 != ''">
+                and reviewer1 = #{reviewer1}
+            </if>
+            <if test="reviewer2 != null and reviewer2 != ''">
+                and reviewer2 = #{reviewer2}
+            </if>
+            <if test="salesmanId != null ">
+                and salesman_id = #{salesmanId}
+            </if>
+            <if test="salesmanName != null and salesmanName != ''">
+                and salesman_name = #{salesmanName}
+            </if>
+            <if test="salesmanPhone != null and salesmanPhone != ''">
+                and salesman_phone = #{salesmanPhone}
+            </if>
+            <if test="isEnabled != null ">
+                and is_enabled = #{isEnabled}
+            </if>
+            <if test="attr1 != null and attr1 != ''">
+                and attr1 = #{attr1}
+            </if>
+            <if test="attr2 != null ">
+                and attr2 = #{attr2}
+            </if>
+            <if test="attr3 != null and attr3 != ''">
+                and attr3 = #{attr3}
+            </if>
+            <if test="createBy != null and createBy != ''">
+                and create_by = #{createBy}
+            </if>
+            <if test="createTime != null ">
+                and create_time = #{createTime}
+            </if>
+            <if test="updateBy != null and updateBy != ''">
+                and update_by = #{updateBy}
+            </if>
+            <if test="updateTime != null ">
+                and update_time = #{updateTime}
+            </if>
+            <if test="remark != null and remark != ''">
+                and remark = #{remark}
+            </if>
+            <if test="version != null ">
+                and version = #{version}
+            </if>
+            <if test="isDeleted != null ">
+                and is_deleted = #{isDeleted}
+            </if>
+            <if test="erpJson != null and erpJson != ''">
+                and erp_json = #{erpJson}
+            </if>
+        </where>
+        order by create_time desc
+    </select>
+
+    <!--统计总行数-->
+    <select id="count" resultType="java.lang.Long">
+        select count(1)
+        from md_client
+        <where>
+            is_deleted = 0
+            <if test="id != null ">
+                and id = #{id}
+            </if>
+            <if test="clientCode != null and clientCode != ''">
+                and client_code = #{clientCode}
+            </if>
+            <if test="clientName != null and clientName != ''">
+                and client_name = #{clientName}
+            </if>
+            <if test="clientNick != null and clientNick != ''">
+                and client_nick = #{clientNick}
+            </if>
+            <if test="clientEn != null and clientEn != ''">
+                and client_en = #{clientEn}
+            </if>
+            <if test="clientDes != null and clientDes != ''">
+                and client_des = #{clientDes}
+            </if>
+            <if test="clientLogo != null and clientLogo != ''">
+                and client_logo = #{clientLogo}
+            </if>
+            <if test="clientType != null and clientType != ''">
+                and client_type = #{clientType}
+            </if>
+            <if test="address != null and address != ''">
+                and address = #{address}
+            </if>
+            <if test="website != null and website != ''">
+                and website = #{website}
+            </if>
+            <if test="email != null and email != ''">
+                and email = #{email}
+            </if>
+            <if test="tel != null and tel != ''">
+                and tel = #{tel}
+            </if>
+            <if test="bankName != null and bankName != ''">
+                and bank_name = #{bankName}
+            </if>
+            <if test="bankAccount != null and bankAccount != ''">
+                and bank_account = #{bankAccount}
+            </if>
+            <if test="legalPersonName != null and legalPersonName != ''">
+                and legal_person_name = #{legalPersonName}
+            </if>
+            <if test="legalPersonIdcard != null and legalPersonIdcard != ''">
+                and legal_person_idcard = #{legalPersonIdcard}
+            </if>
+            <if test="legalPersonPhone != null and legalPersonPhone != ''">
+                and legal_person_phone = #{legalPersonPhone}
+            </if>
+            <if test="contact1 != null and contact1 != ''">
+                and contact1 = #{contact1}
+            </if>
+            <if test="contact1Tel != null and contact1Tel != ''">
+                and contact1_tel = #{contact1Tel}
+            </if>
+            <if test="contact1Email != null and contact1Email != ''">
+                and contact1_email = #{contact1Email}
+            </if>
+            <if test="contact1Title != null and contact1Title != ''">
+                and contact1_title = #{contact1Title}
+            </if>
+            <if test="contact1Phone != null and contact1Phone != ''">
+                and contact1_phone = #{contact1Phone}
+            </if>
+            <if test="contact1Fax != null and contact1Fax != ''">
+                and contact1_fax = #{contact1Fax}
+            </if>
+            <if test="contact2 != null and contact2 != ''">
+                and contact2 = #{contact2}
+            </if>
+            <if test="contact2Tel != null and contact2Tel != ''">
+                and contact2_tel = #{contact2Tel}
+            </if>
+            <if test="contact2Email != null and contact2Email != ''">
+                and contact2_email = #{contact2Email}
+            </if>
+            <if test="contact2Title != null and contact2Title != ''">
+                and contact2_title = #{contact2Title}
+            </if>
+            <if test="contact2Phone != null and contact2Phone != ''">
+                and contact2_phone = #{contact2Phone}
+            </if>
+            <if test="contact2Fax != null and contact2Fax != ''">
+                and contact2_fax = #{contact2Fax}
+            </if>
+            <if test="foundingTime != null and foundingTime != ''">
+                and founding_time = #{foundingTime}
+            </if>
+            <if test="registeredCapital != null and registeredCapital != ''">
+                and registered_capital = #{registeredCapital}
+            </if>
+            <if test="taxpayerType != null ">
+                and taxpayer_type = #{taxpayerType}
+            </if>
+            <if test="creditCode != null and creditCode != ''">
+                and credit_code = #{creditCode}
+            </if>
+            <if test="businessScope != null and businessScope != ''">
+                and business_scope = #{businessScope}
+            </if>
+            <if test="ifDistributor != null ">
+                and if_distributor = #{ifDistributor}
+            </if>
+            <if test="leadSource != null ">
+                and lead_source = #{leadSource}
+            </if>
+            <if test="leadSourceId != null ">
+                and lead_source_id = #{leadSourceId}
+            </if>
+            <if test="leadSourceName != null and leadSourceName != ''">
+                and lead_source_name = #{leadSourceName}
+            </if>
+            <if test="pricingModel != null and pricingModel != ''">
+                and pricing_model = #{pricingModel}
+            </if>
+            <if test="products != null and products != ''">
+                and products = #{products}
+            </if>
+            <if test="productsNum != null and productsNum != ''">
+                and products_num = #{productsNum}
+            </if>
+            <if test="paymentMethod != null ">
+                and payment_method = #{paymentMethod}
+            </if>
+            <if test="requirement != null and requirement != ''">
+                and requirement = #{requirement}
+            </if>
+            <if test="reviewer1 != null and reviewer1 != ''">
+                and reviewer1 = #{reviewer1}
+            </if>
+            <if test="reviewer2 != null and reviewer2 != ''">
+                and reviewer2 = #{reviewer2}
+            </if>
+            <if test="salesmanId != null ">
+                and salesman_id = #{salesmanId}
+            </if>
+            <if test="salesmanName != null and salesmanName != ''">
+                and salesman_name = #{salesmanName}
+            </if>
+            <if test="salesmanPhone != null and salesmanPhone != ''">
+                and salesman_phone = #{salesmanPhone}
+            </if>
+            <if test="isEnabled != null ">
+                and is_enabled = #{isEnabled}
+            </if>
+            <if test="attr1 != null and attr1 != ''">
+                and attr1 = #{attr1}
+            </if>
+            <if test="attr2 != null ">
+                and attr2 = #{attr2}
+            </if>
+            <if test="attr3 != null and attr3 != ''">
+                and attr3 = #{attr3}
+            </if>
+            <if test="createBy != null and createBy != ''">
+                and create_by = #{createBy}
+            </if>
+            <if test="createTime != null ">
+                and create_time = #{createTime}
+            </if>
+            <if test="updateBy != null and updateBy != ''">
+                and update_by = #{updateBy}
+            </if>
+            <if test="updateTime != null ">
+                and update_time = #{updateTime}
+            </if>
+            <if test="remark != null and remark != ''">
+                and remark = #{remark}
+            </if>
+            <if test="version != null ">
+                and version = #{version}
+            </if>
+            <if test="isDeleted != null ">
+                and is_deleted = #{isDeleted}
+            </if>
+            <if test="erpJson != null and erpJson != ''">
+                and erp_json = #{erpJson}
+            </if>
+        </where>
+    </select>
+    <select id="getInfoByClientNick" resultMap="MdClientMap">
+        select
+            id,client_code,client_name,client_nick,client_en,client_des,client_logo,client_type,address,website,email,tel,bank_name,bank_account,legal_person_name,legal_person_idcard,legal_person_phone,contact1,contact1_tel,contact1_email,contact1_title,contact1_phone,contact1_fax,contact2,contact2_tel,contact2_email,contact2_title,contact2_phone,contact2_fax,founding_time,registered_capital,taxpayer_type,credit_code,business_scope,if_distributor,lead_source,lead_source_id,lead_source_name,pricing_model,products,products_num,payment_method,requirement,reviewer1,reviewer2,salesman_id,salesman_name,salesman_phone,is_enabled,attr1,attr2,attr3,create_by,create_time,update_by,update_time,remark,version,is_deleted,erp_json
+        from md_client
+        where  client_nick in
+        <foreach item="item" collection="clientNick" separator="," open="(" close=")">
+            #{item}
+        </foreach>
+    </select>
+
+    <!--新增数据-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into md_client
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="clientCode != null and clientCode != ''">client_code,</if>
+            <if test="clientName != null and clientName != ''">client_name,</if>
+            <if test="clientNick != null and clientNick != ''">client_nick,</if>
+            <if test="clientEn != null and clientEn != ''">client_en,</if>
+            <if test="clientDes != null and clientDes != ''">client_des,</if>
+            <if test="clientLogo != null and clientLogo != ''">client_logo,</if>
+            <if test="clientType != null and clientType != ''">client_type,</if>
+            <if test="address != null and address != ''">address,</if>
+            <if test="website != null and website != ''">website,</if>
+            <if test="email != null and email != ''">email,</if>
+            <if test="tel != null and tel != ''">tel,</if>
+            <if test="bankName != null and bankName != ''">bank_name,</if>
+            <if test="bankAccount != null and bankAccount != ''">bank_account,</if>
+            <if test="legalPersonName != null and legalPersonName != ''">legal_person_name,</if>
+            <if test="legalPersonIdcard != null and legalPersonIdcard != ''">legal_person_idcard,</if>
+            <if test="legalPersonPhone != null and legalPersonPhone != ''">legal_person_phone,</if>
+            <if test="contact1 != null and contact1 != ''">contact1,</if>
+            <if test="contact1Tel != null and contact1Tel != ''">contact1_tel,</if>
+            <if test="contact1Email != null and contact1Email != ''">contact1_email,</if>
+            <if test="contact1Title != null and contact1Title != ''">contact1_title,</if>
+            <if test="contact1Phone != null and contact1Phone != ''">contact1_phone,</if>
+            <if test="contact1Fax != null and contact1Fax != ''">contact1_fax,</if>
+            <if test="contact2 != null and contact2 != ''">contact2,</if>
+            <if test="contact2Tel != null and contact2Tel != ''">contact2_tel,</if>
+            <if test="contact2Email != null and contact2Email != ''">contact2_email,</if>
+            <if test="contact2Title != null and contact2Title != ''">contact2_title,</if>
+            <if test="contact2Phone != null and contact2Phone != ''">contact2_phone,</if>
+            <if test="contact2Fax != null and contact2Fax != ''">contact2_fax,</if>
+            <if test="foundingTime != null and foundingTime != ''">founding_time,</if>
+            <if test="registeredCapital != null and registeredCapital != ''">registered_capital,</if>
+            <if test="taxpayerType != null ">taxpayer_type,</if>
+            <if test="creditCode != null and creditCode != ''">credit_code,</if>
+            <if test="businessScope != null and businessScope != ''">business_scope,</if>
+            <if test="ifDistributor != null ">if_distributor,</if>
+            <if test="leadSource != null ">lead_source,</if>
+            <if test="leadSourceId != null ">lead_source_id,</if>
+            <if test="leadSourceName != null and leadSourceName != ''">lead_source_name,</if>
+            <if test="pricingModel != null and pricingModel != ''">pricing_model,</if>
+            <if test="products != null and products != ''">products,</if>
+            <if test="productsNum != null and productsNum != ''">products_num,</if>
+            <if test="paymentMethod != null ">payment_method,</if>
+            <if test="requirement != null and requirement != ''">requirement,</if>
+            <if test="reviewer1 != null and reviewer1 != ''">reviewer1,</if>
+            <if test="reviewer2 != null and reviewer2 != ''">reviewer2,</if>
+            <if test="salesmanId != null ">salesman_id,</if>
+            <if test="salesmanName != null and salesmanName != ''">salesman_name,</if>
+            <if test="salesmanPhone != null and salesmanPhone != ''">salesman_phone,</if>
+            <if test="isEnabled != null ">is_enabled,</if>
+            <if test="attr1 != null and attr1 != ''">attr1,</if>
+            <if test="attr2 != null ">attr2,</if>
+            <if test="attr3 != null and attr3 != ''">attr3,</if>
+            <if test="createBy != null and createBy != ''">create_by,</if>
+            <if test="createTime != null ">create_time,</if>
+            <if test="updateBy != null and updateBy != ''">update_by,</if>
+            <if test="updateTime != null ">update_time,</if>
+            <if test="remark != null and remark != ''">remark,</if>
+            <if test="version != null ">version,</if>
+            <if test="isDeleted != null ">is_deleted,</if>
+            <if test="erpJson != null and erpJson != ''">erp_json,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="clientCode != null and clientCode != ''">#{clientCode},</if>
+            <if test="clientName != null and clientName != ''">#{clientName},</if>
+            <if test="clientNick != null and clientNick != ''">#{clientNick},</if>
+            <if test="clientEn != null and clientEn != ''">#{clientEn},</if>
+            <if test="clientDes != null and clientDes != ''">#{clientDes},</if>
+            <if test="clientLogo != null and clientLogo != ''">#{clientLogo},</if>
+            <if test="clientType != null and clientType != ''">#{clientType},</if>
+            <if test="address != null and address != ''">#{address},</if>
+            <if test="website != null and website != ''">#{website},</if>
+            <if test="email != null and email != ''">#{email},</if>
+            <if test="tel != null and tel != ''">#{tel},</if>
+            <if test="bankName != null and bankName != ''">#{bankName},</if>
+            <if test="bankAccount != null and bankAccount != ''">#{bankAccount},</if>
+            <if test="legalPersonName != null and legalPersonName != ''">#{legalPersonName},</if>
+            <if test="legalPersonIdcard != null and legalPersonIdcard != ''">#{legalPersonIdcard},</if>
+            <if test="legalPersonPhone != null and legalPersonPhone != ''">#{legalPersonPhone},</if>
+            <if test="contact1 != null and contact1 != ''">#{contact1},</if>
+            <if test="contact1Tel != null and contact1Tel != ''">#{contact1Tel},</if>
+            <if test="contact1Email != null and contact1Email != ''">#{contact1Email},</if>
+            <if test="contact1Title != null and contact1Title != ''">#{contact1Title},</if>
+            <if test="contact1Phone != null and contact1Phone != ''">#{contact1Phone},</if>
+            <if test="contact1Fax != null and contact1Fax != ''">#{contact1Fax},</if>
+            <if test="contact2 != null and contact2 != ''">#{contact2},</if>
+            <if test="contact2Tel != null and contact2Tel != ''">#{contact2Tel},</if>
+            <if test="contact2Email != null and contact2Email != ''">#{contact2Email},</if>
+            <if test="contact2Title != null and contact2Title != ''">#{contact2Title},</if>
+            <if test="contact2Phone != null and contact2Phone != ''">#{contact2Phone},</if>
+            <if test="contact2Fax != null and contact2Fax != ''">#{contact2Fax},</if>
+            <if test="foundingTime != null and foundingTime != ''">#{foundingTime},</if>
+            <if test="registeredCapital != null and registeredCapital != ''">#{registeredCapital},</if>
+            <if test="taxpayerType != null ">#{taxpayerType},</if>
+            <if test="creditCode != null and creditCode != ''">#{creditCode},</if>
+            <if test="businessScope != null and businessScope != ''">#{businessScope},</if>
+            <if test="ifDistributor != null ">#{ifDistributor},</if>
+            <if test="leadSource != null ">#{leadSource},</if>
+            <if test="leadSourceId != null ">#{leadSourceId},</if>
+            <if test="leadSourceName != null and leadSourceName != ''">#{leadSourceName},</if>
+            <if test="pricingModel != null and pricingModel != ''">#{pricingModel},</if>
+            <if test="products != null and products != ''">#{products},</if>
+            <if test="productsNum != null and productsNum != ''">#{productsNum},</if>
+            <if test="paymentMethod != null ">#{paymentMethod},</if>
+            <if test="requirement != null and requirement != ''">#{requirement},</if>
+            <if test="reviewer1 != null and reviewer1 != ''">#{reviewer1},</if>
+            <if test="reviewer2 != null and reviewer2 != ''">#{reviewer2},</if>
+            <if test="salesmanId != null ">#{salesmanId},</if>
+            <if test="salesmanName != null and salesmanName != ''">#{salesmanName},</if>
+            <if test="salesmanPhone != null and salesmanPhone != ''">#{salesmanPhone},</if>
+            <if test="isEnabled != null ">#{isEnabled},</if>
+            <if test="attr1 != null and attr1 != ''">#{attr1},</if>
+            <if test="attr2 != null ">#{attr2},</if>
+            <if test="attr3 != null and attr3 != ''">#{attr3},</if>
+            <if test="createBy != null and createBy != ''">#{createBy},</if>
+            <if test="createTime != null ">#{createTime},</if>
+            <if test="updateBy != null and updateBy != ''">#{updateBy},</if>
+            <if test="updateTime != null ">#{updateTime},</if>
+            <if test="remark != null and remark != ''">#{remark},</if>
+            <if test="version != null ">#{version},</if>
+            <if test="isDeleted != null ">#{isDeleted},</if>
+            <if test="erpJson != null and erpJson != ''">#{erpJson},</if>
+        </trim>
+    </insert>
+
+    <!-- 批量新增数据 -->
+    <!--<insert id="insertBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into md_client
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="clientCode != null and clientCode != ''">client_code,</if>
+            <if test="clientName != null and clientName != ''">client_name,</if>
+            <if test="clientNick != null and clientNick != ''">client_nick,</if>
+            <if test="clientEn != null and clientEn != ''">client_en,</if>
+            <if test="clientDes != null and clientDes != ''">client_des,</if>
+            <if test="clientLogo != null and clientLogo != ''">client_logo,</if>
+            <if test="clientType != null and clientType != ''">client_type,</if>
+            <if test="address != null and address != ''">address,</if>
+            <if test="website != null and website != ''">website,</if>
+            <if test="email != null and email != ''">email,</if>
+            <if test="tel != null and tel != ''">tel,</if>
+            <if test="bankName != null and bankName != ''">bank_name,</if>
+            <if test="bankAccount != null and bankAccount != ''">bank_account,</if>
+            <if test="legalPersonName != null and legalPersonName != ''">legal_person_name,</if>
+            <if test="legalPersonIdcard != null and legalPersonIdcard != ''">legal_person_idcard,</if>
+            <if test="legalPersonPhone != null and legalPersonPhone != ''">legal_person_phone,</if>
+            <if test="contact1 != null and contact1 != ''">contact1,</if>
+            <if test="contact1Tel != null and contact1Tel != ''">contact1_tel,</if>
+            <if test="contact1Email != null and contact1Email != ''">contact1_email,</if>
+            <if test="contact1Title != null and contact1Title != ''">contact1_title,</if>
+            <if test="contact1Phone != null and contact1Phone != ''">contact1_phone,</if>
+            <if test="contact1Fax != null and contact1Fax != ''">contact1_fax,</if>
+            <if test="contact2 != null and contact2 != ''">contact2,</if>
+            <if test="contact2Tel != null and contact2Tel != ''">contact2_tel,</if>
+            <if test="contact2Email != null and contact2Email != ''">contact2_email,</if>
+            <if test="contact2Title != null and contact2Title != ''">contact2_title,</if>
+            <if test="contact2Phone != null and contact2Phone != ''">contact2_phone,</if>
+            <if test="contact2Fax != null and contact2Fax != ''">contact2_fax,</if>
+            <if test="foundingTime != null and foundingTime != ''">founding_time,</if>
+            <if test="registeredCapital != null and registeredCapital != ''">registered_capital,</if>
+            <if test="taxpayerType != null ">taxpayer_type,</if>
+            <if test="creditCode != null and creditCode != ''">credit_code,</if>
+            <if test="businessScope != null and businessScope != ''">business_scope,</if>
+            <if test="ifDistributor != null ">if_distributor,</if>
+            <if test="leadSource != null ">lead_source,</if>
+            <if test="leadSourceId != null ">lead_source_id,</if>
+            <if test="leadSourceName != null and leadSourceName != ''">lead_source_name,</if>
+            <if test="pricingModel != null and pricingModel != ''">pricing_model,</if>
+            <if test="products != null and products != ''">products,</if>
+            <if test="productsNum != null and productsNum != ''">products_num,</if>
+            <if test="paymentMethod != null ">payment_method,</if>
+            <if test="requirement != null and requirement != ''">requirement,</if>
+            <if test="reviewer1 != null and reviewer1 != ''">reviewer1,</if>
+            <if test="reviewer2 != null and reviewer2 != ''">reviewer2,</if>
+            <if test="salesmanId != null ">salesman_id,</if>
+            <if test="salesmanName != null and salesmanName != ''">salesman_name,</if>
+            <if test="salesmanPhone != null and salesmanPhone != ''">salesman_phone,</if>
+            <if test="isEnabled != null ">is_enabled,</if>
+            <if test="attr1 != null and attr1 != ''">attr1,</if>
+            <if test="attr2 != null ">attr2,</if>
+            <if test="attr3 != null and attr3 != ''">attr3,</if>
+            <if test="createBy != null and createBy != ''">create_by,</if>
+            <if test="createTime != null ">create_time,</if>
+            <if test="updateBy != null and updateBy != ''">update_by,</if>
+            <if test="updateTime != null ">update_time,</if>
+            <if test="remark != null and remark != ''">remark,</if>
+            <if test="version != null ">version,</if>
+            <if test="isDeleted != null ">is_deleted,</if>
+            <if test="erpJson != null and erpJson != ''">erp_json,</if>
+        </trim>
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            <trim prefix="(" suffix=")" suffixOverrides=",">
+                    <if test="entity.id != null ">#{entity.id},</if>
+                    <if test="entity.clientCode != null and entity.clientCode != ''">#{entity.clientCode},</if>
+                    <if test="entity.clientName != null and entity.clientName != ''">#{entity.clientName},</if>
+                    <if test="entity.clientNick != null and entity.clientNick != ''">#{entity.clientNick},</if>
+                    <if test="entity.clientEn != null and entity.clientEn != ''">#{entity.clientEn},</if>
+                    <if test="entity.clientDes != null and entity.clientDes != ''">#{entity.clientDes},</if>
+                    <if test="entity.clientLogo != null and entity.clientLogo != ''">#{entity.clientLogo},</if>
+                    <if test="entity.clientType != null and entity.clientType != ''">#{entity.clientType},</if>
+                    <if test="entity.address != null and entity.address != ''">#{entity.address},</if>
+                    <if test="entity.website != null and entity.website != ''">#{entity.website},</if>
+                    <if test="entity.email != null and entity.email != ''">#{entity.email},</if>
+                    <if test="entity.tel != null and entity.tel != ''">#{entity.tel},</if>
+                    <if test="entity.bankName != null and entity.bankName != ''">#{entity.bankName},</if>
+                    <if test="entity.bankAccount != null and entity.bankAccount != ''">#{entity.bankAccount},</if>
+                    <if test="entity.legalPersonName != null and entity.legalPersonName != ''">#{entity.legalPersonName},</if>
+                    <if test="entity.legalPersonIdcard != null and entity.legalPersonIdcard != ''">#{entity.legalPersonIdcard},</if>
+                    <if test="entity.legalPersonPhone != null and entity.legalPersonPhone != ''">#{entity.legalPersonPhone},</if>
+                    <if test="entity.contact1 != null and entity.contact1 != ''">#{entity.contact1},</if>
+                    <if test="entity.contact1Tel != null and entity.contact1Tel != ''">#{entity.contact1Tel},</if>
+                    <if test="entity.contact1Email != null and entity.contact1Email != ''">#{entity.contact1Email},</if>
+                    <if test="entity.contact1Title != null and entity.contact1Title != ''">#{entity.contact1Title},</if>
+                    <if test="entity.contact1Phone != null and entity.contact1Phone != ''">#{entity.contact1Phone},</if>
+                    <if test="entity.contact1Fax != null and entity.contact1Fax != ''">#{entity.contact1Fax},</if>
+                    <if test="entity.contact2 != null and entity.contact2 != ''">#{entity.contact2},</if>
+                    <if test="entity.contact2Tel != null and entity.contact2Tel != ''">#{entity.contact2Tel},</if>
+                    <if test="entity.contact2Email != null and entity.contact2Email != ''">#{entity.contact2Email},</if>
+                    <if test="entity.contact2Title != null and entity.contact2Title != ''">#{entity.contact2Title},</if>
+                    <if test="entity.contact2Phone != null and entity.contact2Phone != ''">#{entity.contact2Phone},</if>
+                    <if test="entity.contact2Fax != null and entity.contact2Fax != ''">#{entity.contact2Fax},</if>
+                    <if test="entity.foundingTime != null and entity.foundingTime != ''">#{entity.foundingTime},</if>
+                    <if test="entity.registeredCapital != null and entity.registeredCapital != ''">#{entity.registeredCapital},</if>
+                    <if test="entity.taxpayerType != null ">#{entity.taxpayerType},</if>
+                    <if test="entity.creditCode != null and entity.creditCode != ''">#{entity.creditCode},</if>
+                    <if test="entity.businessScope != null and entity.businessScope != ''">#{entity.businessScope},</if>
+                    <if test="entity.ifDistributor != null ">#{entity.ifDistributor},</if>
+                    <if test="entity.leadSource != null ">#{entity.leadSource},</if>
+                    <if test="entity.leadSourceId != null ">#{entity.leadSourceId},</if>
+                    <if test="entity.leadSourceName != null and entity.leadSourceName != ''">#{entity.leadSourceName},</if>
+                    <if test="entity.pricingModel != null and entity.pricingModel != ''">#{entity.pricingModel},</if>
+                    <if test="entity.products != null and entity.products != ''">#{entity.products},</if>
+                    <if test="entity.productsNum != null and entity.productsNum != ''">#{entity.productsNum},</if>
+                    <if test="entity.paymentMethod != null ">#{entity.paymentMethod},</if>
+                    <if test="entity.requirement != null and entity.requirement != ''">#{entity.requirement},</if>
+                    <if test="entity.reviewer1 != null and entity.reviewer1 != ''">#{entity.reviewer1},</if>
+                    <if test="entity.reviewer2 != null and entity.reviewer2 != ''">#{entity.reviewer2},</if>
+                    <if test="entity.salesmanId != null ">#{entity.salesmanId},</if>
+                    <if test="entity.salesmanName != null and entity.salesmanName != ''">#{entity.salesmanName},</if>
+                    <if test="entity.salesmanPhone != null and entity.salesmanPhone != ''">#{entity.salesmanPhone},</if>
+                    <if test="entity.isEnabled != null ">#{entity.isEnabled},</if>
+                    <if test="entity.attr1 != null and entity.attr1 != ''">#{entity.attr1},</if>
+                    <if test="entity.attr2 != null ">#{entity.attr2},</if>
+                    <if test="entity.attr3 != null and entity.attr3 != ''">#{entity.attr3},</if>
+                    <if test="entity.createBy != null and entity.createBy != ''">#{entity.createBy},</if>
+                    <if test="entity.createTime != null ">#{entity.createTime},</if>
+                    <if test="entity.updateBy != null and entity.updateBy != ''">#{entity.updateBy},</if>
+                    <if test="entity.updateTime != null ">#{entity.updateTime},</if>
+                    <if test="entity.remark != null and entity.remark != ''">#{entity.remark},</if>
+                    <if test="entity.version != null ">#{entity.version},</if>
+                    <if test="entity.isDeleted != null ">#{entity.isDeleted},</if>
+                    <if test="entity.erpJson != null and entity.erpJson != ''">#{entity.erpJson},</if>
+            </trim>
+        </foreach>
+    </insert>-->
+
+    <!-- 批量新增或按主键更新数据 -->
+    <insert id="insertOrUpdateBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into md_client(id,client_code,client_name,client_nick,client_en,client_des,client_logo,client_type,address,website,email,tel,bank_name,bank_account,legal_person_name,legal_person_idcard,legal_person_phone,contact1,contact1_tel,contact1_email,contact1_title,contact1_phone,contact1_fax,contact2,contact2_tel,contact2_email,contact2_title,contact2_phone,contact2_fax,founding_time,registered_capital,taxpayer_type,credit_code,business_scope,if_distributor,lead_source,lead_source_id,lead_source_name,pricing_model,products,products_num,payment_method,requirement,reviewer1,reviewer2,salesman_id,salesman_name,salesman_phone,is_enabled,attr1,attr2,attr3,create_by,create_time,update_by,update_time,remark,version,is_deleted,erp_json)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.id},#{entity.clientCode},#{entity.clientName},#{entity.clientNick},#{entity.clientEn},#{entity.clientDes},#{entity.clientLogo},#{entity.clientType},#{entity.address},#{entity.website},#{entity.email},#{entity.tel},#{entity.bankName},#{entity.bankAccount},#{entity.legalPersonName},#{entity.legalPersonIdcard},#{entity.legalPersonPhone},#{entity.contact1},#{entity.contact1Tel},#{entity.contact1Email},#{entity.contact1Title},#{entity.contact1Phone},#{entity.contact1Fax},#{entity.contact2},#{entity.contact2Tel},#{entity.contact2Email},#{entity.contact2Title},#{entity.contact2Phone},#{entity.contact2Fax},#{entity.foundingTime},#{entity.registeredCapital},#{entity.taxpayerType},#{entity.creditCode},#{entity.businessScope},#{entity.ifDistributor},#{entity.leadSource},#{entity.leadSourceId},#{entity.leadSourceName},#{entity.pricingModel},#{entity.products},#{entity.productsNum},#{entity.paymentMethod},#{entity.requirement},#{entity.reviewer1},#{entity.reviewer2},#{entity.salesmanId},#{entity.salesmanName},#{entity.salesmanPhone},#{entity.isEnabled},#{entity.attr1},#{entity.attr2},#{entity.attr3},#{entity.createBy},#{entity.createTime},#{entity.updateBy},#{entity.updateTime},#{entity.remark},#{entity.version},#{entity.isDeleted},#{entity.erpJson})
+        </foreach>
+        on duplicate key update
+        id=values(id),
+        client_code=values(client_code),
+        client_name=values(client_name),
+        client_nick=values(client_nick),
+        client_en=values(client_en),
+        client_des=values(client_des),
+        client_logo=values(client_logo),
+        client_type=values(client_type),
+        address=values(address),
+        website=values(website),
+        email=values(email),
+        tel=values(tel),
+        bank_name=values(bank_name),
+        bank_account=values(bank_account),
+        legal_person_name=values(legal_person_name),
+        legal_person_idcard=values(legal_person_idcard),
+        legal_person_phone=values(legal_person_phone),
+        contact1=values(contact1),
+        contact1_tel=values(contact1_tel),
+        contact1_email=values(contact1_email),
+        contact1_title=values(contact1_title),
+        contact1_phone=values(contact1_phone),
+        contact1_fax=values(contact1_fax),
+        contact2=values(contact2),
+        contact2_tel=values(contact2_tel),
+        contact2_email=values(contact2_email),
+        contact2_title=values(contact2_title),
+        contact2_phone=values(contact2_phone),
+        contact2_fax=values(contact2_fax),
+        founding_time=values(founding_time),
+        registered_capital=values(registered_capital),
+        taxpayer_type=values(taxpayer_type),
+        credit_code=values(credit_code),
+        business_scope=values(business_scope),
+        if_distributor=values(if_distributor),
+        lead_source=values(lead_source),
+        lead_source_id=values(lead_source_id),
+        lead_source_name=values(lead_source_name),
+        pricing_model=values(pricing_model),
+        products=values(products),
+        products_num=values(products_num),
+        payment_method=values(payment_method),
+        requirement=values(requirement),
+        reviewer1=values(reviewer1),
+        reviewer2=values(reviewer2),
+        salesman_id=values(salesman_id),
+        salesman_name=values(salesman_name),
+        salesman_phone=values(salesman_phone),
+        is_enabled=values(is_enabled),
+        attr1=values(attr1),
+        attr2=values(attr2),
+        attr3=values(attr3),
+        create_by=values(create_by),
+        create_time=values(create_time),
+        update_by=values(update_by),
+        update_time=values(update_time),
+        remark=values(remark),
+        version=values(version),
+        is_deleted=values(is_deleted),
+        erp_json=values(erp_json)
+    </insert>
+
+    <!-- 更新数据 -->
+    <update id="update">
+        update md_client
+        <set>
+            <trim suffixOverrides=",">
+                <if test="clientCode != null">
+                    client_code = #{clientCode},
+                </if>
+                <if test="clientName != null">
+                    client_name = #{clientName},
+                </if>
+                <if test="clientNick != null">
+                    client_nick = #{clientNick},
+                </if>
+                <if test="clientEn != null">
+                    client_en = #{clientEn},
+                </if>
+                <if test="clientDes != null">
+                    client_des = #{clientDes},
+                </if>
+                <if test="clientLogo != null">
+                    client_logo = #{clientLogo},
+                </if>
+                <if test="clientType != null">
+                    client_type = #{clientType},
+                </if>
+                <if test="address != null">
+                    address = #{address},
+                </if>
+                <if test="website != null">
+                    website = #{website},
+                </if>
+                <if test="email != null">
+                    email = #{email},
+                </if>
+                <if test="tel != null">
+                    tel = #{tel},
+                </if>
+                <if test="bankName != null">
+                    bank_name = #{bankName},
+                </if>
+                <if test="bankAccount != null">
+                    bank_account = #{bankAccount},
+                </if>
+                <if test="legalPersonName != null">
+                    legal_person_name = #{legalPersonName},
+                </if>
+                <if test="legalPersonIdcard != null">
+                    legal_person_idcard = #{legalPersonIdcard},
+                </if>
+                <if test="legalPersonPhone != null">
+                    legal_person_phone = #{legalPersonPhone},
+                </if>
+                <if test="contact1 != null">
+                    contact1 = #{contact1},
+                </if>
+                <if test="contact1Tel != null">
+                    contact1_tel = #{contact1Tel},
+                </if>
+                <if test="contact1Email != null">
+                    contact1_email = #{contact1Email},
+                </if>
+                <if test="contact1Title != null">
+                    contact1_title = #{contact1Title},
+                </if>
+                <if test="contact1Phone != null">
+                    contact1_phone = #{contact1Phone},
+                </if>
+                <if test="contact1Fax != null">
+                    contact1_fax = #{contact1Fax},
+                </if>
+                <if test="contact2 != null">
+                    contact2 = #{contact2},
+                </if>
+                <if test="contact2Tel != null">
+                    contact2_tel = #{contact2Tel},
+                </if>
+                <if test="contact2Email != null">
+                    contact2_email = #{contact2Email},
+                </if>
+                <if test="contact2Title != null">
+                    contact2_title = #{contact2Title},
+                </if>
+                <if test="contact2Phone != null">
+                    contact2_phone = #{contact2Phone},
+                </if>
+                <if test="contact2Fax != null">
+                    contact2_fax = #{contact2Fax},
+                </if>
+                <if test="foundingTime != null">
+                    founding_time = #{foundingTime},
+                </if>
+                <if test="registeredCapital != null">
+                    registered_capital = #{registeredCapital},
+                </if>
+                <if test="taxpayerType != null">
+                    taxpayer_type = #{taxpayerType},
+                </if>
+                <if test="creditCode != null">
+                    credit_code = #{creditCode},
+                </if>
+                <if test="businessScope != null">
+                    business_scope = #{businessScope},
+                </if>
+                <if test="ifDistributor != null">
+                    if_distributor = #{ifDistributor},
+                </if>
+                <if test="leadSource != null">
+                    lead_source = #{leadSource},
+                </if>
+                <if test="leadSourceId != null">
+                    lead_source_id = #{leadSourceId},
+                </if>
+                <if test="leadSourceName != null">
+                    lead_source_name = #{leadSourceName},
+                </if>
+                <if test="pricingModel != null">
+                    pricing_model = #{pricingModel},
+                </if>
+                <if test="products != null">
+                    products = #{products},
+                </if>
+                <if test="productsNum != null">
+                    products_num = #{productsNum},
+                </if>
+                <if test="paymentMethod != null">
+                    payment_method = #{paymentMethod},
+                </if>
+                <if test="requirement != null">
+                    requirement = #{requirement},
+                </if>
+                <if test="reviewer1 != null">
+                    reviewer1 = #{reviewer1},
+                </if>
+                <if test="reviewer2 != null">
+                    reviewer2 = #{reviewer2},
+                </if>
+                <if test="salesmanId != null">
+                    salesman_id = #{salesmanId},
+                </if>
+                <if test="salesmanName != null">
+                    salesman_name = #{salesmanName},
+                </if>
+                <if test="salesmanPhone != null">
+                    salesman_phone = #{salesmanPhone},
+                </if>
+                <if test="isEnabled != null">
+                    is_enabled = #{isEnabled},
+                </if>
+                <if test="attr1 != null">
+                    attr1 = #{attr1},
+                </if>
+                <if test="attr2 != null">
+                    attr2 = #{attr2},
+                </if>
+                <if test="attr3 != null">
+                    attr3 = #{attr3},
+                </if>
+                <if test="createBy != null">
+                    create_by = #{createBy},
+                </if>
+                <if test="createTime != null">
+                    create_time = #{createTime},
+                </if>
+                <if test="updateBy != null">
+                    update_by = #{updateBy},
+                </if>
+                <if test="updateTime != null">
+                    update_time = #{updateTime},
+                </if>
+                <if test="remark != null">
+                    remark = #{remark},
+                </if>
+                <if test="version != null">
+                    version = #{version}+1,
+                </if>
+                <if test="isDeleted != null">
+                    is_deleted = #{isDeleted},
+                </if>
+                <if test="erpJson != null">
+                    erp_json = #{erpJson},
+                </if>
+            </trim>
+        </set>
+        where id = #{id} and version = #{version}
+    </update>
+
+    <!--逻辑删除-->
+    <update id="deleteById">
+        update md_client set is_deleted = 1 where id = #{id}
+    </update>
+
+    <!--批量逻辑删除-->
+    <update id="deleteByIds">
+        update md_client set is_deleted = 1 where id in
+        <foreach collection="array" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </update>
+
+    <!--物理删除-->
+    <delete id="removeById">
+        delete from md_client where id = #{id}
+    </delete>
+</mapper>

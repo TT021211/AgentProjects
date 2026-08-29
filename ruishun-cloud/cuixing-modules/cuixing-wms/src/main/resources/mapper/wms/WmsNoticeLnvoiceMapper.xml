@@ -1,0 +1,488 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cuixing.wms.mapper.WmsNoticeLnvoiceMapper">
+
+    <resultMap type="com.cuixing.wms.entity.WmsNoticeLnvoice" id="WmsNoticeLnvoiceMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="documentNumber" column="document_number" jdbcType="VARCHAR"/>
+        <result property="documentType" column="document_type" jdbcType="VARCHAR"/>
+        <result property="trader" column="trader" jdbcType="VARCHAR"/>
+        <result property="documentStatus" column="document_status" jdbcType="VARCHAR"/>
+        <result property="shipmentDate" column="shipment_date" jdbcType="TIMESTAMP"/>
+        <result property="detailedInformation" column="detailed_information" jdbcType="VARCHAR"/>
+        <result property="detailedWeight" column="detailed_weight" jdbcType="VARCHAR"/>
+        <result property="detailedQuantity" column="detailed_quantity" jdbcType="VARCHAR"/>
+        <result property="outboundWarehouse" column="outbound_warehouse" jdbcType="VARCHAR"/>
+        <result property="deliveryMethod" column="delivery_method" jdbcType="VARCHAR"/>
+        <result property="paymentMethod" column="payment_method" jdbcType="VARCHAR"/>
+        <result property="createBy" column="create_by" jdbcType="VARCHAR"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="updateBy" column="update_by" jdbcType="VARCHAR"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+        <result property="artt1" column="artt1" jdbcType="VARCHAR"/>
+        <result property="artt2" column="artt2" jdbcType="VARCHAR"/>
+        <result property="artt3" column="artt3" jdbcType="INTEGER"/>
+        <result property="artt4" column="artt4" jdbcType="INTEGER"/>
+        <result property="artt5" column="artt5" jdbcType="VARCHAR"/>
+        <result property="artt6" column="artt6" jdbcType="VARCHAR"/>
+        <result property="artt7" column="artt7" jdbcType="VARCHAR"/>
+        <result property="artt8" column="artt8" jdbcType="VARCHAR"/>
+        <result property="artt9" column="artt9" jdbcType="VARCHAR"/>
+        <result property="artt10" column="artt10" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <insert id="insertBatch2" parameterType="java.util.List" useGeneratedKeys="true" keyProperty="id">
+        <if test="list != null and list.size() > 0">
+            INSERT INTO sale_order (
+            order_type, customer_id, customer_name, order_code,
+            specification, model, weight, measure_id, measure_name,
+            pay_time, status, is_deleted, version, create_by,
+            create_time, update_by, update_time, attr1, attr2,
+            attr3, product_id, technical_requirements, remark, standard_id,
+            standard_name, artt4, artt5, artt6, artt7,
+            artt8, artt9, artt10
+            )
+            VALUES
+            <foreach collection="list" item="item" separator=",">
+                (
+                #{item.orderType,jdbcType=VARCHAR},
+                #{item.customerId,jdbcType=BIGINT},
+                #{item.customerName,jdbcType=VARCHAR},
+                #{item.orderCode,jdbcType=VARCHAR},
+                #{item.specification,jdbcType=VARCHAR},
+                #{item.model,jdbcType=VARCHAR},
+                #{item.weight,jdbcType=DECIMAL},
+                #{item.measureId,jdbcType=BIGINT},
+                #{item.measureName,jdbcType=VARCHAR},
+                #{item.payTime,jdbcType=TIMESTAMP},
+                #{item.status,jdbcType=VARCHAR},
+                #{item.isDeleted,jdbcType=INTEGER},
+                #{item.version,jdbcType=INTEGER},
+                #{item.createBy,jdbcType=VARCHAR},
+                #{item.createTime,jdbcType=TIMESTAMP},
+                #{item.updateBy,jdbcType=VARCHAR},
+                #{item.updateTime,jdbcType=TIMESTAMP},
+                #{item.attr1,jdbcType=VARCHAR},
+                #{item.attr2,jdbcType=VARCHAR},
+                #{item.attr3,jdbcType=VARCHAR},
+                #{item.productId,jdbcType=BIGINT},
+                #{item.technicalRequirements,jdbcType=VARCHAR},
+                #{item.remark,jdbcType=VARCHAR},
+                #{item.standardId,jdbcType=BIGINT},
+                #{item.standardName,jdbcType=VARCHAR},
+                #{item.artt4,jdbcType=VARCHAR},
+                #{item.artt5,jdbcType=VARCHAR},
+                #{item.artt6,jdbcType=VARCHAR},
+                #{item.artt7,jdbcType=VARCHAR},
+                #{item.artt8,jdbcType=VARCHAR},
+                #{item.artt9,jdbcType=VARCHAR},
+                #{item.artt10,jdbcType=VARCHAR}
+                )
+            </foreach>
+        </if>
+    </insert>
+    <sql id="selectWmsNoticeLnvoiceVo">
+        SELECT id,
+               document_number,
+               document_type,
+               trader,
+               document_status,
+               shipment_date,
+               detailed_information,
+               detailed_weight,
+               detailed_quantity,
+               outbound_warehouse,
+               delivery_method,
+               payment_method,
+               create_by,
+               create_time,
+               update_by,
+               update_time,
+               artt1,
+               artt2,
+               artt3,
+               artt4,
+               artt5,
+               artt6,
+               artt7,
+               artt8,
+               artt9,
+               artt10
+        FROM wms_notice_lnvoice
+    </sql>
+
+    <select id="selectWmsNoticeLnvoiceList" parameterType="WmsNoticeLnvoice" resultMap="WmsNoticeLnvoiceMap">
+        <include refid="selectWmsNoticeLnvoiceVo"/>
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="documentNumber != null and documentNumber != ''">
+                and document_number = REPLACE(#{documentNumber}, ' ', '')
+            </if>
+            <if test="documentType != null and documentType != ''">
+                and document_type = #{documentType}
+            </if>
+            <if test="trader != null and trader != ''">
+                and trader = #{trader}
+            </if>
+            <if test="documentStatus != null and documentStatus != ''">
+                and document_status = #{documentStatus}
+            </if>
+            <if test="shipmentDate != null">
+                and shipment_date = #{shipmentDate}
+            </if>
+            <if test="detailedInformation != null and detailedInformation != ''">
+                and detailed_information = #{detailedInformation}
+            </if>
+            <if test="detailedWeight != null and detailedWeight != ''">
+                and detailed_weight = #{detailedWeight}
+            </if>
+            <if test="detailedQuantity != null and detailedQuantity != ''">
+                and detailed_quantity = #{detailedQuantity}
+            </if>
+            <if test="outboundWarehouse != null and outboundWarehouse != ''">
+                and outbound_warehouse = #{outboundWarehouse}
+            </if>
+            <if test="deliveryMethod != null and deliveryMethod != ''">
+                and delivery_method = #{deliveryMethod}
+            </if>
+            <if test="paymentMethod != null and paymentMethod != ''">
+                and payment_method = #{paymentMethod}
+            </if>
+            <if test="createBy != null and createBy != ''">
+                and create_by = #{createBy}
+            </if>
+            <if test="createTime != null">
+                and create_time = #{createTime}
+            </if>
+            <if test="updateBy != null and updateBy != ''">
+                and update_by = #{updateBy}
+            </if>
+            <if test="updateTime != null">
+                and update_time = #{updateTime}
+            </if>
+            <if test="artt1 != null and artt1 != ''">
+                and artt1 = REPLACE(#{artt1}, ' ', '')
+            </if>
+            <if test="artt2 != null and artt2 != ''">
+                and artt2 = #{artt2}
+            </if>
+            <if test="artt3 != null">
+                and artt3 = #{artt3}
+            </if>
+            <if test="artt4 != null">
+                and artt4 = #{artt4}
+            </if>
+            <if test="artt5 != null and artt5 != ''">
+                and artt5 = #{artt5}
+            </if>
+            <if test="artt6 != null and artt6 != ''">
+                and artt6 = #{artt6}
+            </if>
+            <if test="artt7 != null and artt7 != ''">
+                and artt7 = #{artt7}
+            </if>
+            <if test="artt8 != null and artt8 != ''">
+                and artt8 = #{artt8}
+            </if>
+            <if test="artt9 != null and artt9 != ''">
+                and artt9 = #{artt9}
+            </if>
+            <if test="artt10 != null and artt10 != ''">
+                and artt10 = #{artt10}
+            </if>
+        </where>
+        ORDER BY
+        CASE
+        WHEN update_time IS NOT NULL THEN update_time
+        ELSE create_time
+        END DESC,
+        id ASC
+    </select>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="WmsNoticeLnvoiceMap">
+        select id,
+               document_number,
+               document_type,
+               trader,
+               document_status,
+               shipment_date,
+               detailed_information,
+               detailed_weight,
+               detailed_quantity,
+               outbound_warehouse,
+               delivery_method,
+               payment_method,
+               create_by,
+               create_time,
+               update_by,
+               update_time,
+               artt1,
+               artt2,
+               artt3,
+               artt4,
+               artt5,
+               artt6,
+               artt7,
+               artt8,
+               artt9,
+               artt10
+
+        from wms_notice_lnvoice
+        where id = #{id}
+    </select>
+
+    <!--统计总行数-->
+    <select id="count" resultType="java.lang.Long">
+        select count(1)
+        from wms_notice_lnvoice
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="documentNumber != null and documentNumber != ''">
+                and document_number = #{documentNumber}
+            </if>
+            <if test="documentType != null and documentType != ''">
+                and document_type = #{documentType}
+            </if>
+            <if test="trader != null and trader != ''">
+                and trader = #{trader}
+            </if>
+            <if test="documentStatus != null and documentStatus != ''">
+                and document_status = #{documentStatus}
+            </if>
+            <if test="shipmentDate != null">
+                and shipment_date = #{shipmentDate}
+            </if>
+            <if test="detailedInformation != null and detailedInformation != ''">
+                and detailed_information = #{detailedInformation}
+            </if>
+            <if test="detailedWeight != null and detailedWeight != ''">
+                and detailed_weight = #{detailedWeight}
+            </if>
+            <if test="detailedQuantity != null and detailedQuantity != ''">
+                and detailed_quantity = #{detailedQuantity}
+            </if>
+            <if test="outboundWarehouse != null and outboundWarehouse != ''">
+                and outbound_warehouse = #{outboundWarehouse}
+            </if>
+            <if test="deliveryMethod != null and deliveryMethod != ''">
+                and delivery_method = #{deliveryMethod}
+            </if>
+            <if test="paymentMethod != null and paymentMethod != ''">
+                and payment_method = #{paymentMethod}
+            </if>
+            <if test="createBy != null and createBy != ''">
+                and create_by = #{createBy}
+            </if>
+            <if test="createTime != null">
+                and create_time = #{createTime}
+            </if>
+            <if test="updateBy != null and updateBy != ''">
+                and update_by = #{updateBy}
+            </if>
+            <if test="updateTime != null">
+                and update_time = #{updateTime}
+            </if>
+            <if test="artt1 != null and artt1 != ''">
+                and artt1 = #{artt1}
+            </if>
+            <if test="artt2 != null and artt2 != ''">
+                and artt2 = #{artt2}
+            </if>
+            <if test="artt3 != null">
+                and artt3 = #{artt3}
+            </if>
+            <if test="artt4 != null">
+                and artt4 = #{artt4}
+            </if>
+            <if test="artt5 != null and artt5 != ''">
+                and artt5 = #{artt5}
+            </if>
+            <if test="artt6 != null and artt6 != ''">
+                and artt6 = #{artt6}
+            </if>
+            <if test="artt7 != null and artt7 != ''">
+                and artt7 = #{artt7}
+            </if>
+            <if test="artt8 != null and artt8 != ''">
+                and artt8 = #{artt8}
+            </if>
+            <if test="artt9 != null and artt9 != ''">
+                and artt9 = #{artt9}
+            </if>
+            <if test="artt10 != null and artt10 != ''">
+                and artt10 = #{artt10}
+            </if>
+        </where>
+    </select>
+    <select id="queryByCode" resultMap="WmsNoticeLnvoiceMap">
+        <include refid="selectWmsNoticeLnvoiceVo"/>
+        where document_number=#{documentNumber}
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into wms_notice_lnvoice(document_number, document_type, trader, document_status, shipment_date,
+                                       detailed_information, detailed_weight, detailed_quantity, outbound_warehouse,
+                                       delivery_method, payment_method, create_by, create_time, update_by, update_time,
+                                       artt1, artt2, artt3, artt4, artt5, artt6, artt7, artt8, artt9, artt10)
+        values (#{documentNumber}, #{documentType}, #{trader}, #{documentStatus}, #{shipmentDate},
+                #{detailedInformation}, #{detailedWeight}, #{detailedQuantity}, #{outboundWarehouse}, #{deliveryMethod},
+                #{paymentMethod}, #{createBy}, #{createTime}, #{updateBy}, #{updateTime}, #{artt1}, #{artt2}, #{artt3},
+                #{artt4}, #{artt5}, #{artt6}, #{artt7}, #{artt8}, #{artt9}, #{artt10})
+    </insert>
+
+    <insert id="insertBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into wms_notice_lnvoice(document_number, document_type, trader, document_status, shipment_date,
+        detailed_information, detailed_weight, detailed_quantity, outbound_warehouse, delivery_method, payment_method,
+        create_by, create_time, update_by, update_time, artt1, artt2, artt3, artt4, artt5, artt6, artt7, artt8, artt9,
+        artt10)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.documentNumber}, #{entity.documentType}, #{entity.trader}, #{entity.documentStatus},
+            #{entity.shipmentDate}, #{entity.detailedInformation}, #{entity.detailedWeight}, #{entity.detailedQuantity},
+            #{entity.outboundWarehouse}, #{entity.deliveryMethod}, #{entity.paymentMethod}, #{entity.createBy},
+            #{entity.createTime}, #{entity.updateBy}, #{entity.updateTime}, #{entity.artt1}, #{entity.artt2},
+            #{entity.artt3}, #{entity.artt4}, #{entity.artt5}, #{entity.artt6}, #{entity.artt7}, #{entity.artt8},
+            #{entity.artt9}, #{entity.artt10})
+        </foreach>
+    </insert>
+
+    <insert id="insertOrUpdateBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into wms_notice_lnvoice(document_number, document_type, trader, document_status, shipment_date,
+        detailed_information, detailed_weight, detailed_quantity, outbound_warehouse, delivery_method, payment_method,
+        create_by, create_time, update_by, update_time, artt1, artt2, artt3, artt4, artt5, artt6, artt7, artt8, artt9,
+        artt10)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.documentNumber}, #{entity.documentType}, #{entity.trader}, #{entity.documentStatus},
+            #{entity.shipmentDate}, #{entity.detailedInformation}, #{entity.detailedWeight}, #{entity.detailedQuantity},
+            #{entity.outboundWarehouse}, #{entity.deliveryMethod}, #{entity.paymentMethod}, #{entity.createBy},
+            #{entity.createTime}, #{entity.updateBy}, #{entity.updateTime}, #{entity.artt1}, #{entity.artt2},
+            #{entity.artt3}, #{entity.artt4}, #{entity.artt5}, #{entity.artt6}, #{entity.artt7}, #{entity.artt8},
+            #{entity.artt9}, #{entity.artt10})
+        </foreach>
+        on duplicate key update
+        document_number = values(document_number),
+        document_type = values(document_type),
+        trader = values(trader),
+        document_status = values(document_status),
+        shipment_date = values(shipment_date),
+        detailed_information = values(detailed_information),
+        detailed_weight = values(detailed_weight),
+        detailed_quantity = values(detailed_quantity),
+        outbound_warehouse = values(outbound_warehouse),
+        delivery_method = values(delivery_method),
+        payment_method = values(payment_method),
+        create_by = values(create_by),
+        create_time = values(create_time),
+        update_by = values(update_by),
+        update_time = values(update_time),
+        artt1 = values(artt1),
+        artt2 = values(artt2),
+        artt3 = values(artt3),
+        artt4 = values(artt4),
+        artt5 = values(artt5),
+        artt6 = values(artt6),
+        artt7 = values(artt7),
+        artt8 = values(artt8),
+        artt9 = values(artt9),
+        artt10 = values(artt10)
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update wms_notice_lnvoice
+        <set>
+            <if test="documentNumber != null and documentNumber != ''">
+                document_number = #{documentNumber},
+            </if>
+            <if test="documentType != null and documentType != ''">
+                document_type = #{documentType},
+            </if>
+            <if test="trader != null and trader != ''">
+                trader = #{trader},
+            </if>
+            <if test="documentStatus != null and documentStatus != ''">
+                document_status = #{documentStatus},
+            </if>
+            <if test="shipmentDate != null">
+                shipment_date = #{shipmentDate},
+            </if>
+            <if test="detailedInformation != null and detailedInformation != ''">
+                detailed_information = #{detailedInformation},
+            </if>
+            <if test="detailedWeight != null and detailedWeight != ''">
+                detailed_weight = #{detailedWeight},
+            </if>
+            <if test="detailedQuantity != null and detailedQuantity != ''">
+                detailed_quantity = #{detailedQuantity},
+            </if>
+            <if test="outboundWarehouse != null and outboundWarehouse != ''">
+                outbound_warehouse = #{outboundWarehouse},
+            </if>
+            <if test="deliveryMethod != null and deliveryMethod != ''">
+                delivery_method = #{deliveryMethod},
+            </if>
+            <if test="paymentMethod != null and paymentMethod != ''">
+                payment_method = #{paymentMethod},
+            </if>
+            <if test="createBy != null and createBy != ''">
+                create_by = #{createBy},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime},
+            </if>
+            <if test="updateBy != null and updateBy != ''">
+                update_by = #{updateBy},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime},
+            </if>
+            <if test="artt1 != null and artt1 != ''">
+                artt1 = #{artt1},
+            </if>
+            <if test="artt2 != null and artt2 != ''">
+                artt2 = #{artt2},
+            </if>
+            <if test="artt3 != null">
+                artt3 = #{artt3},
+            </if>
+            <if test="artt4 != null">
+                artt4 = #{artt4},
+            </if>
+            <if test="artt5 != null and artt5 != ''">
+                artt5 = #{artt5},
+            </if>
+            <if test="artt6 != null and artt6 != ''">
+                artt6 = #{artt6},
+            </if>
+            <if test="artt7 != null and artt7 != ''">
+                artt7 = #{artt7},
+            </if>
+            <if test="artt8 != null and artt8 != ''">
+                artt8 = #{artt8},
+            </if>
+            <if test="artt9 != null and artt9 != ''">
+                artt9 = #{artt9},
+            </if>
+            <if test="artt10 != null and artt10 != ''">
+                artt10 = #{artt10},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete
+        from wms_notice_lnvoice
+        where id = #{id}
+    </delete>
+
+</mapper>
+

@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cuixing.wms.mapper.WmsAccessoryLogMapper">
+    <resultMap type="com.cuixing.wms.entity.WmsAccessoryLog" id="WmsAccessoryLogMap">
+        <result property="id" column="id" jdbcType="BIGINT"/>
+        <result property="itemTypeId" column="item_type_id" jdbcType="BIGINT"/>
+        <result property="itemTypeCode" column="item_type_code" jdbcType="VARCHAR"/>
+        <result property="itemTypeName" column="item_type_name" jdbcType="VARCHAR"/>
+        <result property="accessoryId" column="accessory_id" jdbcType="BIGINT"/>
+        <result property="accessoryName" column="accessory_name" jdbcType="VARCHAR"/>
+        <result property="model" column="model" jdbcType="VARCHAR"/>
+        <result property="weight" column="weight" jdbcType="DECIMAL"/>
+        <result property="weightMeasureId" column="weight_measure_id" jdbcType="BIGINT"/>
+        <result property="weightMeasureName" column="weight_measure_name" jdbcType="VARCHAR"/>
+        <result property="number" column="number" jdbcType="INTEGER"/>
+        <result property="numberMeasureId" column="number_measure_id" jdbcType="BIGINT"/>
+        <result property="numberMeasureName" column="number_measure_name" jdbcType="VARCHAR"/>
+        <result property="suppierId" column="suppier_id" jdbcType="BIGINT"/>
+        <result property="supplier" column="supplier" jdbcType="VARCHAR"/>
+        <result property="status" column="status" jdbcType="CHAR"/>
+        <result property="isDeleted" column="is_deleted" jdbcType="TINYINT"/>
+        <result property="version" column="version" jdbcType="INTEGER"/>
+        <result property="createBy" column="create_by" jdbcType="VARCHAR"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="updateBy" column="update_by" jdbcType="VARCHAR"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+        <result property="attr1" column="attr1" jdbcType="VARCHAR"/>
+        <result property="attr2" column="attr2" jdbcType="INTEGER"/>
+        <result property="attr3" column="attr3" jdbcType="VARCHAR"/>
+    </resultMap>
+    
+    <!-- 通过ID查询单条数据 -->
+    <select id="queryById" resultMap="WmsAccessoryLogMap">
+        select
+            id,item_type_id,item_type_code,item_type_name,accessory_id,accessory_name,model,weight,weight_measure_id,weight_measure_name,number,number_measure_id,number_measure_name,suppier_id,supplier,status,is_deleted,version,create_by,create_time,update_by,update_time,attr1,attr2,attr3
+        from wms_accessory_log
+        where is_deleted = 0 and  id = #{id}
+    </select>
+    
+    <!--分页查询指定行数据-->
+    <select id="selectWmsAccessoryLogList" resultMap="WmsAccessoryLogMap">
+        select
+            id,item_type_id,item_type_code,item_type_name,accessory_id,accessory_name,model,weight,weight_measure_id,weight_measure_name,number,number_measure_id,number_measure_name,suppier_id,supplier,status,is_deleted,version,create_by,create_time,update_by,update_time,attr1,attr2,attr3
+        from wms_accessory_log
+        <where>
+            is_deleted = 0
+            <if test="id != null and id != ''"> and id = #{id}</if>
+            <if test="itemTypeId != null and itemTypeId != ''"> and item_type_id = #{itemTypeId}</if>
+            <if test="itemTypeCode != null and itemTypeCode != ''"> and item_type_code = #{itemTypeCode}</if>
+            <if test="itemTypeName != null and itemTypeName != ''"> and item_type_name = #{itemTypeName}</if>
+            <if test="accessoryId != null and accessoryId != ''"> and accessory_id = #{accessoryId}</if>
+            <if test="accessoryName != null and accessoryName != ''"> and accessory_name = #{accessoryName}</if>
+            <if test="model != null and model != ''"> and model = #{model}</if>
+            <if test="weight != null and weight != ''"> and weight = #{weight}</if>
+            <if test="weightMeasureId != null and weightMeasureId != ''"> and weight_measure_id = #{weightMeasureId}</if>
+            <if test="weightMeasureName != null and weightMeasureName != ''"> and weight_measure_name = #{weightMeasureName}</if>
+            <if test="number != null and number != ''"> and number = #{number}</if>
+            <if test="numberMeasureId != null and numberMeasureId != ''"> and number_measure_id = #{numberMeasureId}</if>
+            <if test="numberMeasureName != null and numberMeasureName != ''"> and number_measure_name = #{numberMeasureName}</if>
+            <if test="suppierId != null and suppierId != ''"> and suppier_id = #{suppierId}</if>
+            <if test="supplier != null and supplier != ''"> and supplier = #{supplier}</if>
+            <if test="status != null and status != ''"> and status = #{status}</if>
+            <if test="isDeleted != null and isDeleted != ''"> and is_deleted = #{isDeleted}</if>
+            <if test="version != null and version != ''"> and version = #{version}</if>
+            <if test="createBy != null and createBy != ''"> and create_by = #{createBy}</if>
+            <if test="createTime != null and createTime != ''"> and create_time = #{createTime}</if>
+            <if test="updateBy != null and updateBy != ''"> and update_by = #{updateBy}</if>
+            <if test="updateTime != null and updateTime != ''"> and update_time = #{updateTime}</if>
+            <if test="attr1 != null and attr1 != ''"> and attr1 = #{attr1}</if>
+            <if test="attr2 != null and attr2 != ''"> and attr2 = #{attr2}</if>
+            <if test="attr3 != null and attr3 != ''"> and attr3 = #{attr3}</if>
+        </where>
+        order by create_time desc
+    </select>
+    
+    <!--新增数据-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into wms_accessory_log
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null ">id,</if>
+            <if test="itemTypeId != null ">item_type_id,</if>
+            <if test="itemTypeCode != null and itemTypeCode != ''">item_type_code,</if>
+            <if test="itemTypeName != null and itemTypeName != ''">item_type_name,</if>
+            <if test="accessoryId != null ">accessory_id,</if>
+            <if test="accessoryName != null and accessoryName != ''">accessory_name,</if>
+            <if test="model != null and model != ''">model,</if>
+            <if test="weight != null ">weight,</if>
+            <if test="weightMeasureId != null ">weight_measure_id,</if>
+            <if test="weightMeasureName != null and weightMeasureName != ''">weight_measure_name,</if>
+            <if test="number != null ">number,</if>
+            <if test="numberMeasureId != null ">number_measure_id,</if>
+            <if test="numberMeasureName != null and numberMeasureName != ''">number_measure_name,</if>
+            <if test="suppierId != null ">suppier_id,</if>
+            <if test="supplier != null and supplier != ''">supplier,</if>
+            <if test="status != null and status != ''">status,</if>
+            <if test="isDeleted != null ">is_deleted,</if>
+            <if test="version != null ">version,</if>
+            <if test="createBy != null and createBy != ''">create_by,</if>
+            <if test="createTime != null ">create_time,</if>
+            <if test="updateBy != null and updateBy != ''">update_by,</if>
+            <if test="updateTime != null ">update_time,</if>
+            <if test="attr1 != null and attr1 != ''">attr1,</if>
+            <if test="attr2 != null ">attr2,</if>
+            <if test="attr3 != null and attr3 != ''">attr3,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">#{id},</if>
+            <if test="itemTypeId != null">#{itemTypeId},</if>
+            <if test="itemTypeCode != null and itemTypeCode != ''">#{itemTypeCode},</if>
+            <if test="itemTypeName != null and itemTypeName != ''">#{itemTypeName},</if>
+            <if test="accessoryId != null">#{accessoryId},</if>
+            <if test="accessoryName != null and accessoryName != ''">#{accessoryName},</if>
+            <if test="model != null and model != ''">#{model},</if>
+            <if test="weight != null">#{weight},</if>
+            <if test="weightMeasureId != null">#{weightMeasureId},</if>
+            <if test="weightMeasureName != null and weightMeasureName != ''">#{weightMeasureName},</if>
+            <if test="number != null">#{number},</if>
+            <if test="numberMeasureId != null">#{numberMeasureId},</if>
+            <if test="numberMeasureName != null and numberMeasureName != ''">#{numberMeasureName},</if>
+            <if test="suppierId != null">#{suppierId},</if>
+            <if test="supplier != null and supplier != ''">#{supplier},</if>
+            <if test="status != null and status != ''">#{status},</if>
+            <if test="isDeleted != null">#{isDeleted},</if>
+            <if test="version != null">#{version},</if>
+            <if test="createBy != null and createBy != ''">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null and updateBy != ''">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="attr1 != null and attr1 != ''">#{attr1},</if>
+            <if test="attr2 != null">#{attr2},</if>
+            <if test="attr3 != null and attr3 != ''">#{attr3},</if>
+        </trim>
+    </insert>
+    
+    <!-- 更新数据 -->
+    <update id="update">
+        update wms_accessory_log
+        <set>
+            <trim suffixOverrides=",">
+                <if test="itemTypeId != null "> item_type_id = #{itemTypeId}, </if>
+                <if test="itemTypeCode != null "> item_type_code = #{itemTypeCode}, </if>
+                <if test="itemTypeName != null "> item_type_name = #{itemTypeName}, </if>
+                <if test="accessoryId != null "> accessory_id = #{accessoryId}, </if>
+                <if test="accessoryName != null "> accessory_name = #{accessoryName}, </if>
+                <if test="model != null "> model = #{model}, </if>
+                <if test="weight != null "> weight = #{weight}, </if>
+                <if test="weightMeasureId != null "> weight_measure_id = #{weightMeasureId}, </if>
+                <if test="weightMeasureName != null "> weight_measure_name = #{weightMeasureName}, </if>
+                <if test="number != null "> number = #{number}, </if>
+                <if test="numberMeasureId != null "> number_measure_id = #{numberMeasureId}, </if>
+                <if test="numberMeasureName != null "> number_measure_name = #{numberMeasureName}, </if>
+                <if test="suppierId != null "> suppier_id = #{suppierId}, </if>
+                <if test="supplier != null "> supplier = #{supplier}, </if>
+                <if test="status != null "> status = #{status}, </if>
+                <if test="isDeleted != null "> is_deleted = #{isDeleted}, </if>
+                <if test="version != null "> version = #{version}, </if>
+                <if test="createBy != null "> create_by = #{createBy}, </if>
+                <if test="createTime != null "> create_time = #{createTime}, </if>
+                <if test="updateBy != null "> update_by = #{updateBy}, </if>
+                <if test="updateTime != null "> update_time = #{updateTime}, </if>
+                <if test="attr1 != null "> attr1 = #{attr1}, </if>
+                <if test="attr2 != null "> attr2 = #{attr2}, </if>
+                <if test="attr3 != null "> attr3 = #{attr3}, </if>
+            </trim>
+        </set>
+        where id = #{id} and version = #{version}
+    </update>
+    
+    <!--逻辑删除删除-->
+    <update id="deleteById">
+        update wms_accessory_log set is_deleted = 1 where id = #{id}
+    </update>
+    
+    <!--批量逻辑删除-->
+    <update id="deleteByIds">
+        update wms_accessory_log set is_deleted = 1 where id in
+        <foreach collection="array" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </update>
+</mapper>

@@ -1,0 +1,10 @@
+com.cuixing.system.api.factory.RemoteUserFallbackFactory
+com.cuixing.system.api.factory.RemoteLogFallbackFactory
+com.cuixing.system.api.factory.RemoteFileFallbackFactory
+com.cuixing.system.api.factory.RemoteMdFallbackFactory
+com.cuixing.system.api.factory.RemoteWmsFallbackFactory
+com.cuixing.system.api.factory.RemoteMesFallbackFactory
+com.cuixing.system.api.factory.RemoteSystemFallbackFactory
+com.cuixing.system.api.factory.RemoteEqFallbackFactory
+com.cuixing.system.api.factory.RemoteJobFallbackFactory
+com.cuixing.system.api.factory.RemoteSaleFallbackFactory

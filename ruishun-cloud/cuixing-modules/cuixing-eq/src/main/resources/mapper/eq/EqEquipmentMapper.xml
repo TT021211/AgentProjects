@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cuixing.eq.mapper.EqEquipmentMapper">
+    <resultMap type="com.cuixing.eq.entity.EqEquipment" id="EqEquipmentMap">
+        <result property="id" column="id" jdbcType="BIGINT"/>
+        <result property="equipmentCode" column="equipment_code" jdbcType="VARCHAR"/>
+        <result property="equipmentName" column="equipment_name" jdbcType="VARCHAR"/>
+        <result property="workbenchId" column="workbench_id" jdbcType="BIGINT"/>
+        <result property="workbenchType" column="workbench_type" jdbcType="VARCHAR"/>
+        <result property="equipmentModel" column="equipment_model" jdbcType="VARCHAR"/>
+        <result property="position" column="position" jdbcType="VARCHAR"/>
+        <result property="supplier" column="supplier" jdbcType="VARCHAR"/>
+        <result property="status" column="status" jdbcType="CHAR"/>
+        <result property="putWireDiameter" column="put_wire_diameter" jdbcType="VARCHAR"/>
+        <result property="outWireDiameter" column="out_wire_diameter" jdbcType="VARCHAR"/>
+        <result property="buyTime" column="buy_time" jdbcType="TIMESTAMP"/>
+        <result property="remark" column="remark" jdbcType="VARCHAR"/>
+        <result property="isDeleted" column="is_deleted" jdbcType="TINYINT"/>
+        <result property="version" column="version" jdbcType="INTEGER"/>
+        <result property="createBy" column="create_by" jdbcType="VARCHAR"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="updateBy" column="update_by" jdbcType="VARCHAR"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+        <result property="attr1" column="attr1" jdbcType="VARCHAR"/>
+        <result property="attr2" column="attr2" jdbcType="INTEGER"/>
+        <result property="attr3" column="attr3" jdbcType="VARCHAR"/>
+    </resultMap>
+    
+    <!-- 通过ID查询单条数据 -->
+    <select id="queryById" resultMap="EqEquipmentMap">
+        select
+            id,equipment_code,equipment_name,workbench_id,workbench_type,equipment_model,position,supplier,status,put_wire_diameter,out_wire_diameter,buy_time,remark,is_deleted,version,create_by,create_time,update_by,update_time,attr1,attr2,attr3
+        from eq_equipment
+        where is_deleted = 0 and  id = #{id}
+    </select>
+
+    <select id="selectEquipmentList" resultMap="EqEquipmentMap">
+        select
+            id,equipment_code,equipment_name,workbench_id,workbench_type,equipment_model,position,supplier,status,put_wire_diameter,out_wire_diameter,buy_time,remark,is_deleted,version,create_by,create_time,update_by,update_time,attr1,attr2,attr3
+        from eq_equipment
+        where is_deleted = 0 and  attr2 = 0
+        order by equipment_code
+    </select>
+    
+    <!--分页查询指定行数据-->
+    <select id="selectEqEquipmentList" resultMap="EqEquipmentMap">
+        select
+            id,equipment_code,equipment_name,workbench_id,workbench_type,equipment_model,position,supplier,status,put_wire_diameter,out_wire_diameter,buy_time,remark,is_deleted,version,create_by,create_time,update_by,update_time,attr1,attr2,attr3
+        from eq_equipment
+        <where>
+            is_deleted = 0
+            <if test="id != null and id != ''"> and id = #{id}</if>
+            <if test="equipmentCode != null and equipmentCode != ''"> and equipment_code = #{equipmentCode}</if>
+            <if test="equipmentName != null and equipmentName != ''"> and equipment_name = #{equipmentName}</if>
+            <if test="workbenchId != null and workbenchId != ''"> and workbench_id = #{workbenchId}</if>
+            <if test="workbenchType != null and workbenchType != ''"> and workbench_type = #{workbenchType}</if>
+            <if test="equipmentModel != null and equipmentModel != ''"> and equipment_model = #{equipmentModel}</if>
+            <if test="position != null and position != ''"> and position = #{position}</if>
+            <if test="supplier != null and supplier != ''"> and supplier = #{supplier}</if>
+            <if test="status != null and status != ''"> and status = #{status}</if>
+            <if test="putWireDiameter != null and putWireDiameter != ''"> and put_wire_diameter = #{putWireDiameter}</if>
+            <if test="outWireDiameter != null and outWireDiameter != ''"> and out_wire_diameter = #{outWireDiameter}</if>
+            <if test="buyTime != null and buyTime != ''"> and buy_time = #{buyTime}</if>
+            <if test="remark != null and remark != ''"> and remark = #{remark}</if>
+            <if test="isDeleted != null and isDeleted != ''"> and is_deleted = #{isDeleted}</if>
+            <if test="version != null and version != ''"> and version = #{version}</if>
+            <if test="createBy != null and createBy != ''"> and create_by = #{createBy}</if>
+            <if test="createTime != null and createTime != ''"> and create_time = #{createTime}</if>
+            <if test="updateBy != null and updateBy != ''"> and update_by = #{updateBy}</if>
+            <if test="updateTime != null and updateTime != ''"> and update_time = #{updateTime}</if>
+            <if test="attr1 != null and attr1 != ''"> and attr1 = #{attr1}</if>
+            <if test="attr2 != null and attr2 != ''"> and attr2 = #{attr2}</if>
+            <if test="attr3 != null and attr3 != ''"> and attr3 = #{attr3}</if>
+        </where>
+        order by equipment_code asc
+
+    </select>
+    
+    <!--新增数据-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into eq_equipment
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null ">id,</if>
+            <if test="equipmentCode != null and equipmentCode != ''">equipment_code,</if>
+            <if test="equipmentName != null and equipmentName != ''">equipment_name,</if>
+            <if test="workbenchId != null ">workbench_id,</if>
+            <if test="workbenchType != null and workbenchType != ''">workbench_type,</if>
+            <if test="equipmentModel != null and equipmentModel != ''">equipment_model,</if>
+            <if test="position != null and position != ''">position,</if>
+            <if test="supplier != null and supplier != ''">supplier,</if>
+            <if test="status != null and status != ''">status,</if>
+            <if test="putWireDiameter != null and putWireDiameter != ''">put_wire_diameter,</if>
+            <if test="outWireDiameter != null and outWireDiameter != ''">out_wire_diameter,</if>
+            <if test="buyTime != null ">buy_time,</if>
+            <if test="remark != null and remark != ''">remark,</if>
+            <if test="isDeleted != null ">is_deleted,</if>
+            <if test="version != null ">version,</if>
+            <if test="createBy != null and createBy != ''">create_by,</if>
+            <if test="createTime != null ">create_time,</if>
+            <if test="updateBy != null and updateBy != ''">update_by,</if>
+            <if test="updateTime != null ">update_time,</if>
+            <if test="attr1 != null and attr1 != ''">attr1,</if>
+            <if test="attr2 != null ">attr2,</if>
+            <if test="attr3 != null and attr3 != ''">attr3,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">#{id},</if>
+            <if test="equipmentCode != null and equipmentCode != ''">#{equipmentCode},</if>
+            <if test="equipmentName != null and equipmentName != ''">#{equipmentName},</if>
+            <if test="workbenchId != null">#{workbenchId},</if>
+            <if test="workbenchType != null and workbenchType != ''">#{workbenchType},</if>
+            <if test="equipmentModel != null and equipmentModel != ''">#{equipmentModel},</if>
+            <if test="position != null and position != ''">#{position},</if>
+            <if test="supplier != null and supplier != ''">#{supplier},</if>
+            <if test="status != null and status != ''">#{status},</if>
+            <if test="putWireDiameter != null and putWireDiameter != ''">#{putWireDiameter},</if>
+            <if test="outWireDiameter != null and outWireDiameter != ''">#{outWireDiameter},</if>
+            <if test="buyTime != null">#{buyTime},</if>
+            <if test="remark != null and remark != ''">#{remark},</if>
+            <if test="isDeleted != null">#{isDeleted},</if>
+            <if test="version != null">#{version},</if>
+            <if test="createBy != null and createBy != ''">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null and updateBy != ''">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="attr1 != null and attr1 != ''">#{attr1},</if>
+            <if test="attr2 != null">#{attr2},</if>
+            <if test="attr3 != null and attr3 != ''">#{attr3},</if>
+        </trim>
+    </insert>
+    
+    <!-- 更新数据 -->
+    <update id="update">
+        update eq_equipment
+        <set>
+            <trim suffixOverrides=",">
+                <if test="equipmentCode != null "> equipment_code = #{equipmentCode}, </if>
+                <if test="equipmentName != null "> equipment_name = #{equipmentName}, </if>
+                <if test="workbenchId != null "> workbench_id = #{workbenchId}, </if>
+                <if test="workbenchType != null "> workbench_type = #{workbenchType}, </if>
+                <if test="equipmentModel != null "> equipment_model = #{equipmentModel}, </if>
+                <if test="position != null "> position = #{position}, </if>
+                <if test="supplier != null "> supplier = #{supplier}, </if>
+                <if test="status != null "> status = #{status}, </if>
+                <if test="putWireDiameter != null "> put_wire_diameter = #{putWireDiameter}, </if>
+                <if test="outWireDiameter != null "> out_wire_diameter = #{outWireDiameter}, </if>
+                <if test="buyTime != null "> buy_time = #{buyTime}, </if>
+                <if test="remark != null "> remark = #{remark}, </if>
+                <if test="isDeleted != null "> is_deleted = #{isDeleted}, </if>
+                <if test="version != null "> version = #{version}, </if>
+                <if test="createBy != null "> create_by = #{createBy}, </if>
+                <if test="createTime != null "> create_time = #{createTime}, </if>
+                <if test="updateBy != null "> update_by = #{updateBy}, </if>
+                <if test="updateTime != null "> update_time = #{updateTime}, </if>
+                <if test="attr1 != null "> attr1 = #{attr1}, </if>
+                <if test="attr2 != null "> attr2 = #{attr2}, </if>
+                <if test="attr3 != null "> attr3 = #{attr3}, </if>
+            </trim>
+        </set>
+        where id = #{id} and version = #{version}
+    </update>
+    
+    <!--逻辑删除删除-->
+    <update id="deleteById">
+        update eq_equipment set is_deleted = 1 where id = #{id}
+    </update>
+    
+    <!--批量逻辑删除-->
+    <update id="deleteByIds">
+        update eq_equipment set is_deleted = 1 where id in
+        <foreach collection="array" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </update>
+
+    <select id="getCountByWorkbenchTypeAndStatus" resultType="com.cuixing.eq.entity.vo.EqKanban">
+        SELECT
+            COUNT(CASE WHEN workbench_type = '漆包机' AND status = 0 THEN 1 END) AS enamellingNormalCount,
+            COUNT(CASE WHEN workbench_type = '漆包机' AND status = 1 THEN 1 END) AS enamellingStopCount,
+            COUNT(CASE WHEN workbench_type = '漆包机' THEN 1 END) AS enamellingCount,
+            COUNT(CASE WHEN workbench_type = '拉丝机' AND status = 0 THEN 1 END) AS wiredrawingNormalCount,
+            COUNT(CASE WHEN workbench_type = '拉丝机' AND status = 1 THEN 1 END) AS wiredrawingStopCount,
+            COUNT(CASE WHEN workbench_type = '拉丝机' THEN 1 END) AS wiredrawingCount
+        FROM eq_equipment;
+    </select>
+    <select id="selectEquipmentList2" resultMap="EqEquipmentMap">
+        select
+            id,equipment_code,equipment_name,workbench_id,workbench_type,equipment_model,position,supplier,status,put_wire_diameter,out_wire_diameter,buy_time,remark,is_deleted,version,create_by,create_time,update_by,update_time,attr1,attr2,attr3
+        from eq_equipment
+    </select>
+
+</mapper>

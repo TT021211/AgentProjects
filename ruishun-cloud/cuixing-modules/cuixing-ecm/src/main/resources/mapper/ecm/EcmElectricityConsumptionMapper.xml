@@ -1,0 +1,386 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cuixing.ecm.mapper.EcmElectricityConsumptionMapper">
+
+    <resultMap type="com.cuixing.ecm.domain.EcmElectricityConsumption" id="EcmElectricityConsumptionResult">
+        <result property="consumptionId" column="consumption_id"/>
+        <result property="electricDeviceId" column="electric_device_id"/>
+        <result property="electricDeviceCode" column="electric_device_code"/>
+        <result property="recordingTime" column="recording_time"/>
+        <result property="value" column="value"/>
+        <result property="consumptionValue" column="consumption_value"/>
+        <result property="electricityPrice" column="electricity_price"/>
+        <result property="electricCharge" column="electric_charge"/>
+        <result property="version" column="version"/>
+        <result property="isDeleted" column="is_deleted"/>
+        <result property="createBy" column="create_by"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateBy" column="update_by"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="remark" column="remark"/>
+        <result property="attr1" column="attr1"/>
+        <result property="attr2" column="attr2"/>
+        <result property="attr3" column="attr3"/>
+    </resultMap>
+
+    <resultMap type="com.cuixing.ecm.domain.VO.ElectricityConsumptionDate" id="EcmElectricityConsumptionDateResult">
+        <result property="electricDeviceCode" column="electricDeviceCode"/>
+        <result property="electricDeviceName" column="electricDeviceName"/>
+        <result property="isMain" column="isMain"/>
+        <result property="totalUsage" column="totalUsage"/>
+    </resultMap>
+
+    <resultMap type="com.cuixing.ecm.domain.VO.WeeksElectricQuantity" id="EcmElectricityConsumptionWeekResult">
+        <result property="workshopType" column="workshopType"/>
+        <result property="week" column="week"/>
+        <result property="recordDay" column="record_day"/>
+        <result property="totalUsage" column="totalUsage"/>
+    </resultMap>
+
+    <resultMap type="com.cuixing.ecm.domain.VO.ElectricQuantity" id="EcmElectricityConsumptionYearResult">
+        <result property="workshopType" column="workshopType"/>
+        <result property="electricQuantity" column="electricQuantity"/>
+    </resultMap>
+
+
+    <sql id="selectEcmElectricityConsumptionVo">
+        select consumption_id,
+               electric_device_id,
+               electric_device_code,
+               recording_time,
+               value,
+               consumption_value,
+               electricity_price,
+               electric_charge,
+               version,
+               is_deleted,
+               create_by,
+               create_time,
+               update_by,
+               update_time,
+               remark,
+               attr1,
+               attr2,
+               attr3
+        from ecm_electricity_consumption
+    </sql>
+
+    <select id="selectEcmElectricityConsumptionList" parameterType="com.cuixing.ecm.domain.EcmElectricityConsumption"
+            resultMap="EcmElectricityConsumptionResult">
+        <include refid="selectEcmElectricityConsumptionVo"/>
+        <where>
+            <if test="electricDeviceId != null ">and electric_device_id = #{electricDeviceId}</if>
+            <if test="electricDeviceCode != null  and electricDeviceCode != ''">and electric_device_code =#{electricDeviceCode}</if>
+            <if test="recordingTime != null ">and recording_time = #{recordingTime}</if>
+            <if test="value != null ">and value = #{value}</if>
+            <if test="consumptionValue != null ">and consumption_value = #{consumptionValue}</if>
+            <if test="electricityPrice != null ">and electricity_price = #{electricityPrice}</if>
+            <if test="electricCharge != null ">and electric_charge = #{electricCharge}</if>
+            <if test="version != null ">and version = #{version}</if>
+            <if test="isDeleted != null ">and is_deleted = #{isDeleted}</if>
+            <if test="attr1 != null  and attr1 != ''">and attr1 = #{attr1}</if>
+            <if test="attr2 != null ">and attr2 = #{attr2}</if>
+            <if test="attr3 != null  and attr3 != ''">and attr3 = #{attr3}</if>
+        </where>
+    </select>
+
+    <select id="selectEcmElectricityConsumptionByConsumptionId" parameterType="Long"
+            resultMap="EcmElectricityConsumptionResult">
+        <include refid="selectEcmElectricityConsumptionVo"/>
+        where consumption_id = #{consumptionId}
+    </select>
+
+    <select id="getConsumptionByDeviceAndDate" resultMap="EcmElectricityConsumptionResult">
+        <include refid="selectEcmElectricityConsumptionVo"/>
+        WHERE electric_device_code = #{electricDeviceCode}
+        and DATE(create_time) = #{date}
+        ORDER BY create_time
+    </select>
+
+    <select id="getDayFirstValue" resultType="java.lang.Integer">
+        select value
+        from ecm_electricity_consumption
+        where electric_device_code = #{electricDeviceCode}
+          and DATE(create_time) = #{date}
+        ORDER BY create_time
+        limit 1
+    </select>
+
+    <select id="getConsumptionByDeviceAndMonth" resultMap="EcmElectricityConsumptionResult">
+        <include refid="selectEcmElectricityConsumptionVo"/>
+        WHERE electric_device_code = #{electricDeviceCode}
+        AND create_time >= #{startDate}
+        AND create_time &lt; #{endDate}
+        ORDER BY create_time
+    </select>
+
+    <select id="getDayLastValue" resultType="java.lang.Integer">
+        SELECT value
+        FROM ecm_electricity_consumption
+        WHERE electric_device_code = #{electricDeviceCode}
+          AND DATE(create_time) = #{date}
+        ORDER BY create_time DESC
+        LIMIT 1
+    </select>
+
+    <select id="getFirstRecordOfEachMonth" resultMap="EcmElectricityConsumptionResult">
+        <include refid="selectEcmElectricityConsumptionVo"/>
+        JOIN (
+        SELECT YEAR(create_time) AS year,
+        MONTH(create_time) AS month,
+        MIN(create_time) AS min_time
+        FROM ecm_electricity_consumption
+        WHERE YEAR(create_time) = #{year}
+        AND electric_device_code = #{electricDeviceCode}
+        GROUP BY YEAR(create_time), MONTH(create_time)
+        ) e2
+        ON ecm_electricity_consumption.create_time = e2.min_time
+        WHERE YEAR(ecm_electricity_consumption.create_time) = #{year}
+        AND ecm_electricity_consumption.electric_device_code = #{electricDeviceCode}
+    </select>
+    <select id="getLastRecordOfMonth" resultType="java.lang.Integer">
+        SELECT value
+        FROM ecm_electricity_consumption
+        WHERE electric_device_code = #{electricDeviceCode}
+          AND YEAR(create_time) = #{year}
+          AND MONTH(create_time) = #{month}
+        ORDER BY create_time DESC
+        LIMIT 1
+    </select>
+    <select id="selectLastByCode" resultMap="EcmElectricityConsumptionResult"
+            parameterType="java.lang.String">
+        <include refid="selectEcmElectricityConsumptionVo"/>
+        WHERE electric_device_code = #{electricDeviceCode}
+        ORDER BY create_time DESC
+        LIMIT 1
+    </select>
+    <select id="getDayFirstConsumption" resultMap="EcmElectricityConsumptionResult">
+        <include refid="selectEcmElectricityConsumptionVo"/>
+            WHERE electric_device_code = #{electricDeviceCode}
+              AND DATE(create_time) = #{date}
+            ORDER BY create_time
+            LIMIT 1
+    </select>
+<!--    <select id="getZeroPointData"  resultMap="EcmElectricityConsumptionResult">-->
+<!--        <include refid="selectEcmElectricityConsumptionVo"/>-->
+<!--        WHERE electric_device_code = #{electricDeviceCode}-->
+<!--          AND create_time =DATE_FORMAT(#{date}, '%Y-%m-%d 00:00:00')-->
+<!--    </select>-->
+    <select id="getZeroPointData" resultMap="EcmElectricityConsumptionResult">
+        <include refid="selectEcmElectricityConsumptionVo"/>
+        WHERE electric_device_code = #{electricDeviceCode}
+        AND create_time =DATE_FORMAT(#{date}, '%Y-%m-%d 00:00:00')
+        order by recording_time desc
+        LIMIT 1
+    </select>
+
+    <select id="selectTotalYearConsumption" resultType="int">
+        SELECT sum(consumption_value)
+        FROM ecm_electricity_consumption
+        WHERE YEAR(recording_time) = #{year} and electric_device_code = #{electricDeviceCode};
+    </select>
+
+    <select id="selectTotalMonthConsumption" resultType="int">
+        SELECT sum(consumption_value)
+        FROM ecm_electricity_consumption
+        WHERE YEAR(recording_time) = #{year} and MONTH(recording_time) = #{month} and electric_device_code = #{electricDeviceCode};
+    </select>
+
+    <select id="selectTotalConsumptionDate" resultMap="EcmElectricityConsumptionDateResult">
+        SELECT
+            eed.electric_device_code as electricDeviceCode,
+            eed.electric_device_name as electricDeviceName,
+            eed.is_main as idMain,
+            SUM(consumption_value) AS totalUsage
+        FROM
+            ecm_electricity_consumption eec
+            JOIN ecm_electric_device eed on eec.electric_device_code = eed.electric_device_code
+        WHERE
+            recording_time BETWEEN #{beginTime} AND #{endTime} and is_main = '1'
+        GROUP BY
+            electricDeviceCode
+    </select>
+
+    <select id="selectTotalConsumptionDateByLocation" resultMap="EcmElectricityConsumptionDateResult">
+        select location, sum(totalUsage) as totalUsage from
+        (SELECT
+            eed.electric_device_code as electricDeviceCode,eed.location,
+            SUM(consumption_value) AS totalUsage
+        FROM
+            ecm_electricity_consumption eec
+                JOIN ecm_electric_device eed on eec.electric_device_code = eed.electric_device_code
+        WHERE
+            recording_time BETWEEN #{beginTime} AND #{endTime}
+        GROUP BY
+            location,electricDeviceCode)as t
+        group by location
+    </select>
+
+    <select id="getWorkshopConsumptionEnamelledYear" resultMap="EcmElectricityConsumptionYearResult">
+        SELECT
+            workshopType,
+            SUM(totalUsage) as electricQuantity
+        from (
+        SELECT
+             CASE
+                 WHEN location = '小拉车间' THEN '小拉车间'
+                 WHEN location = '中拉车间' THEN '中拉车间'
+                 WHEN location = '微拉车间' THEN '微拉车间'
+                 WHEN location =  '镀锡车间' THEN '镀锡车间'
+                 WHEN location =  '总柜' THEN '总柜'
+             END AS workshopType,
+             eed.electric_device_code as electricDeviceCode,
+             SUM(consumption_value) AS totalUsage
+        FROM
+             ecm_electricity_consumption eec
+             JOIN ecm_electric_device eed on eec.electric_device_code = eed.electric_device_code
+        WHERE
+             YEAR(recording_time) = YEAR(CURDATE())   and is_main = '0'
+        GROUP BY
+            workshopType,electricDeviceCode) as t
+        GROUP BY workshopType
+    </select>
+
+    <select id="getWorkshopConsumptionEnamelledMonth" resultMap="EcmElectricityConsumptionYearResult">
+        SELECT
+            workshopType,
+            SUM(totalUsage) as electricQuantity from (
+        SELECT
+        CASE
+            WHEN location = '小拉车间' THEN '小拉车间'
+            WHEN location = '中拉车间' THEN '中拉车间'
+            WHEN location = '微拉车间' THEN '微拉车间'
+            WHEN location =  '镀锡车间' THEN '镀锡车间'
+            WHEN location =  '总柜' THEN '总柜'
+           END AS workshopType,
+           eed.electric_device_code as electricDeviceCode,
+           SUM(consumption_value) AS totalUsage
+        FROM
+          ecm_electricity_consumption eec
+                JOIN ecm_electric_device eed on eec.electric_device_code = eed.electric_device_code
+        WHERE
+             YEAR(recording_time) = YEAR(CURDATE()) -- 当前年份
+             AND MONTH(recording_time) = MONTH(CURDATE()) -- 当前月份
+             AND is_main = '0'
+        GROUP BY
+            workshopType,electricDeviceCode) as t
+        GROUP BY workshopType
+    </select>
+    
+    <select id="getWorkshopConsumptionEnamelledMonthWeek" resultMap="EcmElectricityConsumptionWeekResult">
+        SELECT
+        CASE
+        WHEN location = '小拉车间' THEN '小拉车间'
+        WHEN location = '中拉车间' THEN '中拉车间'
+        WHEN location = '微拉车间' THEN '微拉车间'
+        WHEN location = '镀锡车间' THEN '镀锡车间'
+        WHEN location = '总柜' THEN '总柜'
+        END AS workshoptype,
+        CASE
+        WHEN DAYOFWEEK(recording_time) = 2 THEN '周一'
+        WHEN DAYOFWEEK(recording_time) = 3 THEN '周二'
+        WHEN DAYOFWEEK(recording_time) = 4 THEN '周三'
+        WHEN DAYOFWEEK(recording_time) = 5 THEN '周四'
+        WHEN DAYOFWEEK(recording_time) = 6 THEN '周五'
+        WHEN DAYOFWEEK(recording_time) = 7 THEN '周六'
+        WHEN DAYOFWEEK(recording_time) = 1 THEN '周日'
+        END AS week,
+        DATE(recording_time) AS record_day,
+        SUM(consumption_value) AS totalUsage
+        FROM
+        ecm_electricity_consumption eec
+        JOIN ecm_electric_device eed
+        ON eec.electric_device_code = eed.electric_device_code
+        WHERE
+        DATE(recording_time) >= DATE_SUB(CURDATE(), INTERVAL 6 DAY) -- 过去 7 天数据
+        AND recording_time &lt;= NOW()
+        AND is_main = '0'
+        GROUP BY
+        workshoptype, week, record_day
+        ORDER BY
+        workshoptype, record_day;
+    </select>
+
+
+    <insert id="insertEcmElectricityConsumption" parameterType="com.cuixing.ecm.domain.EcmElectricityConsumption" useGeneratedKeys="true"
+            keyProperty="consumptionId">
+        insert into ecm_electricity_consumption
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="electricDeviceId != null">electric_device_id,</if>
+            <if test="electricDeviceCode != null and electricDeviceCode != ''">electric_device_code,</if>
+            <if test="recordingTime != null">recording_time,</if>
+            <if test="value != null">value,</if>
+            <if test="consumptionValue != null">consumption_value,</if>
+            <if test="electricityPrice != null">electricity_price,</if>
+            <if test="electricCharge != null">electric_charge,</if>
+            <if test="version != null">version,</if>
+            <if test="isDeleted != null">is_deleted,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="remark != null">remark,</if>
+            <if test="attr1 != null">attr1,</if>
+            <if test="attr2 != null">attr2,</if>
+            <if test="attr3 != null">attr3,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="electricDeviceId != null">#{electricDeviceId},</if>
+            <if test="electricDeviceCode != null and electricDeviceCode != ''">#{electricDeviceCode},</if>
+            <if test="recordingTime != null">#{recordingTime},</if>
+            <if test="value != null">#{value},</if>
+            <if test="consumptionValue != null">#{consumptionValue},</if>
+            <if test="electricityPrice != null">#{electricityPrice},</if>
+            <if test="electricCharge != null">#{electricCharge},</if>
+            <if test="version != null">#{version},</if>
+            <if test="isDeleted != null">#{isDeleted},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="remark != null">#{remark},</if>
+            <if test="attr1 != null">#{attr1},</if>
+            <if test="attr2 != null">#{attr2},</if>
+            <if test="attr3 != null">#{attr3},</if>
+        </trim>
+    </insert>
+
+    <update id="updateEcmElectricityConsumption" parameterType="com.cuixing.ecm.domain.EcmElectricityConsumption">
+        update ecm_electricity_consumption
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="electricDeviceId != null">electric_device_id = #{electricDeviceId},</if>
+            <if test="electricDeviceCode != null and electricDeviceCode != ''">electric_device_code =  #{electricDeviceCode},</if>
+            <if test="recordingTime != null">recording_time = #{recordingTime},</if>
+            <if test="value != null">value = #{value},</if>
+            <if test="consumptionValue != null">consumption_value = #{consumptionValue},</if>
+            <if test="electricityPrice != null">electricity_price = #{electricityPrice},</if>
+            <if test="electricCharge != null">electric_charge = #{electricCharge},</if>
+            <if test="version != null">version = #{version},</if>
+            <if test="isDeleted != null">is_deleted = #{isDeleted},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="remark != null">remark = #{remark},</if>
+            <if test="attr1 != null">attr1 = #{attr1},</if>
+            <if test="attr2 != null">attr2 = #{attr2},</if>
+            <if test="attr3 != null">attr3 = #{attr3},</if>
+        </trim>
+        where consumption_id = #{consumptionId}
+    </update>
+
+    <delete id="deleteEcmElectricityConsumptionByConsumptionId" parameterType="Long">
+        delete
+        from ecm_electricity_consumption
+        where consumption_id = #{consumptionId}
+    </delete>
+
+    <delete id="deleteEcmElectricityConsumptionByConsumptionIds" parameterType="Long">
+        delete from ecm_electricity_consumption where consumption_id in
+        <foreach item="consumptionId" collection="array" open="(" separator="," close=")">
+            #{consumptionId}
+        </foreach>
+    </delete>
+</mapper>

@@ -1,0 +1,434 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cuixing.wms.mapper.WmsInstallationMapper">
+
+    <resultMap type="com.cuixing.wms.entity.WmsInstallation" id="WmsInstallationMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="installationCode" column="installation_code" jdbcType="VARCHAR"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="createBy" column="create_by" jdbcType="VARCHAR"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+        <result property="updateBy" column="update_by" jdbcType="VARCHAR"/>
+        <result property="batchNumber" column="batch_number" jdbcType="VARCHAR"/>
+        <result property="batchNumber2" column="batch_number2" jdbcType="VARCHAR"/>
+        <result property="itemCode" column="item_code" jdbcType="VARCHAR"/>
+        <result property="productName" column="product_name" jdbcType="VARCHAR"/>
+        <result property="wmsSpec" column="wms_spec" jdbcType="VARCHAR"/>
+        <result property="netWeight" column="net_weight" jdbcType="DOUBLE"/>
+        <result property="grossWeight" column="gross_weight" jdbcType="DOUBLE"/>
+        <result property="installationNumber" column="installation_number" jdbcType="VARCHAR"/>
+        <result property="shipStatus" column="ship_status" jdbcType="VARCHAR"/>
+        <result property="artt1" column="artt1" jdbcType="VARCHAR"/>
+        <result property="artt2" column="artt2" jdbcType="VARCHAR"/>
+        <result property="artt3" column="artt3" jdbcType="INTEGER"/>
+        <result property="artt4" column="artt4" jdbcType="INTEGER"/>
+        <result property="materialNumber" column="material_number" jdbcType="VARCHAR"/>
+        <result property="materialCode" column="material_code" jdbcType="VARCHAR"/>
+        <result property="trader" column="trader" jdbcType="VARCHAR"/>
+        <result property="materialManufacturer" column="material_manufacturer" jdbcType="VARCHAR"/>
+        <result property="snidCode" column="snid_code" jdbcType="VARCHAR"/> <!-- New Field -->
+    </resultMap>
+
+    <sql id="selectWmsInstallationVo">
+        SELECT
+        id,
+        installation_code,
+        create_time,
+        create_by,
+        update_time,
+        update_by,
+        batch_number,
+        item_code,
+        product_name,
+        wms_spec,
+        net_weight,
+        gross_weight,
+        installation_number,
+        ship_status,
+        artt1,
+        artt2,
+        artt3,
+        artt4,
+        material_number,
+        trader,
+        material_manufacturer,
+        batch_number2,  <!-- Existing Field -->
+        material_code,  <!-- Existing Field -->
+        snid_code  <!-- New Field -->
+        FROM wms_installation
+    </sql>
+
+    <select id="selectWmsInstallationList" parameterType="WmsInstallation" resultMap="WmsInstallationMap">
+        <include refid="selectWmsInstallationVo"/>
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="installationCode != null and installationCode != ''">
+                and installation_code = REPLACE(#{installationCode}, ' ', '')
+            </if>
+            <if test="createTime != null">
+                and create_time = #{createTime}
+            </if>
+            <if test="createBy != null and createBy != ''">
+                and create_by = #{createBy}
+            </if>
+            <if test="updateTime != null">
+                and update_time = #{updateTime}
+            </if>
+            <if test="updateBy != null">
+                and update_by = #{updateBy}
+            </if>
+            <if test="batchNumber != null and batchNumber != ''">
+                and batch_number = #{batchNumber}
+            </if>
+            <if test="batchNumber2 != null and batchNumber2 != ''">
+                and batch_number2 = REPLACE(#{batchNumber2}, ' ', '')
+            </if>
+            <if test="itemCode != null and itemCode != ''">
+                and item_code = #{itemCode}
+            </if>
+            <if test="productName != null and productName != ''">
+                and product_name = #{productName}
+            </if>
+            <if test="wmsSpec != null and wmsSpec != ''">
+                and wms_spec = REPLACE(#{wmsSpec}, ' ', '')
+            </if>
+            <if test="netWeight != null and netWeight != ''">
+                and net_weight = #{netWeight}
+            </if>
+            <if test="grossWeight != null and grossWeight != ''">
+                and gross_weight = #{grossWeight}
+            </if>
+            <if test="installationNumber != null and installationNumber != ''">
+                and installation_number = #{installationNumber}
+            </if>
+            <if test="shipStatus != null and shipStatus != ''">
+                and ship_status = #{shipStatus}
+            </if>
+            <if test="artt1 != null and artt1 != ''">
+                and artt1 = #{artt1}
+            </if>
+            <if test="artt2 != null and artt2 != ''">
+                and artt2 = #{artt2}
+            </if>
+            <if test="artt3 != null">
+                and artt3 = #{artt3}
+            </if>
+            <if test="artt4 != null">
+                and artt4 = #{artt4}
+            </if>
+            <if test="materialNumber != null and materialNumber != ''">
+                and material_number = #{materialNumber}
+            </if>
+            <if test="materialCode != null and materialCode != ''">
+                and material_code = #{materialCode}
+            </if>
+            <if test="trader != null and trader != ''">
+                and trader = #{trader}
+            </if>
+            <if test="materialManufacturer != null and materialManufacturer != ''">
+                and material_manufacturer = #{materialManufacturer}
+            </if>
+            <if test="snidCode != null and snidCode != ''">
+                and snid_code = #{snidCode} <!-- New Field -->
+            </if>
+        </where>
+        ORDER BY
+        create_time
+        DESC
+    </select>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="WmsInstallationMap">
+        <include refid="selectWmsInstallationVo"/>
+        where id = #{id}
+    </select>
+
+    <!--统计总行数-->
+    <select id="count" resultType="java.lang.Long">
+        select count(1)
+        from wms_installation
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="installationCode != null and installationCode != ''">
+                and installation_code = #{installationCode}
+            </if>
+            <if test="createTime != null">
+                and create_time = #{createTime}
+            </if>
+            <if test="createBy != null and createBy != ''">
+                and create_by = #{createBy}
+            </if>
+            <if test="updateTime != null">
+                and update_time = #{updateTime}
+            </if>
+            <if test="updateBy != null">
+                and update_by = #{updateBy}
+            </if>
+            <if test="batchNumber != null and batchNumber != ''">
+                and batch_number = #{batchNumber}
+            </if>
+            <if test="batchNumber2 != null and batchNumber2 != ''">
+                and batch_number2 = #{batchNumber2}
+            </if>
+            <if test="itemCode != null and itemCode != ''">
+                and item_code = #{itemCode}
+            </if>
+            <if test="productName != null and productName != ''">
+                and product_name = #{productName}
+            </if>
+            <if test="wmsSpec != null and wmsSpec != ''">
+                and wms_spec = #{wmsSpec}
+            </if>
+            <if test="netWeight != null and netWeight != ''">
+                and net_weight = #{netWeight}
+            </if>
+            <if test="grossWeight != null and grossWeight != ''">
+                and gross_weight = #{grossWeight}
+            </if>
+            <if test="installationNumber != null and installationNumber != ''">
+                and installation_number = #{installationNumber}
+            </if>
+            <if test="shipStatus != null and shipStatus != ''">
+                and ship_status = #{shipStatus}
+            </if>
+            <if test="artt1 != null and artt1 != ''">
+                and artt1 = #{artt1}
+            </if>
+            <if test="artt2 != null and artt2 != ''">
+                and artt2 = #{artt2}
+            </if>
+            <if test="artt3 != null">
+                and artt3 = #{artt3}
+            </if>
+            <if test="artt4 != null">
+                and artt4 = #{artt4}
+            </if>
+            <if test="materialNumber != null and materialNumber != ''">
+                and material_number = #{materialNumber}
+            </if>
+            <if test="materialCode != null and materialCode != ''">
+                and material_code = #{materialCode}
+            </if>
+            <if test="trader != null and trader != ''">
+                and trader = #{trader}
+            </if>
+            <if test="materialManufacturer != null and materialManufacturer != ''">
+                and material_manufacturer = #{materialManufacturer}
+            </if>
+            <if test="snidCode != null and snidCode != ''">
+                and snid_code = #{snidCode} <!-- New Field -->
+            </if>
+        </where>
+    </select>
+    <select id="queryByCode" resultMap="WmsInstallationMap">
+        <include refid="selectWmsInstallationVo"/>
+        where installation_code = #{installationCode}
+    </select>
+    <select id="queryMaxCode" resultMap="WmsInstallationMap">
+        SELECT MAX(installation_code) AS installation_code FROM wms_installation
+    </select>
+
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into wms_installation(
+        installation_code,
+        create_time,
+        create_by,
+        update_time,
+        update_by,
+        batch_number,
+        item_code,
+        product_name,
+        wms_spec,
+        net_weight,
+        gross_weight,
+        installation_number,
+        ship_status,
+        artt1,
+        artt2,
+        artt3,
+        artt4,
+        material_number,
+        trader,
+        material_manufacturer,
+        batch_number2,
+        material_code,
+        snid_code <!-- New Field -->
+        )
+        values (
+        #{installationCode},
+        #{createTime},
+        #{createBy},
+        #{updateTime},
+        #{updateBy},
+        #{batchNumber},
+        #{itemCode},
+        #{productName},
+        #{wmsSpec},
+        #{netWeight},
+        #{grossWeight},
+        #{installationNumber},
+        #{shipStatus},
+        #{artt1},
+        #{artt2},
+        #{artt3},
+        #{artt4},
+        #{materialNumber},
+        #{trader},
+        #{materialManufacturer},
+        #{batchNumber2},
+        #{materialCode},
+        #{snidCode} <!-- New Field -->
+        )
+    </insert>
+
+    <insert id="insertBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into wms_installation(installation_code, create_time, create_by, update_time, update_by, batch_number,
+        batch_number2, item_code, product_name, wms_spec, net_weight, gross_weight, installation_number, ship_status,
+        artt1, artt2, artt3, artt4, material_number, material_code, trader, material_manufacturer, snid_code) <!-- New Field -->
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.installationCode}, #{entity.createTime}, #{entity.createBy}, #{entity.updateTime},
+            #{entity.updateBy}, #{entity.batchNumber}, #{entity.batchNumber2}, #{entity.itemCode}, #{entity.productName},
+            #{entity.wmsSpec}, #{entity.netWeight}, #{entity.grossWeight}, #{entity.installationNumber}, #{entity.shipStatus},
+            #{entity.artt1}, #{entity.artt2}, #{entity.artt3}, #{entity.artt4}, #{entity.materialNumber},
+            #{entity.materialCode}, #{entity.trader}, #{entity.materialManufacturer}, #{entity.snidCode}) <!-- New Field -->
+        </foreach>
+    </insert>
+
+    <insert id="insertOrUpdateBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into wms_installation(installation_code, create_time, create_by, update_time, update_by, batch_number,
+        batch_number2, item_code, product_name, wms_spec, net_weight, gross_weight, installation_number, ship_status,
+        artt1, artt2, artt3, artt4, material_number, material_code, trader, material_manufacturer, snid_code) <!-- New Field -->
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.installationCode}, #{entity.createTime}, #{entity.createBy}, #{entity.updateTime},
+            #{entity.updateBy}, #{entity.batchNumber}, #{entity.batchNumber2}, #{entity.itemCode}, #{entity.productName},
+            #{entity.wmsSpec}, #{entity.netWeight}, #{entity.grossWeight}, #{entity.installationNumber}, #{entity.shipStatus},
+            #{entity.artt1}, #{entity.artt2}, #{entity.artt3}, #{entity.artt4}, #{entity.materialNumber},
+            #{entity.materialCode}, #{entity.trader}, #{entity.materialManufacturer}, #{entity.snidCode}) <!-- New Field -->
+        </foreach>
+        on duplicate key update
+        installation_code = values(installation_code),
+        create_time = values(create_time),
+        create_by = values(create_by),
+        update_time = values(update_time),
+        update_by = values(update_by),
+        batch_number = values(batch_number),
+        batch_number2 = values(batch_number2),
+        item_code = values(item_code),
+        product_name = values(product_name),
+        wms_spec = values(wms_spec),
+        net_weight = values(net_weight),
+        gross_weight = values(gross_weight),
+        installation_number = values(installation_number),
+        ship_status = values(ship_status),
+        artt1 = values(artt1),
+        artt2 = values(artt2),
+        artt3 = values(artt3),
+        artt4 = values(artt4),
+        material_number = values(material_number),
+        material_code = values(material_code),
+        trader = values(trader),
+        material_manufacturer = values(material_manufacturer),
+        snid_code = values(snid_code) <!-- New Field -->
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update wms_installation
+        <set>
+            <if test="installationCode != null and installationCode != ''">
+                installation_code = #{installationCode},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime},
+            </if>
+            <if test="createBy != null and createBy != ''">
+                create_by = #{createBy},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime},
+            </if>
+            <if test="updateBy != null">
+                update_by = #{updateBy},
+            </if>
+            <if test="batchNumber != null and batchNumber != ''">
+                batch_number = #{batchNumber},
+            </if>
+            <if test="batchNumber2 != null and batchNumber2 != ''">
+                batch_number2 = #{batchNumber2},
+            </if>
+            <if test="itemCode != null and itemCode != ''">
+                item_code = #{itemCode},
+            </if>
+            <if test="productName != null and productName != ''">
+                product_name = #{productName},
+            </if>
+            <if test="wmsSpec != null and productName != '' ">
+                wms_spec = #{wmsSpec},
+            </if>
+            <if test="netWeight != null ">
+                net_weight= #{netWeight, jdbcType=DOUBLE},
+            </if>
+            <if test="grossWeight != null ">
+                gross_weight = #{grossWeight, jdbcType=DOUBLE},
+            </if>
+            <if test="installationNumber != null and installationNumber != ''">
+                installation_number = #{installationNumber},
+            </if>
+            <if test="shipStatus != null and shipStatus != ''">
+                ship_status = #{shipStatus},
+            </if>
+            <if test="artt1 != null and artt1 != ''">
+                artt1 = #{artt1},
+            </if>
+            <if test="artt2 != null and artt2 != ''">
+                artt2 = #{artt2},
+            </if>
+            <if test="artt3 != null">
+                artt3 = #{artt3},
+            </if>
+            <if test="artt4 != null">
+                artt4 = #{artt4},
+            </if>
+            <if test="materialNumber != null and materialNumber != ''">
+                material_number = #{materialNumber},
+            </if>
+            <if test="materialCode != null and materialCode != ''">
+                material_code = #{materialCode},
+            </if>
+            <if test="trader != null and trader != ''">
+                trader = #{trader},
+            </if>
+            <if test="materialManufacturer != null and materialManufacturer != ''">
+                material_manufacturer = #{materialManufacturer},
+            </if>
+            <if test="snidCode != null and snidCode != ''">
+                snid_code = #{snidCode}, <!-- New Field -->
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+    <update id="initNetWeight">
+        update wms_installation
+        set net_weight = null
+        where id = #{id}
+    </update>
+    <update id="initGrossWeight">
+        update wms_installation
+        set gross_weight = null
+        where id = #{id}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete
+        from wms_installation
+        where id = #{id}
+    </delete>
+
+</mapper>

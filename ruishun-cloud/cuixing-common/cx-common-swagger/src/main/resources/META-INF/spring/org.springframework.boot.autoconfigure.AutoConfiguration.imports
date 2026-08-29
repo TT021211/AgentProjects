@@ -1,0 +1,3 @@
+# com.cuixing.common.swagger.config.SwaggerAutoConfiguration
+# com.cuixing.common.swagger.config.SwaggerWebConfiguration
+# com.cuixing.common.swagger.config.SwaggerBeanPostProcessor

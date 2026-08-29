@@ -1,0 +1,423 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cuixing.wms.mapper.WmsOutboundOrderMapper">
+
+    <resultMap type="com.cuixing.wms.entity.WmsOutboundOrder" id="WmsOutboundOrderMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="outboundCode" column="outbound_code" jdbcType="VARCHAR"/>
+        <result property="outboundName" column="outbound_name" jdbcType="VARCHAR"/>
+        <result property="outboundDate" column="outbound_date" jdbcType="TIMESTAMP"/>
+        <result property="outboundStatus" column="outbound_status" jdbcType="VARCHAR"/>
+        <result property="outboundType" column="outbound_type" jdbcType="VARCHAR"/>
+        <result property="documentNumber" column="document_number" jdbcType="VARCHAR"/>
+        <result property="detailedQuantity" column="detailed_quantity" jdbcType="VARCHAR"/>
+        <result property="detailedInformation" column="detailed_information" jdbcType="VARCHAR"/>
+        <result property="detailedWeight" column="detailed_weight" jdbcType="VARCHAR"/>
+        <result property="detailCategory" column="detail_category" jdbcType="VARCHAR"/>
+        <result property="createBy" column="create_by" jdbcType="VARCHAR"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="updateBy" column="update_by" jdbcType="VARCHAR"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+        <result property="artt1" column="artt1" jdbcType="VARCHAR"/>
+        <result property="artt2" column="artt2" jdbcType="VARCHAR"/>
+        <result property="artt3" column="artt3" jdbcType="INTEGER"/>
+        <result property="artt4" column="artt4" jdbcType="INTEGER"/>
+        <result property="artt5" column="artt5" jdbcType="VARCHAR"/>
+        <result property="artt6" column="artt6" jdbcType="VARCHAR"/>
+        <result property="artt7" column="artt7" jdbcType="VARCHAR"/>
+        <result property="artt8" column="artt8" jdbcType="VARCHAR"/>
+        <result property="artt9" column="artt9" jdbcType="VARCHAR"/>
+        <result property="artt10" column="artt10" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="selectWmsOutboundOrderVo">
+        SELECT id,
+               outbound_code,
+               outbound_name,
+               outbound_date,
+               outbound_status,
+               outbound_type,
+               document_number,
+               detailed_quantity,
+               detailed_information,
+               detailed_weight,
+               detail_category,
+               create_by,
+               create_time,
+               update_by,
+               update_time,
+               artt1,
+               artt2,
+               artt3,
+               artt4,
+               artt5,
+               artt6,
+               artt7,
+               artt8,
+               artt9,
+               artt10
+        FROM wms_outbound_order
+    </sql>
+
+    <select id="selectWmsOutboundOrderList" parameterType="WmsOutboundOrder" resultMap="WmsOutboundOrderMap">
+        <include refid="selectWmsOutboundOrderVo"/>
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="outboundCode != null and outboundCode != ''">
+                and outbound_code = REPLACE(#{outboundCode}, ' ', '')
+            </if>
+            <if test="outboundName != null and outboundName != ''">
+                and outbound_name = #{outboundName}
+            </if>
+            <if test="outboundDate != null">
+                and DATE(outbound_date) = DATE(#{outboundDate})
+            </if>
+            <if test="outboundStatus != null and outboundStatus != ''">
+                and outbound_status = #{outboundStatus}
+            </if>
+            <if test="outboundType != null and outboundType != ''">
+                and outbound_type = #{outboundType}
+            </if>
+            <if test="documentNumber != null and documentNumber != ''">
+                and document_number = REPLACE(#{documentNumber}, ' ', '')
+            </if>
+            <if test="detailedQuantity != null and detailedQuantity != ''">
+                and detailed_quantity = #{detailedQuantity}
+            </if>
+            <if test="detailedInformation != null and detailedInformation != ''">
+                and detailed_information = #{detailedInformation}
+            </if>
+            <if test="detailedWeight != null and detailedWeight != ''">
+                and detailed_weight = #{detailedWeight}
+            </if>
+            <if test="detailCategory != null and detailCategory != ''">
+                and detail_category = #{detailCategory}
+            </if>
+            <if test="createBy != null and createBy != ''">
+                and create_by = #{createBy}
+            </if>
+            <if test="createTime != null">
+                and create_time = #{createTime}
+            </if>
+            <if test="updateBy != null and updateBy != ''">
+                and update_by = #{updateBy}
+            </if>
+            <if test="updateTime != null">
+                and update_time = #{updateTime}
+            </if>
+            <if test="artt1 != null and artt1 != ''">
+                and artt1 = #{artt1}
+            </if>
+            <if test="artt2 != null and artt2 != ''">
+                and artt2 = #{artt2}
+            </if>
+            <if test="artt3 != null">
+                and artt3 = #{artt3}
+            </if>
+            <if test="artt4 != null">
+                and artt4 = #{artt4}
+            </if>
+            <if test="artt5 != null and artt5 != ''">
+                and artt5 = #{artt5}
+            </if>
+            <if test="artt6 != null and artt6 != ''">
+                and artt6 = #{artt6}
+            </if>
+            <if test="artt7 != null and artt7 != ''">
+                and artt7 = #{artt7}
+            </if>
+            <if test="artt8 != null and artt8 != ''">
+                and artt8 = #{artt8}
+            </if>
+            <if test="artt9 != null and artt9 != ''">
+                and artt9 = #{artt9}
+            </if>
+            <if test="artt10 != null and artt10 != ''">
+                and artt10 = #{artt10}
+            </if>
+        </where>
+        ORDER BY
+        CASE
+        WHEN update_time IS NOT NULL THEN update_time
+        ELSE create_time
+        END DESC,
+        id ASC
+    </select>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="WmsOutboundOrderMap">
+        select id,
+               outbound_code,
+               outbound_name,
+               outbound_date,
+               outbound_status,
+               outbound_type,
+               document_number,
+               detailed_quantity,
+               detailed_information,
+               detailed_weight,
+               detail_category,
+               create_by,
+               create_time,
+               update_by,
+               update_time,
+               artt1,
+               artt2,
+               artt3,
+               artt4,
+               artt5,
+               artt6,
+               artt7,
+               artt8,
+               artt9,
+               artt10
+
+        from wms_outbound_order
+        where id = #{id}
+    </select>
+
+    <!--统计总行数-->
+    <select id="count" resultType="java.lang.Long">
+        select count(1)
+        from wms_outbound_order
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="outboundCode != null and outboundCode != ''">
+                and outbound_code = #{outboundCode}
+            </if>
+            <if test="outboundName != null and outboundName != ''">
+                and outbound_name = #{outboundName}
+            </if>
+            <if test="outboundDate != null">
+                and outbound_date = #{outboundDate}
+            </if>
+            <if test="outboundStatus != null and outboundStatus != ''">
+                and outbound_status = #{outboundStatus}
+            </if>
+            <if test="outboundType != null and outboundType != ''">
+                and outbound_type = #{outboundType}
+            </if>
+            <if test="documentNumber != null and documentNumber != ''">
+                and document_number = #{documentNumber}
+            </if>
+            <if test="detailedQuantity != null and detailedQuantity != ''">
+                and detailed_quantity = #{detailedQuantity}
+            </if>
+            <if test="detailedInformation != null and detailedInformation != ''">
+                and detailed_information = #{detailedInformation}
+            </if>
+            <if test="detailedWeight != null and detailedWeight != ''">
+                and detailed_weight = #{detailedWeight}
+            </if>
+            <if test="detailCategory != null and detailCategory != ''">
+                and detail_category = #{detailCategory}
+            </if>
+            <if test="createBy != null and createBy != ''">
+                and create_by = #{createBy}
+            </if>
+            <if test="createTime != null">
+                and create_time = #{createTime}
+            </if>
+            <if test="updateBy != null and updateBy != ''">
+                and update_by = #{updateBy}
+            </if>
+            <if test="updateTime != null">
+                and update_time = #{updateTime}
+            </if>
+            <if test="artt1 != null and artt1 != ''">
+                and artt1 = #{artt1}
+            </if>
+            <if test="artt2 != null and artt2 != ''">
+                and artt2 = #{artt2}
+            </if>
+            <if test="artt3 != null">
+                and artt3 = #{artt3}
+            </if>
+            <if test="artt4 != null">
+                and artt4 = #{artt4}
+            </if>
+            <if test="artt5 != null and artt5 != ''">
+                and artt5 = #{artt5}
+            </if>
+            <if test="artt6 != null and artt6 != ''">
+                and artt6 = #{artt6}
+            </if>
+            <if test="artt7 != null and artt7 != ''">
+                and artt7 = #{artt7}
+            </if>
+            <if test="artt8 != null and artt8 != ''">
+                and artt8 = #{artt8}
+            </if>
+            <if test="artt9 != null and artt9 != ''">
+                and artt9 = #{artt9}
+            </if>
+            <if test="artt10 != null and artt10 != ''">
+                and artt10 = #{artt10}
+            </if>
+        </where>
+    </select>
+    <select id="queryByDocumentNumber" resultMap="WmsOutboundOrderMap">
+        <include refid="selectWmsOutboundOrderVo"/>
+        where document_number = #{documentNumber}
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into wms_outbound_order(outbound_code, outbound_name, outbound_date, outbound_status, outbound_type,
+                                       document_number, detailed_quantity, detailed_information, detailed_weight,
+                                       detail_category, create_by, create_time, update_by, update_time, artt1, artt2,
+                                       artt3, artt4, artt5, artt6, artt7, artt8, artt9, artt10)
+        values (#{outboundCode}, #{outboundName}, #{outboundDate}, #{outboundStatus}, #{outboundType},
+                #{documentNumber}, #{detailedQuantity}, #{detailedInformation}, #{detailedWeight}, #{detailCategory},
+                #{createBy}, #{createTime}, #{updateBy}, #{updateTime}, #{artt1}, #{artt2}, #{artt3}, #{artt4},
+                #{artt5}, #{artt6}, #{artt7}, #{artt8}, #{artt9}, #{artt10})
+    </insert>
+
+    <insert id="insertBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into wms_outbound_order(outbound_code, outbound_name, outbound_date, outbound_status, outbound_type,
+        document_number, detailed_quantity, detailed_information, detailed_weight, detail_category, create_by,
+        create_time, update_by, update_time, artt1, artt2, artt3, artt4, artt5, artt6, artt7, artt8, artt9, artt10)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.outboundCode}, #{entity.outboundName}, #{entity.outboundDate}, #{entity.outboundStatus},
+            #{entity.outboundType}, #{entity.documentNumber}, #{entity.detailedQuantity}, #{entity.detailedInformation},
+            #{entity.detailedWeight}, #{entity.detailCategory}, #{entity.createBy}, #{entity.createTime},
+            #{entity.updateBy}, #{entity.updateTime}, #{entity.artt1}, #{entity.artt2}, #{entity.artt3},
+            #{entity.artt4}, #{entity.artt5}, #{entity.artt6}, #{entity.artt7}, #{entity.artt8}, #{entity.artt9},
+            #{entity.artt10})
+        </foreach>
+    </insert>
+
+    <insert id="insertOrUpdateBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into wms_outbound_order(outbound_code, outbound_name, outbound_date, outbound_status, outbound_type,
+        document_number, detailed_quantity, detailed_information, detailed_weight, detail_category, create_by,
+        create_time, update_by, update_time, artt1, artt2, artt3, artt4, artt5, artt6, artt7, artt8, artt9, artt10)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.outboundCode}, #{entity.outboundName}, #{entity.outboundDate}, #{entity.outboundStatus},
+            #{entity.outboundType}, #{entity.documentNumber}, #{entity.detailedQuantity}, #{entity.detailedInformation},
+            #{entity.detailedWeight}, #{entity.detailCategory}, #{entity.createBy}, #{entity.createTime},
+            #{entity.updateBy}, #{entity.updateTime}, #{entity.artt1}, #{entity.artt2}, #{entity.artt3},
+            #{entity.artt4}, #{entity.artt5}, #{entity.artt6}, #{entity.artt7}, #{entity.artt8}, #{entity.artt9},
+            #{entity.artt10})
+        </foreach>
+        on duplicate key update
+        outbound_code = values(outbound_code),
+        outbound_name = values(outbound_name),
+        outbound_date = values(outbound_date),
+        outbound_status = values(outbound_status),
+        outbound_type = values(outbound_type),
+        document_number = values(document_number),
+        detailed_quantity = values(detailed_quantity),
+        detailed_information = values(detailed_information),
+        detailed_weight = values(detailed_weight),
+        detail_category = values(detail_category),
+        create_by = values(create_by),
+        create_time = values(create_time),
+        update_by = values(update_by),
+        update_time = values(update_time),
+        artt1 = values(artt1),
+        artt2 = values(artt2),
+        artt3 = values(artt3),
+        artt4 = values(artt4),
+        artt5 = values(artt5),
+        artt6 = values(artt6),
+        artt7 = values(artt7),
+        artt8 = values(artt8),
+        artt9 = values(artt9),
+        artt10 = values(artt10)
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update wms_outbound_order
+        <set>
+            <if test="outboundCode != null and outboundCode != ''">
+                outbound_code = #{outboundCode},
+            </if>
+            <if test="outboundName != null and outboundName != ''">
+                outbound_name = #{outboundName},
+            </if>
+            <if test="outboundDate != null">
+                outbound_date = #{outboundDate},
+            </if>
+            <if test="outboundStatus != null and outboundStatus != ''">
+                outbound_status = #{outboundStatus},
+            </if>
+            <if test="outboundType != null and outboundType != ''">
+                outbound_type = #{outboundType},
+            </if>
+            <if test="documentNumber != null and documentNumber != ''">
+                document_number = #{documentNumber},
+            </if>
+            <if test="detailedQuantity != null and detailedQuantity != ''">
+                detailed_quantity = #{detailedQuantity},
+            </if>
+            <if test="detailedInformation != null and detailedInformation != ''">
+                detailed_information = #{detailedInformation},
+            </if>
+            <if test="detailedWeight != null and detailedWeight != ''">
+                detailed_weight = #{detailedWeight},
+            </if>
+            <if test="detailCategory != null and detailCategory != ''">
+                detail_category = #{detailCategory},
+            </if>
+            <if test="createBy != null and createBy != ''">
+                create_by = #{createBy},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime},
+            </if>
+            <if test="updateBy != null and updateBy != ''">
+                update_by = #{updateBy},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime},
+            </if>
+            <if test="artt1 != null and artt1 != ''">
+                artt1 = #{artt1},
+            </if>
+            <if test="artt2 != null and artt2 != ''">
+                artt2 = #{artt2},
+            </if>
+            <if test="artt3 != null">
+                artt3 = #{artt3},
+            </if>
+            <if test="artt4 != null">
+                artt4 = #{artt4},
+            </if>
+            <if test="artt5 != null and artt5 != ''">
+                artt5 = #{artt5},
+            </if>
+            <if test="artt6 != null and artt6 != ''">
+                artt6 = #{artt6},
+            </if>
+            <if test="artt7 != null and artt7 != ''">
+                artt7 = #{artt7},
+            </if>
+            <if test="artt8 != null and artt8 != ''">
+                artt8 = #{artt8},
+            </if>
+            <if test="artt9 != null and artt9 != ''">
+                artt9 = #{artt9},
+            </if>
+            <if test="artt10 != null and artt10 != ''">
+                artt10 = #{artt10},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete
+        from wms_outbound_order
+        where id = #{id}
+    </delete>
+
+</mapper>
+

@@ -1,0 +1,597 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cuixing.mes.mapper.MesProductBomMapper">
+    <resultMap type="com.cuixing.system.api.domain.mes.MesProductBom" id="MesProductBomMap">
+        <result property="id" column="id" jdbcType="BIGINT"/>
+        <result property="routingId" column="routing_id" jdbcType="BIGINT"/>
+        <result property="routingName" column="routing_name" jdbcType="VARCHAR"/>
+        <result property="productId" column="product_id" jdbcType="BIGINT"/>
+        <result property="productCode" column="product_code" jdbcType="VARCHAR"/>
+        <result property="productName" column="product_name" jdbcType="VARCHAR"/>
+        <result property="routingWorkstageId" column="routing_workstage_id" jdbcType="BIGINT"/>
+        <result property="workstageId" column="workstage_id" jdbcType="BIGINT"/>
+        <result property="workstageName" column="workstage_name" jdbcType="VARCHAR"/>
+        <result property="workstageCode" column="workstage_code" jdbcType="VARCHAR"/>
+        <result property="orderNum" column="order_num" jdbcType="INTEGER"/>
+        <result property="orderMark" column="order_mark" jdbcType="VARCHAR"/>
+        <result property="inputBomId" column="input_bom_id" jdbcType="BIGINT"/>
+        <result property="inputBomName" column="input_bom_name" jdbcType="VARCHAR"/>
+        <result property="inputBomCode" column="input_bom_code" jdbcType="VARCHAR"/>
+        <result property="outputBomId" column="output_bom_id" jdbcType="BIGINT"/>
+        <result property="outputBomName" column="output_bom_name" jdbcType="VARCHAR"/>
+        <result property="outputBomCode" column="output_bom_code" jdbcType="VARCHAR"/>
+        <result property="mouldId" column="mould_id" jdbcType="BIGINT"/>
+        <result property="mouldName" column="mould_name" jdbcType="VARCHAR"/>
+        <result property="productYield" column="product_yield" jdbcType="DECIMAL"/>
+        <result property="sopTitle" column="sop_title" jdbcType="VARCHAR"/>
+        <result property="sopDesc" column="sop_desc" jdbcType="VARCHAR"/>
+        <result property="sopUrl" column="sop_url" jdbcType="VARCHAR"/>
+        <result property="otherParams" column="other_params" jdbcType="VARCHAR"/>
+        <result property="version" column="version" jdbcType="INTEGER"/>
+        <result property="isDeleted" column="is_deleted" jdbcType="INTEGER"/>
+        <result property="createBy" column="create_by" jdbcType="VARCHAR"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="updateBy" column="update_by" jdbcType="VARCHAR"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+        <result property="attr1" column="attr1" jdbcType="VARCHAR"/>
+        <result property="attr2" column="attr2" jdbcType="INTEGER"/>
+        <result property="attr3" column="attr3" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!-- 通过ID查询单条数据 -->
+    <select id="queryById" resultMap="MesProductBomMap">
+        select
+        id,routing_id,routing_name,product_id,product_code,product_name,routing_workstage_id,workstage_id,workstage_name,workstage_code,order_num,order_mark,input_bom_id,input_bom_name,input_bom_code,output_bom_id,output_bom_name,output_bom_code,mould_id,mould_name,product_yield,sop_title,sop_desc,sop_url,other_params,version,is_deleted,create_by,create_time,update_by,update_time,attr1,attr2,attr3
+        from mes_product_bom
+        where is_deleted = 0 and id = #{id}
+    </select>
+
+    <!--分页查询指定行数据-->
+    <select id="selectMesProductBomList" resultMap="MesProductBomMap" parameterType="com.cuixing.system.api.domain.mes.MesProductBom">
+        select
+        d.id,d.routing_id,d.routing_name,d.product_id,d.product_code,d.product_name,d.routing_workstage_id,d.workstage_id,d.workstage_name,d.workstage_code,d.order_num,d.order_mark,d.input_bom_id,d.input_bom_name,d.input_bom_code,d.output_bom_id,d.output_bom_name,d.output_bom_code,d.mould_id,d.mould_name,d.product_yield,d.sop_title,d.sop_desc,d.sop_url,d.other_params,d.version,d.is_deleted,d.create_by,d.create_time,d.update_by,d.update_time,d.attr1,d.attr2,d.attr3
+        from mes_product_bom d
+        <where>
+            is_deleted = 0
+            <if test="id != null ">
+                and id = #{id}
+            </if>
+            <if test="routingId != null ">
+                and routing_id = #{routingId}
+            </if>
+            <if test="routingName != null and routingName != ''">
+                and routing_name = #{routingName}
+            </if>
+            <if test="productId != null ">
+                and product_id = #{productId}
+            </if>
+            <if test="productCode != null and productCode != ''">
+                and product_code = #{productCode}
+            </if>
+            <if test="productName != null and productName != ''">
+                and product_name = #{productName}
+            </if>
+            <if test="routingWorkstageId != null ">
+                and routing_workstage_id = #{routingWorkstageId}
+            </if>
+            <if test="workstageId != null ">
+                and workstage_id = #{workstageId}
+            </if>
+            <if test="workstageName != null and workstageName != ''">
+                and workstage_name = #{workstageName}
+            </if>
+            <if test="workstageCode != null and workstageCode != ''">
+                and workstage_code = #{workstageCode}
+            </if>
+            <if test="orderNum != null ">
+                and order_num = #{orderNum}
+            </if>
+            <if test="orderMark != null and orderMark != ''">
+                and order_mark = #{orderMark}
+            </if>
+            <if test="inputBomId != null ">
+                and input_bom_id = #{inputBomId}
+            </if>
+            <if test="inputBomName != null and inputBomName != ''">
+                and input_bom_name = #{inputBomName}
+            </if>
+            <if test="inputBomCode != null and inputBomCode != ''">
+                and input_bom_code = #{inputBomCode}
+            </if>
+            <if test="outputBomId != null ">
+                and output_bom_id = #{outputBomId}
+            </if>
+            <if test="outputBomName != null and outputBomName != ''">
+                and output_bom_name = #{outputBomName}
+            </if>
+            <if test="outputBomCode != null and outputBomCode != ''">
+                and output_bom_code = #{outputBomCode}
+            </if>
+            <if test="mouldId != null ">
+                and mould_id = #{mouldId}
+            </if>
+            <if test="mouldName != null and mouldName != ''">
+                and mould_name = #{mouldName}
+            </if>
+            <if test="productYield != null ">
+                and product_yield = #{productYield}
+            </if>
+            <if test="sopTitle != null and sopTitle != ''">
+                and sop_title = #{sopTitle}
+            </if>
+            <if test="sopDesc != null and sopDesc != ''">
+                and sop_desc = #{sopDesc}
+            </if>
+            <if test="sopUrl != null and sopUrl != ''">
+                and sop_url = #{sopUrl}
+            </if>
+            <if test="otherParams != null and otherParams != ''">
+                and other_params = #{otherParams}
+            </if>
+            <if test="version != null ">
+                and version = #{version}
+            </if>
+            <if test="isDeleted != null ">
+                and is_deleted = #{isDeleted}
+            </if>
+            <if test="createBy != null and createBy != ''">
+                and create_by = #{createBy}
+            </if>
+            <if test="createTime != null ">
+                and create_time = #{createTime}
+            </if>
+            <if test="updateBy != null and updateBy != ''">
+                and update_by = #{updateBy}
+            </if>
+            <if test="updateTime != null ">
+                and update_time = #{updateTime}
+            </if>
+            <if test="attr1 != null and attr1 != ''">
+                and attr1 = #{attr1}
+            </if>
+            <if test="attr2 != null ">
+                and attr2 = #{attr2}
+            </if>
+            <if test="attr3 != null and attr3 != ''">
+                and attr3 = #{attr3}
+            </if>
+        </where>
+        order by order_num asc, create_time desc
+    </select>
+
+    <!--统计总行数-->
+    <select id="count" resultType="java.lang.Long">
+        select count(1)
+        from mes_product_bom
+        <where>
+            is_deleted = 0
+            <if test="id != null ">
+                and id = #{id}
+            </if>
+            <if test="routingId != null ">
+                and routing_id = #{routingId}
+            </if>
+            <if test="routingName != null and routingName != ''">
+                and routing_name = #{routingName}
+            </if>
+            <if test="productId != null ">
+                and product_id = #{productId}
+            </if>
+            <if test="productCode != null and productCode != ''">
+                and product_code = #{productCode}
+            </if>
+            <if test="productName != null and productName != ''">
+                and product_name = #{productName}
+            </if>
+            <if test="routingWorkstageId != null ">
+                and routing_workstage_id = #{routingWorkstageId}
+            </if>
+            <if test="workstageId != null ">
+                and workstage_id = #{workstageId}
+            </if>
+            <if test="workstageName != null and workstageName != ''">
+                and workstage_name = #{workstageName}
+            </if>
+            <if test="workstageCode != null and workstageCode != ''">
+                and workstage_code = #{workstageCode}
+            </if>
+            <if test="orderNum != null ">
+                and order_num = #{orderNum}
+            </if>
+            <if test="orderMark != null and orderMark != ''">
+                and order_mark = #{orderMark}
+            </if>
+            <if test="inputBomId != null ">
+                and input_bom_id = #{inputBomId}
+            </if>
+            <if test="inputBomName != null and inputBomName != ''">
+                and input_bom_name = #{inputBomName}
+            </if>
+            <if test="inputBomCode != null and inputBomCode != ''">
+                and input_bom_code = #{inputBomCode}
+            </if>
+            <if test="outputBomId != null ">
+                and output_bom_id = #{outputBomId}
+            </if>
+            <if test="outputBomName != null and outputBomName != ''">
+                and output_bom_name = #{outputBomName}
+            </if>
+            <if test="outputBomCode != null and outputBomCode != ''">
+                and output_bom_code = #{outputBomCode}
+            </if>
+            <if test="mouldId != null ">
+                and mould_id = #{mouldId}
+            </if>
+            <if test="mouldName != null and mouldName != ''">
+                and mould_name = #{mouldName}
+            </if>
+            <if test="productYield != null ">
+                and product_yield = #{productYield}
+            </if>
+            <if test="sopTitle != null and sopTitle != ''">
+                and sop_title = #{sopTitle}
+            </if>
+            <if test="sopDesc != null and sopDesc != ''">
+                and sop_desc = #{sopDesc}
+            </if>
+            <if test="sopUrl != null and sopUrl != ''">
+                and sop_url = #{sopUrl}
+            </if>
+            <if test="otherParams != null and otherParams != ''">
+                and other_params = #{otherParams}
+            </if>
+            <if test="version != null ">
+                and version = #{version}
+            </if>
+            <if test="isDeleted != null ">
+                and is_deleted = #{isDeleted}
+            </if>
+            <if test="createBy != null and createBy != ''">
+                and create_by = #{createBy}
+            </if>
+            <if test="createTime != null ">
+                and create_time = #{createTime}
+            </if>
+            <if test="updateBy != null and updateBy != ''">
+                and update_by = #{updateBy}
+            </if>
+            <if test="updateTime != null ">
+                and update_time = #{updateTime}
+            </if>
+            <if test="attr1 != null and attr1 != ''">
+                and attr1 = #{attr1}
+            </if>
+            <if test="attr2 != null ">
+                and attr2 = #{attr2}
+            </if>
+            <if test="attr3 != null and attr3 != ''">
+                and attr3 = #{attr3}
+            </if>
+        </where>
+    </select>
+
+    <!--新增数据-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into mes_product_bom
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="routingId != null ">routing_id,</if>
+            <if test="routingName != null and routingName != ''">routing_name,</if>
+            <if test="productId != null ">product_id,</if>
+            <if test="productCode != null and productCode != ''">product_code,</if>
+            <if test="productName != null and productName != ''">product_name,</if>
+            <if test="routingWorkstageId != null ">routing_workstage_id,</if>
+            <if test="workstageId != null ">workstage_id,</if>
+            <if test="workstageName != null and workstageName != ''">workstage_name,</if>
+            <if test="workstageCode != null and workstageCode != ''">workstage_code,</if>
+            <if test="orderNum != null ">order_num,</if>
+            <if test="orderMark != null and orderMark != ''">order_mark,</if>
+            <if test="inputBomId != null ">input_bom_id,</if>
+            <if test="inputBomName != null and inputBomName != ''">input_bom_name,</if>
+            <if test="inputBomCode != null and inputBomCode != ''">input_bom_code,</if>
+            <if test="outputBomId != null ">output_bom_id,</if>
+            <if test="outputBomName != null and outputBomName != ''">output_bom_name,</if>
+            <if test="outputBomCode != null and outputBomCode != ''">output_bom_code,</if>
+            <if test="mouldId != null ">mould_id,</if>
+            <if test="mouldName != null and mouldName != ''">mould_name,</if>
+            <if test="productYield != null ">product_yield,</if>
+            <if test="sopTitle != null and sopTitle != ''">sop_title,</if>
+            <if test="sopDesc != null and sopDesc != ''">sop_desc,</if>
+            <if test="sopUrl != null and sopUrl != ''">sop_url,</if>
+            <if test="otherParams != null and otherParams != ''">other_params,</if>
+            <if test="version != null ">version,</if>
+            <if test="isDeleted != null ">is_deleted,</if>
+            <if test="createBy != null and createBy != ''">create_by,</if>
+            <if test="createTime != null ">create_time,</if>
+            <if test="updateBy != null and updateBy != ''">update_by,</if>
+            <if test="updateTime != null ">update_time,</if>
+            <if test="attr1 != null and attr1 != ''">attr1,</if>
+            <if test="attr2 != null ">attr2,</if>
+            <if test="attr3 != null and attr3 != ''">attr3,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="routingId != null ">#{routingId},</if>
+            <if test="routingName != null and routingName != ''">#{routingName},</if>
+            <if test="productId != null ">#{productId},</if>
+            <if test="productCode != null and productCode != ''">#{productCode},</if>
+            <if test="productName != null and productName != ''">#{productName},</if>
+            <if test="routingWorkstageId != null ">#{routingWorkstageId},</if>
+            <if test="workstageId != null ">#{workstageId},</if>
+            <if test="workstageName != null and workstageName != ''">#{workstageName},</if>
+            <if test="workstageCode != null and workstageCode != ''">#{workstageCode},</if>
+            <if test="orderNum != null ">#{orderNum},</if>
+            <if test="orderMark != null and orderMark != ''">#{orderMark},</if>
+            <if test="inputBomId != null ">#{inputBomId},</if>
+            <if test="inputBomName != null and inputBomName != ''">#{inputBomName},</if>
+            <if test="inputBomCode != null and inputBomCode != ''">#{inputBomCode},</if>
+            <if test="outputBomId != null ">#{outputBomId},</if>
+            <if test="outputBomName != null and outputBomName != ''">#{outputBomName},</if>
+            <if test="outputBomCode != null and outputBomCode != ''">#{outputBomCode},</if>
+            <if test="mouldId != null ">#{mouldId},</if>
+            <if test="mouldName != null and mouldName != ''">#{mouldName},</if>
+            <if test="productYield != null ">#{productYield},</if>
+            <if test="sopTitle != null and sopTitle != ''">#{sopTitle},</if>
+            <if test="sopDesc != null and sopDesc != ''">#{sopDesc},</if>
+            <if test="sopUrl != null and sopUrl != ''">#{sopUrl},</if>
+            <if test="otherParams != null and otherParams != ''">#{otherParams},</if>
+            <if test="version != null ">#{version},</if>
+            <if test="isDeleted != null ">#{isDeleted},</if>
+            <if test="createBy != null and createBy != ''">#{createBy},</if>
+            <if test="createTime != null ">#{createTime},</if>
+            <if test="updateBy != null and updateBy != ''">#{updateBy},</if>
+            <if test="updateTime != null ">#{updateTime},</if>
+            <if test="attr1 != null and attr1 != ''">#{attr1},</if>
+            <if test="attr2 != null ">#{attr2},</if>
+            <if test="attr3 != null and attr3 != ''">#{attr3},</if>
+        </trim>
+    </insert>
+
+    <!-- 批量新增数据 -->
+    <!--<insert id="insertBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into mes_product_bom
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="routingId != null ">routing_id,</if>
+            <if test="routingName != null and routingName != ''">routing_name,</if>
+            <if test="productId != null ">product_id,</if>
+            <if test="productCode != null and productCode != ''">product_code,</if>
+            <if test="productName != null and productName != ''">product_name,</if>
+            <if test="routingWorkstageId != null ">routing_workstage_id,</if>
+            <if test="workstageId != null ">workstage_id,</if>
+            <if test="workstageName != null and workstageName != ''">workstage_name,</if>
+            <if test="workstageCode != null and workstageCode != ''">workstage_code,</if>
+            <if test="orderNum != null ">order_num,</if>
+            <if test="orderMark != null and orderMark != ''">order_mark,</if>
+            <if test="inputBomId != null ">input_bom_id,</if>
+            <if test="inputBomName != null and inputBomName != ''">input_bom_name,</if>
+            <if test="inputBomCode != null and inputBomCode != ''">input_bom_code,</if>
+            <if test="outputBomId != null ">output_bom_id,</if>
+            <if test="outputBomName != null and outputBomName != ''">output_bom_name,</if>
+            <if test="outputBomCode != null and outputBomCode != ''">output_bom_code,</if>
+            <if test="mouldId != null ">mould_id,</if>
+            <if test="mouldName != null and mouldName != ''">mould_name,</if>
+            <if test="productYield != null ">product_yield,</if>
+            <if test="sopTitle != null and sopTitle != ''">sop_title,</if>
+            <if test="sopDesc != null and sopDesc != ''">sop_desc,</if>
+            <if test="sopUrl != null and sopUrl != ''">sop_url,</if>
+            <if test="otherParams != null and otherParams != ''">other_params,</if>
+            <if test="version != null ">version,</if>
+            <if test="isDeleted != null ">is_deleted,</if>
+            <if test="createBy != null and createBy != ''">create_by,</if>
+            <if test="createTime != null ">create_time,</if>
+            <if test="updateBy != null and updateBy != ''">update_by,</if>
+            <if test="updateTime != null ">update_time,</if>
+            <if test="attr1 != null and attr1 != ''">attr1,</if>
+            <if test="attr2 != null ">attr2,</if>
+            <if test="attr3 != null and attr3 != ''">attr3,</if>
+        </trim>
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            <trim prefix="(" suffix=")" suffixOverrides=",">
+                    <if test="entity.id != null ">#{entity.id},</if>
+                    <if test="entity.routingId != null ">#{entity.routingId},</if>
+                    <if test="entity.routingName != null and entity.routingName != ''">#{entity.routingName},</if>
+                    <if test="entity.productId != null ">#{entity.productId},</if>
+                    <if test="entity.productCode != null and entity.productCode != ''">#{entity.productCode},</if>
+                    <if test="entity.productName != null and entity.productName != ''">#{entity.productName},</if>
+                    <if test="entity.routingWorkstageId != null ">#{entity.routingWorkstageId},</if>
+                    <if test="entity.workstageId != null ">#{entity.workstageId},</if>
+                    <if test="entity.workstageName != null and entity.workstageName != ''">#{entity.workstageName},</if>
+                    <if test="entity.workstageCode != null and entity.workstageCode != ''">#{entity.workstageCode},</if>
+                    <if test="entity.orderNum != null ">#{entity.orderNum},</if>
+                    <if test="entity.orderMark != null and entity.orderMark != ''">#{entity.orderMark},</if>
+                    <if test="entity.inputBomId != null ">#{entity.inputBomId},</if>
+                    <if test="entity.inputBomName != null and entity.inputBomName != ''">#{entity.inputBomName},</if>
+                    <if test="entity.inputBomCode != null and entity.inputBomCode != ''">#{entity.inputBomCode},</if>
+                    <if test="entity.outputBomId != null ">#{entity.outputBomId},</if>
+                    <if test="entity.outputBomName != null and entity.outputBomName != ''">#{entity.outputBomName},</if>
+                    <if test="entity.outputBomCode != null and entity.outputBomCode != ''">#{entity.outputBomCode},</if>
+                    <if test="entity.mouldId != null ">#{entity.mouldId},</if>
+                    <if test="entity.mouldName != null and entity.mouldName != ''">#{entity.mouldName},</if>
+                    <if test="entity.productYield != null ">#{entity.productYield},</if>
+                    <if test="entity.sopTitle != null and entity.sopTitle != ''">#{entity.sopTitle},</if>
+                    <if test="entity.sopDesc != null and entity.sopDesc != ''">#{entity.sopDesc},</if>
+                    <if test="entity.sopUrl != null and entity.sopUrl != ''">#{entity.sopUrl},</if>
+                    <if test="entity.otherParams != null and entity.otherParams != ''">#{entity.otherParams},</if>
+                    <if test="entity.version != null ">#{entity.version},</if>
+                    <if test="entity.isDeleted != null ">#{entity.isDeleted},</if>
+                    <if test="entity.createBy != null and entity.createBy != ''">#{entity.createBy},</if>
+                    <if test="entity.createTime != null ">#{entity.createTime},</if>
+                    <if test="entity.updateBy != null and entity.updateBy != ''">#{entity.updateBy},</if>
+                    <if test="entity.updateTime != null ">#{entity.updateTime},</if>
+                    <if test="entity.attr1 != null and entity.attr1 != ''">#{entity.attr1},</if>
+                    <if test="entity.attr2 != null ">#{entity.attr2},</if>
+                    <if test="entity.attr3 != null and entity.attr3 != ''">#{entity.attr3},</if>
+            </trim>
+        </foreach>
+    </insert>-->
+
+    <!-- 批量新增或按主键更新数据 -->
+    <insert id="insertOrUpdateBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into mes_product_bom(id,routing_id,routing_name,product_id,product_code,product_name,routing_workstage_id,workstage_id,workstage_name,workstage_code,order_num,order_mark,input_bom_id,input_bom_name,input_bom_code,output_bom_id,output_bom_name,output_bom_code,mould_id,mould_name,product_yield,sop_title,sop_desc,sop_url,other_params,version,is_deleted,create_by,create_time,update_by,update_time,attr1,attr2,attr3)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.id},#{entity.routingId},#{entity.routingName},#{entity.productId},#{entity.productCode},#{entity.productName},#{entity.routingWorkstageId},#{entity.workstageId},#{entity.workstageName},#{entity.workstageCode},#{entity.orderNum},#{entity.orderMark},#{entity.inputBomId},#{entity.inputBomName},#{entity.inputBomCode},#{entity.outputBomId},#{entity.outputBomName},#{entity.outputBomCode},#{entity.mouldId},#{entity.mouldName},#{entity.productYield},#{entity.sopTitle},#{entity.sopDesc},#{entity.sopUrl},#{entity.otherParams},#{entity.version},#{entity.isDeleted},#{entity.createBy},#{entity.createTime},#{entity.updateBy},#{entity.updateTime},#{entity.attr1},#{entity.attr2},#{entity.attr3})
+        </foreach>
+        on duplicate key update
+        id=values(id),
+        routing_id=values(routing_id),
+        routing_name=values(routing_name),
+        product_id=values(product_id),
+        product_code=values(product_code),
+        product_name=values(product_name),
+        routing_workstage_id=values(routing_workstage_id),
+        workstage_id=values(workstage_id),
+        workstage_name=values(workstage_name),
+        workstage_code=values(workstage_code),
+        order_num=values(order_num),
+        order_mark=values(order_mark),
+        input_bom_id=values(input_bom_id),
+        input_bom_name=values(input_bom_name),
+        input_bom_code=values(input_bom_code),
+        output_bom_id=values(output_bom_id),
+        output_bom_name=values(output_bom_name),
+        output_bom_code=values(output_bom_code),
+        mould_id=values(mould_id),
+        mould_name=values(mould_name),
+        product_yield=values(product_yield),
+        sop_title=values(sop_title),
+        sop_desc=values(sop_desc),
+        sop_url=values(sop_url),
+        other_params=values(other_params),
+        version=values(version),
+        is_deleted=values(is_deleted),
+        create_by=values(create_by),
+        create_time=values(create_time),
+        update_by=values(update_by),
+        update_time=values(update_time),
+        attr1=values(attr1),
+        attr2=values(attr2),
+        attr3=values(attr3)
+    </insert>
+
+    <!-- 更新数据 -->
+    <update id="update">
+        update mes_product_bom
+        <set>
+            <trim suffixOverrides=",">
+                <if test="routingId != null">
+                    routing_id = #{routingId},
+                </if>
+                <if test="routingName != null">
+                    routing_name = #{routingName},
+                </if>
+                <if test="productId != null">
+                    product_id = #{productId},
+                </if>
+                <if test="productCode != null">
+                    product_code = #{productCode},
+                </if>
+                <if test="productName != null">
+                    product_name = #{productName},
+                </if>
+                <if test="routingWorkstageId != null">
+                    routing_workstage_id = #{routingWorkstageId},
+                </if>
+                <if test="workstageId != null">
+                    workstage_id = #{workstageId},
+                </if>
+                <if test="workstageName != null">
+                    workstage_name = #{workstageName},
+                </if>
+                <if test="workstageCode != null">
+                    workstage_code = #{workstageCode},
+                </if>
+                <if test="orderNum != null">
+                    order_num = #{orderNum},
+                </if>
+                <if test="orderMark != null">
+                    order_mark = #{orderMark},
+                </if>
+                <if test="inputBomId != null">
+                    input_bom_id = #{inputBomId},
+                </if>
+                <if test="inputBomName != null">
+                    input_bom_name = #{inputBomName},
+                </if>
+                <if test="inputBomCode != null">
+                    input_bom_code = #{inputBomCode},
+                </if>
+                <if test="outputBomId != null">
+                    output_bom_id = #{outputBomId},
+                </if>
+                <if test="outputBomName != null">
+                    output_bom_name = #{outputBomName},
+                </if>
+                <if test="outputBomCode != null">
+                    output_bom_code = #{outputBomCode},
+                </if>
+                <if test="mouldId != null">
+                    mould_id = #{mouldId},
+                </if>
+                <if test="mouldName != null">
+                    mould_name = #{mouldName},
+                </if>
+                <if test="productYield != null">
+                    product_yield = #{productYield},
+                </if>
+                <if test="sopTitle != null">
+                    sop_title = #{sopTitle},
+                </if>
+                <if test="sopDesc != null">
+                    sop_desc = #{sopDesc},
+                </if>
+                <if test="sopUrl != null">
+                    sop_url = #{sopUrl},
+                </if>
+                <if test="otherParams != null">
+                    other_params = #{otherParams},
+                </if>
+                <if test="version != null">
+                    version = #{version}+1,
+                </if>
+                <if test="isDeleted != null">
+                    is_deleted = #{isDeleted},
+                </if>
+                <if test="createBy != null">
+                    create_by = #{createBy},
+                </if>
+                <if test="createTime != null">
+                    create_time = #{createTime},
+                </if>
+                <if test="updateBy != null">
+                    update_by = #{updateBy},
+                </if>
+                <if test="updateTime != null">
+                    update_time = #{updateTime},
+                </if>
+                <if test="attr1 != null">
+                    attr1 = #{attr1},
+                </if>
+                <if test="attr2 != null">
+                    attr2 = #{attr2},
+                </if>
+                <if test="attr3 != null">
+                    attr3 = #{attr3},
+                </if>
+            </trim>
+        </set>
+        where id = #{id} and version = #{version}
+    </update>
+
+    <!--逻辑删除-->
+    <update id="deleteById">
+        update mes_product_bom set is_deleted = 1 where id = #{id}
+    </update>
+
+    <!--批量逻辑删除-->
+    <update id="deleteByIds">
+        update mes_product_bom set is_deleted = 1 where id in
+        <foreach collection="array" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </update>
+
+    <!--物理删除-->
+    <delete id="removeById">
+        delete from mes_product_bom where id = #{id}
+    </delete>
+</mapper>

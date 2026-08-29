@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cuixing.md.mapper.MdPlantListMapper">
+    <resultMap type="com.cuixing.md.entity.MdPlantList" id="MdPlantListMap">
+        <result property="id" column="id" jdbcType="BIGINT"/>
+        <result property="plantName" column="plant_name" jdbcType="VARCHAR"/>
+        <result property="plantCode" column="plant_code" jdbcType="VARCHAR"/>
+        <result property="plantTypeId" column="plant_type_id" jdbcType="BIGINT"/>
+        <result property="plantTypeName" column="plant_type_name" jdbcType="VARCHAR"/>
+        <result property="suppierId" column="suppier_id" jdbcType="BIGINT"/>
+        <result property="suppierName" column="suppier_name" jdbcType="VARCHAR"/>
+        <result property="isDeleted" column="is_deleted" jdbcType="TINYINT"/>
+        <result property="version" column="version" jdbcType="INTEGER"/>
+        <result property="createBy" column="create_by" jdbcType="VARCHAR"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="updateBy" column="update_by" jdbcType="VARCHAR"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+        <result property="attr1" column="attr1" jdbcType="VARCHAR"/>
+        <result property="attr2" column="attr2" jdbcType="INTEGER"/>
+        <result property="attr3" column="attr3" jdbcType="VARCHAR"/>
+    </resultMap>
+    
+    <!-- 通过ID查询单条数据 -->
+    <select id="queryById" resultMap="MdPlantListMap">
+        select
+            id,plant_name,plant_code,plant_type_id,plant_type_name,suppier_id,suppier_name,is_deleted,version,create_by,create_time,update_by,update_time,attr1,attr2,attr3
+        from md_plant_list
+        where is_deleted = 0 and  id = #{id}
+    </select>
+    
+    <!--分页查询指定行数据-->
+    <select id="selectMdPlantListList" resultMap="MdPlantListMap">
+        select
+            id,plant_name,plant_code,plant_type_id,plant_type_name,suppier_id,suppier_name,is_deleted,version,create_by,create_time,update_by,update_time,attr1,attr2,attr3
+        from md_plant_list
+        <where>
+            is_deleted = 0
+            <if test="id != null and id != ''"> and id = #{id}</if>
+            <if test="plantName != null and plantName != ''"> and plant_name = #{plantName}</if>
+            <if test="plantCode != null and plantCode != ''"> and plant_code = #{plantCode}</if>
+            <if test="plantTypeId != null and plantTypeId != ''"> and plant_type_id = #{plantTypeId}</if>
+            <if test="plantTypeName != null and plantTypeName != ''"> and plant_type_name = #{plantTypeName}</if>
+            <if test="suppierId != null and suppierId != ''"> and suppier_id = #{suppierId}</if>
+            <if test="suppierName != null and suppierName != ''"> and suppier_name = #{suppierName}</if>
+            <if test="isDeleted != null and isDeleted != ''"> and is_deleted = #{isDeleted}</if>
+            <if test="version != null and version != ''"> and version = #{version}</if>
+            <if test="createBy != null and createBy != ''"> and create_by = #{createBy}</if>
+            <if test="createTime != null and createTime != ''"> and create_time = #{createTime}</if>
+            <if test="updateBy != null and updateBy != ''"> and update_by = #{updateBy}</if>
+            <if test="updateTime != null and updateTime != ''"> and update_time = #{updateTime}</if>
+            <if test="attr1 != null and attr1 != ''"> and attr1 = #{attr1}</if>
+            <if test="attr2 != null and attr2 != ''"> and attr2 = #{attr2}</if>
+            <if test="attr3 != null and attr3 != ''"> and attr3 = #{attr3}</if>
+        </where>
+        order by create_time asc
+    </select>
+    
+    <!--新增数据-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into md_plant_list
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null ">id,</if>
+            <if test="plantName != null and plantName != ''">plant_name,</if>
+            <if test="plantCode != null and plantCode != ''">plant_code,</if>
+            <if test="plantTypeId != null ">plant_type_id,</if>
+            <if test="plantTypeName != null and plantTypeName != ''">plant_type_name,</if>
+            <if test="suppierId != null ">suppier_id,</if>
+            <if test="suppierName != null and suppierName != ''">suppier_name,</if>
+            <if test="isDeleted != null ">is_deleted,</if>
+            <if test="version != null ">version,</if>
+            <if test="createBy != null and createBy != ''">create_by,</if>
+            <if test="createTime != null ">create_time,</if>
+            <if test="updateBy != null and updateBy != ''">update_by,</if>
+            <if test="updateTime != null ">update_time,</if>
+            <if test="attr1 != null and attr1 != ''">attr1,</if>
+            <if test="attr2 != null ">attr2,</if>
+            <if test="attr3 != null and attr3 != ''">attr3,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">#{id},</if>
+            <if test="plantName != null and plantName != ''">#{plantName},</if>
+            <if test="plantCode != null and plantCode != ''">#{plantCode},</if>
+            <if test="plantTypeId != null">#{plantTypeId},</if>
+            <if test="plantTypeName != null and plantTypeName != ''">#{plantTypeName},</if>
+            <if test="suppierId != null">#{suppierId},</if>
+            <if test="suppierName != null and suppierName != ''">#{suppierName},</if>
+            <if test="isDeleted != null">#{isDeleted},</if>
+            <if test="version != null">#{version},</if>
+            <if test="createBy != null and createBy != ''">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null and updateBy != ''">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="attr1 != null and attr1 != ''">#{attr1},</if>
+            <if test="attr2 != null">#{attr2},</if>
+            <if test="attr3 != null and attr3 != ''">#{attr3},</if>
+        </trim>
+    </insert>
+    
+    <!-- 更新数据 -->
+    <update id="update">
+        update md_plant_list
+        <set>
+            <trim suffixOverrides=",">
+                <if test="plantName != null "> plant_name = #{plantName}, </if>
+                <if test="plantCode != null "> plant_code = #{plantCode}, </if>
+                <if test="plantTypeId != null "> plant_type_id = #{plantTypeId}, </if>
+                <if test="plantTypeName != null "> plant_type_name = #{plantTypeName}, </if>
+                <if test="suppierId != null "> suppier_id = #{suppierId}, </if>
+                <if test="suppierName != null "> suppier_name = #{suppierName}, </if>
+                <if test="isDeleted != null "> is_deleted = #{isDeleted}, </if>
+                <if test="version != null "> version = #{version}, </if>
+                <if test="createBy != null "> create_by = #{createBy}, </if>
+                <if test="createTime != null "> create_time = #{createTime}, </if>
+                <if test="updateBy != null "> update_by = #{updateBy}, </if>
+                <if test="updateTime != null "> update_time = #{updateTime}, </if>
+                <if test="attr1 != null "> attr1 = #{attr1}, </if>
+                <if test="attr2 != null "> attr2 = #{attr2}, </if>
+                <if test="attr3 != null "> attr3 = #{attr3}, </if>
+            </trim>
+        </set>
+        where id = #{id} and version = #{version}
+    </update>
+    
+    <!--逻辑删除删除-->
+    <update id="deleteById">
+        update md_plant_list set is_deleted = 1 where id = #{id}
+    </update>
+    
+    <!--批量逻辑删除-->
+    <update id="deleteByIds">
+        update md_plant_list set is_deleted = 1 where id in
+        <foreach collection="array" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </update>
+</mapper>
